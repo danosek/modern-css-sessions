@@ -180,7 +180,7 @@
   .editor-layout {
     display: grid;
     grid-template-rows: 48px 1fr;
-    /* grid-template-columns set via inline style */
+    grid-template-columns: 50% 4px 1fr; /* default; inline style overrides on resize */
     height: 100vh;
     overflow: hidden;
     background: var(--surface-base);
@@ -280,21 +280,29 @@
 
   /* ── Panes ───────────────────────────────────────────────────────────────── */
   .left-column {
+    grid-column: 1;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     min-width: 0;
   }
 
-  .css-pane,
   .preview-pane {
+    grid-column: 3;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     min-width: 0;
   }
 
-  .css-pane { flex: 1; }
+  .css-pane {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+  }
 
   .pane-label {
     padding: var(--base-h) var(--base-2);
@@ -313,6 +321,7 @@
 
   /* ── Resize splitters ────────────────────────────────────────────────────── */
   .splitter-col {
+    grid-column: 2;
     grid-row: 2;
     width: 4px;
     background: var(--border);
