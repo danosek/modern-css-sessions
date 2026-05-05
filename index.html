@@ -314,6 +314,10 @@
         fetch(`${REPO}/${path}/style.css`).then(r => r.text()).catch(() => ''),
       ]);
 
+      const inlined = css
+        ? html.replace('<link rel="stylesheet" href="style.css">', `<style>\n${css}\n</style>`)
+        : html;
+
       const form = document.createElement('form');
       form.action   = 'https://stackblitz.com/run';
       form.method   = 'post';
@@ -322,8 +326,7 @@
       const fields = {
         'project[title]':              title,
         'project[template]':           'html',
-        'project[files][index.html]':  html,
-        'project[files][style.css]':   css,
+        'project[files][index.html]':  inlined,
       };
 
       for (const [name, value] of Object.entries(fields)) {
