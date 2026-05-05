@@ -8,12 +8,12 @@ Každé demo je samostatný `index.html` otevíratelný přes StackBlitz nebo Gi
 
 | Session | Demo | Live | StackBlitz |
 |---------|------|------|------------|
-| S1 – Foundations Refresh | D1 – Intrinsic sizing | [↗ live](https://danosek.github.io/modern-css-demos/s1/d1/) | [⚡ Otevřít](https://stackblitz.com/github/danosek/modern-css-demos/tree/main/s1/d1) |
+| S1 – Foundations Refresh | D1 – Intrinsic sizing | [↗ live](https://danosek.github.io/modern-css-sessions/s1/d1/) | [⚡ Otevřít](https://stackblitz.com/github/danosek/modern-css-sessions/tree/main/s1/d1) |
 
 ## Architektura
 
 ```
-modern-css-demos/
+modern-css-sessions/
 ├── shared/
 │   ├── spectro-theme.css   ← Spectro design systém (font paths → raw GitHub URL)
 │   ├── demo-base.css       ← sdílený wrapper layout pro dema
@@ -30,13 +30,13 @@ modern-css-demos/
 
 ## Sdílené CSS
 
-Každé demo načítá sdílené soubory přes raw GitHub URL (funguje ve StackBlitz i GitHub Pages):
+Každé demo načítá sdílené soubory přes jsDelivr CDN (správný MIME typ, funguje ve StackBlitz i GitHub Pages):
 
 ```html
 <link rel="stylesheet"
-  href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/spectro-theme.css">
+  href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/spectro-theme.css">
 <link rel="stylesheet"
-  href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/demo-base.css">
+  href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/demo-base.css">
 ```
 
 ## Design systém
