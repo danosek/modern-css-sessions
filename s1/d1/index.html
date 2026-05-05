@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intrinsic Sizing – Modern CSS S1</title>
+
+  <link rel="stylesheet"
+    href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/spectro-theme.css">
+  <link rel="stylesheet"
+    href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/demo-base.css">
+
+  <style>
+    /* ── Toolbar s přepínačem sizing hodnot ── */
+    .sizing-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--base);
+      margin-bottom: var(--base-4);
+    }
+
+    .sizing-btn {
+      padding: var(--base-h) var(--base-2);
+      background: var(--surface-control);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-s);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .sizing-btn:hover {
+      background: var(--surface-main-variant);
+    }
+
+    .sizing-btn[aria-pressed="true"] {
+      background: var(--surface-brand-primary-strong);
+      color: var(--text-primary-on-surface-brand-primary-strong);
+      border-color: transparent;
+    }
+
+    /* ── Vizualizace tří sizing hodnot ── */
+    .sizing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--base-3);
+      margin-bottom: var(--base-4);
+    }
+
+    .sizing-card {
+      background: var(--surface-main-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-strong);
+      padding: var(--base-3);
+    }
+
+    .sizing-card__label {
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-s);
+      color: var(--text-brand-primary);
+      margin-bottom: var(--base);
+    }
+
+    /* ── Živý demo box s přepínatelnou šířkou ── */
+    .live-section {
+      border-top: 1px solid var(--border);
+      padding-top: var(--base-4);
+    }
+
+    .live-label {
+      font-size: var(--font-size-s);
+      color: var(--text-secondary);
+      margin-bottom: var(--base-2);
+    }
+
+    .live-stage {
+      background: var(--surface-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: var(--base-3);
+      min-height: 120px;
+    }
+
+    .live-box {
+      background: var(--surface-brand-primary-subtle);
+      border: 2px solid var(--surface-brand-primary-moderate);
+      border-radius: var(--radius);
+      padding: var(--base-2) var(--base-3);
+      transition: width 0.4s ease;
+      overflow: hidden;
+    }
+
+    .live-box p {
+      font-size: var(--font-size-base);
+      color: var(--text-primary-on-surface-brand-primary-subtle);
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .live-box p em {
+      font-style: normal;
+      color: var(--text-secondary-on-surface-brand-primary-subtle);
+    }
+
+    /* Sizing hodnoty aplikované přes JS */
+    .live-box[data-sizing="min-content"]  { width: min-content; }
+    .live-box[data-sizing="max-content"]  { width: max-content; }
+    .live-box[data-sizing="fit-200"]      { width: fit-content(200px); }
+    .live-box[data-sizing="fit-400"]      { width: fit-content(400px); }
+    .live-box[data-sizing="auto"]         { width: auto; }
+
+    /* ── Šipka znázorňující šířku ── */
+    .width-indicator {
+      display: flex;
+      align-items: center;
+      gap: var(--base);
+      margin-top: var(--base-2);
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-s);
+      color: var(--text-secondary);
+    }
+
+    .width-indicator__bar {
+      flex: 1;
+      height: 2px;
+      background: var(--surface-brand-primary-moderate);
+      border-radius: var(--radius-circle);
+      position: relative;
+    }
+
+    .width-indicator__bar::before,
+    .width-indicator__bar::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      width: 2px;
+      height: 10px;
+      background: var(--surface-brand-primary-moderate);
+    }
+
+    .width-indicator__bar::before { left: 0; }
+    .width-indicator__bar::after  { right: 0; }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle"
+    onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Intrinsic Sizing</h1>
+    <span class="demo-feature">min-content · max-content · fit-content()</span>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- Přepínač -->
+    <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
+      <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
+      <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
+      <button class="sizing-btn" aria-pressed="false" data-value="fit-200">fit-content(200px)</button>
+      <button class="sizing-btn" aria-pressed="false" data-value="fit-400">fit-content(400px)</button>
+      <button class="sizing-btn" aria-pressed="true"  data-value="auto">auto (výchozí)</button>
+    </div>
+
+    <!-- Živé demo -->
+    <div class="live-section">
+      <div class="live-label">Živá ukázka — šířka boxu se mění podle vybrané hodnoty:</div>
+      <div class="live-stage">
+        <div class="live-box" data-sizing="auto">
+          <p>Toto je <strong>krátký text.</strong></p>
+          <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
+        </div>
+      </div>
+      <div class="width-indicator">
+        <span>0</span>
+        <div class="width-indicator__bar"></div>
+        <span id="width-value">—</span>
+      </div>
+    </div>
+
+    <!-- Statické srovnání -->
+    <div style="margin-top: var(--base-5); border-top: 1px solid var(--border); padding-top: var(--base-4);">
+      <div class="live-label" style="margin-bottom: var(--base-3);">Srovnání všech hodnot vedle sebe:</div>
+      <div class="sizing-grid">
+        <div class="sizing-card">
+          <div class="sizing-card__label">width: auto</div>
+          <div style="width: auto; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+            Box vyplní dostupný prostor rodičovského elementu.
+          </div>
+        </div>
+        <div class="sizing-card">
+          <div class="sizing-card__label">width: min-content</div>
+          <div style="width: min-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+            Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
+          </div>
+        </div>
+        <div class="sizing-card">
+          <div class="sizing-card__label">width: max-content</div>
+          <div style="width: max-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+            Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
+          </div>
+        </div>
+        <div class="sizing-card">
+          <div class="sizing-card__label">width: fit-content(260px)</div>
+          <div style="width: fit-content(260px); background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+            Box používá max-content, ale nepřekročí zadaný limit 260 px.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="demo-code">
+    <pre><code>/* Klíčové hodnoty intrinsic sizing */
+
+.box { width: auto; }            /* výchozí — vyplní kontejner */
+.box { width: min-content; }     /* šířka nejdelšího slova */
+.box { width: max-content; }     /* šířka celého obsahu (jeden řádek) */
+.box { width: fit-content(300px); } /* max-content, max 300 px */
+
+/* Funguje i pro height, min-width, max-width … */
+.box { min-width: min-content; } /* box se nezúží pod šířku obsahu */
+.box { height: fit-content(200px); }</code></pre>
+  </div>
+
+  <script>
+    const btns = document.querySelectorAll('.sizing-btn');
+    const box  = document.querySelector('.live-box');
+    const widthVal = document.getElementById('width-value');
+
+    function updateWidth() {
+      widthVal.textContent = Math.round(box.getBoundingClientRect().width) + 'px';
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        box.dataset.sizing = btn.dataset.value;
+        requestAnimationFrame(() => setTimeout(updateWidth, 420));
+      });
+    });
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+  </script>
+
+</body>
+</html>

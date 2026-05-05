@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern CSS Demos</title>
+
+  <link rel="stylesheet"
+    href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/spectro-theme.css">
+  <link rel="stylesheet"
+    href="https://raw.githubusercontent.com/danosek/modern-css-demos/main/shared/demo-base.css">
+
+  <style>
+    body {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: var(--base-6);
+    }
+
+    .page-title {
+      font-family: var(--font-stack-headings);
+      font-size: var(--font-size-xxxxl);
+      font-weight: var(--font-weight-headings-regular);
+      color: var(--text-primary);
+      margin-bottom: var(--base);
+    }
+
+    .page-subtitle {
+      font-size: var(--font-size-base);
+      color: var(--text-secondary);
+    }
+
+    /* Grid karet sessions */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--base-3);
+    }
+
+    .session-card {
+      background: var(--surface-main);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-strong);
+      padding: var(--base-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-3);
+      box-shadow: var(--elevation);
+    }
+
+    .session-card--120min {
+      border-color: var(--surface-brand-primary-moderate);
+      background: var(--surface-brand-primary-minimal);
+    }
+
+    .session-card__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--base);
+    }
+
+    .session-card__number {
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-s);
+      color: var(--text-secondary);
+    }
+
+    .session-card__duration {
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-xs);
+      padding: 2px var(--base);
+      border-radius: var(--radius-subtle);
+      background: var(--surface-main-variant);
+      color: var(--text-secondary);
+    }
+
+    .session-card--120min .session-card__duration {
+      background: var(--surface-brand-primary-subtle);
+      color: var(--text-primary-on-surface-brand-primary-subtle);
+    }
+
+    .session-card__title {
+      font-family: var(--font-stack-headings);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-headings-regular);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .session-card__date {
+      font-size: var(--font-size-s);
+      color: var(--text-secondary);
+    }
+
+    .session-card__demos {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-h);
+      border-top: 1px solid var(--border);
+      padding-top: var(--base-2);
+    }
+
+    .session-card__demo-item a {
+      display: flex;
+      align-items: center;
+      gap: var(--base);
+      padding: var(--base-h) var(--base);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: var(--font-size-s);
+      transition: background 0.1s;
+    }
+
+    .session-card__demo-item a:hover {
+      background: var(--surface-main-variant);
+    }
+
+    .session-card__demo-index {
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+      min-width: var(--base-3);
+    }
+
+    .session-card__demo-links {
+      display: flex;
+      gap: var(--base-h);
+      margin-left: auto;
+    }
+
+    .demo-link {
+      font-family: var(--font-stack-monospace);
+      font-size: var(--font-size-xs);
+      padding: 2px var(--base-h);
+      border-radius: var(--radius-subtle);
+      text-decoration: none;
+      background: var(--surface-control);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .demo-link:hover {
+      background: var(--surface-brand-primary-subtle);
+      color: var(--text-primary-on-surface-brand-primary-subtle);
+      border-color: transparent;
+    }
+
+    /* Placeholder karty (session bez dem) */
+    .session-card--future {
+      opacity: 0.5;
+    }
+
+    .session-card__placeholder {
+      font-size: var(--font-size-s);
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle"
+    onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="page-header demo-header">
+    <div class="demo-session">Tesco SW · červen 2026 – březen 2027</div>
+    <h1 class="page-title">Modern CSS Demos</h1>
+    <p class="page-subtitle">Interaktivní CSS dema ke školícímu cyklu. Každé demo otevřete přímo ve StackBlitz.</p>
+  </div>
+
+  <div class="sessions-grid">
+
+    <!-- S1 – Foundations Refresh -->
+    <div class="session-card">
+      <div class="session-card__meta">
+        <span class="session-card__number">S1</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">Foundations Refresh</div>
+      <div class="session-card__date">30. 6. 2026</div>
+      <ul class="session-card__demos">
+        <li class="session-card__demo-item">
+          <a href="s1/d1/">
+            <span class="session-card__demo-index">D1</span>
+            <span>Intrinsic Sizing</span>
+            <div class="session-card__demo-links">
+              <a class="demo-link" href="s1/d1/" title="GitHub Pages">↗ live</a>
+              <a class="demo-link" href="https://stackblitz.com/github/danosek/modern-css-demos/tree/main/s1/d1" target="_blank" rel="noopener" title="StackBlitz">⚡ SB</a>
+            </div>
+          </a>
+        </li>
+        <li class="session-card__demo-item">
+          <a href="#" style="opacity: 0.4; pointer-events: none;">
+            <span class="session-card__demo-index">D2</span>
+            <span>:has() – parent selector</span>
+          </a>
+        </li>
+        <li class="session-card__demo-item">
+          <a href="#" style="opacity: 0.4; pointer-events: none;">
+            <span class="session-card__demo-index">D3</span>
+            <span>Container Queries</span>
+          </a>
+        </li>
+        <li class="session-card__demo-item">
+          <a href="#" style="opacity: 0.4; pointer-events: none;">
+            <span class="session-card__demo-index">D4</span>
+            <span>@layer – cascade management</span>
+          </a>
+        </li>
+        <li class="session-card__demo-item">
+          <a href="#" style="opacity: 0.4; pointer-events: none;">
+            <span class="session-card__demo-index">D5</span>
+            <span>Subgrid</span>
+          </a>
+        </li>
+        <li class="session-card__demo-item">
+          <a href="#" style="opacity: 0.4; pointer-events: none;">
+            <span class="session-card__demo-index">D6</span>
+            <span>reading-flow</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- S2–S8: placeholder karty -->
+    <div class="session-card session-card--future">
+      <div class="session-card__meta">
+        <span class="session-card__number">S2</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">Colors &amp; Typography</div>
+      <div class="session-card__date">srpen 2026</div>
+      <p class="session-card__placeholder">oklch() · color-mix() · light-dark() · text-wrap</p>
+    </div>
+
+    <div class="session-card session-card--future">
+      <div class="session-card__meta">
+        <span class="session-card__number">S3</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">Sizing, Layout &amp; Shapes</div>
+      <div class="session-card__date">září 2026</div>
+      <p class="session-card__placeholder">interpolate-size · field-sizing · gap decorations · shape()</p>
+    </div>
+
+    <div class="session-card session-card--future session-card--120min">
+      <div class="session-card__meta">
+        <span class="session-card__number">S4</span>
+        <span class="session-card__duration">120 min</span>
+      </div>
+      <div class="session-card__title">Anchor Positioning + Popover</div>
+      <div class="session-card__date">říjen 2026</div>
+      <p class="session-card__placeholder">anchor-positioning · popover API · invoker commands</p>
+    </div>
+
+    <div class="session-card session-card--future">
+      <div class="session-card__meta">
+        <span class="session-card__number">S5</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">Customizable Select &amp; Form UX</div>
+      <div class="session-card__date">listopad 2026</div>
+      <p class="session-card__placeholder">appearance: base-select · selectedcontent · :user-valid</p>
+    </div>
+
+    <div class="session-card session-card--future session-card--120min">
+      <div class="session-card__meta">
+        <span class="session-card__number">S6</span>
+        <span class="session-card__duration">120 min</span>
+      </div>
+      <div class="session-card__title">Scroll Universe</div>
+      <div class="session-card__date">leden 2027</div>
+      <p class="session-card__placeholder">scroll() · view() · carousel · scroll-state</p>
+    </div>
+
+    <div class="session-card session-card--future">
+      <div class="session-card__meta">
+        <span class="session-card__number">S7</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">View Transitions</div>
+      <div class="session-card__date">únor 2027</div>
+      <p class="session-card__placeholder">same-doc · cross-doc · shared element</p>
+    </div>
+
+    <div class="session-card session-card--future">
+      <div class="session-card__meta">
+        <span class="session-card__number">S8</span>
+        <span class="session-card__duration">90 min</span>
+      </div>
+      <div class="session-card__title">CSS as a Programming Language</div>
+      <div class="session-card__date">březen 2027</div>
+      <p class="session-card__placeholder">@property · attr() · @scope · if() · @function</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

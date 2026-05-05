@@ -1,0 +1,97 @@
+/* demo-base.css – sdílený wrapper pro všechna CSS dema */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background: var(--surface-base);
+  min-height: 100vh;
+  padding: var(--base-4);
+}
+
+/* Header – název session a dema */
+.demo-header {
+  margin-bottom: var(--base-4);
+  padding-bottom: var(--base-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.demo-session {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+.demo-title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+}
+
+.demo-feature {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: var(--base-h) var(--base);
+  background: var(--surface-brand-primary-subtle);
+  color: var(--text-primary-on-surface-brand-primary-subtle);
+  border-radius: var(--radius-subtle);
+  font-size: var(--font-size-s);
+  font-family: var(--font-stack-monospace);
+}
+
+/* Stage – oblast kde běží demo */
+.demo-stage {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  padding: var(--base-4);
+  margin-bottom: var(--base-3);
+}
+
+/* Volitelný code block pod demem */
+.demo-code {
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  padding: var(--base-3);
+  overflow-x: auto;
+}
+
+.demo-code pre {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  position: fixed;
+  top: var(--base-2);
+  right: var(--base-2);
+  height: var(--base-4);
+  padding: 0 var(--base-2);
+  background: var(--surface-control);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+  box-shadow: var(--elevation);
+}
+
+.theme-toggle:hover {
+  background: var(--surface-main-variant);
+}
