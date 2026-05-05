@@ -35,8 +35,21 @@ export default defineConfig(({ command }) => ({
           serveRepoFile(req.url, res, next);
         });
 
-        // /s1/d1/style.css  (DEMOS_BASE falls back to '../' → resolves to root)
-        // Must run before Vite's transform so .css files aren't served as JS modules
+        // /__demo_css/s1/d1  → serves s1/d1/style.css as text/css
+        // URL has no .css extension so Vite's transform pipeline never matches it.
+        server.middlewares.use('/__demo_css', (req, res, next) => {
+          const demoPath = req.url.replace(/^\/+|\/+$/g, '');
+          const filePath = path.join(repoRoot, demoPath, 'style.css');
+          if (demoPath && fs.existsSync(filePath)) {
+            res.setHeader('Content-Type', 'text/css; charset=utf-8');
+            res.setHeader('Cache-Control', 'no-store');
+            res.end(fs.readFileSync(filePath));
+          } else {
+            next();
+          }
+        });
+
+        // Catch-all: /s1/d1/style.css  (DEMOS_BASE fell back to '../')
         server.middlewares.use((req, res, next) => {
           const url = (req.url ?? '').split('?')[0];
           if (/^\/(s\d+|shared)\//.test(url)) {

@@ -7,6 +7,18 @@
   const DEMOS_BASE = import.meta.env.VITE_DEMOS_BASE ?? '../';
   const demoPath = new URLSearchParams(location.search).get('demo')?.replace(/\/$/, '') ?? '';
 
+  // In dev, fetch CSS via a path without the .css extension so Vite never auto-transforms it.
+  // In production, fetch the real file directly.
+  function cssUrl(path) {
+    return import.meta.env.DEV ? `/__demo_css/${path}` : `${DEMOS_BASE}${path}/style.css`;
+  }
+
+  // Fallback: if Vite still served the CSS as a JS module, extract the raw CSS string.
+  function unwrapViteCss(text) {
+    const m = text.match(/const __vite__css = ("(?:[^"\\]|\\.)*")/);
+    return m ? JSON.parse(m[1]) : text;
+  }
+
   let html        = $state('');
   let css         = $state('');
   let originalCss = $state('');
@@ -25,11 +37,11 @@
     try {
       const [htmlRes, cssRes] = await Promise.all([
         fetch(DEMOS_BASE + demoPath + '/index.html'),
-        fetch(DEMOS_BASE + demoPath + '/style.css'),
+        fetch(cssUrl(demoPath)),
       ]);
       if (!htmlRes.ok) throw new Error(`Demo nenalezeno: ${demoPath}`);
       html        = await htmlRes.text();
-      css         = cssRes.ok ? await cssRes.text() : '';
+      css         = cssRes.ok ? unwrapViteCss(await cssRes.text()) : '';
       originalCss = css;
       const m = html.match(/<title>([^<]+)<\/title>/);
       if (m) title = m[1];
