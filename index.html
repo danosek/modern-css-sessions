@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="cs" data-theme="light">
+<html lang="cs">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern CSS Demos</title>
+  <title>Modern CSS Sessions</title>
+  <script>document.documentElement.dataset.theme=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'</script>
 
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/spectro-theme.css">
@@ -91,11 +92,6 @@
       line-height: 1.2;
     }
 
-    .session-card__date {
-      font-size: var(--font-size-s);
-      color: var(--text-secondary);
-    }
-
     .session-card__demos {
       list-style: none;
       display: flex;
@@ -174,8 +170,8 @@
 
   <div class="page-header demo-header">
     <div class="demo-session">Tesco SW · červen 2026 – březen 2027</div>
-    <h1 class="page-title">Modern CSS Demos</h1>
-    <p class="page-subtitle">Interaktivní CSS dema ke školícímu cyklu. Každé demo otevřete přímo ve StackBlitz.</p>
+    <h1 class="page-title">Modern CSS Sessions</h1>
+    <p class="page-subtitle">Interaktivní CSS dema ke školícímu cyklu.</p>
   </div>
 
   <div class="sessions-grid">
@@ -187,7 +183,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">Foundations Refresh</div>
-      <div class="session-card__date">30. 6. 2026</div>
       <ul class="session-card__demos">
         <li class="session-card__demo-item">
           <a href="s1/d1/">
@@ -239,7 +234,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">Colors &amp; Typography</div>
-      <div class="session-card__date">srpen 2026</div>
       <p class="session-card__placeholder">oklch() · color-mix() · light-dark() · text-wrap</p>
     </div>
 
@@ -249,7 +243,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">Sizing, Layout &amp; Shapes</div>
-      <div class="session-card__date">září 2026</div>
       <p class="session-card__placeholder">interpolate-size · field-sizing · gap decorations · shape()</p>
     </div>
 
@@ -259,7 +252,6 @@
         <span class="session-card__duration">120 min</span>
       </div>
       <div class="session-card__title">Anchor Positioning + Popover</div>
-      <div class="session-card__date">říjen 2026</div>
       <p class="session-card__placeholder">anchor-positioning · popover API · invoker commands</p>
     </div>
 
@@ -269,7 +261,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">Customizable Select &amp; Form UX</div>
-      <div class="session-card__date">listopad 2026</div>
       <p class="session-card__placeholder">appearance: base-select · selectedcontent · :user-valid</p>
     </div>
 
@@ -279,7 +270,6 @@
         <span class="session-card__duration">120 min</span>
       </div>
       <div class="session-card__title">Scroll Universe</div>
-      <div class="session-card__date">leden 2027</div>
       <p class="session-card__placeholder">scroll() · view() · carousel · scroll-state</p>
     </div>
 
@@ -289,7 +279,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">View Transitions</div>
-      <div class="session-card__date">únor 2027</div>
       <p class="session-card__placeholder">same-doc · cross-doc · shared element</p>
     </div>
 
@@ -299,7 +288,6 @@
         <span class="session-card__duration">90 min</span>
       </div>
       <div class="session-card__title">CSS as a Programming Language</div>
-      <div class="session-card__date">březen 2027</div>
       <p class="session-card__placeholder">@property · attr() · @scope · if() · @function</p>
     </div>
 
