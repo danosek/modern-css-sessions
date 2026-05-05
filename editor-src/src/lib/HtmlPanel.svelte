@@ -5,7 +5,7 @@
   import { EditorState } from '@codemirror/state';
   import { spectroSyntax } from './spectroHighlight.js';
 
-  let { value = '', open = false } = $props();
+  let { value = '', open = false, panelHeight = 220 } = $props();
 
   let container;
 
@@ -40,7 +40,7 @@
   });
 </script>
 
-<div class="html-panel" class:open>
+<div class="html-panel" class:open style="--panel-height: {panelHeight}px">
   <div class="pane-label">index.html (readonly)</div>
   <div bind:this={container} class="cm-wrapper"></div>
 </div>
@@ -57,7 +57,7 @@
   }
 
   .html-panel.open {
-    height: 220px;
+    height: var(--panel-height, 220px);
     border-top-width: 1px;
   }
 
