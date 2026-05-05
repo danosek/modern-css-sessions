@@ -11,7 +11,7 @@
   let css         = $state('');
   let originalCss = $state('');
   let htmlOpen    = $state(false);
-  let theme       = $state('light');
+  let theme       = $state(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   let loading     = $state(true);
   let error       = $state('');
   let title       = $state(demoPath);
@@ -40,9 +40,10 @@
     }
   });
 
+  $effect(() => { document.documentElement.dataset.theme = theme; });
+
   function toggleTheme() {
     theme = theme === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = theme;
   }
 </script>
 
@@ -67,11 +68,14 @@
   {:else if error}
     <p class="status-msg status-error">{error}</p>
   {:else}
-    <div class="css-pane">
-      <div class="pane-label">style.css</div>
-      <div class="pane-content">
-        <CssEditor value={css} onchange={(v) => css = v} />
+    <div class="left-column">
+      <div class="css-pane">
+        <div class="pane-label">style.css</div>
+        <div class="pane-content">
+          <CssEditor value={css} onchange={(v) => css = v} />
+        </div>
       </div>
+      <HtmlPanel value={html} open={htmlOpen} />
     </div>
 
     <div class="preview-pane">
@@ -80,8 +84,6 @@
         <Preview {html} {css} {demoPath} {theme} />
       </div>
     </div>
-
-    <HtmlPanel value={html} open={htmlOpen} />
   {/if}
 
 </div>
@@ -89,7 +91,7 @@
 <style>
   .editor-layout {
     display: grid;
-    grid-template-rows: 48px 1fr auto;
+    grid-template-rows: 48px 1fr;
     grid-template-columns: 1fr 1fr;
     height: 100vh;
     overflow: hidden;
@@ -152,13 +154,21 @@
   .btn-ghost:hover { background: var(--surface-main-variant); }
 
   /* Panes */
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-right: 1px solid var(--border);
+  }
+
   .css-pane,
   .preview-pane {
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
-  .css-pane { border-right: 1px solid var(--border); }
+
+  .css-pane { flex: 1; }
 
   .pane-label {
     padding: var(--base-h) var(--base-2);

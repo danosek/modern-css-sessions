@@ -15,17 +15,32 @@ export default defineConfig(({ command }) => ({
     command === 'serve' && {
       name: 'demo-files',
       configureServer(server) {
-        server.middlewares.use('/demos', (req, res, next) => {
-          const filePath = path.join(repoRoot, req.url);
+        const mimes = { '.css': 'text/css', '.html': 'text/html', '.js': 'application/javascript' };
+
+        function serveRepoFile(urlPath, res, next) {
+          const filePath = path.join(repoRoot, urlPath);
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-            const ext = path.extname(filePath);
-            const mime = {
-              '.css': 'text/css',
-              '.html': 'text/html',
-              '.js': 'application/javascript',
-            }[ext] ?? 'text/plain';
-            res.setHeader('Content-Type', mime);
-            res.end(fs.readFileSync(filePath));
+            const mime = mimes[path.extname(filePath)];
+            if (mime) {
+              res.setHeader('Content-Type', mime);
+              res.end(fs.readFileSync(filePath));
+              return;
+            }
+          }
+          next();
+        }
+
+        // /demos/s1/d1/style.css  (VITE_DEMOS_BASE = /demos/)
+        server.middlewares.use('/demos', (req, res, next) => {
+          serveRepoFile(req.url, res, next);
+        });
+
+        // /s1/d1/style.css  (DEMOS_BASE falls back to '../' → resolves to root)
+        // Must run before Vite's transform so .css files aren't served as JS modules
+        server.middlewares.use((req, res, next) => {
+          const url = (req.url ?? '').split('?')[0];
+          if (/^\/(s\d+|shared)\//.test(url)) {
+            serveRepoFile(url, res, next);
           } else {
             next();
           }
