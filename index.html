@@ -195,7 +195,7 @@
             <span>Intrinsic Sizing</span>
             <div class="session-card__demo-links">
               <a class="demo-link" href="s1/d1/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="https://stackblitz.com/github/danosek/modern-css-sessions/tree/main/s1/d1" target="_blank" rel="noopener" title="StackBlitz">⚡ SB</a>
+              <button class="demo-link" onclick="openInStackBlitz('s1/d1', 'S1/D1 – Intrinsic Sizing')" title="StackBlitz">⚡ SB</button>
             </div>
           </a>
         </li>
@@ -304,6 +304,41 @@
     </div>
 
   </div>
+
+  <script>
+    const REPO = 'https://raw.githubusercontent.com/danosek/modern-css-sessions/main';
+
+    async function openInStackBlitz(path, title) {
+      const [html, css] = await Promise.all([
+        fetch(`${REPO}/${path}/index.html`).then(r => r.text()),
+        fetch(`${REPO}/${path}/style.css`).then(r => r.text()).catch(() => ''),
+      ]);
+
+      const form = document.createElement('form');
+      form.action   = 'https://stackblitz.com/run';
+      form.method   = 'post';
+      form.target   = '_blank';
+
+      const fields = {
+        'project[title]':              title,
+        'project[template]':           'html',
+        'project[files][index.html]':  html,
+        'project[files][style.css]':   css,
+      };
+
+      for (const [name, value] of Object.entries(fields)) {
+        const input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = name;
+        input.value = value;
+        form.appendChild(input);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+      form.remove();
+    }
+  </script>
 
 </body>
 </html>
