@@ -3,6 +3,7 @@
   import { EditorView, basicSetup } from 'codemirror';
   import { html as htmlLang } from '@codemirror/lang-html';
   import { EditorState } from '@codemirror/state';
+  import { spectroSyntax } from './spectroHighlight.js';
 
   let { value = '', open = false } = $props();
 
@@ -15,6 +16,7 @@
         extensions: [
           basicSetup,
           htmlLang(),
+          spectroSyntax,
           EditorState.readOnly.of(true),
           EditorView.theme({
             '&': { height: '100%', backgroundColor: 'var(--surface-main-dim)' },
