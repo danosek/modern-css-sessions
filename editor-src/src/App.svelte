@@ -25,6 +25,7 @@
   let html        = $state('');
   let css         = $state('');
   let js          = $state('');
+  let sharedCss   = $state('');
   let originalCss = $state('');
   let htmlOpen    = $state(false);
   let jsOpen      = $state(false);
@@ -51,15 +52,26 @@
       return;
     }
     try {
-      const [htmlRes, cssRes, jsRes] = await Promise.all([
+      const fetches = [
         fetch(DEMOS_BASE + demoPath + '/index.html'),
         fetch(cssUrl(demoPath)),
         fetch(DEMOS_BASE + demoPath + '/script.js'),
-      ]);
+      ];
+      if (import.meta.env.DEV) {
+        fetches.push(
+          fetch('/shared/spectro-theme.css'),
+          fetch('/shared/demo-base.css'),
+        );
+      }
+      const [htmlRes, cssRes, jsRes, themeRes, baseRes] = await Promise.all(fetches);
       if (!htmlRes.ok) throw new Error(`Demo nenalezeno: ${demoPath}`);
       html        = await htmlRes.text();
       css         = cssRes.ok ? unwrapViteCss(await cssRes.text()) : '';
       js          = jsRes.ok ? await jsRes.text() : '';
+      if (import.meta.env.DEV) {
+        sharedCss = (themeRes?.ok ? await themeRes.text() : '')
+                  + (baseRes?.ok  ? await baseRes.text()  : '');
+      }
       originalCss = css;
       const mTitle   = html.match(/<h1[^>]*class="demo-title"[^>]*>([^<]+)<\/h1>/);
       const mSession = html.match(/class="demo-session"[^>]*>([^<]+)</);
@@ -207,7 +219,7 @@
     <div class="preview-pane">
       <div class="pane-label">Preview</div>
       <div class="pane-content">
-        <Preview {html} {css} {js} {demoPath} {theme} />
+        <Preview {html} {css} {js} {sharedCss} {demoPath} {theme} />
       </div>
     </div>
   {/if}
