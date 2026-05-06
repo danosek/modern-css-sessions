@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { EditorView, basicSetup } from 'codemirror';
-  import { html as htmlLang } from '@codemirror/lang-html';
+  import { javascript as jsLang } from '@codemirror/lang-javascript';
   import { EditorState } from '@codemirror/state';
   import { spectroSyntax } from './spectroHighlight.js';
 
@@ -15,7 +15,7 @@
         doc: value,
         extensions: [
           basicSetup,
-          htmlLang(),
+          jsLang(),
           spectroSyntax,
           EditorState.readOnly.of(true),
           EditorView.theme({
@@ -40,14 +40,13 @@
   });
 </script>
 
-<div class="html-panel" class:open style="--panel-height: {panelHeight}px">
-  <div class="pane-label">HTML (readonly)</div>
+<div class="js-panel" class:open style="--panel-height: {panelHeight}px">
+  <div class="pane-label">script.js (readonly)</div>
   <div bind:this={container} class="cm-wrapper"></div>
 </div>
 
 <style>
-  .html-panel {
-    grid-column: 1 / -1;
+  .js-panel {
     height: 0;
     overflow: hidden;
     transition: height 0.2s ease;
@@ -56,7 +55,7 @@
     flex-direction: column;
   }
 
-  .html-panel.open {
+  .js-panel.open {
     height: var(--panel-height, 220px);
     border-top-width: 1px;
   }

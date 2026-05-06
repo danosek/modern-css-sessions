@@ -3,6 +3,7 @@
   import CssEditor from './lib/CssEditor.svelte';
   import Preview from './lib/Preview.svelte';
   import HtmlPanel from './lib/HtmlPanel.svelte';
+  import JsPanel from './lib/JsPanel.svelte';
 
   const DEMOS_BASE = import.meta.env.VITE_DEMOS_BASE ?? '../';
   const demoPath = new URLSearchParams(location.search).get('demo')?.replace(/\/$/, '') ?? '';
@@ -16,10 +17,19 @@
     return m ? JSON.parse(m[1]) : text;
   }
 
+  function extractBody(fullHtml) {
+    const m = fullHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    return m ? m[1].trim() : fullHtml;
+  }
+
   let html        = $state('');
   let css         = $state('');
+  let js          = $state('');
   let originalCss = $state('');
   let htmlOpen    = $state(false);
+  let jsOpen      = $state(false);
+  let session     = $state('');
+  let feature     = $state('');
   let theme       = $state(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   let loading     = $state(true);
   let error       = $state('');
@@ -28,6 +38,7 @@
   // Resize state
   let leftFraction    = $state(0.5);   // fraction of grid width for left column
   let htmlPanelHeight = $state(220);   // px height of HTML panel when open
+  let jsPanelHeight   = $state(220);   // px height of JS panel when open
   let colResizing     = $state(false);
   let rowResizing     = $state(false);
 
@@ -40,16 +51,22 @@
       return;
     }
     try {
-      const [htmlRes, cssRes] = await Promise.all([
+      const [htmlRes, cssRes, jsRes] = await Promise.all([
         fetch(DEMOS_BASE + demoPath + '/index.html'),
         fetch(cssUrl(demoPath)),
+        fetch(DEMOS_BASE + demoPath + '/script.js'),
       ]);
       if (!htmlRes.ok) throw new Error(`Demo nenalezeno: ${demoPath}`);
       html        = await htmlRes.text();
       css         = cssRes.ok ? unwrapViteCss(await cssRes.text()) : '';
+      js          = jsRes.ok ? await jsRes.text() : '';
       originalCss = css;
-      const m = html.match(/<title>([^<]+)<\/title>/);
-      if (m) title = m[1];
+      const mTitle   = html.match(/<h1[^>]*class="demo-title"[^>]*>([^<]+)<\/h1>/);
+      const mSession = html.match(/class="demo-session"[^>]*>([^<]+)</);
+      const mFeature = html.match(/class="demo-feature"[^>]*>([^<]+)</);
+      if (mTitle)   title   = mTitle[1];
+      if (mSession) session = mSession[1];
+      if (mFeature) feature = mFeature[1];
     } catch (e) {
       error = e.message;
     } finally {
@@ -112,11 +129,20 @@
 
   <header class="editor-toolbar">
     <a href="../" class="btn btn-ghost">← Demos</a>
-    <span class="editor-title">{title}</span>
+    <div class="editor-title-block">
+      {#if session}<span class="editor-session">{session}</span>{/if}
+      <span class="editor-title">{title}</span>
+      {#if feature}<span class="editor-feature">{feature}</span>{/if}
+    </div>
     <div class="toolbar-actions">
       <button class="btn" class:active={htmlOpen} onclick={() => htmlOpen = !htmlOpen}>
         ◑ HTML
       </button>
+      {#if js}
+        <button class="btn btn-js" class:active={jsOpen} onclick={() => jsOpen = !jsOpen}>
+          ◑ JS
+        </button>
+      {/if}
       <button class="btn" onclick={() => css = originalCss}>↺ Reset</button>
 
       <div class="theme-seg" role="group" aria-label="Barevné téma">
@@ -155,7 +181,19 @@
           onmousedown={startRowResize}
         ></div>
       {/if}
-      <HtmlPanel value={html} open={htmlOpen} panelHeight={htmlPanelHeight} />
+      <HtmlPanel value={extractBody(html)} open={htmlOpen} panelHeight={htmlPanelHeight} />
+      {#if js}
+        {#if jsOpen}
+          <div
+            class="splitter-row"
+            class:active={rowResizing}
+            role="separator"
+            aria-label="Resize JS panel"
+            onmousedown={startRowResize}
+          ></div>
+        {/if}
+        <JsPanel value={js} open={jsOpen} panelHeight={jsPanelHeight} />
+      {/if}
     </div>
 
     <div
@@ -169,7 +207,7 @@
     <div class="preview-pane">
       <div class="pane-label">Preview</div>
       <div class="pane-content">
-        <Preview {html} {css} {demoPath} {theme} />
+        <Preview {html} {css} {js} {demoPath} {theme} />
       </div>
     </div>
   {/if}
@@ -179,7 +217,7 @@
 <style>
   .editor-layout {
     display: grid;
-    grid-template-rows: 48px 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-columns: 50% 4px 1fr; /* default; inline style overrides on resize */
     height: 100vh;
     overflow: hidden;
@@ -200,16 +238,44 @@
     display: flex;
     align-items: center;
     gap: var(--base-2);
-    padding: 0 var(--base-3);
+    padding: var(--base-h) var(--base-3);
     background: var(--surface-main);
     border-bottom: 1px solid var(--border);
+    min-height: 48px;
+  }
+
+  .editor-title-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .editor-session {
+    font-family: var(--font-stack-monospace);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .editor-title {
-    flex: 1;
     font-family: var(--font-stack-headings);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-headings-regular);
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .editor-feature {
+    font-family: var(--font-stack-monospace);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -237,6 +303,11 @@
   .btn.active {
     background: var(--surface-brand-primary-subtle);
     color: var(--text-primary-on-surface-brand-primary-subtle);
+    border-color: transparent;
+  }
+  .btn-js.active {
+    background: var(--surface-brand-secondary-subtle);
+    color: var(--text-primary-on-surface-brand-secondary-subtle);
     border-color: transparent;
   }
   .btn-ghost {

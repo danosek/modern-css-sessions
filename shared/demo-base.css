@@ -41,11 +41,8 @@ body {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  padding: var(--base-h) var(--base);
-  background: var(--surface-brand-primary-subtle);
-  color: var(--text-primary-on-surface-brand-primary-subtle);
-  border-radius: var(--radius-subtle);
-  font-size: var(--font-size-s);
+  color: var(--text-brand-secondary);
+  font-size: var(--font-size-xs);
   font-family: var(--font-stack-monospace);
 }
 

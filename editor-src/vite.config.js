@@ -18,11 +18,12 @@ export default defineConfig(({ command }) => ({
         const mimes = { '.css': 'text/css', '.html': 'text/html', '.js': 'application/javascript' };
 
         function serveRepoFile(urlPath, res, next) {
-          const filePath = path.join(repoRoot, urlPath);
+          const filePath = path.join(repoRoot, urlPath.split('?')[0]);
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
             const mime = mimes[path.extname(filePath)];
             if (mime) {
               res.setHeader('Content-Type', mime);
+              res.setHeader('Cache-Control', 'no-store');
               res.end(fs.readFileSync(filePath));
               return;
             }
@@ -58,6 +59,7 @@ export default defineConfig(({ command }) => ({
             next();
           }
         });
+
       },
     },
   ].filter(Boolean),

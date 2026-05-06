@@ -22,31 +22,33 @@
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">Intrinsic Sizing</h1>
-    <span class="demo-feature">min-content · max-content · fit-content()</span>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">min-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">fit-content</span>
+    </span>
   </div>
 
   <div class="demo-stage">
 
     <!-- Přepínač -->
     <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
+      <button class="sizing-btn" aria-pressed="false" data-value="auto">auto</button>
       <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
       <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
-      <button class="sizing-btn" aria-pressed="false" data-value="fit-300">fit-content(300px)</button>
-      <button class="sizing-btn" aria-pressed="true"  data-value="auto">auto (výchozí)</button>
+      <button class="sizing-btn" aria-pressed="true"  data-value="fit-content">fit-content</button>
     </div>
 
     <!-- Živé demo -->
     <div class="live-section">
       <div class="live-label">Živá ukázka — šířka boxu se mění podle vybrané hodnoty:</div>
       <div class="live-stage">
-        <div class="live-box" data-sizing="auto">
+        <div class="live-box" data-sizing="fit-content">
           <p>Toto je <strong>krátký text.</strong></p>
           <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
         </div>
       </div>
       <div class="width-indicator">
-        <span>0</span>
         <div class="width-indicator__bar"></div>
+        <span>0</span>
         <span id="width-value">—</span>
       </div>
     </div>
@@ -74,50 +76,99 @@
           </div>
         </div>
         <div class="sizing-card">
-          <div class="sizing-card__label">width: fit-content(300px)</div>
-          <div style="width: fit-content(300px); background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
-            Box používá max-content, ale nepřekročí zadaný limit 300 px.
+          <div class="sizing-card__label">width: fit-content</div>
+          <div style="width: fit-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+            Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Layout ukázky -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Intrinsic sizing v layoutu:</div>
+
+      <!-- 1: fit-content + margin: auto -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>fit-content</code> + <code>margin-inline: auto</code>
+          <span>Centrování bez pevné šířky</span>
+        </div>
+        <div class="layout-stage">
+          <div class="ex-callout">
+            Tato zpráva se přizpůsobí délce textu a zůstane vycentrovaná.
+          </div>
+          <div class="ex-callout">
+            Kratší zpráva.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: grid max-content labels -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>grid-template-columns: max-content 1fr</code>
+          <span>Štítky se auto-šíří podle nejdelšího, pole vyplní zbytek</span>
+        </div>
+        <div class="layout-stage">
+          <div class="ex-form-grid">
+            <span class="ex-label">Jméno</span>
+            <div class="ex-input"></div>
+            <span class="ex-label">E-mailová adresa</span>
+            <div class="ex-input"></div>
+            <span class="ex-label">Tel.</span>
+            <div class="ex-input"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: max-content 1fr max-content -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>grid-template-columns: max-content 1fr max-content</code>
+          <span>Postranní sloupce zaberou přesně tolik místa, kolik potřebují</span>
+        </div>
+        <div class="layout-stage">
+          <div class="ex-header-grid">
+            <nav class="ex-nav">Domů · O nás · Kontakt</nav>
+            <div class="ex-page-title">Název stránky</div>
+            <nav class="ex-nav">Přihlásit se · EN</nav>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
   <div class="demo-code">
-    <pre><code>/* Klíčové hodnoty intrinsic sizing */
+    <pre><code>/* Intrinsic sizing — základní hodnoty */
 
-.box { width: auto; }            /* výchozí — vyplní kontejner */
-.box { width: min-content; }     /* šířka nejdelšího slova */
-.box { width: max-content; }     /* šířka celého obsahu (jeden řádek) */
-.box { width: fit-content(300px); } /* max-content, max 300 px */
+.box { width: min-content; }  /* šířka nejdelšího slova */
+.box { width: max-content; }  /* šířka celého obsahu na jednom řádku */
+.box { width: fit-content; }  /* max-content, ale nepřekročí kontejner */
 
-/* Funguje i pro height, min-width, max-width … */
-.box { min-width: min-content; } /* box se nezúží pod šířku obsahu */
-.box { height: fit-content(200px); }</code></pre>
+/* Centrování bez pevné šířky */
+.callout {
+  width: fit-content;
+  margin-inline: auto;
+}
+
+/* Grid — štítek se přizpůsobí, pole vyplní zbytek */
+.form-row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--base-2);
+}
+
+/* Grid — postranní sloupce se přizpůsobí obsahu, střed se roztáhne */
+.header {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+}</code></pre>
   </div>
 
-  <script>
-    const btns = document.querySelectorAll('.sizing-btn');
-    const box  = document.querySelector('.live-box');
-    const widthVal = document.getElementById('width-value');
-
-    function updateWidth() {
-      widthVal.textContent = Math.round(box.getBoundingClientRect().width) + 'px';
-    }
-
-    btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btns.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-        box.dataset.sizing = btn.dataset.value;
-        requestAnimationFrame(() => setTimeout(updateWidth, 420));
-      });
-    });
-
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
