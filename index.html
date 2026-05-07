@@ -13,7 +13,7 @@
 
   <style>
     body {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
@@ -34,31 +34,30 @@
       color: var(--text-secondary);
     }
 
-    /* ── Sessions grid ───────────────────────────────────────────────────── */
+    /* ── Grid ────────────────────────────────────────────────────────────── */
 
     .sessions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: var(--base-2);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--base-3);
+      align-items: start;
     }
 
-    /* ── Session card ────────────────────────────────────────────────────── */
+    /* ── Card ────────────────────────────────────────────────────────────── */
 
     .session-card {
       background: var(--surface-main);
       border: 1px solid var(--border);
       border-radius: var(--radius-strong);
-      padding: var(--base-3);
-      display: flex;
-      flex-direction: column;
-      gap: var(--base-2);
+      overflow: hidden;
       box-shadow: var(--elevation-subtle);
     }
 
     .session-card__head {
+      padding: var(--base-3) var(--base-3) var(--base-2);
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .session-card__number {
@@ -80,18 +79,23 @@
     .session-card__demos {
       list-style: none;
       border-top: 1px solid var(--border);
-      padding-top: var(--base-2);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+      padding: var(--base) 0;
     }
 
     .session-card__demo-item {
       display: flex;
       align-items: center;
       gap: var(--base);
-      padding: var(--base-h) var(--base-h);
-      border-radius: var(--radius);
+      padding: 5px var(--base-3);
+      transition: background 0.1s;
+    }
+
+    .session-card__demo-item:hover {
+      background: var(--surface-main-variant);
+    }
+
+    .session-card__demo-item:hover .session-card__demo-links {
+      opacity: 1;
     }
 
     .session-card__demo-index {
@@ -107,33 +111,33 @@
       color: var(--text-primary);
       flex: 1;
       min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .session-card__demo-links {
       display: flex;
-      gap: 4px;
+      gap: 3px;
       flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.1s;
     }
 
-    /* ── Demo action buttons ─────────────────────────────────────────────── */
+    /* ── Icon action buttons ─────────────────────────────────────────────── */
 
     .demo-link {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-family: var(--font-stack-monospace);
-      font-size: var(--font-size-xs);
-      padding: 3px var(--base);
+      justify-content: center;
+      width: 26px;
+      height: 26px;
       border-radius: var(--radius-subtle);
       text-decoration: none;
-      background: var(--surface-control);
+      background: transparent;
       color: var(--text-secondary);
-      border: 1px solid var(--border);
+      border: 1px solid transparent;
       transition: background 0.1s, color 0.1s, border-color 0.1s;
-      line-height: 1;
-    }
-
-    .demo-link svg {
       flex-shrink: 0;
     }
 
@@ -149,17 +153,20 @@
       border-color: var(--surface-brand-secondary-moderate);
     }
 
-    /* ── Future / placeholder cards ──────────────────────────────────────── */
-
-    .session-card--future {
-      opacity: 0.45;
-    }
+    /* ── Placeholder text ────────────────────────────────────────────────── */
 
     .session-card__placeholder {
+      padding: var(--base-2) var(--base-3) var(--base-3);
       font-size: var(--font-size-xs);
       color: var(--text-secondary);
       font-family: var(--font-stack-monospace);
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    /* ── Future cards ────────────────────────────────────────────────────── */
+
+    .session-card--future {
+      opacity: 0.4;
     }
   </style>
 </head>
@@ -190,48 +197,48 @@
           <span class="session-card__demo-index">D1</span>
           <span class="session-card__demo-name">Intrinsic Sizing</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d1/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d1"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d1/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d1" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
         <li class="session-card__demo-item">
           <span class="session-card__demo-index">D2</span>
           <span class="session-card__demo-name">:has() · :is() · :where()</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d2/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d2"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d2/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d2" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
         <li class="session-card__demo-item">
           <span class="session-card__demo-index">D3</span>
           <span class="session-card__demo-name">Container Queries</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d3/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d3"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d3/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d3" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
         <li class="session-card__demo-item">
           <span class="session-card__demo-index">D4</span>
           <span class="session-card__demo-name">@layer</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d4/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d4"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d4/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d4" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
         <li class="session-card__demo-item">
           <span class="session-card__demo-index">D5</span>
           <span class="session-card__demo-name">Subgrid</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d5/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d5"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d5/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d5" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
         <li class="session-card__demo-item">
           <span class="session-card__demo-index">D6</span>
           <span class="session-card__demo-name">reading-flow</span>
           <div class="session-card__demo-links">
-            <a class="demo-link demo-link--view" href="s1/d6/"><i data-lucide="eye" class="icon"></i> View</a>
-            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d6"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+            <a class="demo-link demo-link--view" href="s1/d6/" title="View"><i data-lucide="eye"></i></a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d6" title="Edit"><i data-lucide="pen-line"></i></a>
           </div>
         </li>
       </ul>
@@ -297,6 +304,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script>lucide.createIcons({ attrs: { width: 12, height: 12, 'stroke-width': 2 } });</script>
+  <script>lucide.createIcons({ attrs: { width: 13, height: 13, 'stroke-width': 1.75 } });</script>
 </body>
 </html>
