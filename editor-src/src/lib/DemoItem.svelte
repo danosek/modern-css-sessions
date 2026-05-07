@@ -50,7 +50,7 @@
   .session-card__demo-index {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
-    color: var(--text-secondary);
+    color: var(--surface-brand-secondary-strong);
     min-width: var(--base-3);
     flex-shrink: 0;
   }
