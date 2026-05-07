@@ -13,12 +13,12 @@
 
   <style>
     body {
-      max-width: 960px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
     .page-header {
-      margin-bottom: var(--base-6);
+      margin-bottom: var(--base-5);
     }
 
     .page-title {
@@ -30,133 +30,136 @@
     }
 
     .page-subtitle {
-      font-size: var(--font-size-base);
+      font-size: var(--font-size-s);
       color: var(--text-secondary);
     }
 
-    /* Grid karet sessions */
+    /* ── Sessions grid ───────────────────────────────────────────────────── */
+
     .sessions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--base-3);
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--base-2);
     }
+
+    /* ── Session card ────────────────────────────────────────────────────── */
 
     .session-card {
       background: var(--surface-main);
       border: 1px solid var(--border);
       border-radius: var(--radius-strong);
-      padding: var(--base-4);
+      padding: var(--base-3);
       display: flex;
       flex-direction: column;
-      gap: var(--base-3);
-      box-shadow: var(--elevation);
+      gap: var(--base-2);
+      box-shadow: var(--elevation-subtle);
     }
 
-    .session-card--120min {
-      border-color: var(--surface-brand-primary-moderate);
-      background: var(--surface-brand-primary-minimal);
-    }
-
-    .session-card__meta {
+    .session-card__head {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--base);
+      flex-direction: column;
+      gap: 4px;
     }
 
     .session-card__number {
       font-family: var(--font-stack-monospace);
-      font-size: var(--font-size-s);
-      color: var(--text-secondary);
-    }
-
-    .session-card__duration {
-      font-family: var(--font-stack-monospace);
       font-size: var(--font-size-xs);
-      padding: 2px var(--base);
-      border-radius: var(--radius-subtle);
-      background: var(--surface-main-variant);
       color: var(--text-secondary);
-    }
-
-    .session-card--120min .session-card__duration {
-      background: var(--surface-brand-primary-subtle);
-      color: var(--text-primary-on-surface-brand-primary-subtle);
     }
 
     .session-card__title {
       font-family: var(--font-stack-headings);
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-l);
       font-weight: var(--font-weight-headings-regular);
       color: var(--text-primary);
       line-height: 1.2;
     }
 
+    /* ── Demo list ───────────────────────────────────────────────────────── */
+
     .session-card__demos {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--base-h);
       border-top: 1px solid var(--border);
       padding-top: var(--base-2);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .session-card__demo-item a {
+    .session-card__demo-item {
       display: flex;
       align-items: center;
       gap: var(--base);
-      padding: var(--base-h) var(--base);
+      padding: var(--base-h) var(--base-h);
       border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--text-primary);
-      font-size: var(--font-size-s);
-      transition: background 0.1s;
-    }
-
-    .session-card__demo-item a:hover {
-      background: var(--surface-main-variant);
     }
 
     .session-card__demo-index {
       font-family: var(--font-stack-monospace);
       font-size: var(--font-size-xs);
       color: var(--text-secondary);
-      min-width: var(--base-3);
+      min-width: 1.8em;
+      flex-shrink: 0;
+    }
+
+    .session-card__demo-name {
+      font-size: var(--font-size-s);
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
     }
 
     .session-card__demo-links {
       display: flex;
-      gap: var(--base-h);
-      margin-left: auto;
+      gap: 4px;
+      flex-shrink: 0;
     }
 
+    /* ── Demo action buttons ─────────────────────────────────────────────── */
+
     .demo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-family: var(--font-stack-monospace);
       font-size: var(--font-size-xs);
-      padding: 2px var(--base-h);
+      padding: 3px var(--base);
       border-radius: var(--radius-subtle);
       text-decoration: none;
       background: var(--surface-control);
       color: var(--text-secondary);
       border: 1px solid var(--border);
-      transition: background 0.1s, color 0.1s;
+      transition: background 0.1s, color 0.1s, border-color 0.1s;
+      line-height: 1;
     }
 
-    .demo-link:hover {
+    .demo-link svg {
+      flex-shrink: 0;
+    }
+
+    .demo-link--view:hover {
       background: var(--surface-brand-primary-subtle);
-      color: var(--text-primary-on-surface-brand-primary-subtle);
-      border-color: transparent;
+      color: var(--text-brand-primary);
+      border-color: var(--surface-brand-primary-moderate);
     }
 
-    /* Placeholder karty (session bez dem) */
+    .demo-link--edit:hover {
+      background: var(--surface-brand-secondary-subtle);
+      color: var(--text-brand-secondary);
+      border-color: var(--surface-brand-secondary-moderate);
+    }
+
+    /* ── Future / placeholder cards ──────────────────────────────────────── */
+
     .session-card--future {
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     .session-card__placeholder {
-      font-size: var(--font-size-s);
+      font-size: var(--font-size-xs);
       color: var(--text-secondary);
-      font-style: italic;
+      font-family: var(--font-stack-monospace);
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -169,7 +172,7 @@
   </button>
 
   <div class="page-header demo-header">
-    <div class="demo-session">Tesco SW · červen 2026 – březen 2027</div>
+    <div class="demo-session">Tesco SW · 2026–2027</div>
     <h1 class="page-title">Modern CSS Sessions</h1>
     <p class="page-subtitle">Interaktivní CSS dema ke školícímu cyklu.</p>
   </div>
@@ -178,141 +181,122 @@
 
     <!-- S1 – Foundations Refresh -->
     <div class="session-card">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S1</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">Foundations Refresh</div>
       </div>
-      <div class="session-card__title">Foundations Refresh</div>
       <ul class="session-card__demos">
         <li class="session-card__demo-item">
-          <a href="s1/d1/">
-            <span class="session-card__demo-index">D1</span>
-            <span>Intrinsic Sizing</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d1/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d1" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D1</span>
+          <span class="session-card__demo-name">Intrinsic Sizing</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d1/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d1"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
         <li class="session-card__demo-item">
-          <a href="s1/d2/">
-            <span class="session-card__demo-index">D2</span>
-            <span>:has() · :is() · :where()</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d2/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d2" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D2</span>
+          <span class="session-card__demo-name">:has() · :is() · :where()</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d2/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d2"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
         <li class="session-card__demo-item">
-          <a href="s1/d3/">
-            <span class="session-card__demo-index">D3</span>
-            <span>Container Queries</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d3/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d3" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D3</span>
+          <span class="session-card__demo-name">Container Queries</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d3/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d3"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
         <li class="session-card__demo-item">
-          <a href="s1/d4/">
-            <span class="session-card__demo-index">D4</span>
-            <span>@layer – cascade management</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d4/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d4" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D4</span>
+          <span class="session-card__demo-name">@layer</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d4/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d4"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
         <li class="session-card__demo-item">
-          <a href="s1/d5/">
-            <span class="session-card__demo-index">D5</span>
-            <span>Subgrid</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d5/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d5" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D5</span>
+          <span class="session-card__demo-name">Subgrid</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d5/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d5"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
         <li class="session-card__demo-item">
-          <a href="s1/d6/">
-            <span class="session-card__demo-index">D6</span>
-            <span>reading-flow</span>
-            <div class="session-card__demo-links">
-              <a class="demo-link" href="s1/d6/" title="GitHub Pages">↗ live</a>
-              <a class="demo-link" href="editor/?demo=s1/d6" title="Editor">✏ edit</a>
-            </div>
-          </a>
+          <span class="session-card__demo-index">D6</span>
+          <span class="session-card__demo-name">reading-flow</span>
+          <div class="session-card__demo-links">
+            <a class="demo-link demo-link--view" href="s1/d6/"><i data-lucide="eye" class="icon"></i> View</a>
+            <a class="demo-link demo-link--edit" href="editor/?demo=s1/d6"><i data-lucide="pen-line" class="icon"></i> Edit</a>
+          </div>
         </li>
       </ul>
     </div>
 
     <!-- S2–S8: placeholder karty -->
     <div class="session-card session-card--future">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S2</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">Colors &amp; Typography</div>
       </div>
-      <div class="session-card__title">Colors &amp; Typography</div>
       <p class="session-card__placeholder">oklch() · color-mix() · light-dark() · text-wrap</p>
     </div>
 
     <div class="session-card session-card--future">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S3</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">Sizing, Layout &amp; Shapes</div>
       </div>
-      <div class="session-card__title">Sizing, Layout &amp; Shapes</div>
       <p class="session-card__placeholder">interpolate-size · field-sizing · gap decorations · shape()</p>
     </div>
 
-    <div class="session-card session-card--future session-card--120min">
-      <div class="session-card__meta">
+    <div class="session-card session-card--future">
+      <div class="session-card__head">
         <span class="session-card__number">S4</span>
-        <span class="session-card__duration">120 min</span>
+        <div class="session-card__title">Anchor Positioning + Popover</div>
       </div>
-      <div class="session-card__title">Anchor Positioning + Popover</div>
       <p class="session-card__placeholder">anchor-positioning · popover API · invoker commands</p>
     </div>
 
     <div class="session-card session-card--future">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S5</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">Customizable Select &amp; Form UX</div>
       </div>
-      <div class="session-card__title">Customizable Select &amp; Form UX</div>
       <p class="session-card__placeholder">appearance: base-select · selectedcontent · :user-valid</p>
     </div>
 
-    <div class="session-card session-card--future session-card--120min">
-      <div class="session-card__meta">
+    <div class="session-card session-card--future">
+      <div class="session-card__head">
         <span class="session-card__number">S6</span>
-        <span class="session-card__duration">120 min</span>
+        <div class="session-card__title">Scroll Universe</div>
       </div>
-      <div class="session-card__title">Scroll Universe</div>
       <p class="session-card__placeholder">scroll() · view() · carousel · scroll-state</p>
     </div>
 
     <div class="session-card session-card--future">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S7</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">View Transitions</div>
       </div>
-      <div class="session-card__title">View Transitions</div>
       <p class="session-card__placeholder">same-doc · cross-doc · shared element</p>
     </div>
 
     <div class="session-card session-card--future">
-      <div class="session-card__meta">
+      <div class="session-card__head">
         <span class="session-card__number">S8</span>
-        <span class="session-card__duration">90 min</span>
+        <div class="session-card__title">CSS as a Programming Language</div>
       </div>
-      <div class="session-card__title">CSS as a Programming Language</div>
       <p class="session-card__placeholder">@property · attr() · @scope · if() · @function</p>
     </div>
 
   </div>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>lucide.createIcons({ attrs: { width: 12, height: 12, 'stroke-width': 2 } });</script>
 </body>
 </html>
