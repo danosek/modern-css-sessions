@@ -4,9 +4,7 @@
   let { session } = $props();
 </script>
 
-<div class="session-card"
-  class:session-card--future={!session.demos}
-  class:session-card--120min={session.duration === 120}>
+<div class="session-card" class:session-card--future={!session.demos}>
   <div class="session-card__meta">
     <span class="session-card__number">{session.number}</span>
     {#if session.duration}
@@ -21,7 +19,9 @@
       {/each}
     </ul>
   {:else if session.placeholder}
-    <p class="session-card__placeholder">{session.placeholder}</p>
+    <ul class="session-card__demos session-card__demos--disabled">
+      <li class="session-card__demo-placeholder">{session.placeholder}</li>
+    </ul>
   {/if}
 </div>
 
@@ -35,11 +35,6 @@
     flex-direction: column;
     gap: var(--base-3);
     box-shadow: var(--elevation);
-  }
-
-  .session-card--120min {
-    border-color: var(--surface-brand-primary-moderate);
-    background: var(--surface-brand-primary-minimal);
   }
 
   .session-card--future {
@@ -68,11 +63,6 @@
     color: var(--text-secondary);
   }
 
-  .session-card--120min .session-card__duration {
-    background: var(--surface-brand-primary-subtle);
-    color: var(--text-primary-on-surface-brand-primary-subtle);
-  }
-
   .session-card__title {
     font-family: var(--font-stack-headings);
     font-size: var(--font-size-xl);
@@ -90,9 +80,10 @@
     padding-top: var(--base-2);
   }
 
-  .session-card__placeholder {
+  .session-card__demo-placeholder {
     font-size: var(--font-size-s);
     color: var(--text-secondary);
     font-style: italic;
+    padding: var(--base-h) var(--base);
   }
 </style>
