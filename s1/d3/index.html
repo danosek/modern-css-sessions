@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Container Queries – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/demo-base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button class="theme-toggle"
+    onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Container Queries</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@container</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">container-type</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">container-name</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- Live: resizable container -->
+    <div class="live-label">Živá ukázka — táhni za pravý dolní roh kontejneru a sleduj, jak se karta přizpůsobí svému prostoru (ne viewportu):</div>
+    <div class="cq-resize-wrap">
+      <div class="cq-container">
+        <article class="product-card">
+          <div class="product-card__img">⬡</div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Novinka</span>
+            <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+            <p class="product-card__desc">Mechanická klávesnice s RGB podsvícením, Bluetooth 5.2 a 6měsíční výdrží baterie. Ideální pro home office i cestování.</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">2 490 Kč</span>
+              <button class="product-card__btn">Přidat do košíku</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Three contexts side by side -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Stejná komponenta ve třech různých kontextech — @media by nefungovalo:</div>
+
+      <div class="context-row">
+        <div class="context-slot">
+          <div class="context-slot__label">Postranní panel · 220px</div>
+          <div class="cq-container cq-container--220">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Koupit</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="context-slot">
+          <div class="context-slot__label">Grid karet · 360px</div>
+          <div class="cq-container cq-container--360">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Přidat do košíku</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="context-slot context-slot--flex">
+          <div class="context-slot__label">Výpis produktů · plná šířka</div>
+          <div class="cq-container">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Přidat do košíku</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="demo-code">
+    <pre><code>/* 1. Označ kontejner */
+.card-wrapper {
+  container-type: inline-size;  /* sleduje inline rozměr */
+  container-name: product;      /* volitelné jméno */
+}
+
+/* 2. Piš query vůči kontejneru, ne viewportu */
+@container product (min-width: 400px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;  /* přejdi na horizontální layout */
+  }
+}
+
+@container product (min-width: 560px) {
+  .product-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Kdy použít co */
+@media (min-width: 768px)        { /* viewport — layout stránky, viditelnost */ }
+@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }</code></pre>
+  </div>
+
+</body>
+</html>

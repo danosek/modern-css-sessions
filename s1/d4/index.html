@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@layer – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/demo-base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button class="theme-toggle"
+    onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">@layer — správa kaskády</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@layer</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">layer()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">revert-layer</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- Layer order visualization -->
+    <div class="live-label">Živá ukázka — pořadí vrstev bije specificitu selektorů:</div>
+    <div class="live-stage">
+      <div class="layer-diagram">
+        <div class="layer layer--reset">
+          <span class="layer__name">@layer reset</span>
+          <span class="layer__desc">Normalize, základní reset</span>
+        </div>
+        <div class="layer layer--base">
+          <span class="layer__name">@layer base</span>
+          <span class="layer__desc">Typografie, barvy, tokeny</span>
+        </div>
+        <div class="layer layer--components">
+          <span class="layer__name">@layer components</span>
+          <span class="layer__desc">.btn, .card, .input…</span>
+        </div>
+        <div class="layer layer--utilities">
+          <span class="layer__name">@layer utilities</span>
+          <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
+        </div>
+        <div class="layer layer--unlayered">
+          <span class="layer__name">bez vrstvy (unlayered)</span>
+          <span class="layer__desc">Inline styly, přepsání ad hoc</span>
+        </div>
+      </div>
+      <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
+    </div>
+
+    <!-- The key demo: layer order vs. specificity -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Hlavní princip — <strong>pořadí vrstvy bije specificitu</strong>:</div>
+
+      <div class="battle-grid">
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>@layer</code>
+            <span>utilities vrstva vítězí navzdory nižší specificitě</span>
+          </div>
+          <div class="layout-stage battle-stage">
+            <div class="battle-item">
+              <button class="btn btn-primary bg-brand">Tlačítko</button>
+              <div class="battle-rules">
+                <div class="battle-rule battle-rule--loser">
+                  <span class="battle-rule__sel">.btn-primary</span>
+                  <span class="battle-rule__layer">components (0,1,0)</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary</span>
+                </div>
+                <div class="battle-rule battle-rule--winner">
+                  <span class="battle-rule__sel">.bg-brand</span>
+                  <span class="battle-rule__layer">utilities (0,1,0) ← vrstva je výše</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>bez @layer</code>
+            <span>vyšší specificita vítězí (klasická kaskáda)</span>
+          </div>
+          <div class="layout-stage battle-stage">
+            <div class="battle-item">
+              <button class="btn-nl btn-primary-nl bg-brand-nl">Tlačítko</button>
+              <div class="battle-rules">
+                <div class="battle-rule battle-rule--winner">
+                  <span class="battle-rule__sel">.btn-primary-nl</span>
+                  <span class="battle-rule__layer">specificita (0,1,0) — stejná</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary ✓ (pozdější v kódu)</span>
+                </div>
+                <div class="battle-rule battle-rule--loser">
+                  <span class="battle-rule__sel">.bg-brand-nl</span>
+                  <span class="battle-rule__layer">specificita (0,1,0) — dřívější v kódu</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Practical use cases -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Praktické příklady:</div>
+
+      <div class="examples-cols">
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>@import layer()</code>
+            <span>Third-party knihovna v nejnižší vrstvě</span>
+          </div>
+          <div class="layout-stage">
+            <div class="lib-demo">
+              <div class="lib-card lib-card--library">
+                <div class="lib-card__label">Knihovna (reset)</div>
+                <button class="lib-btn lib-btn--library">Tlačítko z knihovny</button>
+                <p class="lib-note">Styly jsou "uzamčeny" do vrstvy reset — nemohou ovlivnit naše komponenty.</p>
+              </div>
+              <div class="lib-card lib-card--ours">
+                <div class="lib-card__label">Naše komponenta (components)</div>
+                <button class="lib-btn lib-btn--ours">Naše tlačítko</button>
+                <p class="lib-note">Přebije knihovnu bez <code>!important</code> — prostě je v nižší vrstvě.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>revert-layer</code>
+            <span>Vrácení hodnoty na předchozí vrstvu</span>
+          </div>
+          <div class="layout-stage">
+            <div class="revert-demo">
+              <button class="rv-btn">Normální tlačítko</button>
+              <button class="rv-btn rv-btn--ghost">Ghost variant (revert-layer)</button>
+              <p class="lib-note"><code>background: revert-layer</code> vrátí hodnotu na to, co definovala nižší vrstva — bez znalosti konkrétní hodnoty.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="demo-code">
+    <pre><code>/* Deklaruj pořadí vrstev na začátku CSS */
+@layer reset, base, components, utilities;
+
+/* Naplň vrstvy */
+@layer reset {
+  * { box-sizing: border-box; margin: 0; }
+}
+
+@layer components {
+  .btn-primary {
+    background: var(--surface-brand-primary-strong);  /* specificita: 0,1,0 */
+  }
+}
+
+@layer utilities {
+  .bg-secondary {
+    background: var(--surface-brand-secondary-strong); /* specificita: 0,1,0 */
+  }
+  /* .bg-secondary VÍTĚZÍ — utilities je výše než components */
+}
+
+/* Third-party knihovna do nejnižší vrstvy */
+@import url("bootstrap.css") layer(vendor);
+/* Naše styly vždy přebijí vendor — bez !important */
+
+/* Vrácení hodnoty na předchozí vrstvu */
+@layer components {
+  .btn-ghost {
+    background: revert-layer;  /* vezme hodnotu z vrstvy 'base', ne components */
+  }
+}</code></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

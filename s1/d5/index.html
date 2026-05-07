@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subgrid – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@6445a11920a648ac866752f52e0d627caf212399/shared/demo-base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button class="theme-toggle"
+    onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Subgrid</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">grid-template-rows: subgrid</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">grid-row: span N</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- Toggle -->
+    <div class="sizing-toolbar" role="group" aria-label="Přepnout subgrid">
+      <button class="sizing-btn" aria-pressed="false" id="btn-off">Bez subgrid</button>
+      <button class="sizing-btn" aria-pressed="true"  id="btn-on">Se subgrid</button>
+    </div>
+
+    <div class="live-label" id="subgrid-label">Živá ukázka — subgrid zarovná řádky napříč kartami:</div>
+
+    <!-- Product cards grid -->
+    <div class="products-grid use-subgrid" id="products-grid">
+
+      <article class="product-card">
+        <div class="product-card__img">◈</div>
+        <h3 class="product-card__title">Bezdrátová klávesnice Pro X</h3>
+        <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2, RGB podsvícením a 6měsíční výdrží baterie. Plná sada kláves.</p>
+        <div class="product-card__price">
+          <span class="price-amount">2 490 Kč</span>
+          <span class="price-note">včetně DPH</span>
+        </div>
+        <button class="product-card__btn">Přidat do košíku</button>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img">◎</div>
+        <h3 class="product-card__title">Optická myš</h3>
+        <p class="product-card__desc">Ergonomická bezdrátová myš.</p>
+        <div class="product-card__price">
+          <span class="price-amount">590 Kč</span>
+          <span class="price-note">včetně DPH</span>
+        </div>
+        <button class="product-card__btn">Přidat do košíku</button>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img">▣</div>
+        <h3 class="product-card__title">USB-C Hub 7-v-1</h3>
+        <p class="product-card__desc">Rozbočovač s HDMI 4K, 3× USB-A, SD kartou, Ethernet a PD nabíjením až 100W. Kompatibilní s MacBook i Windows notebooky.</p>
+        <div class="product-card__price">
+          <span class="price-amount">990 Kč</span>
+          <span class="price-note">včetně DPH</span>
+        </div>
+        <button class="product-card__btn">Přidat do košíku</button>
+      </article>
+
+    </div>
+
+    <!-- Form alignment example -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Subgrid pro zarovnání formulářových polí:</div>
+      <div class="layout-stage">
+        <div class="form-grid">
+          <div class="form-row">
+            <label class="form-label">Jméno</label>
+            <div class="form-input-wrap"><div class="form-input"></div></div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">E-mailová adresa</label>
+            <div class="form-input-wrap"><div class="form-input"></div></div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Tel.</label>
+            <div class="form-input-wrap"><div class="form-input"></div></div>
+            <span class="form-hint">Volitelné</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="demo-code">
+    <pre><code>/* Rodičovský grid definuje sloupce I řádky */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;   /* řádky se tvoří automaticky */
+  gap: var(--base-3);
+}
+
+/* Každá karta "obalí" 5 řádků rodiče */
+.product-card {
+  grid-row: span 5;           /* rezervuj 5 řádků v rodiči */
+  display: grid;
+  grid-template-rows: subgrid; /* použij ty stejné řádky */
+  /* → obrázek, název, popis, cena, tlačítko jsou zarovnány
+        napříč kartami bez ohledu na délku obsahu */
+}
+
+/* Bez subgrid: každá karta má vlastní vnitřní grid
+   → obsah se nezarovná přes karty */
+.product-card--no-subgrid {
+  display: flex;
+  flex-direction: column;
+}</code></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
