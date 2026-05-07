@@ -1,5 +1,5 @@
 const btns      = document.querySelectorAll('.sizing-btn');
-const box       = document.querySelector('.live-box');
+const box       = document.querySelector('.demo-box');
 const stage     = document.querySelector('.live-stage');
 const indicator = document.querySelector('.width-indicator');
 const widthVal  = document.getElementById('width-value');
