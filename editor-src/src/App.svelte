@@ -88,6 +88,29 @@
 
   $effect(() => { document.documentElement.dataset.theme = theme; });
 
+  if (import.meta.hot) {
+    import.meta.hot.on('demo-file-changed', async ({ file }) => {
+      if (!demoPath) return;
+      const t = Date.now();
+      if (file === `${demoPath}/style.css`) {
+        const res = await fetch(cssUrl(demoPath) + '?t=' + t);
+        if (res.ok) { const v = unwrapViteCss(await res.text()); css = v; originalCss = v; }
+      } else if (file === `${demoPath}/script.js`) {
+        const res = await fetch(`${DEMOS_BASE}${demoPath}/script.js?t=` + t);
+        if (res.ok) js = await res.text();
+      } else if (file === `${demoPath}/index.html`) {
+        const res = await fetch(`${DEMOS_BASE}${demoPath}/index.html?t=` + t);
+        if (res.ok) html = await res.text();
+      } else if (file.startsWith('shared/')) {
+        const [a, b] = await Promise.all([
+          fetch('/shared/spectro-theme.css?t=' + t),
+          fetch('/shared/demo-base.css?t=' + t),
+        ]);
+        sharedCss = (a.ok ? await a.text() : '') + (b.ok ? await b.text() : '');
+      }
+    });
+  }
+
   function startColResize(e) {
     e.preventDefault();
     colResizing = true;

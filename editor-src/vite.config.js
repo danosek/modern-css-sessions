@@ -60,6 +60,22 @@ export default defineConfig(({ command }) => ({
           }
         });
 
+        // Watch demo + shared files so HMR events fire on external edits
+        server.watcher.add(repoRoot + '/s*/d*/index.html');
+        server.watcher.add(repoRoot + '/s*/d*/style.css');
+        server.watcher.add(repoRoot + '/s*/d*/script.js');
+        server.watcher.add(repoRoot + '/shared/*.css');
+      },
+
+      handleHotUpdate({ file, server }) {
+        const rel = path.relative(repoRoot, file);
+        const isDemo = /^s\d+\/d\d+\/(index\.html|style\.css|script\.js)$/.test(rel);
+        const isShared = /^shared\/.+\.css$/.test(rel);
+        if (!isDemo && !isShared) return;
+
+        console.log(`\x1b[36m[demo-watch]\x1b[0m ${rel}`);
+        server.ws.send({ type: 'custom', event: 'demo-file-changed', data: { file: rel } });
+        return [];
       },
     },
   ].filter(Boolean),

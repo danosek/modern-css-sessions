@@ -53,11 +53,6 @@ code {
   margin-bottom: var(--base);
 }
 
-.live-section {
-  border-top: 1px solid var(--border);
-  padding-top: var(--base-4);
-}
-
 .live-label {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
@@ -76,29 +71,21 @@ code {
   min-width: 120px;
 }
 
-.live-box {
-  background: var(--surface-brand-primary-subtle);
-  border: 2px solid var(--surface-brand-primary-moderate);
-  border-radius: var(--radius);
-  padding: var(--base-2) var(--base-3);
-  overflow: hidden;
-}
-
-.live-box p {
+.demo-box p {
   font-size: var(--font-size-base);
   color: var(--text-primary-on-surface-brand-primary-subtle);
   line-height: 1.5;
 }
 
-.live-box p em {
+.demo-box p em {
   font-style: normal;
   color: var(--text-secondary-on-surface-brand-primary-subtle);
 }
 
-.live-box[data-sizing="auto"]         { width: auto; }
-.live-box[data-sizing="min-content"]  { width: min-content; }
-.live-box[data-sizing="max-content"]  { width: max-content; }
-.live-box[data-sizing="fit-content"]  { width: fit-content; }
+.demo-box[data-sizing="auto"]         { width: auto; }
+.demo-box[data-sizing="min-content"]  { width: min-content; }
+.demo-box[data-sizing="max-content"]  { width: max-content; }
+.demo-box[data-sizing="fit-content"]  { width: fit-content; }
 
 /* ── Layout examples ─────────────────────────────────────────────────────── */
 
@@ -144,12 +131,6 @@ code {
 .ex-callout {
   width: fit-content;
   margin-inline: auto;
-  background: var(--surface-brand-primary-subtle);
-  border: 1px solid var(--surface-brand-primary-moderate);
-  border-radius: var(--radius);
-  padding: var(--base-2) var(--base-3);
-  font-size: var(--font-size-s);
-  color: var(--text-primary-on-surface-brand-primary-subtle);
   margin-bottom: var(--base-2);
 }
 .ex-callout:last-child { margin-bottom: 0; }

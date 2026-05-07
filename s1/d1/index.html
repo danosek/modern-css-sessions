@@ -41,7 +41,7 @@
     <div class="live-section">
       <div class="live-label">Živá ukázka — šířka boxu se mění podle vybrané hodnoty:</div>
       <div class="live-stage">
-        <div class="live-box" data-sizing="fit-content">
+        <div class="demo-box" data-sizing="fit-content">
           <p>Toto je <strong>krátký text.</strong></p>
           <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
         </div>
@@ -59,25 +59,25 @@
       <div class="sizing-grid">
         <div class="sizing-card">
           <div class="sizing-card__label">width: auto</div>
-          <div style="width: auto; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+          <div class="demo-box" style="width: auto">
             Box vyplní dostupný prostor rodičovského elementu.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: min-content</div>
-          <div style="width: min-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+          <div class="demo-box" style="width: min-content">
             Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: max-content</div>
-          <div style="width: max-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+          <div class="demo-box" style="width: max-content">
             Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: fit-content</div>
-          <div style="width: fit-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+          <div class="demo-box" style="width: fit-content">
             Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
           </div>
         </div>
@@ -95,10 +95,10 @@
           <span>Centrování bez pevné šířky</span>
         </div>
         <div class="layout-stage">
-          <div class="ex-callout">
+          <div class="demo-box ex-callout">
             Tato zpráva se přizpůsobí délce textu a zůstane vycentrovaná.
           </div>
-          <div class="ex-callout">
+          <div class="demo-box ex-callout">
             Kratší zpráva.
           </div>
         </div>

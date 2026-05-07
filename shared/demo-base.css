@@ -88,3 +88,14 @@ body {
 .theme-toggle:hover {
   background: var(--surface-main-variant);
 }
+
+/* Sdílený barevný box – přes všechna dema */
+.demo-box {
+  background: var(--surface-brand-primary-subtle);
+  border: 1px solid var(--surface-brand-primary-moderate);
+  border-radius: var(--radius);
+  padding: var(--base-2) var(--base-3);
+  overflow: hidden;
+  font-size: var(--font-size-s);
+  color: var(--text-primary-on-surface-brand-primary-subtle);
+}
