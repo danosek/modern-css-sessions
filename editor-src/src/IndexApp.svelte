@@ -14,8 +14,6 @@
         { id: 'd7', index: 'D7', name: 'CSS Nesting' },
         { id: 'd8', index: 'D8', name: 'Logical Properties' },
         { id: 'd9', index: 'D9', name: 'clamp() · min() · max()' },
-        { id: 'd10', index: 'D10', name: ':focus-visible · :focus-within' },
-        { id: 'd11', index: 'D11', name: 'color-scheme' },
       ],
     },
     {
@@ -25,6 +23,7 @@
         { id: 'd2', index: 'D2', name: 'color-mix()' },
         { id: 'd3', index: 'D3', name: 'light-dark()' },
         { id: 'd4', index: 'D4', name: 'text-wrap' },
+        { id: 'd5', index: 'D5', name: 'color-scheme · prefers-color-scheme' },
       ],
     },
     {
@@ -50,6 +49,7 @@
         { id: 'd1', index: 'D1', name: 'appearance: base-select' },
         { id: 'd2', index: 'D2', name: 'selectedcontent' },
         { id: 'd3', index: 'D3', name: ':user-valid' },
+        { id: 'd4', index: 'D4', name: ':focus-visible · :focus-within' },
       ],
     },
     {

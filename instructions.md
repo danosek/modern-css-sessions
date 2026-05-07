@@ -175,15 +175,14 @@ Začni prázdnými demy – správná šablona, placeholder obsah. Dema plníme 
 - `d7` – CSS Nesting (`&`) – nativní vnoření bez preprocesoru
 - `d8` – Logical Properties (`margin-inline`, `padding-block`, `inset`)
 - `d9` – Comparison functions (`clamp()`, `min()`, `max()`) – fluid hodnoty
-- `d10` – `:focus-visible` · `:focus-within` – přístupný focus
-- `d11` – `color-scheme` · `prefers-color-scheme` – dark mode na úrovni prohlížeče
 
 ### S2 – Colors & Typography (srpen 2026 / 90 min)
 - `d1` – `oklch()` vs HSL – vizuální porovnání
 - `d2` – `color-mix()` a relative color syntax
 - `d3` – `light-dark()` – dark mode
 - `d4` – `text-wrap: balance` a `pretty`
-- `d5` – `text-box-trim`
+- `d5` – `color-scheme` · `prefers-color-scheme` – dark mode na úrovni prohlížeče
+- `d6` – `text-box-trim`
 
 ### S3 – Sizing, Layout & Shapes (září 2026 / 90 min)
 - `d1` – `interpolate-size` – animace na `height: auto`
@@ -202,6 +201,7 @@ Začni prázdnými demy – správná šablona, placeholder obsah. Dema plníme 
 - `d1` – `appearance: base-select` + `::picker(select)`
 - `d2` – `<selectedcontent>` + HTML v options
 - `d3` – `:user-valid` / `:user-invalid`
+- `d4` – `:focus-visible` · `:focus-within` – přístupný focus
 
 ### S6 – Scroll Universe (leden 2027 / 120 min)
 - `d1` – `scroll()` timeline – progress bar
