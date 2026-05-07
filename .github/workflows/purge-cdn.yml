@@ -1,4 +1,4 @@
-name: Purge jsDelivr CDN cache
+name: Pin shared CSS SHA in demos
 
 on:
   push:
@@ -8,11 +8,49 @@ on:
       - 'shared/spectro-theme.css'
 
 jobs:
-  purge:
+  pin-sha:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Purge shared CSS from jsDelivr
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update CDN SHA in all demo HTML files
         run: |
-          curl -sf "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/shared/demo-base.css"
-          curl -sf "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/shared/spectro-theme.css"
-          echo "CDN cache purged"
+          SHA=$(git rev-parse HEAD)
+          echo "Pinning shared CSS to SHA: $SHA"
+          python3 - <<'PY'
+          import re, pathlib, os, subprocess
+
+          sha = os.environ.get('SHA') or subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()
+          pattern = re.compile(
+            r'cdn\.jsdelivr\.net/gh/danosek/modern-css-sessions@[^/]+/shared/'
+          )
+          replacement = f'cdn.jsdelivr.net/gh/danosek/modern-css-sessions@{sha}/shared/'
+
+          for path in pathlib.Path('.').rglob('*.html'):
+            if '.git' in path.parts or 'node_modules' in path.parts or 'editor' == path.parts[0]:
+              continue
+            text = path.read_text()
+            new = pattern.sub(replacement, text)
+            if new != text:
+              path.write_text(new)
+              print(f'Updated: {path}')
+          PY
+        env:
+          SHA: ${{ github.sha }}
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add '*.html' '**/*.html'
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            SHORT=$(git rev-parse --short ${{ github.sha }})
+            git commit -m "chore: pin shared CSS CDN to ${SHORT} [skip ci]"
+            git push
+          fi
