@@ -89,6 +89,45 @@ body {
   background: var(--surface-main-variant);
 }
 
+/* Sdílená karta – srovnání hodnot, kontejner pro stage */
+.sizing-card {
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border-shiny);
+  border-radius: var(--radius-strong);
+  padding: var(--base-3);
+  box-shadow: var(--elevation-subtle);
+}
+
+.sizing-card__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-primary);
+  margin-bottom: var(--base);
+}
+
+/* Interaktivní stage – resizable */
+.live-stage {
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border-shiny);
+  border-radius: var(--radius-strong);
+  padding: var(--base-3);
+  box-shadow: var(--elevation-subtle);
+  min-height: 120px;
+  resize: horizontal;
+  overflow: auto;
+  max-width: 100%;
+  min-width: 120px;
+}
+
+/* Layout stage – statické ukázky */
+.layout-stage {
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border-shiny);
+  border-radius: var(--radius-strong);
+  padding: var(--base-4);
+  box-shadow: var(--elevation-subtle);
+}
+
 /* Sdílený barevný box – přes všechna dema */
 .demo-box {
   background: var(--surface-brand-primary-subtle);

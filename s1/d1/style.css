@@ -39,36 +39,10 @@ code {
   margin-bottom: var(--base-4);
 }
 
-.sizing-card {
-  background: var(--surface-main-dim);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  padding: var(--base-3);
-}
-
-.sizing-card__label {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  color: var(--text-brand-primary);
-  margin-bottom: var(--base);
-}
-
 .live-label {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   margin-bottom: var(--base-2);
-}
-
-.live-stage {
-  background: var(--surface-main-dim);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  padding: var(--base-3);
-  min-height: 120px;
-  resize: horizontal;
-  overflow: auto;
-  max-width: 100%;
-  min-width: 120px;
 }
 
 .demo-box p {
@@ -118,13 +92,6 @@ code {
   font-family: var(--font-stack-main);
   color: var(--text-secondary);
   font-size: var(--font-size-s);
-}
-
-.layout-stage {
-  background: var(--surface-main);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  padding: var(--base-4);
 }
 
 /* Ukázka 1 — fit-content + margin: auto */
