@@ -70,7 +70,7 @@
         <!-- Form validation -->
         <div class="layout-example">
           <div class="layout-example__label">
-            <code>.field:has(input:user-invalid)</code>
+            <code>.field:has(input:user-invalid / :user-valid)</code>
             <span>Validace formuláře bez JS</span>
           </div>
           <div class="layout-stage">
@@ -131,14 +131,14 @@
         </div>
         <div class="layout-stage">
           <div class="cards-demo">
-            <div class="card-demo">
+            <div class="card">
               <div class="card__img">◫</div>
               <div class="card__body">
                 <strong class="card__title">S obrázkem — horizontální grid</strong>
                 <p class="card__text">Karta obsahuje <code>.card__img</code>, proto <code>:has(.card__img)</code> přepne layout na <code>grid-template-columns: 100px 1fr</code>.</p>
               </div>
             </div>
-            <div class="card-demo">
+            <div class="card">
               <div class="card__body">
                 <strong class="card__title">Bez obrázku — textový blok</strong>
                 <p class="card__text">Karta neobsahuje <code>.card__img</code>. Selektor <code>:has()</code> se neaplikuje, karta zůstane jako jednoduchý blok.</p>
@@ -207,17 +207,20 @@
 .field:has(input:user-invalid) .field-label { color: var(--status-error); }
 .field:has(input:user-invalid) .field-input  { border-color: var(--status-error); }
 .field:has(input:user-valid)   .field-label  { color: var(--status-success); }
+.field:has(input:user-valid)   .field-input  { border-color: var(--status-success); }
 
 /* Navigace: zvýrazni sekci, když je potomek aktivní */
 .nav-section:has(.is-active) {
   background: var(--surface-brand-primary-subtle);
-  border-color: var(--surface-brand-primary-moderate);
+  border-left: 3px solid var(--surface-brand-primary-strong);
 }
 
 /* Layout se mění podle přítomnosti potomka */
 .card:has(.card__img) {
   display: grid;
   grid-template-columns: 100px 1fr;
+  gap: var(--base-3);
+  align-items: start;
 }
 
 /* :is() — zkratka (specificita = nejvyšší argument) */

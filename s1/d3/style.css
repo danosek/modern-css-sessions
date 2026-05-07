@@ -97,17 +97,6 @@ code {
   flex: 1;
 }
 
-.product-card__badge {
-  display: inline-block;
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  padding: 2px var(--base);
-  background: var(--surface-brand-secondary-subtle);
-  border: 1px solid var(--surface-brand-secondary-moderate);
-  border-radius: var(--radius-subtle);
-  color: var(--text-brand-secondary);
-  width: fit-content;
-}
 
 .product-card__title {
   font-family: var(--font-stack-headings);

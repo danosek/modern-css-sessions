@@ -4,6 +4,7 @@
   import Preview from './lib/Preview.svelte';
   import HtmlPanel from './lib/HtmlPanel.svelte';
   import JsPanel from './lib/JsPanel.svelte';
+  import { ArrowLeft, Code2, FileCode, RotateCcw, Sun, Moon } from 'lucide-svelte';
 
   const DEMOS_BASE = import.meta.env.VITE_DEMOS_BASE ?? '../';
   const demoPath = new URLSearchParams(location.search).get('demo')?.replace(/\/$/, '') ?? '';
@@ -163,7 +164,7 @@
 >
 
   <header class="editor-toolbar">
-    <a href="../" class="btn btn-ghost">← Demos</a>
+    <a href="../" class="btn btn-ghost"><ArrowLeft size={14} /> Demos</a>
     <div class="editor-title-block">
       {#if session}<span class="editor-session">{session}</span>{/if}
       <span class="editor-title">{title}</span>
@@ -171,26 +172,26 @@
     </div>
     <div class="toolbar-actions">
       <button class="btn" class:active={htmlOpen} onclick={() => htmlOpen = !htmlOpen}>
-        ◑ HTML
+        <Code2 size={14} /> HTML
       </button>
       {#if js}
         <button class="btn btn-js" class:active={jsOpen} onclick={() => jsOpen = !jsOpen}>
-          ◑ JS
+          <FileCode size={14} /> JS
         </button>
       {/if}
-      <button class="btn" onclick={() => css = originalCss}>↺ Reset</button>
+      <button class="btn" onclick={() => css = originalCss}><RotateCcw size={14} /> Reset</button>
 
       <div class="theme-seg" role="group" aria-label="Barevné téma">
         <button
           class="seg-btn"
           class:seg-active={theme === 'light'}
           onclick={() => theme = 'light'}
-        >☀ Light</button>
+        ><Sun size={14} /> Light</button>
         <button
           class="seg-btn"
           class:seg-active={theme === 'dark'}
           onclick={() => theme = 'dark'}
-        >☾ Dark</button>
+        ><Moon size={14} /> Dark</button>
       </div>
     </div>
   </header>
@@ -323,6 +324,9 @@
   }
 
   .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--base-h);
     padding: var(--base-h) var(--base-2);
     background: var(--surface-control);
     color: var(--text-primary);
@@ -363,6 +367,9 @@
   }
 
   .seg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--base-h);
     padding: var(--base-h) var(--base-2);
     border-radius: calc(var(--radius) - 2px);
     background: transparent;
