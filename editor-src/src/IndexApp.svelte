@@ -44,7 +44,7 @@
 
 <style>
   :global(body) {
-    max-width: 960px;
+    max-width: 1440px;
     margin: 0 auto;
   }
 
