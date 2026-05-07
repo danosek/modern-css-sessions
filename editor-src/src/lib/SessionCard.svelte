@@ -25,27 +25,16 @@
   .session-card {
     background: var(--surface-main);
     border: 1px solid var(--border);
-    border-top: 3px solid var(--surface-brand-primary-moderate);
     border-radius: var(--radius-strong);
     padding: var(--base-4);
     display: flex;
     flex-direction: column;
     gap: var(--base-3);
     box-shadow: var(--elevation);
-    transition: border-top-color 0.15s;
-  }
-
-  .session-card:hover {
-    border-top-color: var(--surface-brand-primary-strong);
   }
 
   .session-card--future {
     opacity: 0.45;
-    border-top-color: var(--border);
-  }
-
-  .session-card--future:hover {
-    border-top-color: var(--border);
   }
 
   .session-card__meta {
@@ -84,7 +73,13 @@
     display: flex;
     flex-direction: column;
     gap: var(--base-h);
-    border-top: 1px solid var(--border);
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(
+      to right,
+      var(--surface-brand-secondary-strong),
+      var(--surface-brand-primary-strong) 60%,
+      transparent
+    ) 1;
     padding-top: var(--base-2);
   }
 </style>
