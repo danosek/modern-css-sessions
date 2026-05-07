@@ -2,30 +2,49 @@
   let { sessionId, demo, disabled = false } = $props();
 </script>
 
-<li class="session-card__demo-item" class:session-card__demo-item--disabled={disabled}>
-  <span class="session-card__demo-index">{demo.index}</span>
-  <span class="session-card__demo-name">{demo.name}</span>
-  {#if !disabled}
-    <div class="session-card__demo-links">
-      <a class="demo-link" href="{sessionId}/{demo.id}/">↗ live</a>
-      <a class="demo-link" href="editor/?demo={sessionId}/{demo.id}">✏ edit</a>
-    </div>
+<li class="session-card__demo-item">
+  {#if disabled}
+    <span class="session-card__demo-index">{demo.index}</span>
+    <span class="session-card__demo-name">{demo.name}</span>
+  {:else}
+    <a class="session-card__demo-link" href="editor/?demo={sessionId}/{demo.id}">
+      <span class="session-card__demo-index">{demo.index}</span>
+      <span class="session-card__demo-name">{demo.name}</span>
+    </a>
   {/if}
 </li>
 
 <style>
   .session-card__demo-item {
     display: flex;
+    font-size: var(--font-size-s);
+    color: var(--text-primary);
+    border-radius: var(--radius);
+  }
+
+  .session-card__demo-link {
+    display: flex;
     align-items: center;
     gap: var(--base);
     padding: var(--base-h) var(--base);
     border-radius: var(--radius);
-    font-size: var(--font-size-s);
-    color: var(--text-primary);
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
   }
 
-  .session-card__demo-item:not(.session-card__demo-item--disabled):hover {
+  .session-card__demo-link:hover {
     background: var(--surface-main-variant);
+  }
+
+  .session-card__demo-link:hover .session-card__demo-name {
+    text-decoration: underline;
+  }
+
+  .session-card__demo-item:not(:has(.session-card__demo-link)) {
+    align-items: center;
+    gap: var(--base);
+    padding: var(--base-h) var(--base);
   }
 
   .session-card__demo-index {
@@ -33,34 +52,11 @@
     font-size: var(--font-size-xs);
     color: var(--text-secondary);
     min-width: var(--base-3);
+    flex-shrink: 0;
   }
 
   .session-card__demo-name {
     flex: 1;
     min-width: 0;
-  }
-
-  .session-card__demo-links {
-    display: flex;
-    gap: var(--base-h);
-    margin-left: auto;
-  }
-
-  .demo-link {
-    font-family: var(--font-stack-monospace);
-    font-size: var(--font-size-xs);
-    padding: 2px var(--base-h);
-    border-radius: var(--radius-subtle);
-    text-decoration: none;
-    background: var(--surface-control);
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    transition: background 0.1s, color 0.1s;
-  }
-
-  .demo-link:hover {
-    background: var(--surface-brand-primary-subtle);
-    color: var(--text-primary-on-surface-brand-primary-subtle);
-    border-color: transparent;
   }
 </style>
