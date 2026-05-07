@@ -11,6 +11,11 @@
         { id: 'd4', index: 'D4', name: '@layer' },
         { id: 'd5', index: 'D5', name: 'Subgrid' },
         { id: 'd6', index: 'D6', name: 'reading-flow' },
+        { id: 'd7', index: 'D7', name: 'CSS Nesting' },
+        { id: 'd8', index: 'D8', name: 'Logical Properties' },
+        { id: 'd9', index: 'D9', name: 'clamp() · min() · max()' },
+        { id: 'd10', index: 'D10', name: ':focus-visible · :focus-within' },
+        { id: 'd11', index: 'D11', name: 'color-scheme' },
       ],
     },
     {

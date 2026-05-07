@@ -167,11 +167,16 @@ Začni prázdnými demy – správná šablona, placeholder obsah. Dema plníme 
 
 ### S1 – Foundations Refresh (30. 6. 2026 / 90 min)
 - `d1` – Intrinsic sizing (`min-content`, `max-content`, `fit-content()`)
-- `d2` – `:has()` – parent selector
+- `d2` – `:has()` · `:is()` · `:where()` – parent & grouping selectors
 - `d3` – Container Queries
 - `d4` – `@layer` – cascade management
 - `d5` – Subgrid
 - `d6` – `reading-flow`
+- `d7` – CSS Nesting (`&`) – nativní vnoření bez preprocesoru
+- `d8` – Logical Properties (`margin-inline`, `padding-block`, `inset`)
+- `d9` – Comparison functions (`clamp()`, `min()`, `max()`) – fluid hodnoty
+- `d10` – `:focus-visible` · `:focus-within` – přístupný focus
+- `d11` – `color-scheme` · `prefers-color-scheme` – dark mode na úrovni prohlížeče
 
 ### S2 – Colors & Typography (srpen 2026 / 90 min)
 - `d1` – `oklch()` vs HSL – vizuální porovnání
