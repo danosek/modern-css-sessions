@@ -4,7 +4,7 @@
   let { session } = $props();
 </script>
 
-<div class="session-card" class:session-card--future={!session.demos}>
+<div class="session-card" class:session-card--future={session.future}>
   <div class="session-card__meta">
     <span class="session-card__number">{session.number}</span>
     {#if session.duration}
@@ -15,12 +15,8 @@
   {#if session.demos}
     <ul class="session-card__demos">
       {#each session.demos as demo}
-        <DemoItem sessionId={session.id} {demo} />
+        <DemoItem sessionId={session.id} {demo} disabled={session.future} />
       {/each}
-    </ul>
-  {:else if session.placeholder}
-    <ul class="session-card__demos session-card__demos--disabled">
-      <li class="session-card__demo-placeholder">{session.placeholder}</li>
     </ul>
   {/if}
 </div>
@@ -78,12 +74,5 @@
     gap: var(--base-h);
     border-top: 1px solid var(--border);
     padding-top: var(--base-2);
-  }
-
-  .session-card__demo-placeholder {
-    font-size: var(--font-size-s);
-    color: var(--text-secondary);
-    font-style: italic;
-    padding: var(--base-h) var(--base);
   }
 </style>

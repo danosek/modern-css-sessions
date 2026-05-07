@@ -1,14 +1,16 @@
 <script>
-  let { sessionId, demo } = $props();
+  let { sessionId, demo, disabled = false } = $props();
 </script>
 
-<li class="session-card__demo-item">
+<li class="session-card__demo-item" class:session-card__demo-item--disabled={disabled}>
   <span class="session-card__demo-index">{demo.index}</span>
   <span class="session-card__demo-name">{demo.name}</span>
-  <div class="session-card__demo-links">
-    <a class="demo-link" href="{sessionId}/{demo.id}/">↗ live</a>
-    <a class="demo-link" href="editor/?demo={sessionId}/{demo.id}">✏ edit</a>
-  </div>
+  {#if !disabled}
+    <div class="session-card__demo-links">
+      <a class="demo-link" href="{sessionId}/{demo.id}/">↗ live</a>
+      <a class="demo-link" href="editor/?demo={sessionId}/{demo.id}">✏ edit</a>
+    </div>
+  {/if}
 </li>
 
 <style>
@@ -22,7 +24,7 @@
     color: var(--text-primary);
   }
 
-  .session-card__demo-item:hover {
+  .session-card__demo-item:not(.session-card__demo-item--disabled):hover {
     background: var(--surface-main-variant);
   }
 
