@@ -134,9 +134,9 @@ code {
 }
 
 .layout-stage {
-  background: var(--surface-base);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
   padding: var(--base-4);
 }
 
@@ -170,7 +170,7 @@ code {
 
 .ex-input {
   height: 32px;
-  background: var(--surface-main);
+  background: var(--surface-front);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
 }
@@ -181,7 +181,7 @@ code {
   grid-template-columns: max-content 1fr max-content;
   align-items: center;
   gap: var(--base-3);
-  background: var(--surface-main);
+  background: var(--surface-front);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--base-2) var(--base-3);

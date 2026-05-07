@@ -48,10 +48,6 @@ body {
 
 /* Stage – oblast kde běží demo */
 .demo-stage {
-  background: var(--surface-main);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  padding: var(--base-4);
   margin-bottom: var(--base-3);
 }
 
