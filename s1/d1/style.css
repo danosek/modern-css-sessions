@@ -60,7 +60,7 @@ code {
 }
 
 .live-stage {
-  background: var(--surface-base);
+  background: var(--surface-main-dim);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   padding: var(--base-3);

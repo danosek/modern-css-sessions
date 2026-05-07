@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="cs" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intrinsic Sizing – Modern CSS S1</title>
 
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/spectro-theme.css">
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/demo-base.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <button class="theme-toggle"
-    onclick="document.documentElement.dataset.theme =
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
       document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
     Toggle theme
   </button>
@@ -23,23 +22,25 @@
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">Intrinsic Sizing</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">min-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">fit-content</span>
+      <span class="demo-feature__kw">min-content</span><span class="demo-feature__sep">·</span><span
+        class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span
+        class="demo-feature__kw">fit-content</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <!-- Přepínač -->
-    <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
-      <button class="sizing-btn" aria-pressed="false" data-value="auto">auto</button>
-      <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
-      <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
-      <button class="sizing-btn" aria-pressed="true"  data-value="fit-content">fit-content</button>
-    </div>
 
     <!-- Živé demo -->
     <div class="live-section">
       <div class="live-label">Živá ukázka — šířka boxu se mění podle vybrané hodnoty:</div>
+      <!-- Přepínač -->
+      <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
+        <button class="sizing-btn" aria-pressed="false" data-value="auto">auto</button>
+        <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
+        <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
+        <button class="sizing-btn" aria-pressed="true" data-value="fit-content">fit-content</button>
+      </div>
       <div class="live-stage">
         <div class="demo-box" data-sizing="fit-content">
           <p>Toto je <strong>krátký text.</strong></p>
@@ -59,25 +60,45 @@
       <div class="sizing-grid">
         <div class="sizing-card">
           <div class="sizing-card__label">width: auto</div>
+<<<<<<< Updated upstream
           <div class="demo-box" style="width: auto">
+=======
+          <div
+            style="width: auto; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+>>>>>>> Stashed changes
             Box vyplní dostupný prostor rodičovského elementu.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: min-content</div>
+<<<<<<< Updated upstream
           <div class="demo-box" style="width: min-content">
+=======
+          <div
+            style="width: min-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+>>>>>>> Stashed changes
             Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: max-content</div>
+<<<<<<< Updated upstream
           <div class="demo-box" style="width: max-content">
+=======
+          <div
+            style="width: max-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+>>>>>>> Stashed changes
             Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
           </div>
         </div>
         <div class="sizing-card">
           <div class="sizing-card__label">width: fit-content</div>
+<<<<<<< Updated upstream
           <div class="demo-box" style="width: fit-content">
+=======
+          <div
+            style="width: fit-content; background: var(--surface-brand-primary-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--base-2); font-size: var(--font-size-s);">
+>>>>>>> Stashed changes
             Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
           </div>
         </div>
@@ -171,4 +192,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
