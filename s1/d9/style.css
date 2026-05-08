@@ -1,0 +1,318 @@
+/* ── D9: CSS Comparison Functions — clamp(), min(), max() ──────────────── */
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+
+.cf-section {
+  padding-block: var(--base-5);
+  border-block-end: 1px solid var(--border);
+}
+
+.cf-section:last-child {
+  border-block-end: none;
+}
+
+.cf-section__header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  margin-block-end: var(--base-4);
+}
+
+.cf-fn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--surface-brand-primary-strong);
+  background: var(--surface-brand-primary-minimal);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius);
+}
+
+.cf-section__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+/* ── Anatomy diagram ─────────────────────────────────────────────────────── */
+
+.cf-anatomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25em;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+  margin-block-end: var(--base-4);
+  position: relative;
+}
+
+.cf-anatomy__fn {
+  color: var(--text-primary);
+}
+
+.cf-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+.cf-anatomy__min {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.cf-anatomy__pref {
+  color: #1565c0;
+  font-weight: 600;
+}
+
+.cf-anatomy__max {
+  color: #6a1b9a;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .cf-anatomy__min  { color: #66bb6a; }
+[data-theme="dark"] .cf-anatomy__pref { color: #64b5f6; }
+[data-theme="dark"] .cf-anatomy__max  { color: #ce93d8; }
+
+.cf-anatomy__labels {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-4);
+  margin-block-start: var(--base-2);
+  padding-block-start: var(--base-2);
+  border-block-start: 1px dashed var(--border);
+}
+
+.cf-anatomy__label {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--base-h);
+}
+
+.cf-anatomy__label::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cf-anatomy__label--min::before  { background: #2e7d32; }
+.cf-anatomy__label--pref::before { background: #1565c0; }
+.cf-anatomy__label--max::before  { background: #6a1b9a; }
+
+[data-theme="dark"] .cf-anatomy__label--min::before  { background: #66bb6a; }
+[data-theme="dark"] .cf-anatomy__label--pref::before { background: #64b5f6; }
+[data-theme="dark"] .cf-anatomy__label--max::before  { background: #ce93d8; }
+
+/* ── Compare layout ──────────────────────────────────────────────────────── */
+
+.cf-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--base-4);
+  margin-block-end: var(--base-3);
+}
+
+.cf-compare__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.cf-compare__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cf-compare__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Demo boxes ──────────────────────────────────────────────────────────── */
+
+.cf-demo-box {
+  background: var(--surface-brand-primary-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.cf-demo-box--ruler {
+  background: var(--surface-main-variant);
+  overflow: hidden;
+}
+
+/* ── 1. Fluid heading ────────────────────────────────────────────────────── */
+
+.cf-fluid-heading {
+  font-family: var(--font-stack-headings);
+  font-size: clamp(1.25rem, 4vw, 3rem);
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.cf-fixed-heading {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ── 2. min() container width ────────────────────────────────────────────── */
+
+.cf-min-box {
+  width: min(100%, 640px);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+.cf-maxwidth-box {
+  max-width: 640px;
+  width: 100%;
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+.cf-box-label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* ── 3. max() minimum guarantee ──────────────────────────────────────────── */
+
+.cf-max-padding-box {
+  width: 100%;
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: max(var(--base-2), 3vw);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.cf-max-fontsize {
+  font-size: max(14px, 1.5vw);
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Info cards ──────────────────────────────────────────────────────────── */
+
+.cf-info-row {
+  margin-block-start: var(--base-3);
+}
+
+.cf-info-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--surface-brand-primary-strong);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+}
+
+.cf-info-card__title {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-block-end: var(--base);
+}
+
+.cf-info-card p {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 4. Fluid grid with clamp() gap ─────────────────────────────────────── */
+
+.cf-fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
+  margin-block-end: var(--base-3);
+}
+
+.cf-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  box-shadow: var(--elevation);
+}
+
+.cf-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-strong);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.cf-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.cf-card__body {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Hint ────────────────────────────────────────────────────────────────── */
+
+.cf-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-2);
+}

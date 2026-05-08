@@ -20,12 +20,223 @@
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">CSS Nesting</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">&amp;</span>
+      <span class="demo-feature__kw">&amp;</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">nesting selector</span>
     </span>
   </div>
 
   <div class="demo-stage">
-    <!-- TODO -->
+
+    <!-- 1. Živá ukázka — navigační menu s nested styly -->
+    <div class="live-label">Živá ukázka — navigace stylovaná nativním nestingem (zkus hover &amp; aktivní položku):</div>
+    <div class="live-stage">
+      <nav class="nav-demo">
+        <ul class="nav-demo__list">
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link nav-demo__link--active">Domů</a>
+          </li>
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link">Komponenty</a>
+          </li>
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link">Dokumentace</a>
+          </li>
+          <li class="nav-demo__item nav-demo__item--disabled">
+            <a href="#" class="nav-demo__link">Archiv</a>
+          </li>
+        </ul>
+      </nav>
+      <p class="demo-hint">Celá navigace je stylovaná jedním vnořeným blokem <code>.nav-demo { … }</code></p>
+    </div>
+
+    <!-- 2. Základní nesting — flat vs. nested -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Základní nesting — flat CSS vs. nested CSS:</div>
+
+      <div class="compare-grid">
+
+        <div class="compare-col">
+          <div class="compare-col__label compare-col__label--old">Flat CSS (tradiční)</div>
+          <div class="code-block">
+            <pre><code>.card { background: …; border-radius: …; }
+.card__title { font-size: …; color: …; }
+.card__body { padding: …; color: …; }
+.card__footer { border-top: …; }
+.card:hover { box-shadow: …; }
+.card--featured { border-color: …; }</code></pre>
+          </div>
+          <div class="compare-col__note">Selektor <code>.card</code> se opakuje → obtížnější přesun, rename</div>
+        </div>
+
+        <div class="compare-col">
+          <div class="compare-col__label compare-col__label--new">Nested CSS (nativní)</div>
+          <div class="code-block code-block--highlight">
+            <pre><code>.card {
+  background: …;
+  border-radius: …;
+
+  &amp; .card__title { font-size: …; color: …; }
+  &amp; .card__body  { padding: …;  color: …; }
+  &amp; .card__footer { border-top: …; }
+  &amp;:hover { box-shadow: …; }
+  &amp;.card--featured { border-color: …; }
+}</code></pre>
+          </div>
+          <div class="compare-col__note">Vše v jednom bloku → přehlednost, snadný refactoring</div>
+        </div>
+
+      </div>
+
+      <!-- Živé karty demonstrující nested strukturu -->
+      <div class="cards-row">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__badge">Základní</span>
+          </div>
+          <div class="card__title">Karta s nestingem</div>
+          <div class="card__body">Hover nad kartou zobrazí stín. Všechny styly jsou ve vnořeném bloku <code>.card { … }</code>.</div>
+          <div class="card__footer">footer · nested CSS</div>
+        </div>
+        <div class="card card--featured">
+          <div class="card__header">
+            <span class="card__badge card__badge--featured">Doporučeno</span>
+          </div>
+          <div class="card__title">Varianta <code>&amp;.card--featured</code></div>
+          <div class="card__body">Modifier třída přidaná přes <code>&amp;.card--featured { … }</code> — ampersand je selektor rodiče.</div>
+          <div class="card__footer">footer · nested modifier</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. State a pseudo-selektory -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">State a pseudo-selektory — <code>&amp;:hover</code>, <code>&amp;:disabled</code>, <code>&amp;:focus-visible</code>:</div>
+
+      <div class="btn-demo-grid">
+        <div class="btn-demo-item">
+          <button class="demo-btn">Normální</button>
+          <code class="btn-state-label">výchozí stav</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--force-hover">Hover</button>
+          <code class="btn-state-label">&amp;:hover</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn" disabled>Zakázáno</button>
+          <code class="btn-state-label">&amp;:disabled</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--force-focus">Focus</button>
+          <code class="btn-state-label">&amp;:focus-visible</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--secondary">Sekundární</button>
+          <code class="btn-state-label">&amp;.demo-btn--secondary</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--danger">Nebezpečí</button>
+          <code class="btn-state-label">&amp;.demo-btn--danger</code>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: var(--base-4);">
+        <pre><code>.demo-btn {
+  /* základní styly */
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+
+  &amp;:hover        { filter: brightness(1.1); transform: translateY(-1px); }
+  &amp;:disabled     { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  &amp;:focus-visible { outline: 2px solid var(--surface-brand-primary-strong);
+                    outline-offset: 3px; }
+  &amp;.demo-btn--secondary { background: var(--surface-main-variant); }
+  &amp;.demo-btn--danger    { background: var(--status-error); }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- 4. @media uvnitř pravidla -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);"><code>@media</code> uvnitř pravidla — zmenši okno prohlížeče a sleduj změnu:</div>
+
+      <div class="fluid-demo">
+        <div class="fluid-hero">
+          <h2 class="fluid-hero__title">Responzivní nadpis</h2>
+          <p class="fluid-hero__subtitle">Tento blok mění layout, velikost písma i padding — vše definováno uvnitř jednoho CSS pravidla.</p>
+          <div class="fluid-hero__badges">
+            <span class="fluid-badge">Desktop</span>
+            <span class="fluid-badge fluid-badge--mobile">Mobil</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: var(--base-4);">
+        <pre><code>.fluid-hero {
+  display: flex;
+  flex-direction: row;       /* desktop: řádek */
+  gap: var(--base-4);
+  padding: var(--base-5);
+
+  /* @media přímo uvnitř pravidla! */
+  @media (max-width: 600px) {
+    flex-direction: column;  /* mobil: sloupec */
+    padding: var(--base-3);
+  }
+
+  &amp; .fluid-hero__title {
+    font-size: var(--font-size-xxl);
+
+    @media (max-width: 600px) {
+      font-size: var(--font-size-xl);  /* menší na mobilu */
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+  </div><!-- /.demo-stage -->
+
+  <div class="demo-code">
+    <pre><code>/* ─── CSS Nesting — klíčové vzory ─────────────────────────────────────────── */
+
+/* 1. Základní nesting — & je odkaz na rodičovský selektor */
+.nav {
+  display: flex;
+  gap: var(--base-2);
+
+  & .nav__item { list-style: none; }   /* potomek */
+  & .nav__link { text-decoration: none; color: var(--text-primary); }
+  & .nav__link:hover { color: var(--text-brand-primary); } /* pseudo-třída */
+}
+
+/* 2. Modifier & state vše v jednom bloku */
+.btn {
+  padding: var(--base-h) var(--base-3);
+  background: var(--surface-brand-primary-strong);
+
+  &:hover        { filter: brightness(1.1); }
+  &:disabled     { opacity: 0.4; cursor: not-allowed; }
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  &.btn--ghost   { background: transparent; border: 1px solid currentColor; }
+}
+
+/* 3. @media vnořené přímo v pravidle */
+.hero {
+  font-size: var(--font-size-xxl);
+  flex-direction: row;
+
+  @media (max-width: 600px) {
+    font-size: var(--font-size-xl);   /* bez opakování selektoru */
+    flex-direction: column;
+  }
+}
+
+/* 4. Nesting bez & — od Chrome 112+, Firefox 117+, Safari 17.2+ */
+.card {
+  border-radius: var(--radius);
+
+  .card__title { font-weight: 600; }  /* implicitní & před potomkem */
+  .card__body  { color: var(--text-secondary); }
+}</code></pre>
   </div>
 
   <script src="script.js"></script>
