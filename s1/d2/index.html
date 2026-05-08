@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>:has() – Modern CSS S1</title>
+  <title>Comparison Functions – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
@@ -18,216 +18,230 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">:has() — rodičovský selektor</h1>
+    <h1 class="demo-title">Comparison Functions</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">:has()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">:is()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">:where()</span>
+      <span class="demo-feature__kw">clamp()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">min()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max()</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <!-- Live: Task list — pure CSS, no JS -->
-    <div class="live-label">Živá ukázka — <code>.task:has(input:checked)</code> přeškrtne celou řádku, čistý CSS:</div>
-    <div class="live-stage">
-      <ul class="task-list">
-        <li class="task">
-          <input type="checkbox" id="t1">
-          <label for="t1">
-            <span class="task-name">Zkontrolovat pull requesty</span>
-            <span class="task-meta">Vývoj · dnes</span>
-          </label>
-        </li>
-        <li class="task">
-          <input type="checkbox" id="t2">
-          <label for="t2">
-            <span class="task-name">Napsat testy pro novou komponentu</span>
-            <span class="task-meta">Vývoj · zítra</span>
-          </label>
-        </li>
-        <li class="task">
-          <input type="checkbox" id="t3">
-          <label for="t3">
-            <span class="task-name">Připravit prezentaci pro klienta</span>
-            <span class="task-meta">Design · pátek</span>
-          </label>
-        </li>
-        <li class="task">
-          <input type="checkbox" id="t4">
-          <label for="t4">
-            <span class="task-name">Nastavit CI pipeline pro nový projekt</span>
-            <span class="task-meta">Ops · příští týden</span>
-          </label>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Examples -->
-    <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Praktické příklady:</div>
-
-      <div class="examples-cols">
-
-        <!-- Form validation -->
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>.field:has(input:user-invalid / :user-valid)</code>
-            <span>Validace formuláře bez JS</span>
-          </div>
-          <div class="layout-stage">
-            <form onsubmit="return false">
-              <div class="field">
-                <label class="field-label" for="fe">E-mailová adresa</label>
-                <input class="field-input" type="email" id="fe" required placeholder="vas@email.cz">
-              </div>
-              <div class="field">
-                <label class="field-label" for="fw">Webová stránka</label>
-                <input class="field-input" type="url" id="fw" required placeholder="https://example.com">
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Nav with active subitem -->
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>.nav-section:has(.is-active)</code>
-            <span>Zvýraznění aktivní sekce</span>
-          </div>
-          <div class="layout-stage">
-            <nav class="nav-demo">
-              <div class="nav-section">
-                <span class="nav-section__title">Produkty</span>
-                <ul class="nav-list">
-                  <li><a href="#" class="nav-link">Notebooky</a></li>
-                  <li><a href="#" class="nav-link is-active">Tablety</a></li>
-                  <li><a href="#" class="nav-link">Příslušenství</a></li>
-                </ul>
-              </div>
-              <div class="nav-section">
-                <span class="nav-section__title">Podpora</span>
-                <ul class="nav-list">
-                  <li><a href="#" class="nav-link">Docs</a></li>
-                  <li><a href="#" class="nav-link">Fórum</a></li>
-                </ul>
-              </div>
-              <div class="nav-section">
-                <span class="nav-section__title">Firma</span>
-                <ul class="nav-list">
-                  <li><a href="#" class="nav-link">O nás</a></li>
-                  <li><a href="#" class="nav-link">Kontakt</a></li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </div>
-
+    <!-- ── 1. clamp() — fluid typography ──────────────────────────────────── -->
+    <section class="cf-section">
+      <div class="cf-section__header">
+        <code class="cf-fn">clamp()</code>
+        <span class="cf-section__desc">Fluid typografie — nadpis se plynule mění s šířkou okna</span>
       </div>
 
-      <!-- Card with / without image -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>.card:has(.card__img)</code>
-          <span>Layout se automaticky přizpůsobí obsahu</span>
+      <div class="cf-anatomy">
+        <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span class="cf-anatomy__fn">)</span>
+        <div class="cf-anatomy__labels">
+          <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
+          <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
+          <span class="cf-anatomy__label cf-anatomy__label--max">největší povolená hodnota</span>
         </div>
-        <div class="layout-stage">
-          <div class="cards-demo">
-            <div class="card">
-              <div class="card__img">◫</div>
-              <div class="card__body">
-                <strong class="card__title">S obrázkem — horizontální grid</strong>
-                <p class="card__text">Karta obsahuje <code>.card__img</code>, proto <code>:has(.card__img)</code> přepne layout na <code>grid-template-columns: 100px 1fr</code>.</p>
-              </div>
+      </div>
+
+      <div class="cf-compare">
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>font-size: clamp(1.25rem, 4vw, 3rem)</code>
+            <span class="cf-compare__note">plynule roste s oknem</span>
+          </div>
+          <div class="cf-demo-box">
+            <p class="cf-fluid-heading">Fluid nadpis</p>
+          </div>
+        </div>
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>font-size: var(--font-size-xl)</code>
+            <span class="cf-compare__note">fixní velikost</span>
+          </div>
+          <div class="cf-demo-box">
+            <p class="cf-fixed-heading">Fixní nadpis</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-hint">
+        Zmenšuj nebo zvětšuj okno prohlížeče — fluid nadpis se mění plynule, fixní zůstává stejný.
+      </div>
+    </section>
+
+    <!-- ── 2. min() — container width ─────────────────────────────────────── -->
+    <section class="cf-section">
+      <div class="cf-section__header">
+        <code class="cf-fn">min()</code>
+        <span class="cf-section__desc">Šířka kontejneru — vrátí nejmenší z hodnot</span>
+      </div>
+
+      <div class="cf-compare">
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>width: min(100%, 640px)</code>
+            <span class="cf-compare__note">100 % nebo maximálně 640 px — vždy menší hodnota</span>
+          </div>
+          <div class="cf-demo-box cf-demo-box--ruler">
+            <div class="cf-min-box">
+              <span class="cf-box-label">min(100%, 640px)</span>
             </div>
-            <div class="card">
-              <div class="card__body">
-                <strong class="card__title">Bez obrázku — textový blok</strong>
-                <p class="card__text">Karta neobsahuje <code>.card__img</code>. Selektor <code>:has()</code> se neaplikuje, karta zůstane jako jednoduchý blok.</p>
-              </div>
+          </div>
+        </div>
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>max-width: 640px</code>
+            <span class="cf-compare__note">ekvivalentní zápis — ale <code>min()</code> přijme i více argumentů</span>
+          </div>
+          <div class="cf-demo-box cf-demo-box--ruler">
+            <div class="cf-maxwidth-box">
+              <span class="cf-box-label">max-width: 640px</span>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- :is() and :where() -->
-    <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">:is() a :where() — skupinové selektory:</div>
-
-      <div class="iw-grid">
-
-        <div class="sizing-card">
-          <div class="sizing-card__label">:is() — specificita = max(argumentů)</div>
-          <div class="iw-demo">
-            <div class="iw-code">
-              <code>article :is(h1, h2, h3) { color: … }</code>
-              <span class="iw-spec">≡ article h1, article h2, article h3 { … }</span>
-            </div>
-            <div class="article-demo">
-              <p class="is-h2">Nadpis druhé úrovně</p>
-              <p class="is-p">Odstavec — není ve skupině :is()</p>
-              <p class="is-h3">Nadpis třetí úrovně</p>
-            </div>
-            <p class="iw-note">Specificita odpovídá nejsilnějšímu argumentu. <code>:is(#id, .class)</code> má specificitu ID selektoru pro všechny pravidla ve skupině.</p>
-          </div>
+      <div class="cf-info-row">
+        <div class="cf-info-card">
+          <div class="cf-info-card__title">Proč <code>min()</code>?</div>
+          <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
         </div>
-
-        <div class="sizing-card">
-          <div class="sizing-card__label">:where() — specificita vždy = 0</div>
-          <div class="iw-demo">
-            <div class="iw-code">
-              <code>:where(.box) { background: violet; }</code>
-              <span class="iw-spec iw-spec--zero">specificita (0,0,0) → přepsatelné čímkoliv</span>
-            </div>
-            <div class="where-demo">
-              <div class="where-box">Výchozí styl přes :where()</div>
-              <div class="where-box where-box--override">Přepsán třídou .where-box--override<br><small>funguje, protože :where() má specificitu 0</small></div>
-            </div>
-            <p class="iw-note">Ideální pro reset / base styly — jakýkoliv selektor je přepíše bez <code>!important</code>. Používá se v design systémech pro přepisovatelné výchozí hodnoty.</p>
-          </div>
-        </div>
-
       </div>
-    </div>
+    </section>
 
-  </div>
+    <!-- ── 3. max() — minimum guarantee ───────────────────────────────────── -->
+    <section class="cf-section">
+      <div class="cf-section__header">
+        <code class="cf-fn">max()</code>
+        <span class="cf-section__desc">Garantované minimum — vrátí největší z hodnot</span>
+      </div>
+
+      <div class="cf-compare">
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>padding: max(var(--base-2), 3vw)</code>
+            <span class="cf-compare__note">padding roste s viewportem, ale nikdy neklesne pod minimum</span>
+          </div>
+          <div class="cf-demo-box">
+            <div class="cf-max-padding-box">
+              <span class="cf-box-label">Obsah s fluid paddingem</span>
+            </div>
+          </div>
+        </div>
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>font-size: max(14px, 1.5vw)</code>
+            <span class="cf-compare__note">nikdy nečitelně malé — minimum 14 px zaručeno</span>
+          </div>
+          <div class="cf-demo-box">
+            <p class="cf-max-fontsize">
+              Tento text je nikdy menší než 14 px, ale roste s šířkou okna díky 1.5vw.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-info-row">
+        <div class="cf-info-card">
+          <div class="cf-info-card__title">Proč <code>max()</code>?</div>
+          <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru. Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. clamp() pro spacing ─────────────────────────────────────────── -->
+    <section class="cf-section">
+      <div class="cf-section__header">
+        <code class="cf-fn">clamp()</code>
+        <span class="cf-section__desc">Fluid mezery — <code>gap</code> se přizpůsobí viewportu</span>
+      </div>
+
+      <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
+        <code>gap: clamp(var(--base-2), 3vw, var(--base-6))</code>
+        <span class="cf-compare__note">mezera mezi kartami roste plynule s oknem</span>
+      </div>
+
+      <div class="cf-fluid-grid">
+        <div class="cf-card">
+          <div class="cf-card__icon">A</div>
+          <div class="cf-card__title">Karta první</div>
+          <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
+        </div>
+        <div class="cf-card">
+          <div class="cf-card__icon">B</div>
+          <div class="cf-card__title">Karta druhá</div>
+          <div class="cf-card__body">Na mobilu minimum, na desktopu maximum, mezi tím plynulý přechod.</div>
+        </div>
+        <div class="cf-card">
+          <div class="cf-card__icon">C</div>
+          <div class="cf-card__title">Karta třetí</div>
+          <div class="cf-card__body">Žádné breakpointy — <code>clamp()</code> zvládne vše sám.</div>
+        </div>
+      </div>
+
+      <div class="cf-hint">
+        Změň šířku okna a sleduj, jak se mezery mezi kartami plynule mění.
+      </div>
+    </section>
+
+  </div><!-- /demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* :has() — rodičovský selektor */
+    <pre><code>/* ── CSS Comparison Functions ────────────────────────────────────────────── */
 
-/* Celá řádka reaguje na stav checkboxu uvnitř — čistý CSS */
-.task:has(input:checked) {
-  opacity: 0.5;
-}
-.task:has(input:checked) .task-name {
-  text-decoration: line-through;
-}
+/* clamp(minimum, preferred, maximum)
+   Vrátí preferred, ale nikdy méně než minimum a nikdy více než maximum.
+   Ideální pro fluid typografii a spacing. */
 
-/* Validace formuláře bez JS */
-.field:has(input:user-invalid) .field-label { color: var(--status-error); }
-.field:has(input:user-invalid) .field-input  { border-color: var(--status-error); }
-.field:has(input:user-valid)   .field-label  { color: var(--status-success); }
-.field:has(input:user-valid)   .field-input  { border-color: var(--status-success); }
-
-/* Navigace: zvýrazni sekci, když je potomek aktivní */
-.nav-section:has(.is-active) {
-  background: var(--surface-brand-primary-subtle);
-  border-left: 3px solid var(--surface-brand-primary-strong);
+.fluid-heading {
+  font-size: clamp(1.25rem, 4vw, 3rem);
+  /* Na úzkém okně: 1.25rem | Fluid střed: 4vw | Na širokém: 3rem */
 }
 
-/* Layout se mění podle přítomnosti potomka */
-.card:has(.card__img) {
+.fluid-gap-grid {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: var(--base-3);
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
 }
 
-/* :is() — zkratka (specificita = nejvyšší argument) */
-article :is(h1, h2, h3, h4) { font-family: var(--font-stack-headings); }
 
-/* :where() — jako :is(), ale specificita = 0 → vždy přepsatelné */
-:where(button, input, select) { border-radius: var(--radius); }</code></pre>
+/* ── min() ───────────────────────────────────────────────────────────────── */
+
+/* min(a, b, …) — vrátí nejmenší hodnotu ze seznamu.
+   Výborné pro omezení šířky: buď 100 % nebo max. 640 px — co je menší. */
+
+.container {
+  width: min(100%, 640px);
+  /* Ekvivalentní: max-width: 640px — ale min() přijme více argumentů */
+}
+
+/* Kombinace více jednotek — není možné s max-width */
+.sidebar {
+  width: min(50vw, 320px, 100%);
+}
+
+
+/* ── max() ───────────────────────────────────────────────────────────────── */
+
+/* max(a, b, …) — vrátí největší hodnotu ze seznamu.
+   Výborné jako "spodní zarážka": garantuje minimum, fluid nahoru. */
+
+.card {
+  padding: max(var(--base-2), 3vw);
+  /* Na úzkém okně: var(--base-2) | Na širokém: 3vw (větší) */
+}
+
+.body-text {
+  font-size: max(14px, 1.5vw);
+  /* Nikdy pod 14 px — zaručuje čitelnost na malých obrazovkách */
+}
+
+
+/* ── Kombinace ────────────────────────────────────────────────────────────── */
+
+/* clamp() je zkratka pro max(min, min(preferred, max)) */
+font-size: clamp(1rem, 2.5vw, 2rem);
+/* === */
+font-size: max(1rem, min(2.5vw, 2rem));</code></pre>
   </div>
 
   <script src="script.js"></script>

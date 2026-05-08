@@ -1,14 +1,20 @@
+/* ── Pomocné třídy ───────────────────────────────────────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
 }
-
-/* ── Layout helpers ──────────────────────────────────────────────────────── */
 
 .live-label {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   margin-bottom: var(--base-2);
+}
+
+.demo-hint {
+  margin-top: var(--base-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
 }
 
 .layout-section {
@@ -17,291 +23,389 @@ code {
   margin-top: var(--base-5);
   display: flex;
   flex-direction: column;
-  gap: var(--base-5);
+  gap: var(--base-4);
 }
 
-.layout-example {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
+/* ── Code block ──────────────────────────────────────────────────────────── */
 
-.layout-example__label {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--base-h) var(--base);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  color: var(--text-brand-primary);
-}
-
-.layout-example__label span {
-  font-family: var(--font-stack-main);
-  color: var(--text-secondary);
-  font-size: var(--font-size-s);
-}
-
-.examples-cols {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--base-3);
-}
-
-/* ── Layer diagram ───────────────────────────────────────────────────────── */
-
-.layer-diagram {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-radius: var(--radius-strong);
-  overflow: hidden;
+.code-block {
+  background: var(--surface-main-variant);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: auto;
 }
 
-.layer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--base-2);
-  padding: var(--base-2) var(--base-3);
-  border-bottom: 1px solid var(--border);
-  position: relative;
+.code-block--highlight {
+  border-color: var(--surface-brand-primary-strong);
+  background: var(--surface-brand-primary-minimal);
 }
 
-.layer:last-child {
-  border-bottom: none;
+.code-block pre {
+  margin: 0;
+  padding: var(--base-3) var(--base-4);
 }
 
-.layer--reset     { background: var(--surface-main-dim); }
-.layer--base      { background: var(--surface-main); }
-.layer--components { background: var(--surface-main-variant); }
-.layer--utilities  { background: var(--surface-brand-primary-minimal); }
-.layer--unlayered  {
-  background: var(--surface-brand-primary-subtle);
-  border-top: 2px solid var(--surface-brand-primary-moderate);
-}
-
-.layer__name {
-  font-family: var(--font-stack-monospace);
+.code-block code {
   font-size: var(--font-size-s);
   color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre;
 }
 
-.layer--unlayered .layer__name {
-  color: var(--text-brand-primary);
-  font-weight: 600;
+/* ── Živá ukázka — navigace (demo nativního nestingu) ────────────────────── */
+/*
+  Celý blok .nav-demo používá CSS nesting —
+  každý potomek, pseudo-třída i modifier
+  jsou uvnitř jednoho pravidla.
+*/
+
+.nav-demo {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  padding: var(--base-2) var(--base-3);
+
+  & .nav-demo__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--base-h);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .nav-demo__item {
+    display: flex;
+
+    &.nav-demo__item--disabled {
+      opacity: 0.4;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+  & .nav-demo__link {
+    display: inline-block;
+    padding: var(--base-h) var(--base-3);
+    border-radius: var(--radius);
+    font-size: var(--font-size-s);
+    font-family: var(--font-stack-main);
+    text-decoration: none;
+    color: var(--text-primary);
+    background: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: var(--surface-brand-primary-subtle);
+      color: var(--text-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--surface-brand-primary-strong);
+      outline-offset: 2px;
+    }
+
+    &.nav-demo__link--active {
+      background: var(--surface-brand-primary-strong);
+      color: var(--text-primary-on-surface-brand-primary-strong);
+      font-weight: 600;
+
+      &:hover {
+        filter: brightness(1.08);
+      }
+    }
+  }
 }
 
-.layer__desc {
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  font-family: var(--font-stack-monospace);
-}
+/* ── Flat vs. Nested — porovnání ─────────────────────────────────────────── */
 
-.layer-note {
-  margin-top: var(--base-2);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  font-family: var(--font-stack-monospace);
-}
-
-/* ── Battle grid ─────────────────────────────────────────────────────────── */
-
-.battle-grid {
+.compare-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--base-3);
 }
 
-.battle-stage {
-  resize: none;
-}
-
-.battle-item {
+.compare-col {
   display: flex;
   flex-direction: column;
-  gap: var(--base-3);
+  gap: var(--base-2);
 }
 
-.battle-rules {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-}
-
-.battle-rule {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  gap: var(--base-h) var(--base-2);
-  padding: var(--base-2) var(--base-3);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--surface-main);
-  font-family: var(--font-stack-monospace);
+.compare-col__label {
   font-size: var(--font-size-xs);
-}
-
-.battle-rule--winner {
-  border-color: var(--status-success);
-  background: var(--surface-main-variant);
-}
-
-.battle-rule--loser {
-  opacity: 0.6;
-}
-
-.battle-rule__sel {
-  color: var(--text-brand-primary);
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.battle-rule__layer {
-  color: var(--text-secondary);
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.battle-rule__value {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  align-self: center;
+  font-family: var(--font-stack-monospace);
+  font-weight: 600;
   padding: var(--base-h) var(--base-2);
   border-radius: var(--radius-subtle);
-  font-size: var(--font-size-xs);
-  white-space: nowrap;
-}
-
-/* The actual @layer demo buttons */
-@layer reset, base, components, utilities;
-
-@layer components {
-  .btn-primary {
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-  }
-}
-
-@layer utilities {
-  .bg-brand {
-    background: var(--surface-brand-secondary-strong);
-    color: var(--text-primary-on-surface-brand-secondary-strong);
-  }
-}
-
-.btn,
-.btn-primary {
-  padding: var(--base-h) var(--base-3);
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font-stack-main);
-  font-size: var(--font-size-s);
-  cursor: pointer;
-}
-
-/* no-layer control */
-.btn-primary-nl {
-  padding: var(--base-h) var(--base-3);
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font-stack-main);
-  font-size: var(--font-size-s);
-  cursor: pointer;
-  background: var(--surface-brand-primary-strong);
-  color: var(--text-primary-on-surface-brand-primary-strong);
-}
-
-.bg-brand-nl {
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary-on-surface-brand-secondary-strong);
-}
-
-/* ── Third-party import demo ─────────────────────────────────────────────── */
-
-.lib-demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.lib-card {
-  padding: var(--base-2) var(--base-3);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.lib-card--library {
-  background: var(--surface-main-dim);
-  border-style: dashed;
-}
-
-.lib-card--ours {
-  background: var(--surface-brand-primary-minimal);
-  border-color: var(--surface-brand-primary-moderate);
-}
-
-.lib-card__label {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-}
-
-.lib-btn {
-  padding: var(--base-h) var(--base-3);
-  border-radius: var(--radius);
-  font-family: var(--font-stack-main);
-  font-size: var(--font-size-s);
-  cursor: pointer;
+  display: inline-block;
   width: fit-content;
 }
 
-.lib-btn--library {
+.compare-col__label--old {
   background: var(--surface-main-variant);
-  border: 1px solid var(--border-strong);
   color: var(--text-secondary);
+  border: 1px solid var(--border);
 }
 
-.lib-btn--ours {
-  background: var(--surface-brand-primary-strong);
-  border: none;
-  color: var(--text-primary-on-surface-brand-primary-strong);
+.compare-col__label--new {
+  background: var(--surface-brand-primary-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--surface-brand-primary-strong);
 }
 
-.lib-note {
+.compare-col__note {
   font-size: var(--font-size-xs);
   color: var(--text-secondary);
   line-height: 1.5;
 }
 
-/* ── revert-layer demo ───────────────────────────────────────────────────── */
+/* ── Živé karty (nested CSS demo) ────────────────────────────────────────── */
 
-.revert-demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--base-3);
 }
 
-@layer components {
-  .rv-btn {
-    padding: var(--base-h) var(--base-3);
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    border: none;
-    border-radius: var(--radius);
-    font-family: var(--font-stack-main);
-    font-size: var(--font-size-s);
-    cursor: pointer;
-    width: fit-content;
+/*
+  Demo: vše definováno uvnitř jednoho bloku .card
+  pomocí nativního nestingu
+*/
+.card {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: var(--elevation);
+    transform: translateY(-2px);
   }
 
-  .rv-btn--ghost {
-    background: revert-layer;
-    border: 1px solid var(--surface-brand-primary-strong);
-    color: var(--text-brand-primary);
+  &.card--featured {
+    border-color: var(--surface-brand-primary-strong);
+    background: var(--surface-brand-primary-minimal);
+  }
+
+  & .card__header {
+    padding: var(--base-2) var(--base-3) 0;
+  }
+
+  & .card__badge {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-family: var(--font-stack-monospace);
+    padding: var(--base-h) var(--base-2);
+    border-radius: var(--radius-subtle);
+    background: var(--surface-main-variant);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+
+    &.card__badge--featured {
+      background: var(--surface-brand-primary-strong);
+      color: var(--text-primary-on-surface-brand-primary-strong);
+      border-color: transparent;
+    }
+  }
+
+  & .card__title {
+    padding: var(--base-2) var(--base-3) 0;
+    font-family: var(--font-stack-headings);
+    font-size: var(--font-size-xl);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  & .card__body {
+    padding: var(--base-2) var(--base-3);
+    font-size: var(--font-size-s);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  & .card__footer {
+    padding: var(--base-2) var(--base-3);
+    border-top: 1px solid var(--border);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-stack-monospace);
+    color: var(--text-secondary);
+    background: var(--surface-main-variant);
+  }
+}
+
+/* ── State demo — tlačítka ───────────────────────────────────────────────── */
+
+.btn-demo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-3);
+}
+
+.btn-demo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base);
+}
+
+.btn-state-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/*
+  Demo: .demo-btn s nested stavy
+*/
+.demo-btn {
+  padding: var(--base-2) var(--base-4);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: var(--elevation);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    filter: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--surface-brand-primary-strong);
+    outline-offset: 3px;
+  }
+
+  &.demo-btn--force-hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: var(--elevation);
+  }
+
+  &.demo-btn--force-focus {
+    outline: 2px solid var(--surface-brand-primary-strong);
+    outline-offset: 3px;
+  }
+
+  &.demo-btn--secondary {
+    background: var(--surface-main-variant);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+
+    &:hover {
+      background: var(--surface-brand-primary-subtle);
+      border-color: var(--surface-brand-primary-strong);
+    }
+  }
+
+  &.demo-btn--danger {
+    background: var(--status-error);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+
+    &:hover {
+      filter: brightness(1.12);
+    }
+  }
+}
+
+/* ── @media uvnitř pravidla — fluid hero ────────────────────────────────── */
+
+.fluid-demo {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+}
+
+/*
+  Demo: @media přímo uvnitř .fluid-hero pravidla
+  + & .fluid-hero__title s vlastní nested @media
+*/
+.fluid-hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--base-4);
+  padding: var(--base-5);
+  background: var(--surface-brand-primary-minimal);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--base-3);
+    gap: var(--base-2);
+  }
+
+  & .fluid-hero__title {
+    font-family: var(--font-stack-headings);
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 0 0 auto;
+
+    @media (max-width: 600px) {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  & .fluid-hero__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+
+    @media (max-width: 600px) {
+      font-size: var(--font-size-s);
+    }
+  }
+
+  & .fluid-hero__badges {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+    flex: 0 0 auto;
+
+    @media (max-width: 600px) {
+      flex-direction: row;
+    }
+  }
+}
+
+.fluid-badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-monospace);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius-subtle);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  white-space: nowrap;
+
+  &.fluid-badge--mobile {
+    background: var(--surface-main-variant);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+
+    @media (max-width: 600px) {
+      background: var(--surface-brand-secondary-strong);
+      color: var(--text-primary-on-surface-brand-primary-strong);
+      border-color: transparent;
+    }
   }
 }

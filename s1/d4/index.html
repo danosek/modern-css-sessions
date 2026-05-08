@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@layer – Modern CSS S1</title>
+  <title>CSS Nesting – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
@@ -18,176 +18,224 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">@layer — správa kaskády</h1>
+    <h1 class="demo-title">CSS Nesting</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">@layer</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">layer()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">revert-layer</span>
+      <span class="demo-feature__kw">&amp;</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">nesting selector</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <!-- Layer order visualization -->
-    <div class="live-label">Živá ukázka — pořadí vrstev bije specificitu selektorů:</div>
+    <!-- 1. Živá ukázka — navigační menu s nested styly -->
+    <div class="live-label">Živá ukázka — navigace stylovaná nativním nestingem (zkus hover &amp; aktivní položku):</div>
     <div class="live-stage">
-      <div class="layer-diagram">
-        <div class="layer layer--reset">
-          <span class="layer__name">@layer reset</span>
-          <span class="layer__desc">Normalize, základní reset</span>
-        </div>
-        <div class="layer layer--base">
-          <span class="layer__name">@layer base</span>
-          <span class="layer__desc">Typografie, barvy, tokeny</span>
-        </div>
-        <div class="layer layer--components">
-          <span class="layer__name">@layer components</span>
-          <span class="layer__desc">.btn, .card, .input…</span>
-        </div>
-        <div class="layer layer--utilities">
-          <span class="layer__name">@layer utilities</span>
-          <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
-        </div>
-        <div class="layer layer--unlayered">
-          <span class="layer__name">bez vrstvy (unlayered)</span>
-          <span class="layer__desc">Inline styly, přepsání ad hoc</span>
-        </div>
-      </div>
-      <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
+      <nav class="nav-demo">
+        <ul class="nav-demo__list">
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link nav-demo__link--active">Domů</a>
+          </li>
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link">Komponenty</a>
+          </li>
+          <li class="nav-demo__item">
+            <a href="#" class="nav-demo__link">Dokumentace</a>
+          </li>
+          <li class="nav-demo__item nav-demo__item--disabled">
+            <a href="#" class="nav-demo__link">Archiv</a>
+          </li>
+        </ul>
+      </nav>
+      <p class="demo-hint">Celá navigace je stylovaná jedním vnořeným blokem <code>.nav-demo { … }</code></p>
     </div>
 
-    <!-- The key demo: layer order vs. specificity -->
+    <!-- 2. Základní nesting — flat vs. nested -->
     <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Hlavní princip — <strong>pořadí vrstvy bije specificitu</strong>:</div>
+      <div class="live-label" style="margin-bottom: var(--base-4);">Základní nesting — flat CSS vs. nested CSS:</div>
 
-      <div class="battle-grid">
+      <div class="compare-grid">
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>@layer</code>
-            <span>utilities vrstva vítězí navzdory nižší specificitě</span>
+        <div class="compare-col">
+          <div class="compare-col__label compare-col__label--old">Flat CSS (tradiční)</div>
+          <div class="code-block">
+            <pre><code>.card { background: …; border-radius: …; }
+.card__title { font-size: …; color: …; }
+.card__body { padding: …; color: …; }
+.card__footer { border-top: …; }
+.card:hover { box-shadow: …; }
+.card--featured { border-color: …; }</code></pre>
           </div>
-          <div class="layout-stage battle-stage">
-            <div class="battle-item">
-              <button class="btn btn-primary bg-brand">Tlačítko</button>
-              <div class="battle-rules">
-                <div class="battle-rule battle-rule--loser">
-                  <span class="battle-rule__sel">.btn-primary</span>
-                  <span class="battle-rule__layer">components (0,1,0)</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary</span>
-                </div>
-                <div class="battle-rule battle-rule--winner">
-                  <span class="battle-rule__sel">.bg-brand</span>
-                  <span class="battle-rule__layer">utilities (0,1,0) ← vrstva je výše</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary ✓</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="compare-col__note">Selektor <code>.card</code> se opakuje → obtížnější přesun, rename</div>
         </div>
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>bez @layer</code>
-            <span>vyšší specificita vítězí (klasická kaskáda)</span>
+        <div class="compare-col">
+          <div class="compare-col__label compare-col__label--new">Nested CSS (nativní)</div>
+          <div class="code-block code-block--highlight">
+            <pre><code>.card {
+  background: …;
+  border-radius: …;
+
+  &amp; .card__title { font-size: …; color: …; }
+  &amp; .card__body  { padding: …;  color: …; }
+  &amp; .card__footer { border-top: …; }
+  &amp;:hover { box-shadow: …; }
+  &amp;.card--featured { border-color: …; }
+}</code></pre>
           </div>
-          <div class="layout-stage battle-stage">
-            <div class="battle-item">
-              <button class="btn-nl btn-primary-nl bg-brand-nl">Tlačítko</button>
-              <div class="battle-rules">
-                <div class="battle-rule battle-rule--winner">
-                  <span class="battle-rule__sel">.btn-primary-nl</span>
-                  <span class="battle-rule__layer">specificita (0,1,0) — stejná</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary ✓ (pozdější v kódu)</span>
-                </div>
-                <div class="battle-rule battle-rule--loser">
-                  <span class="battle-rule__sel">.bg-brand-nl</span>
-                  <span class="battle-rule__layer">specificita (0,1,0) — dřívější v kódu</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="compare-col__note">Vše v jednom bloku → přehlednost, snadný refactoring</div>
         </div>
 
       </div>
+
+      <!-- Živé karty demonstrující nested strukturu -->
+      <div class="cards-row">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__badge">Základní</span>
+          </div>
+          <div class="card__title">Karta s nestingem</div>
+          <div class="card__body">Hover nad kartou zobrazí stín. Všechny styly jsou ve vnořeném bloku <code>.card { … }</code>.</div>
+          <div class="card__footer">footer · nested CSS</div>
+        </div>
+        <div class="card card--featured">
+          <div class="card__header">
+            <span class="card__badge card__badge--featured">Doporučeno</span>
+          </div>
+          <div class="card__title">Varianta <code>&amp;.card--featured</code></div>
+          <div class="card__body">Modifier třída přidaná přes <code>&amp;.card--featured { … }</code> — ampersand je selektor rodiče.</div>
+          <div class="card__footer">footer · nested modifier</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Practical use cases -->
+    <!-- 3. State a pseudo-selektory -->
     <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Praktické příklady:</div>
+      <div class="live-label" style="margin-bottom: var(--base-4);">State a pseudo-selektory — <code>&amp;:hover</code>, <code>&amp;:disabled</code>, <code>&amp;:focus-visible</code>:</div>
 
-      <div class="examples-cols">
-
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>@import layer()</code>
-            <span>Third-party knihovna v nejnižší vrstvě</span>
-          </div>
-          <div class="layout-stage">
-            <div class="lib-demo">
-              <div class="lib-card lib-card--library">
-                <div class="lib-card__label">Knihovna (reset)</div>
-                <button class="lib-btn lib-btn--library">Tlačítko z knihovny</button>
-                <p class="lib-note">Styly jsou "uzamčeny" do vrstvy reset — nemohou ovlivnit naše komponenty.</p>
-              </div>
-              <div class="lib-card lib-card--ours">
-                <div class="lib-card__label">Naše komponenta (components)</div>
-                <button class="lib-btn lib-btn--ours">Naše tlačítko</button>
-                <p class="lib-note">Přebije knihovnu bez <code>!important</code> — prostě je v nižší vrstvě.</p>
-              </div>
-            </div>
-          </div>
+      <div class="btn-demo-grid">
+        <div class="btn-demo-item">
+          <button class="demo-btn">Normální</button>
+          <code class="btn-state-label">výchozí stav</code>
         </div>
-
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>revert-layer</code>
-            <span>Vrácení hodnoty na předchozí vrstvu</span>
-          </div>
-          <div class="layout-stage">
-            <div class="revert-demo">
-              <button class="rv-btn">Normální tlačítko</button>
-              <button class="rv-btn rv-btn--ghost">Ghost variant (revert-layer)</button>
-              <p class="lib-note"><code>background: revert-layer</code> vrátí hodnotu na to, co definovala nižší vrstva — bez znalosti konkrétní hodnoty.</p>
-            </div>
-          </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--force-hover">Hover</button>
+          <code class="btn-state-label">&amp;:hover</code>
         </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn" disabled>Zakázáno</button>
+          <code class="btn-state-label">&amp;:disabled</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--force-focus">Focus</button>
+          <code class="btn-state-label">&amp;:focus-visible</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--secondary">Sekundární</button>
+          <code class="btn-state-label">&amp;.demo-btn--secondary</code>
+        </div>
+        <div class="btn-demo-item">
+          <button class="demo-btn demo-btn--danger">Nebezpečí</button>
+          <code class="btn-state-label">&amp;.demo-btn--danger</code>
+        </div>
+      </div>
 
+      <div class="code-block" style="margin-top: var(--base-4);">
+        <pre><code>.demo-btn {
+  /* základní styly */
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+
+  &amp;:hover        { filter: brightness(1.1); transform: translateY(-1px); }
+  &amp;:disabled     { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  &amp;:focus-visible { outline: 2px solid var(--surface-brand-primary-strong);
+                    outline-offset: 3px; }
+  &amp;.demo-btn--secondary { background: var(--surface-main-variant); }
+  &amp;.demo-btn--danger    { background: var(--status-error); }
+}</code></pre>
       </div>
     </div>
 
-  </div>
+    <!-- 4. @media uvnitř pravidla -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);"><code>@media</code> uvnitř pravidla — zmenši okno prohlížeče a sleduj změnu:</div>
+
+      <div class="fluid-demo">
+        <div class="fluid-hero">
+          <h2 class="fluid-hero__title">Responzivní nadpis</h2>
+          <p class="fluid-hero__subtitle">Tento blok mění layout, velikost písma i padding — vše definováno uvnitř jednoho CSS pravidla.</p>
+          <div class="fluid-hero__badges">
+            <span class="fluid-badge">Desktop</span>
+            <span class="fluid-badge fluid-badge--mobile">Mobil</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: var(--base-4);">
+        <pre><code>.fluid-hero {
+  display: flex;
+  flex-direction: row;       /* desktop: řádek */
+  gap: var(--base-4);
+  padding: var(--base-5);
+
+  /* @media přímo uvnitř pravidla! */
+  @media (max-width: 600px) {
+    flex-direction: column;  /* mobil: sloupec */
+    padding: var(--base-3);
+  }
+
+  &amp; .fluid-hero__title {
+    font-size: var(--font-size-xxl);
+
+    @media (max-width: 600px) {
+      font-size: var(--font-size-xl);  /* menší na mobilu */
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+  </div><!-- /.demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* Deklaruj pořadí vrstev na začátku CSS */
-@layer reset, base, components, utilities;
+    <pre><code>/* ─── CSS Nesting — klíčové vzory ─────────────────────────────────────────── */
 
-/* Naplň vrstvy */
-@layer reset {
-  * { box-sizing: border-box; margin: 0; }
+/* 1. Základní nesting — & je odkaz na rodičovský selektor */
+.nav {
+  display: flex;
+  gap: var(--base-2);
+
+  & .nav__item { list-style: none; }   /* potomek */
+  & .nav__link { text-decoration: none; color: var(--text-primary); }
+  & .nav__link:hover { color: var(--text-brand-primary); } /* pseudo-třída */
 }
 
-@layer components {
-  .btn-primary {
-    background: var(--surface-brand-primary-strong);  /* specificita: 0,1,0 */
+/* 2. Modifier & state vše v jednom bloku */
+.btn {
+  padding: var(--base-h) var(--base-3);
+  background: var(--surface-brand-primary-strong);
+
+  &:hover        { filter: brightness(1.1); }
+  &:disabled     { opacity: 0.4; cursor: not-allowed; }
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  &.btn--ghost   { background: transparent; border: 1px solid currentColor; }
+}
+
+/* 3. @media vnořené přímo v pravidle */
+.hero {
+  font-size: var(--font-size-xxl);
+  flex-direction: row;
+
+  @media (max-width: 600px) {
+    font-size: var(--font-size-xl);   /* bez opakování selektoru */
+    flex-direction: column;
   }
 }
 
-@layer utilities {
-  .bg-secondary {
-    background: var(--surface-brand-secondary-strong); /* specificita: 0,1,0 */
-  }
-  /* .bg-secondary VÍTĚZÍ — utilities je výše než components */
-}
+/* 4. Nesting bez & — od Chrome 112+, Firefox 117+, Safari 17.2+ */
+.card {
+  border-radius: var(--radius);
 
-/* Third-party knihovna do nejnižší vrstvy */
-@import url("bootstrap.css") layer(vendor);
-/* Naše styly vždy přebijí vendor — bez !important */
-
-/* Vrácení hodnoty na předchozí vrstvu */
-@layer components {
-  .btn-ghost {
-    background: revert-layer;  /* vezme hodnotu z vrstvy 'base', ne components */
-  }
+  .card__title { font-weight: 600; }  /* implicitní & před potomkem */
+  .card__body  { color: var(--text-secondary); }
 }</code></pre>
   </div>
 

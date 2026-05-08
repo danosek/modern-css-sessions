@@ -1,18 +1,18 @@
-// D8 – Logical Properties: toggle dir="rtl" / dir="ltr" na demo kontejneru
+const grid = document.getElementById('products-grid');
+const btnOff = document.getElementById('btn-off');
+const btnOn  = document.getElementById('btn-on');
+const label  = document.getElementById('subgrid-label');
 
-document.querySelectorAll('.lp-dir-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const demo = btn.closest('.lp-demo-wrap');
-    const current = demo.getAttribute('dir');
-    const next = current === 'rtl' ? 'ltr' : 'rtl';
+btnOff.addEventListener('click', () => {
+  grid.classList.remove('use-subgrid');
+  btnOff.setAttribute('aria-pressed', 'true');
+  btnOn.setAttribute('aria-pressed', 'false');
+  label.textContent = 'Živá ukázka — bez subgrid: každá karta používá vlastní flex layout, výšky řádků nejsou zarovnány:';
+});
 
-    demo.setAttribute('dir', next);
-    btn.textContent = next === 'rtl' ? '→ Přepnout na LTR' : '→ Přepnout na RTL';
-
-    // Aktualizuj badge se směrem
-    const badge = demo.querySelector('#lp-dir-label');
-    if (badge) {
-      badge.innerHTML = `Aktuální směr: <strong>${next.toUpperCase()}</strong>`;
-    }
-  });
+btnOn.addEventListener('click', () => {
+  grid.classList.add('use-subgrid');
+  btnOn.setAttribute('aria-pressed', 'true');
+  btnOff.setAttribute('aria-pressed', 'false');
+  label.textContent = 'Živá ukázka — subgrid zarovná řádky napříč kartami:';
 });

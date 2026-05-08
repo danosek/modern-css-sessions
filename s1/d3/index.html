@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Container Queries – Modern CSS S1</title>
+  <title>Logical Properties – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
@@ -18,122 +18,281 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Container Queries</h1>
+    <h1 class="demo-title">Logical Properties</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">@container</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">container-type</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">container-name</span>
+      <span class="demo-feature__kw">margin-inline</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">padding-block</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">inset</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <!-- Live: resizable container -->
-    <div class="live-label">Živá ukázka — táhni za pravý dolní roh kontejneru a sleduj, jak se karta přizpůsobí svému prostoru (ne viewportu):</div>
-    <div class="cq-resize-wrap">
-      <div class="cq-container">
-        <article class="product-card">
-          <div class="product-card__img">⬡</div>
-          <div class="product-card__body">
-            <span class="product-card__badge">Novinka</span>
-            <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
-            <p class="product-card__desc">Mechanická klávesnice s RGB podsvícením, Bluetooth 5.2 a 6měsíční výdrží baterie. Ideální pro home office i cestování.</p>
-            <div class="product-card__footer">
-              <span class="product-card__price">2 490 Kč</span>
-              <button class="product-card__btn">Přidat do košíku</button>
+    <!-- ── Sekce 1: Živá ukázka ──────────────────────────────────────────── -->
+    <div class="lp-section">
+      <div class="live-label">Živá ukázka — fyzické vs. logické vlastnosti</div>
+      <p class="lp-desc">
+        Tlačítko přepíná směr čtení (<code>dir</code>) na celém demo kontejneru.
+        Logická verze se automaticky překlopí do RTL, fyzická ne.
+      </p>
+
+      <div class="lp-demo-wrap" dir="ltr">
+        <div class="lp-toggle-bar">
+          <span class="lp-dir-badge" id="lp-dir-label">Aktuální směr: <strong>LTR</strong></span>
+          <button class="lp-dir-toggle sizing-btn">→ Přepnout na RTL</button>
+        </div>
+
+        <div class="lp-compare">
+
+          <!-- Fyzická varianta -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--bad">Fyzické vlastnosti</div>
+            <div class="lp-card lp-card--physical">
+              <div class="lp-card__badge lp-card__badge--bad">physical</div>
+              <h3 class="lp-card__title">Název položky</h3>
+              <p class="lp-card__body">
+                Tato karta používá <code>margin-left</code>, <code>padding-top</code>
+                a <code>border-left</code>. Při přepnutí do RTL se tyto vlastnosti
+                nepřeklopí — levý okraj zůstane vlevo.
+              </p>
+              <div class="lp-card__meta">
+                <span class="lp-card__tag">fyzická</span>
+                <span class="lp-card__tag">nepřeklápí se</span>
+              </div>
             </div>
+            <pre class="lp-snippet"><code>/* Fyzické vlastnosti */
+.card {
+  margin-left: 1rem;
+  padding-top: 1.5rem;
+  border-left: 3px solid;
+  text-align: left;
+}</code></pre>
           </div>
-        </article>
+
+          <!-- Logická varianta -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--good">Logické vlastnosti</div>
+            <div class="lp-card lp-card--logical">
+              <div class="lp-card__badge lp-card__badge--good">logical</div>
+              <h3 class="lp-card__title">Název položky</h3>
+              <p class="lp-card__body">
+                Tato karta používá <code>margin-inline-start</code>,
+                <code>padding-block-start</code> a <code>border-inline-start</code>.
+                Při přepnutí do RTL se automaticky překlopí na správnou stranu.
+              </p>
+              <div class="lp-card__meta">
+                <span class="lp-card__tag lp-card__tag--good">logická</span>
+                <span class="lp-card__tag lp-card__tag--good">překlopí se ✓</span>
+              </div>
+            </div>
+            <pre class="lp-snippet"><code>/* Logické vlastnosti */
+.card {
+  margin-inline-start: 1rem;
+  padding-block-start: 1.5rem;
+  border-inline-start: 3px solid;
+  text-align: start;
+}</code></pre>
+          </div>
+
+        </div>
       </div>
     </div>
 
-    <!-- Three contexts side by side -->
-    <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Stejná komponenta ve třech různých kontextech — @media by nefungovalo:</div>
+    <!-- ── Sekce 2: Přehledová tabulka mappingu ──────────────────────────── -->
+    <div class="lp-section lp-section--alt">
+      <div class="live-label">Physical → Logical mapping</div>
+      <p class="lp-desc">
+        Přehled nejpoužívanějších fyzických vlastností a jejich logických protějšků.
+      </p>
 
-      <div class="context-row">
-        <div class="context-slot">
-          <div class="context-slot__label">Postranní panel · 220px</div>
-          <div class="cq-container cq-container--220">
-            <article class="product-card">
-              <div class="product-card__img">⬡</div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Novinka</span>
-                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
-                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
-                <div class="product-card__footer">
-                  <span class="product-card__price">2 490 Kč</span>
-                  <button class="product-card__btn">Koupit</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-        <div class="context-slot">
-          <div class="context-slot__label">Grid karet · 360px</div>
-          <div class="cq-container cq-container--360">
-            <article class="product-card">
-              <div class="product-card__img">⬡</div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Novinka</span>
-                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
-                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
-                <div class="product-card__footer">
-                  <span class="product-card__price">2 490 Kč</span>
-                  <button class="product-card__btn">Přidat do košíku</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-        <div class="context-slot context-slot--flex">
-          <div class="context-slot__label">Výpis produktů · plná šířka</div>
-          <div class="cq-container">
-            <article class="product-card">
-              <div class="product-card__img">⬡</div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Novinka</span>
-                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
-                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
-                <div class="product-card__footer">
-                  <span class="product-card__price">2 490 Kč</span>
-                  <button class="product-card__btn">Přidat do košíku</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
+      <div class="lp-table-wrap">
+        <table class="lp-table">
+          <thead>
+            <tr>
+              <th>Fyzická vlastnost</th>
+              <th>Logická vlastnost</th>
+              <th>Popis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>width</code></td>
+              <td><code>inline-size</code></td>
+              <td>Rozměr podél osy inline (→)</td>
+            </tr>
+            <tr>
+              <td><code>height</code></td>
+              <td><code>block-size</code></td>
+              <td>Rozměr podél osy blokové (↓)</td>
+            </tr>
+            <tr>
+              <td><code>margin-top</code> / <code>margin-bottom</code></td>
+              <td><code>margin-block</code></td>
+              <td>Odsazení v blokové ose (zkratka pro obě)</td>
+            </tr>
+            <tr>
+              <td><code>margin-left</code> / <code>margin-right</code></td>
+              <td><code>margin-inline</code></td>
+              <td>Odsazení v inline ose (zkratka pro obě)</td>
+            </tr>
+            <tr>
+              <td><code>padding-top</code></td>
+              <td><code>padding-block-start</code></td>
+              <td>Vnitřní odsazení začátku blokové osy</td>
+            </tr>
+            <tr>
+              <td><code>padding-bottom</code></td>
+              <td><code>padding-block-end</code></td>
+              <td>Vnitřní odsazení konce blokové osy</td>
+            </tr>
+            <tr>
+              <td><code>top / right / bottom / left</code></td>
+              <td><code>inset</code></td>
+              <td>Zkratka pro všechny čtyři strany</td>
+            </tr>
+            <tr>
+              <td><code>left</code></td>
+              <td><code>inset-inline-start</code></td>
+              <td>Začátek inline osy (v LTR = vlevo)</td>
+            </tr>
+            <tr>
+              <td><code>border-left</code></td>
+              <td><code>border-inline-start</code></td>
+              <td>Rámeček začátku inline osy</td>
+            </tr>
+            <tr>
+              <td><code>text-align: left</code></td>
+              <td><code>text-align: start</code></td>
+              <td>Zarovnání k začátku inline osy</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
     </div>
 
-  </div>
+    <!-- ── Sekce 3: inset shorthand ──────────────────────────────────────── -->
+    <div class="lp-section">
+      <div class="live-label">Zkratka <code>inset</code></div>
+      <p class="lp-desc">
+        Vlastnost <code>inset</code> nahrazuje všechny čtyři poziční vlastnosti najednou
+        a funguje stejně jako <code>margin</code> či <code>padding</code> co do pořadí hodnot.
+      </p>
+
+      <div class="lp-inset-demo">
+
+        <div class="lp-inset-item">
+          <div class="lp-inset-item__label lp-inset-item__label--before">Fyzicky (4 řádky)</div>
+          <pre class="lp-snippet lp-snippet--full"><code>/* Fyzicky — 4 vlastnosti */
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}</code></pre>
+          <div class="lp-inset-vis">
+            <div class="lp-inset-vis__box">
+              <div class="lp-inset-vis__inner lp-inset-vis__inner--physical">fyzické</div>
+            </div>
+            <ul class="lp-inset-vis__labels">
+              <li><code>top: 0</code></li>
+              <li><code>right: 0</code></li>
+              <li><code>bottom: 0</code></li>
+              <li><code>left: 0</code></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lp-inset-arrow">→</div>
+
+        <div class="lp-inset-item">
+          <div class="lp-inset-item__label lp-inset-item__label--after">Logicky (1 řádek)</div>
+          <pre class="lp-snippet lp-snippet--full"><code>/* Logicky — zkratka inset */
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* nebo s různými hodnotami */
+.panel {
+  inset: 1rem 0 0 1rem;
+}</code></pre>
+          <div class="lp-inset-vis">
+            <div class="lp-inset-vis__box">
+              <div class="lp-inset-vis__inner lp-inset-vis__inner--logical">inset: 0</div>
+            </div>
+            <ul class="lp-inset-vis__labels">
+              <li><code>inset: 0</code> ← vše najednou</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- .demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* 1. Označ kontejner */
-.card-wrapper {
-  container-type: inline-size;  /* sleduje inline rozměr */
-  container-name: product;      /* volitelné jméno */
+    <pre><code>/* ── Logical Properties ──────────────────────────────────────────────────── */
+
+/* Fyzické vlastnosti jsou vázané na viewport (top/right/bottom/left) */
+/* Logické vlastnosti jsou vázané na směr psaní (block / inline osy) */
+
+/* Inline osa → v LTR = vodorovná (←→), v RTL se otočí */
+/* Block osa  ↓ v LTR = svislá (↑↓), nemění se */
+
+
+/* ── Velikosti ────────────────────────────────────────────────────────────── */
+
+.box {
+  width: 200px;          /* → */  inline-size: 200px;
+  height: 100px;         /* → */  block-size: 100px;
 }
 
-/* 2. Piš query vůči kontejneru, ne viewportu */
-@container product (min-width: 400px) {
-  .product-card {
-    display: grid;
-    grid-template-columns: 140px 1fr;  /* přejdi na horizontální layout */
-  }
+
+/* ── Odsazení ─────────────────────────────────────────────────────────────── */
+
+.card {
+  margin-top: 1rem;      /* → */  margin-block-start: 1rem;
+  margin-bottom: 1rem;   /* → */  margin-block-end: 1rem;
+  margin-left: 2rem;     /* → */  margin-inline-start: 2rem;
+
+  /* Zkratky (obě strany najednou) */
+  margin-block: 1rem;             /* = margin-top + margin-bottom */
+  margin-inline: 2rem;            /* = margin-left + margin-right */
+
+  padding-block-start: 1.5rem;    /* = padding-top */
+  border-inline-start: 3px solid; /* = border-left */
+  text-align: start;              /* = text-align: left v LTR */
 }
 
-@container product (min-width: 560px) {
-  .product-card__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+
+/* ── Pozicování — inset ──────────────────────────────────────────────────── */
+
+/* Fyzicky: */
+.overlay {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
 }
 
-/* Kdy použít co */
-@media (min-width: 768px)        { /* viewport — layout stránky, viditelnost */ }
-@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }</code></pre>
+/* Logicky — zkratka inset: */
+.overlay {
+  position: absolute;
+  inset: 0;           /* = top right bottom left = 0 */
+}
+
+/* inset funguje jako margin/padding shorthand: */
+.panel {
+  inset: 1rem 2rem;         /* block: 1rem, inline: 2rem */
+  inset-inline-start: 0;    /* = left v LTR, right v RTL */
+}
+
+
+/* ── Proč záleží? ─────────────────────────────────────────────────────────── */
+
+/* RTL jazyky (arabština, hebrejština) nebo vertical writing (japonština) —
+   logické vlastnosti se automaticky přizpůsobí bez změny CSS.
+   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */</code></pre>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>

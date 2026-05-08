@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>reading-flow – Modern CSS S1</title>
+  <title>:has() – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
@@ -18,83 +18,172 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">reading-flow</h1>
+    <h1 class="demo-title">:has() — rodičovský selektor</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">reading-flow</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">reading-order</span>
+      <span class="demo-feature__kw">:has()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">:is()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">:where()</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <div class="browser-note">
-      <span class="browser-note__icon">ⓘ</span>
-      <span>Vlastnost <code>reading-flow</code> vyžaduje Chrome 137+. Demo níže vizualizuje pořadí focusu v obou scénářích.</span>
-    </div>
-
-    <!-- Toggle -->
-    <div class="sizing-toolbar" role="group" aria-label="Přepnout reading-flow" style="margin-top: var(--base-3);">
-      <button class="sizing-btn" aria-pressed="true"  id="btn-dom">DOM pořadí (výchozí)</button>
-      <button class="sizing-btn" aria-pressed="false" id="btn-visual">reading-flow: grid-order</button>
-    </div>
-
-    <div class="live-label" id="rf-label">Živá ukázka — zmáčkni Tab a sleduj pořadí focusu (DOM pořadí = A→B→C→D→E→F):</div>
-
-    <!-- The grid with out-of-order placement -->
+    <!-- Live: Task list — pure CSS, no JS -->
+    <div class="live-label">Živá ukázka — <code>.task:has(input:checked)</code> přeškrtne celou řádku, čistý CSS:</div>
     <div class="live-stage">
-      <div class="rf-grid" id="rf-grid">
-        <!-- DOM order: A, B, C, D, E, F — but visual order is different -->
-        <button class="rf-item" data-dom="1" data-visual="4" style="grid-area: 2/1">A</button>
-        <button class="rf-item" data-dom="2" data-visual="2" style="grid-area: 1/2">B</button>
-        <button class="rf-item" data-dom="3" data-visual="6" style="grid-area: 2/3">C</button>
-        <button class="rf-item" data-dom="4" data-visual="1" style="grid-area: 1/1">D</button>
-        <button class="rf-item" data-dom="5" data-visual="5" style="grid-area: 3/2">E</button>
-        <button class="rf-item" data-dom="6" data-visual="3" style="grid-area: 1/3">F</button>
-      </div>
-      <div class="rf-info" id="rf-info">Klikni na tlačítko nebo zmáčkni Tab…</div>
+      <ul class="task-list">
+        <li class="task">
+          <input type="checkbox" id="t1">
+          <label for="t1">
+            <span class="task-name">Zkontrolovat pull requesty</span>
+            <span class="task-meta">Vývoj · dnes</span>
+          </label>
+        </li>
+        <li class="task">
+          <input type="checkbox" id="t2">
+          <label for="t2">
+            <span class="task-name">Napsat testy pro novou komponentu</span>
+            <span class="task-meta">Vývoj · zítra</span>
+          </label>
+        </li>
+        <li class="task">
+          <input type="checkbox" id="t3">
+          <label for="t3">
+            <span class="task-name">Připravit prezentaci pro klienta</span>
+            <span class="task-meta">Design · pátek</span>
+          </label>
+        </li>
+        <li class="task">
+          <input type="checkbox" id="t4">
+          <label for="t4">
+            <span class="task-name">Nastavit CI pipeline pro nový projekt</span>
+            <span class="task-meta">Ops · příští týden</span>
+          </label>
+        </li>
+      </ul>
     </div>
 
-    <!-- Explanation -->
+    <!-- Examples -->
     <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Problém a řešení:</div>
+      <div class="live-label" style="margin-bottom: var(--base-4);">Praktické příklady:</div>
+
       <div class="examples-cols">
 
+        <!-- Form validation -->
         <div class="layout-example">
           <div class="layout-example__label">
-            <span>Bez reading-flow</span>
-            <span>Tab = DOM pořadí</span>
+            <code>.field:has(input:user-invalid / :user-valid)</code>
+            <span>Validace formuláře bez JS</span>
           </div>
           <div class="layout-stage">
-            <div class="order-demo order-demo--dom">
-              <div class="order-grid">
-                <div class="order-item order-item--4">A<span>DOM 1</span></div>
-                <div class="order-item order-item--2">B<span>DOM 2</span></div>
-                <div class="order-item order-item--6">C<span>DOM 3</span></div>
-                <div class="order-item order-item--1">D<span>DOM 4</span></div>
-                <div class="order-item order-item--5">E<span>DOM 5</span></div>
-                <div class="order-item order-item--3">F<span>DOM 6</span></div>
+            <form onsubmit="return false">
+              <div class="field">
+                <label class="field-label" for="fe">E-mailová adresa</label>
+                <input class="field-input" type="email" id="fe" required placeholder="vas@email.cz">
               </div>
-              <p class="order-note">Tab: A→B→C→D→E→F (DOM pořadí)<br>Vizuálně: D→B→F→A→C→E<br>→ skáče po obrazovce chaoticky</p>
-            </div>
+              <div class="field">
+                <label class="field-label" for="fw">Webová stránka</label>
+                <input class="field-input" type="url" id="fw" required placeholder="https://example.com">
+              </div>
+            </form>
           </div>
         </div>
 
+        <!-- Nav with active subitem -->
         <div class="layout-example">
           <div class="layout-example__label">
-            <code>reading-flow: grid-order</code>
-            <span>Tab = vizuální pořadí</span>
+            <code>.nav-section:has(.is-active)</code>
+            <span>Zvýraznění aktivní sekce</span>
           </div>
           <div class="layout-stage">
-            <div class="order-demo order-demo--visual">
-              <div class="order-grid">
-                <div class="order-item order-item--4">A<span>vis. 4</span></div>
-                <div class="order-item order-item--2">B<span>vis. 2</span></div>
-                <div class="order-item order-item--6">C<span>vis. 6</span></div>
-                <div class="order-item order-item--1">D<span>vis. 1</span></div>
-                <div class="order-item order-item--5">E<span>vis. 5</span></div>
-                <div class="order-item order-item--3">F<span>vis. 3</span></div>
+            <nav class="nav-demo">
+              <div class="nav-section">
+                <span class="nav-section__title">Produkty</span>
+                <ul class="nav-list">
+                  <li><a href="#" class="nav-link">Notebooky</a></li>
+                  <li><a href="#" class="nav-link is-active">Tablety</a></li>
+                  <li><a href="#" class="nav-link">Příslušenství</a></li>
+                </ul>
               </div>
-              <p class="order-note">Tab: D→B→F→A→C→E (vizuální pořadí)<br>→ plynule zleva doprava, shora dolů<br>→ screen readery i klávesnice fungují přirozeně</p>
+              <div class="nav-section">
+                <span class="nav-section__title">Podpora</span>
+                <ul class="nav-list">
+                  <li><a href="#" class="nav-link">Docs</a></li>
+                  <li><a href="#" class="nav-link">Fórum</a></li>
+                </ul>
+              </div>
+              <div class="nav-section">
+                <span class="nav-section__title">Firma</span>
+                <ul class="nav-list">
+                  <li><a href="#" class="nav-link">O nás</a></li>
+                  <li><a href="#" class="nav-link">Kontakt</a></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Card with / without image -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>.card:has(.card__img)</code>
+          <span>Layout se automaticky přizpůsobí obsahu</span>
+        </div>
+        <div class="layout-stage">
+          <div class="cards-demo">
+            <div class="card">
+              <div class="card__img">◫</div>
+              <div class="card__body">
+                <strong class="card__title">S obrázkem — horizontální grid</strong>
+                <p class="card__text">Karta obsahuje <code>.card__img</code>, proto <code>:has(.card__img)</code> přepne layout na <code>grid-template-columns: 100px 1fr</code>.</p>
+              </div>
             </div>
+            <div class="card">
+              <div class="card__body">
+                <strong class="card__title">Bez obrázku — textový blok</strong>
+                <p class="card__text">Karta neobsahuje <code>.card__img</code>. Selektor <code>:has()</code> se neaplikuje, karta zůstane jako jednoduchý blok.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- :is() and :where() -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">:is() a :where() — skupinové selektory:</div>
+
+      <div class="iw-grid">
+
+        <div class="sizing-card">
+          <div class="sizing-card__label">:is() — specificita = max(argumentů)</div>
+          <div class="iw-demo">
+            <div class="iw-code">
+              <code>article :is(h1, h2, h3) { color: … }</code>
+              <span class="iw-spec">≡ article h1, article h2, article h3 { … }</span>
+            </div>
+            <div class="article-demo">
+              <p class="is-h2">Nadpis druhé úrovně</p>
+              <p class="is-p">Odstavec — není ve skupině :is()</p>
+              <p class="is-h3">Nadpis třetí úrovně</p>
+            </div>
+            <p class="iw-note">Specificita odpovídá nejsilnějšímu argumentu. <code>:is(#id, .class)</code> má specificitu ID selektoru pro všechny pravidla ve skupině.</p>
+          </div>
+        </div>
+
+        <div class="sizing-card">
+          <div class="sizing-card__label">:where() — specificita vždy = 0</div>
+          <div class="iw-demo">
+            <div class="iw-code">
+              <code>:where(.box) { background: violet; }</code>
+              <span class="iw-spec iw-spec--zero">specificita (0,0,0) → přepsatelné čímkoliv</span>
+            </div>
+            <div class="where-demo">
+              <div class="where-box">Výchozí styl přes :where()</div>
+              <div class="where-box where-box--override">Přepsán třídou .where-box--override<br><small>funguje, protože :where() má specificitu 0</small></div>
+            </div>
+            <p class="iw-note">Ideální pro reset / base styly — jakýkoliv selektor je přepíše bez <code>!important</code>. Používá se v design systémech pro přepisovatelné výchozí hodnoty.</p>
           </div>
         </div>
 
@@ -104,28 +193,41 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* reading-flow — Tab pořadí sleduje vizuální rozvržení */
+    <pre><code>/* :has() — rodičovský selektor */
 
-.grid-container {
+/* Celá řádka reaguje na stav checkboxu uvnitř — čistý CSS */
+.task:has(input:checked) {
+  opacity: 0.5;
+}
+.task:has(input:checked) .task-name {
+  text-decoration: line-through;
+}
+
+/* Validace formuláře bez JS */
+.field:has(input:user-invalid) .field-label { color: var(--status-error); }
+.field:has(input:user-invalid) .field-input  { border-color: var(--status-error); }
+.field:has(input:user-valid)   .field-label  { color: var(--status-success); }
+.field:has(input:user-valid)   .field-input  { border-color: var(--status-success); }
+
+/* Navigace: zvýrazni sekci, když je potomek aktivní */
+.nav-section:has(.is-active) {
+  background: var(--surface-brand-primary-subtle);
+  border-left: 3px solid var(--surface-brand-primary-strong);
+}
+
+/* Layout se mění podle přítomnosti potomka */
+.card:has(.card__img) {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  reading-flow: grid-order;  /* Chrome 137+ */
+  grid-template-columns: 100px 1fr;
+  gap: var(--base-3);
+  align-items: start;
 }
 
-/* Bez reading-flow: Tab = DOM pořadí, může skákat po obrazovce */
-/* S reading-flow: Tab = vizuální pořadí v gridu               */
+/* :is() — zkratka (specificita = nejvyšší argument) */
+article :is(h1, h2, h3, h4) { font-family: var(--font-stack-headings); }
 
-/* Totéž pro flex (flex-visual sleduje vizuální pořadí) */
-.flex-reversed {
-  display: flex;
-  flex-direction: row-reverse;  /* vizuálně: C B A */
-  reading-flow: flex-visual;    /* Tab: C→B→A (ne A→B→C) */
-}
-
-/* Proč záleží na pořadí?
-   – Uživatelé klávesnice procházejí UI zleva doprava, shora dolů
-   – Screen readery čtou ve stejném pořadí
-   – Nesprávné pořadí = zmatené UX, WCAG 2.4.3 Focus Order */</code></pre>
+/* :where() — jako :is(), ale specificita = 0 → vždy přepsatelné */
+:where(button, input, select) { border-radius: var(--radius); }</code></pre>
   </div>
 
   <script src="script.js"></script>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparison Functions – Modern CSS S1</title>
+  <title>reading-flow – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@d5a24a6accc204cf965157d47bc8ca356747228f/shared/demo-base.css">
   <link rel="stylesheet" href="style.css">
@@ -18,230 +18,114 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Comparison Functions</h1>
+    <h1 class="demo-title">reading-flow</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">clamp()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">min()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max()</span>
+      <span class="demo-feature__kw">reading-flow</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">reading-order</span>
     </span>
   </div>
 
   <div class="demo-stage">
 
-    <!-- ── 1. clamp() — fluid typography ──────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">clamp()</code>
-        <span class="cf-section__desc">Fluid typografie — nadpis se plynule mění s šířkou okna</span>
-      </div>
+    <div class="browser-note">
+      <span class="browser-note__icon">ⓘ</span>
+      <span>Vlastnost <code>reading-flow</code> vyžaduje Chrome 137+. Demo níže vizualizuje pořadí focusu v obou scénářích.</span>
+    </div>
 
-      <div class="cf-anatomy">
-        <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span class="cf-anatomy__fn">)</span>
-        <div class="cf-anatomy__labels">
-          <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
-          <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
-          <span class="cf-anatomy__label cf-anatomy__label--max">největší povolená hodnota</span>
-        </div>
-      </div>
+    <!-- Toggle -->
+    <div class="sizing-toolbar" role="group" aria-label="Přepnout reading-flow" style="margin-top: var(--base-3);">
+      <button class="sizing-btn" aria-pressed="true"  id="btn-dom">DOM pořadí (výchozí)</button>
+      <button class="sizing-btn" aria-pressed="false" id="btn-visual">reading-flow: grid-order</button>
+    </div>
 
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: clamp(1.25rem, 4vw, 3rem)</code>
-            <span class="cf-compare__note">plynule roste s oknem</span>
-          </div>
-          <div class="cf-demo-box">
-            <p class="cf-fluid-heading">Fluid nadpis</p>
-          </div>
-        </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: var(--font-size-xl)</code>
-            <span class="cf-compare__note">fixní velikost</span>
-          </div>
-          <div class="cf-demo-box">
-            <p class="cf-fixed-heading">Fixní nadpis</p>
-          </div>
-        </div>
-      </div>
+    <div class="live-label" id="rf-label">Živá ukázka — zmáčkni Tab a sleduj pořadí focusu (DOM pořadí = A→B→C→D→E→F):</div>
 
-      <div class="cf-hint">
-        Zmenšuj nebo zvětšuj okno prohlížeče — fluid nadpis se mění plynule, fixní zůstává stejný.
+    <!-- The grid with out-of-order placement -->
+    <div class="live-stage">
+      <div class="rf-grid" id="rf-grid">
+        <!-- DOM order: A, B, C, D, E, F — but visual order is different -->
+        <button class="rf-item" data-dom="1" data-visual="4" style="grid-area: 2/1">A</button>
+        <button class="rf-item" data-dom="2" data-visual="2" style="grid-area: 1/2">B</button>
+        <button class="rf-item" data-dom="3" data-visual="6" style="grid-area: 2/3">C</button>
+        <button class="rf-item" data-dom="4" data-visual="1" style="grid-area: 1/1">D</button>
+        <button class="rf-item" data-dom="5" data-visual="5" style="grid-area: 3/2">E</button>
+        <button class="rf-item" data-dom="6" data-visual="3" style="grid-area: 1/3">F</button>
       </div>
-    </section>
+      <div class="rf-info" id="rf-info">Klikni na tlačítko nebo zmáčkni Tab…</div>
+    </div>
 
-    <!-- ── 2. min() — container width ─────────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">min()</code>
-        <span class="cf-section__desc">Šířka kontejneru — vrátí nejmenší z hodnot</span>
-      </div>
+    <!-- Explanation -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base-4);">Problém a řešení:</div>
+      <div class="examples-cols">
 
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>width: min(100%, 640px)</code>
-            <span class="cf-compare__note">100 % nebo maximálně 640 px — vždy menší hodnota</span>
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <span>Bez reading-flow</span>
+            <span>Tab = DOM pořadí</span>
           </div>
-          <div class="cf-demo-box cf-demo-box--ruler">
-            <div class="cf-min-box">
-              <span class="cf-box-label">min(100%, 640px)</span>
+          <div class="layout-stage">
+            <div class="order-demo order-demo--dom">
+              <div class="order-grid">
+                <div class="order-item order-item--4">A<span>DOM 1</span></div>
+                <div class="order-item order-item--2">B<span>DOM 2</span></div>
+                <div class="order-item order-item--6">C<span>DOM 3</span></div>
+                <div class="order-item order-item--1">D<span>DOM 4</span></div>
+                <div class="order-item order-item--5">E<span>DOM 5</span></div>
+                <div class="order-item order-item--3">F<span>DOM 6</span></div>
+              </div>
+              <p class="order-note">Tab: A→B→C→D→E→F (DOM pořadí)<br>Vizuálně: D→B→F→A→C→E<br>→ skáče po obrazovce chaoticky</p>
             </div>
           </div>
         </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>max-width: 640px</code>
-            <span class="cf-compare__note">ekvivalentní zápis — ale <code>min()</code> přijme i více argumentů</span>
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>reading-flow: grid-order</code>
+            <span>Tab = vizuální pořadí</span>
           </div>
-          <div class="cf-demo-box cf-demo-box--ruler">
-            <div class="cf-maxwidth-box">
-              <span class="cf-box-label">max-width: 640px</span>
+          <div class="layout-stage">
+            <div class="order-demo order-demo--visual">
+              <div class="order-grid">
+                <div class="order-item order-item--4">A<span>vis. 4</span></div>
+                <div class="order-item order-item--2">B<span>vis. 2</span></div>
+                <div class="order-item order-item--6">C<span>vis. 6</span></div>
+                <div class="order-item order-item--1">D<span>vis. 1</span></div>
+                <div class="order-item order-item--5">E<span>vis. 5</span></div>
+                <div class="order-item order-item--3">F<span>vis. 3</span></div>
+              </div>
+              <p class="order-note">Tab: D→B→F→A→C→E (vizuální pořadí)<br>→ plynule zleva doprava, shora dolů<br>→ screen readery i klávesnice fungují přirozeně</p>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="cf-info-row">
-        <div class="cf-info-card">
-          <div class="cf-info-card__title">Proč <code>min()</code>?</div>
-          <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
-        </div>
       </div>
-    </section>
+    </div>
 
-    <!-- ── 3. max() — minimum guarantee ───────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">max()</code>
-        <span class="cf-section__desc">Garantované minimum — vrátí největší z hodnot</span>
-      </div>
-
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>padding: max(var(--base-2), 3vw)</code>
-            <span class="cf-compare__note">padding roste s viewportem, ale nikdy neklesne pod minimum</span>
-          </div>
-          <div class="cf-demo-box">
-            <div class="cf-max-padding-box">
-              <span class="cf-box-label">Obsah s fluid paddingem</span>
-            </div>
-          </div>
-        </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: max(14px, 1.5vw)</code>
-            <span class="cf-compare__note">nikdy nečitelně malé — minimum 14 px zaručeno</span>
-          </div>
-          <div class="cf-demo-box">
-            <p class="cf-max-fontsize">
-              Tento text je nikdy menší než 14 px, ale roste s šířkou okna díky 1.5vw.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="cf-info-row">
-        <div class="cf-info-card">
-          <div class="cf-info-card__title">Proč <code>max()</code>?</div>
-          <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru. Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 4. clamp() pro spacing ─────────────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">clamp()</code>
-        <span class="cf-section__desc">Fluid mezery — <code>gap</code> se přizpůsobí viewportu</span>
-      </div>
-
-      <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
-        <code>gap: clamp(var(--base-2), 3vw, var(--base-6))</code>
-        <span class="cf-compare__note">mezera mezi kartami roste plynule s oknem</span>
-      </div>
-
-      <div class="cf-fluid-grid">
-        <div class="cf-card">
-          <div class="cf-card__icon">A</div>
-          <div class="cf-card__title">Karta první</div>
-          <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
-        </div>
-        <div class="cf-card">
-          <div class="cf-card__icon">B</div>
-          <div class="cf-card__title">Karta druhá</div>
-          <div class="cf-card__body">Na mobilu minimum, na desktopu maximum, mezi tím plynulý přechod.</div>
-        </div>
-        <div class="cf-card">
-          <div class="cf-card__icon">C</div>
-          <div class="cf-card__title">Karta třetí</div>
-          <div class="cf-card__body">Žádné breakpointy — <code>clamp()</code> zvládne vše sám.</div>
-        </div>
-      </div>
-
-      <div class="cf-hint">
-        Změň šířku okna a sleduj, jak se mezery mezi kartami plynule mění.
-      </div>
-    </section>
-
-  </div><!-- /demo-stage -->
+  </div>
 
   <div class="demo-code">
-    <pre><code>/* ── CSS Comparison Functions ────────────────────────────────────────────── */
+    <pre><code>/* reading-flow — Tab pořadí sleduje vizuální rozvržení */
 
-/* clamp(minimum, preferred, maximum)
-   Vrátí preferred, ale nikdy méně než minimum a nikdy více než maximum.
-   Ideální pro fluid typografii a spacing. */
-
-.fluid-heading {
-  font-size: clamp(1.25rem, 4vw, 3rem);
-  /* Na úzkém okně: 1.25rem | Fluid střed: 4vw | Na širokém: 3rem */
-}
-
-.fluid-gap-grid {
+.grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: clamp(var(--base-2), 3vw, var(--base-6));
+  grid-template-columns: repeat(3, 1fr);
+  reading-flow: grid-order;  /* Chrome 137+ */
 }
 
+/* Bez reading-flow: Tab = DOM pořadí, může skákat po obrazovce */
+/* S reading-flow: Tab = vizuální pořadí v gridu               */
 
-/* ── min() ───────────────────────────────────────────────────────────────── */
-
-/* min(a, b, …) — vrátí nejmenší hodnotu ze seznamu.
-   Výborné pro omezení šířky: buď 100 % nebo max. 640 px — co je menší. */
-
-.container {
-  width: min(100%, 640px);
-  /* Ekvivalentní: max-width: 640px — ale min() přijme více argumentů */
+/* Totéž pro flex (flex-visual sleduje vizuální pořadí) */
+.flex-reversed {
+  display: flex;
+  flex-direction: row-reverse;  /* vizuálně: C B A */
+  reading-flow: flex-visual;    /* Tab: C→B→A (ne A→B→C) */
 }
 
-/* Kombinace více jednotek — není možné s max-width */
-.sidebar {
-  width: min(50vw, 320px, 100%);
-}
-
-
-/* ── max() ───────────────────────────────────────────────────────────────── */
-
-/* max(a, b, …) — vrátí největší hodnotu ze seznamu.
-   Výborné jako "spodní zarážka": garantuje minimum, fluid nahoru. */
-
-.card {
-  padding: max(var(--base-2), 3vw);
-  /* Na úzkém okně: var(--base-2) | Na širokém: 3vw (větší) */
-}
-
-.body-text {
-  font-size: max(14px, 1.5vw);
-  /* Nikdy pod 14 px — zaručuje čitelnost na malých obrazovkách */
-}
-
-
-/* ── Kombinace ────────────────────────────────────────────────────────────── */
-
-/* clamp() je zkratka pro max(min, min(preferred, max)) */
-font-size: clamp(1rem, 2.5vw, 2rem);
-/* === */
-font-size: max(1rem, min(2.5vw, 2rem));</code></pre>
+/* Proč záleží na pořadí?
+   – Uživatelé klávesnice procházejí UI zleva doprava, shora dolů
+   – Screen readery čtou ve stejném pořadí
+   – Nesprávné pořadí = zmatené UX, WCAG 2.4.3 Focus Order */</code></pre>
   </div>
 
   <script src="script.js"></script>
