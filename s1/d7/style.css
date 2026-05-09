@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    D7 — Container Queries
-   Ukázky: resizable container, tři kontexty, style queries (experimentální)
+   Ukázky: resizable container, tři kontexty, range container queries
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {
@@ -72,6 +72,7 @@ code {
 /* Fixní šířky pro porovnání tří kontextů */
 .cq-container--220 { width: 220px; }
 .cq-container--360 { width: 360px; }
+.cq-container--400 { width: 400px; }
 
 /* ── Product card — základní styl (mobilní / úzký kontext) ──────────────── */
 
@@ -148,41 +149,6 @@ code {
   opacity: 0.85;
 }
 
-/* ── Container queries — breakpointy karty ───────────────────────────────── */
-/*    @container reaguje na šířku pojmenovaného kontejneru, ne viewportu       */
-
-/* Breakpoint 1: ≥ 380px → horizontální layout (grid) */
-@container product (min-width: 380px) {
-  .product-card {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-  }
-
-  .product-card__img {
-    height: 100%;
-    min-height: 140px;
-    font-size: 3rem;
-  }
-}
-
-/* Breakpoint 2: ≥ 520px → footer jako řádek (cena + tlačítko vedle sebe) */
-@container product (min-width: 520px) {
-  .product-card__img {
-    font-size: 3.5rem;
-  }
-
-  .product-card__footer {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .product-card__btn {
-    width: auto;
-    white-space: nowrap;
-  }
-}
-
 /* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
 /*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
 
@@ -211,153 +177,57 @@ code {
   padding-bottom: var(--base);
 }
 
-/* ── Style Container Queries — experimentální ukázka ────────────────────── */
-/*    @container style() reaguje na hodnotu CSS custom property               */
-/*    Spec: https://drafts.csswg.org/css-contain-3/#style-container           */
+/* ── Range container queries ─────────────────────────────────────────────── */
+/*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
+/*    Cross-browser: Chrome 111+, Firefox 110+, Safari 16+                     */
 
-/* Badge "experimentální" */
-.experimental-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--base-h);
-  padding: var(--base-h) var(--base-2);
-  background: var(--surface-warning-subtle, var(--surface-brand-secondary-subtle));
-  border: 1px solid var(--border-warning, var(--border-strong));
-  border-radius: var(--radius);
-  font-size: var(--font-size-xs);
-  font-family: var(--font-stack-monospace);
-  color: var(--text-secondary);
-  margin-bottom: var(--base-3);
-}
-
-/* Mřížka karet pro style queries ukázku */
-.theme-cards-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--base-3);
-  margin-bottom: var(--base-3);
-}
-
-/* Kontejner pro style queries — sleduje custom property --variant */
-.theme-card {
-  container-type: inline-size;
-  container-name: theme-card;
-  --variant: default;
-}
-
-/* Základní vzhled karty */
-.theme-card__inner {
-  background: var(--surface-front);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.2s;
-}
-
-.theme-card__header {
-  height: 60px;
-  background: var(--surface-main-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.75rem;
-}
-
-.theme-card__body {
-  padding: var(--base-2) var(--base-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-  flex: 1;
-  transition: background 0.2s;
-}
-
-.theme-card__title {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
-  color: var(--text-primary);
-}
-
-.theme-card__desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.theme-card__variant-label {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  padding: var(--base-h) var(--base-3) var(--base-2);
-  border-top: 1px solid var(--border);
-}
-
-/* Tlačítka pro přepínání varianty */
-.theme-card__controls {
-  display: flex;
-  gap: var(--base-h);
-  padding: 0 var(--base-3) var(--base-2);
-  flex-wrap: wrap;
-}
-
-.variant-btn {
-  padding: 2px var(--base);
-  background: var(--surface-control);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-}
-
-.variant-btn:hover {
-  background: var(--surface-main-variant);
-}
-
-.variant-btn[aria-pressed="true"] {
-  background: var(--surface-brand-primary-strong);
-  color: var(--text-primary-on-surface-brand-primary-strong);
-  border-color: transparent;
-}
-
-/* ── @container style() — reaguje na --variant custom property ────────────
-   Prohlížeče bez podpory style queries tyto bloky ignorují.
-   Fallback: základní styl zůstane nezměněn.                                  */
-
-@container style(--variant: featured) {
-  .theme-card__body {
-    background: var(--surface-brand-primary-subtle);
+/* width < 360px — stack layout (výchozí styl karty, nic navíc) */
+@container product (width < 360px) {
+  .product-card__img {
+    height: 70px;
+    font-size: 2rem;
   }
-  .theme-card__inner {
-    box-shadow: 0 0 0 2px var(--surface-brand-primary-strong);
-  }
-  .theme-card__title {
-    color: var(--text-brand-primary);
+
+  .product-card__body {
+    padding: var(--base) var(--base-2);
   }
 }
 
-@container style(--variant: muted) {
-  .theme-card__body {
-    background: var(--surface-main-dim);
+/* 360px <= width < 560px — horizontální grid layout */
+@container product (360px <= width < 560px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
   }
-  .theme-card__inner {
-    opacity: 0.6;
+
+  .product-card__img {
+    height: 100%;
+    min-height: 140px;
+    font-size: 3rem;
   }
 }
 
-@container style(--variant: promo) {
-  .theme-card__header {
-    background: var(--surface-brand-secondary-subtle);
+/* width >= 560px — wide layout s footer jako řádkem */
+@container product (width >= 560px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
   }
-  .theme-card__body {
-    background: var(--surface-brand-secondary-minimal, var(--surface-brand-primary-subtle));
+
+  .product-card__img {
+    height: 100%;
+    min-height: 150px;
+    font-size: 3.5rem;
   }
-  .theme-card__inner {
-    box-shadow: 0 0 0 2px var(--surface-brand-secondary-strong);
+
+  .product-card__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-card__btn {
+    width: auto;
+    white-space: nowrap;
   }
 }

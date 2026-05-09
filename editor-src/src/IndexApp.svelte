@@ -13,7 +13,6 @@
         { id: 'd6', index: 'D6', name: ':has() · :is() · :where()' },
         { id: 'd7', index: 'D7', name: 'Container Queries' },
         { id: 'd8', index: 'D8', name: 'Subgrid' },
-        { id: 'd9', index: 'D9', name: 'reading-flow' },
       ],
     },
     {
