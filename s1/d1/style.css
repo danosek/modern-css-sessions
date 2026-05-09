@@ -1,7 +1,15 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D1 — Intrinsic Sizing
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
 }
+
+/* ── Živá ukázka — přepínač hodnot ──────────────────────────────────────── */
 
 .sizing-toolbar {
   display: flex;
@@ -32,18 +40,7 @@ code {
   border-color: transparent;
 }
 
-.sizing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--base-3);
-  margin-bottom: var(--base-4);
-}
-
-.live-label {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  margin-bottom: var(--base-2);
-}
+/* ── Živá ukázka — data-atributy řídí šířku boxu ────────────────────────── */
 
 .demo-box p {
   font-size: var(--font-size-base);
@@ -61,91 +58,12 @@ code {
 .demo-box[data-sizing="max-content"]  { width: max-content; }
 .demo-box[data-sizing="fit-content"]  { width: fit-content; }
 
-/* ── Layout examples ─────────────────────────────────────────────────────── */
+/* ── Živá ukázka — indikátor šířky ──────────────────────────────────────── */
 
-.layout-section {
-  border-top: 1px solid var(--border);
-  padding-top: var(--base-4);
-  margin-top: var(--base-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-5);
-}
-
-.layout-example {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.layout-example__label {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--base-h) var(--base);
-  font-family: var(--font-stack-monospace);
+.live-label {
   font-size: var(--font-size-s);
-  color: var(--text-brand-primary);
-}
-
-.layout-example__label span {
-  font-family: var(--font-stack-main);
   color: var(--text-secondary);
-  font-size: var(--font-size-s);
-}
-
-/* Ukázka 1 — fit-content + margin: auto */
-.ex-callout {
-  width: fit-content;
-  margin-inline: auto;
   margin-bottom: var(--base-2);
-}
-.ex-callout:last-child { margin-bottom: 0; }
-
-/* Ukázka 2 — max-content labels */
-.ex-form-grid {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: var(--base-2) var(--base-3);
-  align-items: center;
-}
-
-.ex-label {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
-
-.ex-input {
-  height: 32px;
-  background: var(--surface-front);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-}
-
-/* Ukázka 3 — max-content 1fr max-content */
-.ex-header-grid {
-  display: grid;
-  grid-template-columns: max-content 1fr max-content;
-  align-items: center;
-  gap: var(--base-3);
-  background: var(--surface-front);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--base-2) var(--base-3);
-}
-
-.ex-nav {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
-
-.ex-page-title {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
-  color: var(--text-primary);
-  text-align: center;
 }
 
 .width-indicator {
@@ -180,3 +98,155 @@ code {
 
 .width-indicator__bar::before { left: 0; }
 .width-indicator__bar::after  { right: 0; }
+
+/* ── Srovnání — mřížka všech hodnot vedle sebe ───────────────────────────── */
+
+.sizing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--base-3);
+  margin-bottom: var(--base-4);
+}
+
+/* ── Intrinsic sizing v layoutu — společný obal ──────────────────────────── */
+
+.layout-section {
+  border-top: 1px solid var(--border);
+  padding-top: var(--base-4);
+  margin-top: var(--base-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-5);
+}
+
+.layout-example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.layout-example__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-primary);
+}
+
+.layout-example__label span {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  font-size: var(--font-size-s);
+}
+
+/* ── Layout příklad 1 — fit-content + margin-inline: auto ───────────────── */
+
+.ex-callout {
+  width: fit-content;
+  margin-inline: auto;
+  margin-bottom: var(--base-2);
+}
+.ex-callout:last-child { margin-bottom: 0; }
+
+/* ── Layout příklad 2 — max-content labels, 1fr vstupní pole ────────────── */
+
+.ex-form-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--base-2) var(--base-3);
+  align-items: center;
+}
+
+.ex-label {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.ex-input {
+  height: 32px;
+  background: var(--surface-front);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+/* ── Layout příklad 3 — max-content 1fr max-content hlavička ────────────── */
+
+.ex-header-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: var(--base-3);
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-2) var(--base-3);
+}
+
+.ex-nav {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.ex-page-title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* ── Layout příklad 4 — fit-content(300px) s explicitním maximem ─────────── */
+
+.ex-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-2);
+}
+
+/* fit-content(300px): smrskne se na obsah, ale nepřekročí 300 px */
+.ex-tag--fit-capped {
+  width: fit-content(300px);
+  background: var(--surface-brand-primary-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary-on-surface-brand-primary-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* fit-content (bez argumentu): smrskne se na obsah, nepřekročí kontejner */
+.ex-tag--fit {
+  width: fit-content;
+  background: var(--surface-brand-secondary-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* max-content: roztáhne se na plný obsah bez omezení */
+.ex-tag--max {
+  width: max-content;
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

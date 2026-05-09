@@ -105,6 +105,67 @@
 
     </div>
 
+    <!-- Style Container Queries — experimentální ukázka -->
+    <div class="layout-section">
+      <div class="live-label" style="margin-bottom: var(--base);">Style Container Queries — karta reaguje na hodnotu CSS custom property <code>--variant</code>:</div>
+      <div class="experimental-badge">⚠ Experimentální — @container style() · Chrome 111+ / Safari 18+ · Firefox zatím nepodporuje</div>
+
+      <div class="theme-cards-row" id="theme-cards-row">
+
+        <div class="theme-card" id="card-a">
+          <div class="theme-card__inner">
+            <div class="theme-card__header">◈</div>
+            <div class="theme-card__body">
+              <div class="theme-card__title">Klávesnice Pro X</div>
+              <div class="theme-card__desc">Mechanická Bluetooth klávesnice s RGB podsvícením.</div>
+            </div>
+            <div class="theme-card__variant-label" id="label-a">--variant: default</div>
+            <div class="theme-card__controls">
+              <button class="variant-btn" aria-pressed="true"  data-card="card-a" data-variant="default">default</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-a" data-variant="featured">featured</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-a" data-variant="muted">muted</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-a" data-variant="promo">promo</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="theme-card" id="card-b" style="--variant: featured">
+          <div class="theme-card__inner">
+            <div class="theme-card__header">◎</div>
+            <div class="theme-card__body">
+              <div class="theme-card__title">Optická myš Slim</div>
+              <div class="theme-card__desc">Ergonomická bezdrátová myš, 80g, Bluetooth 5.0.</div>
+            </div>
+            <div class="theme-card__variant-label" id="label-b">--variant: featured</div>
+            <div class="theme-card__controls">
+              <button class="variant-btn" aria-pressed="false" data-card="card-b" data-variant="default">default</button>
+              <button class="variant-btn" aria-pressed="true"  data-card="card-b" data-variant="featured">featured</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-b" data-variant="muted">muted</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-b" data-variant="promo">promo</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="theme-card" id="card-c" style="--variant: promo">
+          <div class="theme-card__inner">
+            <div class="theme-card__header">▣</div>
+            <div class="theme-card__body">
+              <div class="theme-card__title">USB-C Hub 7-v-1</div>
+              <div class="theme-card__desc">HDMI 4K, 3× USB-A, SD karta, Ethernet, PD 100W.</div>
+            </div>
+            <div class="theme-card__variant-label" id="label-c">--variant: promo</div>
+            <div class="theme-card__controls">
+              <button class="variant-btn" aria-pressed="false" data-card="card-c" data-variant="default">default</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-c" data-variant="featured">featured</button>
+              <button class="variant-btn" aria-pressed="false" data-card="card-c" data-variant="muted">muted</button>
+              <button class="variant-btn" aria-pressed="true"  data-card="card-c" data-variant="promo">promo</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <div class="demo-code">
@@ -132,8 +193,33 @@
 
 /* Kdy použít co */
 @media (min-width: 768px)        { /* viewport — layout stránky, viditelnost */ }
-@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }</code></pre>
+@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }
+
+/* ─── Style Container Queries (experimentální, Chrome 111+) ─── */
+
+/* 1. Označ kontejner — sleduje custom property */
+.theme-card {
+  container-type: inline-size;
+  container-name: theme-card;
+  --variant: default;           /* výchozí hodnota */
+}
+
+/* 2. JS mění custom property na elementu */
+card.style.setProperty('--variant', 'featured');
+
+/* 3. @container style() reaguje na hodnotu */
+@container style(--variant: featured) {
+  .theme-card__body   { background: var(--surface-brand-primary-subtle); }
+  .theme-card__inner  { box-shadow: 0 0 0 2px var(--surface-brand-primary-strong); }
+}
+
+@container style(--variant: muted) {
+  .theme-card__inner  { opacity: 0.6; }
+}
+
+/* Výhoda oproti JS třídám: logika stylu zůstává v CSS, JS jen nastaví data */</code></pre>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>

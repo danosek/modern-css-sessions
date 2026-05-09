@@ -150,6 +150,69 @@
 
     </div>
 
+      <!-- :has() quantity query — layout podle počtu potomků -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>.grid:has(&gt; .item:nth-child(n))</code>
+          <span>Quantity query — grid se mění podle počtu položek</span>
+        </div>
+        <div class="layout-stage">
+
+          <div class="qq-variants">
+
+            <div class="qq-variant">
+              <div class="qq-variant__label"><strong>2 položky</strong> → 1 sloupec</div>
+              <div class="qq-grid">
+                <div class="qq-item">Položka 1</div>
+                <div class="qq-item">Položka 2</div>
+              </div>
+            </div>
+
+            <div class="qq-variant">
+              <div class="qq-variant__label"><strong>4 položky</strong> → 2 sloupce <code>:has(&gt; .qq-item:nth-child(3))</code></div>
+              <div class="qq-grid">
+                <div class="qq-item">Položka 1</div>
+                <div class="qq-item">Položka 2</div>
+                <div class="qq-item">Položka 3</div>
+                <div class="qq-item">Položka 4</div>
+              </div>
+            </div>
+
+            <div class="qq-variant">
+              <div class="qq-variant__label"><strong>6 položek</strong> → 3 sloupce <code>:has(&gt; .qq-item:nth-child(5))</code></div>
+              <div class="qq-grid">
+                <div class="qq-item">Položka 1</div>
+                <div class="qq-item">Položka 2</div>
+                <div class="qq-item">Položka 3</div>
+                <div class="qq-item">Položka 4</div>
+                <div class="qq-item">Položka 5</div>
+                <div class="qq-item">Položka 6</div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="qq-note">Grid sám zjistí kolik má přímých potomků — žádný JS, žádné třídy přidávané ručně. <code>:has(&gt; .qq-item:nth-child(3))</code> se aplikuje, jakmile existuje třetí přímý potomek.</p>
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base);">
+          <pre><code>/* 1–2 položky: jeden sloupec (výchozí) */
+.qq-grid { display: grid; grid-template-columns: 1fr; gap: var(--base-2); }
+
+/* 3+ položky: dva sloupce */
+.qq-grid:has(> .qq-item:nth-child(3)) {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 5+ položky: tři sloupce */
+.qq-grid:has(> .qq-item:nth-child(5)) {
+  grid-template-columns: 1fr 1fr 1fr;
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
     <!-- :is() and :where() -->
     <div class="layout-section">
       <div class="live-label" style="margin-bottom: var(--base-4);">:is() a :where() — skupinové selektory:</div>

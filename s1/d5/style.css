@@ -1,3 +1,9 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D5 — @layer
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Pomocný typ + layout helpers ────────────────────────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
@@ -48,7 +54,7 @@ code {
   gap: var(--base-3);
 }
 
-/* ── Layer diagram ───────────────────────────────────────────────────────── */
+/* ── Živá ukázka — diagram vrstev ────────────────────────────────────────── */
 
 .layer-diagram {
   display: flex;
@@ -106,7 +112,7 @@ code {
   font-family: var(--font-stack-monospace);
 }
 
-/* ── Battle grid ─────────────────────────────────────────────────────────── */
+/* ── Battle grid — pořadí vrstvy vs. specificita ─────────────────────────── */
 
 .battle-grid {
   display: grid;
@@ -174,7 +180,9 @@ code {
   white-space: nowrap;
 }
 
-/* The actual @layer demo buttons */
+/* ── Skutečné @layer demo — tlačítka v battlegroundu ────────────────────── */
+
+/* Pořadí vrstev deklarováno předem */
 @layer reset, base, components, utilities;
 
 @layer components {
@@ -201,7 +209,7 @@ code {
   cursor: pointer;
 }
 
-/* no-layer control */
+/* no-layer control — bez vrstvy */
 .btn-primary-nl {
   padding: var(--base-h) var(--base-3);
   border: none;
@@ -218,7 +226,7 @@ code {
   color: var(--text-primary-on-surface-brand-secondary-strong);
 }
 
-/* ── Third-party import demo ─────────────────────────────────────────────── */
+/* ── Praktické příklady — third-party import demo ────────────────────────── */
 
 .lib-demo {
   display: flex;
@@ -278,7 +286,7 @@ code {
   line-height: 1.5;
 }
 
-/* ── revert-layer demo ───────────────────────────────────────────────────── */
+/* ── Praktické příklady — revert-layer demo ──────────────────────────────── */
 
 .revert-demo {
   display: flex;
@@ -304,4 +312,126 @@ code {
     border: 1px solid var(--surface-brand-primary-strong);
     color: var(--text-brand-primary);
   }
+}
+
+/* ── Praktické příklady — anonymní vrstva vs. pojmenovaná ────────────────── */
+
+/*
+  Anonymní vrstva (@layer { … }) nemá jméno a je vždy nižší
+  než jakákoliv pojmenovaná vrstva — bez ohledu na pořadí v kódu.
+*/
+
+.anon-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.anon-layer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--base-h) var(--base-3);
+  padding: var(--base-2) var(--base-3);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+}
+
+.anon-layer:last-child {
+  border-bottom: none;
+}
+
+.anon-layer--named-base {
+  background: var(--surface-main);
+}
+
+.anon-layer--named-theme {
+  background: var(--surface-brand-primary-minimal);
+}
+
+.anon-layer--anon {
+  background: var(--surface-main-dim);
+  opacity: 0.75;
+}
+
+.anon-layer--unlayered {
+  background: var(--surface-brand-primary-subtle);
+  border-top: 2px solid var(--surface-brand-primary-moderate);
+}
+
+.anon-layer__name {
+  color: var(--text-primary);
+}
+
+.anon-layer--named-theme .anon-layer__name {
+  color: var(--text-brand-primary);
+  font-weight: 600;
+}
+
+.anon-layer--anon .anon-layer__name {
+  color: var(--text-secondary);
+}
+
+.anon-layer__priority {
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.anon-layer--named-theme .anon-layer__priority {
+  color: var(--status-success);
+  font-weight: 600;
+}
+
+.anon-note {
+  margin-top: var(--base-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+  line-height: 1.6;
+}
+
+/* Skutečné pravidla pro demo anonymní vrstvy
+   Použijeme oddělené názvy anon-base / anon-theme aby nedošlo ke kolizi
+   s existující deklarací @layer reset, base, components, utilities výše. */
+@layer anon-base, anon-theme;
+
+@layer anon-theme {
+  .anon-swatch--theme {
+    background: var(--surface-brand-primary-strong);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+  }
+}
+
+@layer anon-base {
+  .anon-swatch--base {
+    background: var(--surface-main-variant);
+    color: var(--text-primary);
+  }
+}
+
+/* Anonymní vrstva — vždy nižší než pojmenované, přestože je v kódu za nimi */
+@layer {
+  .anon-swatch--anon {
+    background: var(--surface-main-dim);
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-strong);
+  }
+}
+
+.anon-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-2);
+  margin-top: var(--base-2);
+}
+
+.anon-swatch {
+  padding: var(--base-2) var(--base-3);
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
 }

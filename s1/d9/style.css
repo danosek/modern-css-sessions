@@ -1,3 +1,8 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D9 — reading-flow
+   Ukázky: tab order demo (grid-order), problém/řešení, Kanban board
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
@@ -47,6 +52,8 @@ code {
 }
 
 /* ── Browser support note ────────────────────────────────────────────────── */
+/*    Upozornění na Chrome 137+ — reading-flow není dostupné ve všech         */
+/*    prohlížečích, demo vizualizuje pořadí i bez nativní podpory             */
 
 .browser-note {
   display: flex;
@@ -68,7 +75,7 @@ code {
   font-size: var(--font-size-base);
 }
 
-/* ── Live stage ──────────────────────────────────────────────────────────── */
+/* ── Live stage — rámec pro interaktivní ukázku ──────────────────────────── */
 
 .live-stage {
   background: var(--surface-main-dim);
@@ -79,7 +86,9 @@ code {
   margin-bottom: var(--base-4);
 }
 
-/* ── Reading flow grid ───────────────────────────────────────────────────── */
+/* ── Reading flow grid — hlavní interaktivní ukázka ─────────────────────── */
+/*    Prvky jsou v DOM ve špatném pořadí (A,B,C,D,E,F) ale vizuálně          */
+/*    rozmístěny v gridu jinak — reading-flow: grid-order to napraví         */
 
 .rf-grid {
   display: grid;
@@ -89,6 +98,7 @@ code {
   margin-bottom: var(--base-3);
 }
 
+/* S reading-flow: Tab sleduje vizuální pořadí v gridu */
 .rf-grid.use-reading-flow {
   reading-flow: grid-order;
 }
@@ -122,7 +132,7 @@ code {
   border-color: var(--surface-brand-primary-strong);
 }
 
-/* order badge */
+/* Pořadové číslo v pravém horním rohu — DOM nebo vizuální pořadí */
 .rf-item::after {
   content: attr(data-dom);
   position: absolute;
@@ -134,6 +144,7 @@ code {
   opacity: 0.7;
 }
 
+/* Se reading-flow: badge ukazuje vizuální pořadí (modrou barvou) */
 .rf-grid.use-reading-flow .rf-item::after {
   content: attr(data-visual);
   color: var(--text-brand-primary);
@@ -150,7 +161,8 @@ code {
   border: 1px solid var(--border);
 }
 
-/* ── Explanation section ─────────────────────────────────────────────────── */
+/* ── Explanation section — problém a řešení ──────────────────────────────── */
+/*    Dvě karty vedle sebe: bez reading-flow vs. s reading-flow               */
 
 .examples-cols {
   display: grid;
@@ -181,7 +193,7 @@ code {
   font-size: var(--font-size-s);
 }
 
-/* ── Order demos (explanation grids) ─────────────────────────────────────── */
+/* ── Order demos — statické ukázky v sekci Problém/Řešení ────────────────── */
 
 .order-demo {
   padding: var(--base-3);
@@ -216,7 +228,7 @@ code {
   color: var(--text-secondary);
 }
 
-/* Visual order positioning (same as live grid) */
+/* Explicitní umístění odpovídá vizuálnímu pořadí živého gridu */
 .order-item--1 { grid-area: 1/1; }
 .order-item--2 { grid-area: 1/2; }
 .order-item--3 { grid-area: 1/3; }
@@ -224,6 +236,7 @@ code {
 .order-item--5 { grid-area: 3/2; }
 .order-item--6 { grid-area: 2/3; }
 
+/* Varianta se zvýrazněním — vizuální pořadí */
 .order-demo--visual .order-item {
   background: var(--surface-brand-primary-minimal);
   border-color: var(--surface-brand-primary-moderate);
@@ -234,4 +247,119 @@ code {
   color: var(--text-secondary);
   line-height: 1.6;
   font-family: var(--font-stack-monospace);
+}
+
+/* ── Kanban board — nová ukázka ──────────────────────────────────────────── */
+/*    Úkoly jsou v DOM seřazeny po sloupcích (TODO → DOING → DONE)            */
+/*    Grid je ale řádkový (row-based) — bez reading-flow Tab skáče chaoticky  */
+/*    S reading-flow: grid-order Tab jde po sloupcích (vizuální pořadí)       */
+
+.kanban-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+  margin-bottom: var(--base-3);
+}
+
+/* Kanban grid: 3 sloupce (TODO / DOING / DONE), řádky auto */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto repeat(3, auto);
+  gap: var(--base-2) var(--base-3);
+}
+
+/* S reading-flow: Tab jde po sloupcích (vizuální pořadí Kanbanu) */
+.kanban-board.use-reading-flow {
+  reading-flow: grid-order;
+}
+
+/* Záhlaví sloupce */
+.kanban-col-header {
+  padding: var(--base) var(--base-2);
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.kanban-col-header--todo {
+  background: var(--surface-main-dim);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.kanban-col-header--doing {
+  background: var(--surface-brand-primary-subtle);
+  color: var(--text-brand-primary);
+  border: 1px solid var(--surface-brand-primary-moderate);
+}
+
+.kanban-col-header--done {
+  background: var(--surface-success-subtle, var(--surface-brand-secondary-subtle));
+  color: var(--text-success, var(--text-brand-secondary));
+  border: 1px solid var(--border-success, var(--border-strong));
+}
+
+/* Kanban karta — focusovatelná (tabindex="0") */
+.kanban-card {
+  padding: var(--base-2) var(--base-3);
+  background: var(--surface-front);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  position: relative;
+}
+
+.kanban-card:hover {
+  background: var(--surface-main-variant);
+}
+
+.kanban-card:focus-visible {
+  outline: none;
+  background: var(--surface-brand-primary-subtle);
+  border-color: var(--surface-brand-primary-strong);
+}
+
+.kanban-card.is-focused {
+  background: var(--surface-brand-primary-subtle);
+  border-color: var(--surface-brand-primary-strong);
+}
+
+/* Badge s DOM pořadím (pravý horní roh) */
+.kanban-card::after {
+  content: "DOM " attr(data-dom);
+  position: absolute;
+  top: var(--base-h);
+  right: var(--base);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-monospace);
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* Se reading-flow: badge ukazuje vizuální pořadí */
+.kanban-board.use-reading-flow .kanban-card::after {
+  content: "vis. " attr(data-visual);
+  color: var(--text-brand-primary);
+  opacity: 1;
+}
+
+/* Stavový label focusu pod boardem */
+.kanban-info {
+  margin-top: var(--base-2);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+  min-height: 1.5em;
+  padding: var(--base) var(--base-2);
+  background: var(--surface-main);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }

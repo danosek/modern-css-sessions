@@ -228,6 +228,58 @@
       </div>
     </div>
 
+    <!-- ── Sekce 4: writing-mode — proč logické vlastnosti dávají smysl ────── -->
+    <div class="lp-section">
+      <div class="live-label">Logické vlastnosti a <code>writing-mode</code></div>
+      <p class="lp-desc">
+        Fyzické vlastnosti jako <code>padding-left</code> nebo <code>padding-right</code> jsou vázané
+        na viewport, nikoli na směr textu. U vertikálního textu (<code>writing-mode: vertical-rl</code>)
+        se osy otočí — to, co bylo "vlevo", je teď nahoře. Logické vlastnosti se otočí automaticky.
+      </p>
+
+      <div class="lp-wm-row">
+
+        <!-- Fyzická varianta -->
+        <div class="lp-wm-col">
+          <div class="lp-wm-col__label lp-wm-col__label--bad">Fyzické vlastnosti</div>
+          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
+            <div class="lp-wm-tag lp-wm-tag--physical">Štítek A</div>
+            <div class="lp-wm-tag lp-wm-tag--physical">Delší popis</div>
+          </div>
+          <pre class="lp-snippet"><code>/* Fyzické — otočení osy je matoucí */
+.tag {
+  writing-mode: vertical-rl;
+  padding-left: 1rem;   /* → teď nahoře */
+  padding-right: 1rem;  /* → teď dole */
+  border-left: 4px solid; /* → teď nahoře */
+}</code></pre>
+        </div>
+
+        <!-- Logická varianta -->
+        <div class="lp-wm-col">
+          <div class="lp-wm-col__label lp-wm-col__label--good">Logické vlastnosti</div>
+          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
+            <div class="lp-wm-tag lp-wm-tag--logical">Štítek A</div>
+            <div class="lp-wm-tag lp-wm-tag--logical">Delší popis</div>
+          </div>
+          <pre class="lp-snippet"><code>/* Logické — otočí se automaticky ✓ */
+.tag {
+  writing-mode: vertical-rl;
+  padding-block: 1rem;    /* → podél textu */
+  padding-inline: 0.5rem; /* → napříč textu */
+  border-inline-start: 4px solid; /* → začátek textu */
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="lp-wm-hint">
+        U fyzické karty je <code>border-left</code> nahoře — protože po otočení writing-mode je "vlevo"
+        fyzicky nahoře. Logická <code>border-inline-start</code> vždy označuje začátek řádku textu,
+        ať už je směr čtení jakýkoli.
+      </div>
+    </div>
+
   </div><!-- .demo-stage -->
 
   <div class="demo-code">
@@ -290,7 +342,28 @@
 
 /* RTL jazyky (arabština, hebrejština) nebo vertical writing (japonština) —
    logické vlastnosti se automaticky přizpůsobí bez změny CSS.
-   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */</code></pre>
+   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */
+
+
+/* ── writing-mode a logické vlastnosti ───────────────────────────────────── */
+
+/* Po otočení writing-mode se fyzické osy přeuspořádají:
+   vertical-rl → "vlevo" = nahoře, "vpravo" = dole                    */
+
+/* Fyzicky — špatně, padding-left jde nahoru místo doleva */
+.tag-bad {
+  writing-mode: vertical-rl;
+  padding-left: 1rem;    /* teď je to nad textem */
+  border-left: 4px solid;/* teď je to nad textem */
+}
+
+/* Logicky — správně, padding-block jde podél textu */
+.tag-good {
+  writing-mode: vertical-rl;
+  padding-block: 1rem;          /* = podél osy textu */
+  padding-inline: 0.5rem;       /* = napříč osy textu */
+  border-inline-start: 4px solid; /* = začátek řádku textu */
+}</code></pre>
   </div>
 
   <script src="script.js"></script>

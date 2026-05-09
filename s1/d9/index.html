@@ -101,6 +101,54 @@
       </div>
     </div>
 
+    <!-- Kanban board — nová ukázka -->
+    <div class="layout-section" style="margin-top: var(--base-5);">
+      <div class="live-label">Kanban board — úkoly jsou v DOM seřazeny po sloupcích (TODO→DOING→DONE), ale grid je řádkový. Bez <code>reading-flow</code> Tab skáče chaoticky po řádcích:</div>
+
+      <div class="kanban-toolbar" role="group" aria-label="Přepnout reading-flow na Kanbanu">
+        <button class="sizing-btn" aria-pressed="true"  id="kanban-btn-dom">DOM pořadí (výchozí)</button>
+        <button class="sizing-btn" aria-pressed="false" id="kanban-btn-visual">reading-flow: grid-order</button>
+      </div>
+
+      <div class="live-label" id="kanban-label">Tab pořadí = DOM pořadí → skáče přes sloupce (T1→D1→X1→T2→D2→X2→T3→D3→X3):</div>
+
+      <div class="live-stage">
+        <!--
+          DOM pořadí: T1,D1,X1,T2,D2,X2,T3,D3,X3
+          Vizuální pořadí (po sloupcích): T1,T2,T3 | D1,D2,D3 | X1,X2,X3
+          grid-area explicitně umísťuje karty do správných buněk.
+        -->
+        <div class="kanban-board" id="kanban-board">
+          <!-- Záhlaví sloupců (řádek 1) -->
+          <div class="kanban-col-header kanban-col-header--todo"  style="grid-area: 1/1">TODO</div>
+          <div class="kanban-col-header kanban-col-header--doing" style="grid-area: 1/2">DOING</div>
+          <div class="kanban-col-header kanban-col-header--done"  style="grid-area: 1/3">DONE</div>
+
+          <!-- Karta T1 — TODO, řádek 2, sloupec 1 — DOM 1, vizuálně 1 -->
+          <button class="kanban-card" tabindex="0" data-dom="1" data-visual="1" style="grid-area: 2/1">Navrhnout nové API</button>
+          <!-- Karta D1 — DOING, řádek 2, sloupec 2 — DOM 2, vizuálně 4 -->
+          <button class="kanban-card" tabindex="0" data-dom="2" data-visual="4" style="grid-area: 2/2">Refaktor auth modulu</button>
+          <!-- Karta X1 — DONE, řádek 2, sloupec 3 — DOM 3, vizuálně 7 -->
+          <button class="kanban-card" tabindex="0" data-dom="3" data-visual="7" style="grid-area: 2/3">Aktualizovat závislosti</button>
+
+          <!-- Karta T2 — TODO, řádek 3, sloupec 1 — DOM 4, vizuálně 2 -->
+          <button class="kanban-card" tabindex="0" data-dom="4" data-visual="2" style="grid-area: 3/1">Opravit mobilní layout</button>
+          <!-- Karta D2 — DOING, řádek 3, sloupec 2 — DOM 5, vizuálně 5 -->
+          <button class="kanban-card" tabindex="0" data-dom="5" data-visual="5" style="grid-area: 3/2">Napsat unit testy</button>
+          <!-- Karta X2 — DONE, řádek 3, sloupec 3 — DOM 6, vizuálně 8 -->
+          <button class="kanban-card" tabindex="0" data-dom="6" data-visual="8" style="grid-area: 3/3">Code review #412</button>
+
+          <!-- Karta T3 — TODO, řádek 4, sloupec 1 — DOM 7, vizuálně 3 -->
+          <button class="kanban-card" tabindex="0" data-dom="7" data-visual="3" style="grid-area: 4/1">Dokumentace API</button>
+          <!-- Karta D3 — DOING, řádek 4, sloupec 2 — DOM 8, vizuálně 6 -->
+          <button class="kanban-card" tabindex="0" data-dom="8" data-visual="6" style="grid-area: 4/2">Design review UI kit</button>
+          <!-- Karta X3 — DONE, řádek 4, sloupec 3 — DOM 9, vizuálně 9 -->
+          <button class="kanban-card" tabindex="0" data-dom="9" data-visual="9" style="grid-area: 4/3">Nasazení na staging</button>
+        </div>
+        <div class="kanban-info" id="kanban-info">Klikni na kartu nebo zmáčkni Tab…</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="demo-code">
@@ -125,7 +173,33 @@
 /* Proč záleží na pořadí?
    – Uživatelé klávesnice procházejí UI zleva doprava, shora dolů
    – Screen readery čtou ve stejném pořadí
-   – Nesprávné pořadí = zmatené UX, WCAG 2.4.3 Focus Order */</code></pre>
+   – Nesprávné pořadí = zmatené UX, WCAG 2.4.3 Focus Order */
+
+/* ─── Kanban board — DOM po sloupcích, grid po řádcích ─── */
+
+/* DOM pořadí: T1, D1, X1, T2, D2, X2 … (seřazeno po sloupcích)
+   Grid ale umísťuje karty explicitně do buněk (grid-area)
+   → vizuální pořadí jde po řádcích: T1→D1→X1→T2→D2→X2
+   → Tab bez reading-flow jde po DOM: T1→D1→X1→T2→D2→X2 ✓
+     ale pokud chceš sloupce: T1→T2→T3→D1→D2→D3, přidej reading-flow */
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto repeat(3, auto);
+}
+
+/* Karty umístěny explicitně: grid-area: řádek/sloupec */
+/* T1 */ .kanban-card:nth-child(1) { grid-area: 2/1; }
+/* D1 */ .kanban-card:nth-child(2) { grid-area: 2/2; }
+/* X1 */ .kanban-card:nth-child(3) { grid-area: 2/3; }
+
+/* S reading-flow: Tab sleduje vizuální grid pořadí */
+.kanban-board.use-reading-flow {
+  reading-flow: grid-order;
+  /* Tab: T1→D1→X1→T2→D2→X2→T3→D3→X3 (po řádcích, zleva doprava)
+     nebo po sloupcích pokud DOM odpovídá grid-order */
+}</code></pre>
   </div>
 
   <script src="script.js"></script>

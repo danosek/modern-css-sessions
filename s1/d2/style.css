@@ -1,6 +1,8 @@
-/* ── D9: CSS Comparison Functions — clamp(), min(), max() ──────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   D2 — Comparison Functions: clamp(), min(), max()
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Sections ────────────────────────────────────────────────────────────── */
+/* ── Sekce — společný obal každé demonstrace ─────────────────────────────── */
 
 .cf-section {
   padding-block: var(--base-5);
@@ -34,7 +36,7 @@
   color: var(--text-secondary);
 }
 
-/* ── Anatomy diagram ─────────────────────────────────────────────────────── */
+/* ── Sekce 1 — clamp(): diagram anatomie funkce ──────────────────────────── */
 
 .cf-anatomy {
   display: flex;
@@ -114,7 +116,7 @@
 [data-theme="dark"] .cf-anatomy__label--pref::before { background: #64b5f6; }
 [data-theme="dark"] .cf-anatomy__label--max::before  { background: #ce93d8; }
 
-/* ── Compare layout ──────────────────────────────────────────────────────── */
+/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
 
 .cf-compare {
   display: grid;
@@ -145,8 +147,6 @@
   color: var(--text-secondary);
 }
 
-/* ── Demo boxes ──────────────────────────────────────────────────────────── */
-
 .cf-demo-box {
   background: var(--surface-brand-primary-subtle);
   border: 1px solid var(--border);
@@ -161,8 +161,6 @@
   background: var(--surface-main-variant);
   overflow: hidden;
 }
-
-/* ── 1. Fluid heading ────────────────────────────────────────────────────── */
 
 .cf-fluid-heading {
   font-family: var(--font-stack-headings);
@@ -180,7 +178,7 @@
   margin: 0;
 }
 
-/* ── 2. min() container width ────────────────────────────────────────────── */
+/* ── Sekce 2 — min(): šířka kontejneru s horním limitem ──────────────────── */
 
 .cf-min-box {
   width: min(100%, 640px);
@@ -208,7 +206,7 @@
   font-size: var(--font-size-s);
 }
 
-/* ── 3. max() minimum guarantee ──────────────────────────────────────────── */
+/* ── Sekce 3 — max(): garantované minimum (padding + font-size) ──────────── */
 
 .cf-max-padding-box {
   width: 100%;
@@ -229,7 +227,7 @@
   margin: 0;
 }
 
-/* ── Info cards ──────────────────────────────────────────────────────────── */
+/* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
 
 .cf-info-row {
   margin-block-start: var(--base-3);
@@ -257,7 +255,7 @@
   margin: 0;
 }
 
-/* ── 4. Fluid grid with clamp() gap ─────────────────────────────────────── */
+/* ── Sekce 4 — clamp(): fluid gap v kartovém gridu ──────────────────────── */
 
 .cf-fluid-grid {
   display: grid;
@@ -305,7 +303,52 @@
   line-height: 1.5;
 }
 
-/* ── Hint ────────────────────────────────────────────────────────────────── */
+/* ── Sekce 5 — fluid type scale: ucelený typografický systém přes clamp() ── */
+
+/* CSS proměnné škály — definovány inline na .cf-typescale elementu */
+
+.cf-typescale {
+  --step-0: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);
+  --step-1: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  --step-2: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);
+  --step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem);
+
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-5) var(--base-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.cf-typescale__h1 {
+  font-family: var(--font-stack-headings);
+  font-size: var(--step-3);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.cf-typescale__h2 {
+  font-family: var(--font-stack-headings);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cf-typescale__body {
+  font-size: var(--step-0);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-inline-size: 60ch;
+}
+
+/* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */
 
 .cf-hint {
   font-size: var(--font-size-xs);

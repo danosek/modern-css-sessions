@@ -1,3 +1,8 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D8 — Subgrid
+   Ukázky: produktové karty (subgrid vs. flex), formulářová pole, editoriální
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
@@ -71,7 +76,8 @@ code {
   font-size: var(--font-size-s);
 }
 
-/* ── Product cards grid ──────────────────────────────────────────────────── */
+/* ── Product cards grid — hlavní subgrid ukázka ──────────────────────────── */
+/*    Toggle „Se subgrid" přidá třídu .use-subgrid na .products-grid          */
 
 .products-grid {
   display: grid;
@@ -80,19 +86,19 @@ code {
   margin-bottom: var(--base-2);
 }
 
-/* WITH subgrid: rows align across all cards */
+/* SE subgrid: grid definuje explicitní řádky, karty je "vypůjčí" */
 .products-grid.use-subgrid {
   grid-template-rows: repeat(5, auto);
 }
 
 .products-grid.use-subgrid .product-card {
-  grid-row: span 5;
+  grid-row: span 5;          /* karta obsadí 5 řádků rodiče */
   display: grid;
-  grid-template-rows: subgrid;
+  grid-template-rows: subgrid; /* použij ty samé řádky */
   gap: 0;
 }
 
-/* Without subgrid: each card is an independent flex column */
+/* BEZ subgrid: každá karta je nezávislý flex sloupeček */
 .product-card {
   background: var(--surface-front);
   border: 1px solid var(--border);
@@ -127,10 +133,10 @@ code {
   color: var(--text-secondary);
   line-height: 1.5;
   padding: var(--base) var(--base-3);
-  flex: 1;
+  flex: 1; /* bez subgrid: roztáhne se na zbývající výšku */
 }
 
-/* subgrid version: desc is a subgrid row, needs to stretch */
+/* Se subgrid: desc je explicitní řádek, flex: 1 by nefungovalo */
 .use-subgrid .product-card__desc {
   flex: unset;
 }
@@ -166,9 +172,10 @@ code {
   font-size: var(--font-size-s);
   cursor: pointer;
   transition: opacity 0.15s;
-  margin-top: auto;
+  margin-top: auto; /* bez subgrid: přilep na dno */
 }
 
+/* Se subgrid: tlačítko sedí v explicitním řádku, margin-top není potřeba */
 .use-subgrid .product-card__btn {
   margin-top: unset;
 }
@@ -177,7 +184,8 @@ code {
   opacity: 0.85;
 }
 
-/* ── Form alignment ──────────────────────────────────────────────────────── */
+/* ── Form alignment — subgrid pro zarovnání formulářových polí ────────────── */
+/*    display: contents na .form-row → label a input vstoupí přímo do gridu   */
 
 .form-grid {
   display: grid;
@@ -187,7 +195,7 @@ code {
 }
 
 .form-row {
-  display: contents;
+  display: contents; /* "průhledný obal" — dítě vstoupí do rodičovského gridu */
 }
 
 .form-label {
@@ -216,4 +224,107 @@ code {
   color: var(--text-secondary);
   font-family: var(--font-stack-monospace);
   white-space: nowrap;
+}
+
+/* ── Editoriální layout — subgrid zarovná 4 zóny přes 3 karty ────────────── */
+/*    Problém: bez subgrid nadpisy, perexy a CTA nesedí na stejné výšce       */
+/*    Řešení: rodičovský grid definuje 4 řádky, karty je "vypůjčí" přes       */
+/*            grid-template-rows: subgrid                                       */
+
+/* Wrapper — toggle mezi subgrid a flex variantou */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--base-3);
+}
+
+/* SE subgrid: 4 explicitní řádky — obrázek / nadpis / perex / CTA */
+.editorial-grid.use-subgrid {
+  grid-template-rows: repeat(4, auto);
+}
+
+.editorial-grid.use-subgrid .editorial-card {
+  grid-row: span 4;
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: 0;
+}
+
+/* BEZ subgrid: každá karta je nezávislý flex sloupeček */
+.editorial-card {
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.editorial-card__img {
+  height: 120px;
+  background: var(--surface-brand-primary-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-brand-primary);
+  flex-shrink: 0;
+}
+
+.editorial-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+  padding: var(--base-3) var(--base-3) var(--base);
+  line-height: 1.3;
+}
+
+.editorial-card__perex {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 0 var(--base-3) var(--base-2);
+  flex: 1; /* bez subgrid: vyplní zbývající prostor */
+}
+
+/* Se subgrid: perex je explicitní řádek, flex: 1 by nefungovalo */
+.use-subgrid .editorial-card__perex {
+  flex: unset;
+}
+
+.editorial-card__cta {
+  padding: var(--base-2) var(--base-3) var(--base-3);
+  margin-top: auto; /* bez subgrid: přilep CTA na dno */
+}
+
+/* Se subgrid: CTA sedí v explicitním řádku */
+.use-subgrid .editorial-card__cta {
+  margin-top: unset;
+}
+
+.editorial-card__btn {
+  display: inline-block;
+  padding: var(--base-h) var(--base-3);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  text-decoration: none;
+}
+
+.editorial-card__btn:hover {
+  opacity: 0.85;
+}
+
+/* Toolbar pro editoriální sekci */
+.editorial-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+  margin-bottom: var(--base-3);
 }

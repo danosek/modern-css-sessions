@@ -153,6 +153,55 @@
         </div>
 
       </div>
+
+      <!-- Anonymní vrstva vs. pojmenovaná -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>@layer { … }</code>
+          <span>Anonymní vrstva — vždy nižší než pojmenované</span>
+        </div>
+        <div class="layout-stage">
+          <div class="anon-diagram">
+            <div class="anon-layer anon-layer--unlayered">
+              <span class="anon-layer__name">bez vrstvy (unlayered)</span>
+              <span class="anon-layer__priority">priorita 4 — nejvyšší</span>
+            </div>
+            <div class="anon-layer anon-layer--named-theme">
+              <span class="anon-layer__name">@layer theme</span>
+              <span class="anon-layer__priority">priorita 3 ✓</span>
+            </div>
+            <div class="anon-layer anon-layer--named-base">
+              <span class="anon-layer__name">@layer base</span>
+              <span class="anon-layer__priority">priorita 2</span>
+            </div>
+            <div class="anon-layer anon-layer--anon">
+              <span class="anon-layer__name">@layer { … } — anonymní</span>
+              <span class="anon-layer__priority">priorita 1 — vždy nejnižší</span>
+            </div>
+          </div>
+
+          <div class="anon-swatches">
+            <span class="anon-swatch anon-swatch--theme">theme (pojmenovaná)</span>
+            <span class="anon-swatch anon-swatch--base">base (pojmenovaná)</span>
+            <span class="anon-swatch anon-swatch--anon">@layer { } anonymní</span>
+          </div>
+
+          <p class="anon-note">Deklarace <code>@layer base, theme;</code> fixuje pořadí — <code>theme</code> vždy bije <code>base</code>, bez ohledu na pořadí v kódu. Anonymní vrstva <code>@layer { … }</code> je vždy pod všemi pojmenovanými.</p>
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base);">
+          <pre><code>/* Pořadí deklarováno dopředu — poté lze @layer naplnit kamkoliv v kódu */
+@layer base, theme;
+
+/* theme > base — přestože @layer base je v kódu zapsán dřív */
+@layer theme { .btn { background: var(--surface-brand-primary-strong); } }
+@layer base  { .btn { background: var(--surface-main-dim); } }
+
+/* Anonymní vrstva — VŽDY nižší než pojmenované, i když je v kódu nakonec */
+@layer { .btn { background: red; } }   /* nikdy nevyhraje */</code></pre>
+        </div>
+      </div>
+
     </div>
 
   </div>

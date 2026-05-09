@@ -1,6 +1,9 @@
-/* ── Logical Properties demo — style.css ──────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   D3 — Logical Properties
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Pomocné styly pro kód inline */
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
@@ -9,7 +12,7 @@ code {
   border-radius: var(--radius-subtle);
 }
 
-/* ── Sdílené layout helpers ──────────────────────────────────────────────── */
+/* ── Sdílené helpers ─────────────────────────────────────────────────────── */
 
 .live-label {
   font-size: var(--font-size-s);
@@ -34,7 +37,7 @@ code {
   border-color: var(--surface-brand-primary-strong);
 }
 
-/* ── Sekce ───────────────────────────────────────────────────────────────── */
+/* ── Sekce — společný obal každé demonstrace ─────────────────────────────── */
 
 .lp-section {
   padding-block: var(--base-5);
@@ -60,7 +63,7 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Živá ukázka ─────────────────────────────────────────────────────────── */
+/* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
 
 .lp-demo-wrap {
   background: var(--surface-main-variant);
@@ -90,7 +93,7 @@ code {
   color: var(--text-primary);
 }
 
-/* Dvousloupcový layout pro srovnání */
+/* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
 .lp-compare {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -126,7 +129,7 @@ code {
   border: 1px solid color-mix(in srgb, var(--status-success) 25%, transparent);
 }
 
-/* ── Karty (srovnání fyzické vs. logické) ────────────────────────────────── */
+/* ── Sekce 1 — karty (srovnání fyzické vs. logické) ─────────────────────── */
 
 .lp-card {
   background: var(--surface-main);
@@ -136,7 +139,7 @@ code {
   overflow: hidden;
 }
 
-/* Fyzická karta — záměrně hardcoded fyzické vlastnosti */
+/* Fyzická karta — záměrně hardcoded fyzické vlastnosti (ukazujeme chybný přístup) */
 .lp-card--physical {
   padding-top: var(--base-4);
   padding-right: var(--base-3);
@@ -146,7 +149,7 @@ code {
   margin-left: var(--base-2);
 }
 
-/* Logická karta — logické vlastnosti */
+/* Logická karta — logické vlastnosti se automaticky překlopí v RTL */
 .lp-card--logical {
   padding-block-start: var(--base-4);
   padding-block-end: var(--base-3);
@@ -212,7 +215,7 @@ code {
   border-color: color-mix(in srgb, var(--status-success) 25%, transparent);
 }
 
-/* ── Code snippety v demo-stage ──────────────────────────────────────────── */
+/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
 
 .lp-snippet {
   background: var(--surface-main);
@@ -241,7 +244,7 @@ code {
   inline-size: 100%;
 }
 
-/* ── Tabulka mappingu ─────────────────────────────────────────────────────── */
+/* ── Sekce 2 — tabulka fyzické → logické mapování ────────────────────────── */
 
 .lp-table-wrap {
   overflow-x: auto;
@@ -282,12 +285,14 @@ code {
   line-height: 1.5;
 }
 
+/* Fyzická vlastnost — červená (upozornění) */
 .lp-table td:first-child code {
   color: var(--status-error);
   background: color-mix(in srgb, var(--status-error) 8%, transparent);
   border: 1px solid color-mix(in srgb, var(--status-error) 20%, transparent);
 }
 
+/* Logická vlastnost — zelená (doporučení) */
 .lp-table td:nth-child(2) code {
   color: var(--status-success);
   background: color-mix(in srgb, var(--status-success) 8%, transparent);
@@ -307,7 +312,7 @@ code {
   background: var(--surface-main-variant);
 }
 
-/* ── inset shorthand demo ─────────────────────────────────────────────────── */
+/* ── Sekce 3 — inset shorthand: vizualizace + srovnání kódu ─────────────── */
 
 .lp-inset-demo {
   display: grid;
@@ -364,7 +369,7 @@ code {
   user-select: none;
 }
 
-/* Vizualizace inset */
+/* Vizualizace inset — box s absolutně pozicovaným vnitřkem */
 .lp-inset-vis {
   display: flex;
   flex-direction: column;
@@ -392,6 +397,7 @@ code {
   border-radius: var(--radius-subtle);
 }
 
+/* Fyzická verze — hardcoded top/right/bottom/left */
 .lp-inset-vis__inner--physical {
   top: 12px;
   right: 12px;
@@ -402,6 +408,7 @@ code {
   color: var(--status-error);
 }
 
+/* Logická verze — shorthand inset */
 .lp-inset-vis__inner--logical {
   inset: 12px;
   background: color-mix(in srgb, var(--status-success) 15%, transparent);
@@ -427,4 +434,83 @@ code {
   background: var(--surface-main);
   border: 1px solid var(--border);
   font-size: var(--font-size-xs);
+}
+
+/* ── Sekce 4 — writing-mode: proč logické vlastnosti smysl i vertikálně ──── */
+
+/* Řada tagů pro srovnání: vertikální text s fyzickými vs. logickými vlastnostmi */
+.lp-wm-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--base-5);
+}
+
+.lp-wm-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+  align-items: flex-start;
+}
+
+.lp-wm-col__label {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  font-family: var(--font-stack-monospace);
+  padding-block: var(--base-h);
+  padding-inline: var(--base-2);
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+.lp-wm-col__label--bad {
+  background: color-mix(in srgb, var(--status-error) 12%, transparent);
+  color: var(--status-error);
+  border: 1px solid color-mix(in srgb, var(--status-error) 25%, transparent);
+}
+
+.lp-wm-col__label--good {
+  background: color-mix(in srgb, var(--status-success) 12%, transparent);
+  color: var(--status-success);
+  border: 1px solid color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+
+/* Základní tag — writing-mode: vertical-rl */
+.lp-wm-tag {
+  writing-mode: vertical-rl;
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+}
+
+/* Fyzická verze — padding-left/right funguje špatně ve vertical-rl:
+   vlevo/vpravo jsou nyní nahoře/dole po otočení osy */
+.lp-wm-tag--physical {
+  padding-left: var(--base-4);
+  padding-right: var(--base-4);
+  padding-top: var(--base-2);
+  padding-bottom: var(--base-2);
+  border-left: 4px solid var(--status-error);
+}
+
+/* Logická verze — padding-block/inline se automaticky otočí se writing-mode */
+.lp-wm-tag--logical {
+  padding-block: var(--base-4);
+  padding-inline: var(--base-2);
+  border-inline-start: 4px solid var(--status-success);
+}
+
+.lp-wm-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-3);
+  max-inline-size: 60ch;
+  line-height: 1.6;
 }

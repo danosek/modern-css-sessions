@@ -1,3 +1,8 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D7 — Container Queries
+   Ukázky: resizable container, tři kontexty, style queries (experimentální)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
@@ -43,6 +48,7 @@ code {
 }
 
 /* ── Resizable container wrapper ─────────────────────────────────────────── */
+/*    Uživatel může táhnout za pravý dolní roh a sledovat breakpointy karty   */
 
 .cq-resize-wrap {
   resize: horizontal;
@@ -63,11 +69,11 @@ code {
   width: 100%;
 }
 
-/* fixed-width contexts */
+/* Fixní šířky pro porovnání tří kontextů */
 .cq-container--220 { width: 220px; }
 .cq-container--360 { width: 360px; }
 
-/* ── Product card ────────────────────────────────────────────────────────── */
+/* ── Product card — základní styl (mobilní / úzký kontext) ──────────────── */
 
 .product-card {
   background: var(--surface-front);
@@ -96,7 +102,6 @@ code {
   gap: var(--base);
   flex: 1;
 }
-
 
 .product-card__title {
   font-family: var(--font-stack-headings);
@@ -143,8 +148,10 @@ code {
   opacity: 0.85;
 }
 
-/* ── Container queries ───────────────────────────────────────────────────── */
+/* ── Container queries — breakpointy karty ───────────────────────────────── */
+/*    @container reaguje na šířku pojmenovaného kontejneru, ne viewportu       */
 
+/* Breakpoint 1: ≥ 380px → horizontální layout (grid) */
 @container product (min-width: 380px) {
   .product-card {
     display: grid;
@@ -158,6 +165,7 @@ code {
   }
 }
 
+/* Breakpoint 2: ≥ 520px → footer jako řádek (cena + tlačítko vedle sebe) */
 @container product (min-width: 520px) {
   .product-card__img {
     font-size: 3.5rem;
@@ -175,7 +183,8 @@ code {
   }
 }
 
-/* ── Three-context comparison ────────────────────────────────────────────── */
+/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
+/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
 
 .context-row {
   display: grid;
@@ -200,4 +209,155 @@ code {
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--base);
+}
+
+/* ── Style Container Queries — experimentální ukázka ────────────────────── */
+/*    @container style() reaguje na hodnotu CSS custom property               */
+/*    Spec: https://drafts.csswg.org/css-contain-3/#style-container           */
+
+/* Badge "experimentální" */
+.experimental-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-h);
+  padding: var(--base-h) var(--base-2);
+  background: var(--surface-warning-subtle, var(--surface-brand-secondary-subtle));
+  border: 1px solid var(--border-warning, var(--border-strong));
+  border-radius: var(--radius);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-monospace);
+  color: var(--text-secondary);
+  margin-bottom: var(--base-3);
+}
+
+/* Mřížka karet pro style queries ukázku */
+.theme-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--base-3);
+  margin-bottom: var(--base-3);
+}
+
+/* Kontejner pro style queries — sleduje custom property --variant */
+.theme-card {
+  container-type: inline-size;
+  container-name: theme-card;
+  --variant: default;
+}
+
+/* Základní vzhled karty */
+.theme-card__inner {
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.theme-card__header {
+  height: 60px;
+  background: var(--surface-main-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.theme-card__body {
+  padding: var(--base-2) var(--base-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  flex: 1;
+  transition: background 0.2s;
+}
+
+.theme-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+}
+
+.theme-card__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.theme-card__variant-label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  padding: var(--base-h) var(--base-3) var(--base-2);
+  border-top: 1px solid var(--border);
+}
+
+/* Tlačítka pro přepínání varianty */
+.theme-card__controls {
+  display: flex;
+  gap: var(--base-h);
+  padding: 0 var(--base-3) var(--base-2);
+  flex-wrap: wrap;
+}
+
+.variant-btn {
+  padding: 2px var(--base);
+  background: var(--surface-control);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.variant-btn:hover {
+  background: var(--surface-main-variant);
+}
+
+.variant-btn[aria-pressed="true"] {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border-color: transparent;
+}
+
+/* ── @container style() — reaguje na --variant custom property ────────────
+   Prohlížeče bez podpory style queries tyto bloky ignorují.
+   Fallback: základní styl zůstane nezměněn.                                  */
+
+@container style(--variant: featured) {
+  .theme-card__body {
+    background: var(--surface-brand-primary-subtle);
+  }
+  .theme-card__inner {
+    box-shadow: 0 0 0 2px var(--surface-brand-primary-strong);
+  }
+  .theme-card__title {
+    color: var(--text-brand-primary);
+  }
+}
+
+@container style(--variant: muted) {
+  .theme-card__body {
+    background: var(--surface-main-dim);
+  }
+  .theme-card__inner {
+    opacity: 0.6;
+  }
+}
+
+@container style(--variant: promo) {
+  .theme-card__header {
+    background: var(--surface-brand-secondary-subtle);
+  }
+  .theme-card__body {
+    background: var(--surface-brand-secondary-minimal, var(--surface-brand-primary-subtle));
+  }
+  .theme-card__inner {
+    box-shadow: 0 0 0 2px var(--surface-brand-secondary-strong);
+  }
 }
