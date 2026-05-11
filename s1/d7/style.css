@@ -10,20 +10,6 @@ code {
 
 /* ── Layout helpers ──────────────────────────────────────────────────────── */
 
-.live-label {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  margin-bottom: var(--base-2);
-}
-
-.layout-section {
-  border-top: 1px solid var(--border);
-  padding-top: var(--base-4);
-  margin-top: var(--base-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-5);
-}
 
 .layout-example {
   display: flex;

@@ -2,24 +2,7 @@
    D2 — Comparison Functions: clamp(), min(), max()
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Sekce — společný obal každé demonstrace ─────────────────────────────── */
-
-.cf-section {
-  padding-block: var(--base-5);
-  border-block-end: 1px solid var(--border);
-}
-
-.cf-section:last-child {
-  border-block-end: none;
-}
-
-.cf-section__header {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--base-h) var(--base-2);
-  margin-block-end: var(--base-4);
-}
+/* ── Funkční badge v titulku sekce ───────────────────────────────────────── */
 
 .cf-fn {
   font-family: var(--font-stack-monospace);
@@ -29,11 +12,6 @@
   background: var(--surface-brand-primary-minimal);
   padding: var(--base-h) var(--base-2);
   border-radius: var(--radius);
-}
-
-.cf-section__desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
 }
 
 /* ── Sekce 1 — clamp(): diagram anatomie funkce ──────────────────────────── */

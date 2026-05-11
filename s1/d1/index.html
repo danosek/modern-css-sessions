@@ -30,157 +30,161 @@
 
   <div class="demo-stage">
 
-    <div class="layout-section">
+    <div class="demo-section">
+      <h2 class="demo-section__title">Živá ukázka — šířka boxu se mění podle vybrané hodnoty</h2>
+      <div class="demo-section__example">
 
-      <!-- Živé demo -->
-      <div class="live-section">
-        <div class="live-label">Živá ukázka — šířka boxu se mění podle vybrané hodnoty:</div>
-        <!-- Přepínač -->
-        <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
-          <button class="sizing-btn" aria-pressed="false" data-value="auto">auto</button>
-          <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
-          <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
-          <button class="sizing-btn" aria-pressed="true" data-value="fit-content">fit-content</button>
-        </div>
-        <div class="live-stage">
-          <div class="demo-box" data-sizing="fit-content">
-            <p>Toto je <strong>krátký text.</strong></p>
-            <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
+        <!-- Živé demo -->
+        <div class="live-section">
+          <!-- Přepínač -->
+          <div class="sizing-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
+            <button class="sizing-btn" aria-pressed="false" data-value="auto">auto</button>
+            <button class="sizing-btn" aria-pressed="false" data-value="min-content">min-content</button>
+            <button class="sizing-btn" aria-pressed="false" data-value="max-content">max-content</button>
+            <button class="sizing-btn" aria-pressed="true" data-value="fit-content">fit-content</button>
+          </div>
+          <div class="live-stage">
+            <div class="demo-box" data-sizing="fit-content">
+              <p>Toto je <strong>krátký text.</strong></p>
+              <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
+            </div>
+          </div>
+          <div class="width-indicator">
+            <div class="width-indicator__bar"></div>
+            <span>0</span>
+            <span id="width-value">—</span>
           </div>
         </div>
-        <div class="width-indicator">
-          <div class="width-indicator__bar"></div>
-          <span>0</span>
-          <span id="width-value">—</span>
+
+        <!-- Statické srovnání -->
+        <div style="margin-top: var(--base-5); border-top: 1px solid var(--border); padding-top: var(--base-4);">
+          <div class="demo-section__sublabel" style="margin-bottom: var(--base-3);">Srovnání všech hodnot vedle sebe:</div>
+          <div class="sizing-grid">
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: auto</div>
+              <div class="demo-box" style="width: auto">
+                Box vyplní dostupný prostor rodičovského elementu.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: min-content</div>
+              <div class="demo-box" style="width: min-content">
+                Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: max-content</div>
+              <div class="demo-box" style="width: max-content">
+                Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: fit-content</div>
+              <div class="demo-box" style="width: fit-content">
+                Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
-
-      <!-- Statické srovnání -->
-      <div style="margin-top: var(--base-5); border-top: 1px solid var(--border); padding-top: var(--base-4);">
-        <div class="live-label" style="margin-bottom: var(--base-3);">Srovnání všech hodnot vedle sebe:</div>
-        <div class="sizing-grid">
-          <div class="sizing-card">
-            <div class="sizing-card__label">width: auto</div>
-            <div class="demo-box" style="width: auto">
-              Box vyplní dostupný prostor rodičovského elementu.
-            </div>
-          </div>
-          <div class="sizing-card">
-            <div class="sizing-card__label">width: min-content</div>
-            <div class="demo-box" style="width: min-content">
-              Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
-            </div>
-          </div>
-          <div class="sizing-card">
-            <div class="sizing-card__label">width: max-content</div>
-            <div class="demo-box" style="width: max-content">
-              Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
-            </div>
-          </div>
-          <div class="sizing-card">
-            <div class="sizing-card__label">width: fit-content</div>
-            <div class="demo-box" style="width: fit-content">
-              Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <!-- Layout ukázky -->
-    <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Intrinsic sizing v layoutu:</div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Intrinsic sizing v layoutu</h2>
+      <div class="demo-section__example">
 
-      <!-- 1: fit-content + margin: auto -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>fit-content</code> + <code>margin-inline: auto</code>
-          <span>Centrování bez pevné šířky</span>
-        </div>
-        <div class="layout-stage">
-          <div class="demo-box ex-callout">
-            Tato zpráva se přizpůsobí délce textu a zůstane vycentrovaná.
+        <!-- 1: fit-content + margin: auto -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>fit-content</code> + <code>margin-inline: auto</code>
+            <span>Centrování bez pevné šířky</span>
           </div>
-          <div class="demo-box ex-callout">
-            Kratší zpráva.
-          </div>
-        </div>
-      </div>
-
-      <!-- 2: grid max-content labels -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>grid-template-columns: max-content 1fr</code>
-          <span>Štítky se auto-šíří podle nejdelšího, pole vyplní zbytek</span>
-        </div>
-        <div class="layout-stage">
-          <div class="ex-form-grid">
-            <span class="ex-label">Jméno</span>
-            <div class="ex-input"></div>
-            <span class="ex-label">E-mailová adresa</span>
-            <div class="ex-input"></div>
-            <span class="ex-label">Tel.</span>
-            <div class="ex-input"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3: max-content 1fr max-content -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>grid-template-columns: max-content 1fr max-content</code>
-          <span>Postranní sloupce zaberou přesně tolik místa, kolik potřebují</span>
-        </div>
-        <div class="layout-stage">
-          <div class="ex-header-grid">
-            <nav class="ex-nav" contenteditable="true">Domů · O nás · Kontakt</nav>
-            <div class="ex-page-title" contenteditable="true">Název stránky</div>
-            <nav class="ex-nav" contenteditable="true">Přihlásit se · EN</nav>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4: fit-content(300px) — fit-content s explicitním maximem -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>fit-content(300px)</code>
-          <span>Smrskne se na obsah, ale nikdy nepřekročí 300 px — srovnání s fit-content a max-content</span>
-        </div>
-        <div class="layout-stage">
-          <div style="display: flex; flex-direction: column; gap: var(--base-3);">
-
-            <div>
-              <div class="live-label" style="margin-bottom: var(--base);">fit-content(300px) — capped maximum</div>
-              <div class="ex-tags-row">
-                <div class="ex-tag--fit-capped">Krátký tag</div>
-                <div class="ex-tag--fit-capped">Středně dlouhý popisek</div>
-                <div class="ex-tag--fit-capped">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
-              </div>
+          <div class="layout-stage">
+            <div class="demo-box ex-callout">
+              Tato zpráva se přizpůsobí délce textu a zůstane vycentrovaná.
             </div>
-
-            <div>
-              <div class="live-label" style="margin-bottom: var(--base);">fit-content — bez limitu (až do šířky kontejneru)</div>
-              <div class="ex-tags-row">
-                <div class="ex-tag--fit">Krátký tag</div>
-                <div class="ex-tag--fit">Středně dlouhý popisek</div>
-                <div class="ex-tag--fit">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
-              </div>
+            <div class="demo-box ex-callout">
+              Kratší zpráva.
             </div>
-
-            <div>
-              <div class="live-label" style="margin-bottom: var(--base);">max-content — přesně šířka obsahu, bez omezení</div>
-              <div class="ex-tags-row">
-                <div class="ex-tag--max">Krátký tag</div>
-                <div class="ex-tag--max">Středně dlouhý popisek</div>
-                <div class="ex-tag--max">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
-              </div>
-            </div>
-
           </div>
         </div>
-      </div>
 
+        <!-- 2: grid max-content labels -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: max-content 1fr</code>
+            <span>Štítky se auto-šíří podle nejdelšího, pole vyplní zbytek</span>
+          </div>
+          <div class="layout-stage">
+            <div class="ex-form-grid">
+              <span class="ex-label">Jméno</span>
+              <div class="ex-input"></div>
+              <span class="ex-label">E-mailová adresa</span>
+              <div class="ex-input"></div>
+              <span class="ex-label">Tel.</span>
+              <div class="ex-input"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: max-content 1fr max-content -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: max-content 1fr max-content</code>
+            <span>Postranní sloupce zaberou přesně tolik místa, kolik potřebují</span>
+          </div>
+          <div class="layout-stage">
+            <div class="ex-header-grid">
+              <nav class="ex-nav" contenteditable="true">Domů · O nás · Kontakt</nav>
+              <div class="ex-page-title" contenteditable="true">Název stránky</div>
+              <nav class="ex-nav" contenteditable="true">Přihlásit se · EN</nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: fit-content(300px) — fit-content s explicitním maximem -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>fit-content(300px)</code>
+            <span>Smrskne se na obsah, ale nikdy nepřekročí 300 px — srovnání s fit-content a max-content</span>
+          </div>
+          <div class="layout-stage">
+            <div style="display: flex; flex-direction: column; gap: var(--base-3);">
+
+              <div>
+                <div class="demo-section__sublabel" style="margin-bottom: var(--base);">fit-content(300px) — capped maximum</div>
+                <div class="ex-tags-row">
+                  <div class="ex-tag--fit-capped">Krátký tag</div>
+                  <div class="ex-tag--fit-capped">Středně dlouhý popisek</div>
+                  <div class="ex-tag--fit-capped">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="demo-section__sublabel" style="margin-bottom: var(--base);">fit-content — bez limitu (až do šířky kontejneru)</div>
+                <div class="ex-tags-row">
+                  <div class="ex-tag--fit">Krátký tag</div>
+                  <div class="ex-tag--fit">Středně dlouhý popisek</div>
+                  <div class="ex-tag--fit">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="demo-section__sublabel" style="margin-bottom: var(--base);">max-content — přesně šířka obsahu, bez omezení</div>
+                <div class="ex-tags-row">
+                  <div class="ex-tag--max">Krátký tag</div>
+                  <div class="ex-tag--max">Středně dlouhý popisek</div>
+                  <div class="ex-tag--max">Velmi dlouhý popisek, který by normálně přetekl přes tři sta pixelů</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>

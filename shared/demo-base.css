@@ -152,14 +152,29 @@ body {
   color: var(--text-primary-on-surface-brand-primary-subtle);
 }
 
-/* ── Full-screen sections ─────────────────────────────────────────────────── */
-/* Každá sekce/ukázka zabírá minimálně zbytek obrazovky po demo-header.       */
-/* --above-stage-h je nastaveno JavaScriptem v script.js každého dema.        */
-.layout-section,
-.cf-section,
-.lp-section {
-  min-height: calc(100svh - var(--above-stage-h, 200px) - var(--base-4));
+/* ── Demo sections ────────────────────────────────────────────────────────── */
+/* Každá sekce zabírá minimálně celou obrazovku po demo-header.               */
+/* --above-stage-h nastavuje script.js každého dema.                          */
+
+.demo-section {
+  min-height: calc(100svh - var(--above-stage-h, 200px));
   border-top: 1px solid var(--border);
   padding-top: var(--base-5);
+  padding-bottom: var(--base-6);
   margin-top: var(--base-5);
+}
+
+.demo-section__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  color: var(--text-secondary);
+  margin-bottom: var(--base-4);
+  line-height: 1.5;
+}
+
+.demo-section__example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-5);
 }

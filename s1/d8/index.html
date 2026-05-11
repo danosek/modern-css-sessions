@@ -26,118 +26,123 @@
 
   <div class="demo-stage">
 
-    <div class="layout-section">
+    <div class="demo-section">
+      <h2 class="demo-section__title" id="subgrid-label">Živá ukázka — subgrid zarovná řádky napříč kartami</h2>
+      <div class="demo-section__example">
 
-      <!-- Toggle -->
-      <div class="sizing-toolbar" role="group" aria-label="Přepnout subgrid">
-        <button class="sizing-btn" aria-pressed="false" id="btn-off">Bez subgrid</button>
-        <button class="sizing-btn" aria-pressed="true"  id="btn-on">Se subgrid</button>
+        <!-- Toggle -->
+        <div class="sizing-toolbar" role="group" aria-label="Přepnout subgrid">
+          <button class="sizing-btn" aria-pressed="false" id="btn-off">Bez subgrid</button>
+          <button class="sizing-btn" aria-pressed="true"  id="btn-on">Se subgrid</button>
+        </div>
+
+        <!-- Product cards grid -->
+        <div class="products-grid use-subgrid" id="products-grid">
+
+          <article class="product-card">
+            <div class="product-card__img">◈</div>
+            <h3 class="product-card__title">Bezdrátová klávesnice Pro X</h3>
+            <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2, RGB podsvícením a 6měsíční výdrží baterie. Plná sada kláves.</p>
+            <div class="product-card__price">
+              <span class="price-amount">2 490 Kč</span>
+              <span class="price-note">včetně DPH</span>
+            </div>
+            <button class="product-card__btn">Přidat do košíku</button>
+          </article>
+
+          <article class="product-card">
+            <div class="product-card__img">◎</div>
+            <h3 class="product-card__title">Optická myš</h3>
+            <p class="product-card__desc">Ergonomická bezdrátová myš.</p>
+            <div class="product-card__price">
+              <span class="price-amount">590 Kč</span>
+              <span class="price-note">včetně DPH</span>
+            </div>
+            <button class="product-card__btn">Přidat do košíku</button>
+          </article>
+
+          <article class="product-card">
+            <div class="product-card__img">▣</div>
+            <h3 class="product-card__title">USB-C Hub 7-v-1</h3>
+            <p class="product-card__desc">Rozbočovač s HDMI 4K, 3× USB-A, SD kartou, Ethernet a PD nabíjením až 100W. Kompatibilní s MacBook i Windows notebooky.</p>
+            <div class="product-card__price">
+              <span class="price-amount">990 Kč</span>
+              <span class="price-note">včetně DPH</span>
+            </div>
+            <button class="product-card__btn">Přidat do košíku</button>
+          </article>
+
+        </div>
+
       </div>
-
-      <div class="live-label" id="subgrid-label">Živá ukázka — subgrid zarovná řádky napříč kartami:</div>
-
-      <!-- Product cards grid -->
-      <div class="products-grid use-subgrid" id="products-grid">
-
-        <article class="product-card">
-          <div class="product-card__img">◈</div>
-          <h3 class="product-card__title">Bezdrátová klávesnice Pro X</h3>
-          <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2, RGB podsvícením a 6měsíční výdrží baterie. Plná sada kláves.</p>
-          <div class="product-card__price">
-            <span class="price-amount">2 490 Kč</span>
-            <span class="price-note">včetně DPH</span>
-          </div>
-          <button class="product-card__btn">Přidat do košíku</button>
-        </article>
-
-        <article class="product-card">
-          <div class="product-card__img">◎</div>
-          <h3 class="product-card__title">Optická myš</h3>
-          <p class="product-card__desc">Ergonomická bezdrátová myš.</p>
-          <div class="product-card__price">
-            <span class="price-amount">590 Kč</span>
-            <span class="price-note">včetně DPH</span>
-          </div>
-          <button class="product-card__btn">Přidat do košíku</button>
-        </article>
-
-        <article class="product-card">
-          <div class="product-card__img">▣</div>
-          <h3 class="product-card__title">USB-C Hub 7-v-1</h3>
-          <p class="product-card__desc">Rozbočovač s HDMI 4K, 3× USB-A, SD kartou, Ethernet a PD nabíjením až 100W. Kompatibilní s MacBook i Windows notebooky.</p>
-          <div class="product-card__price">
-            <span class="price-amount">990 Kč</span>
-            <span class="price-note">včetně DPH</span>
-          </div>
-          <button class="product-card__btn">Přidat do košíku</button>
-        </article>
-
-      </div>
-
     </div>
 
     <!-- Form alignment example -->
-    <div class="layout-section">
-      <div class="live-label" style="margin-bottom: var(--base-4);">Subgrid pro zarovnání formulářových polí:</div>
-      <div class="layout-stage">
-        <div class="form-grid">
-          <div class="form-row">
-            <label class="form-label">Jméno</label>
-            <div class="form-input-wrap"><div class="form-input"></div></div>
-          </div>
-          <div class="form-row">
-            <label class="form-label">E-mailová adresa</label>
-            <div class="form-input-wrap"><div class="form-input"></div></div>
-          </div>
-          <div class="form-row">
-            <label class="form-label">Tel.</label>
-            <div class="form-input-wrap"><div class="form-input"></div></div>
-            <span class="form-hint">Volitelné</span>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Subgrid pro zarovnání formulářových polí</h2>
+      <div class="demo-section__example">
+        <div class="layout-stage">
+          <div class="form-grid">
+            <div class="form-row">
+              <label class="form-label">Jméno</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">E-mailová adresa</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Tel.</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+              <span class="form-hint">Volitelné</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Editoriální layout — nová ukázka -->
-    <div class="layout-section">
-      <div class="live-label">Editoriální layout — subgrid zarovná obrázek, nadpis, perex a CTA přes 3 karty s různě dlouhým textem:</div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Editoriální layout — subgrid zarovná obrázek, nadpis, perex a CTA přes 3 karty s různě dlouhým textem</h2>
+      <div class="demo-section__example">
 
-      <div class="editorial-toolbar" role="group" aria-label="Přepnout editoriální subgrid">
-        <button class="sizing-btn" aria-pressed="false" id="edit-btn-off">Bez subgrid</button>
-        <button class="sizing-btn" aria-pressed="true"  id="edit-btn-on">Se subgrid</button>
-      </div>
+        <div class="editorial-toolbar" role="group" aria-label="Přepnout editoriální subgrid">
+          <button class="sizing-btn" aria-pressed="false" id="edit-btn-off">Bez subgrid</button>
+          <button class="sizing-btn" aria-pressed="true"  id="edit-btn-on">Se subgrid</button>
+        </div>
 
-      <div class="live-label" id="editorial-label">Živá ukázka — subgrid zarovná 4 zóny (obrázek / nadpis / perex / CTA) napříč kartami:</div>
+        <p class="demo-section__sublabel" id="editorial-label">Živá ukázka — subgrid zarovná 4 zóny (obrázek / nadpis / perex / CTA) napříč kartami:</p>
 
-      <div class="editorial-grid use-subgrid" id="editorial-grid">
+        <div class="editorial-grid use-subgrid" id="editorial-grid">
 
-        <article class="editorial-card">
-          <div class="editorial-card__img">◈</div>
-          <h3 class="editorial-card__title">Nová éra mechanických klávesnic pro home office</h3>
-          <p class="editorial-card__perex">Mechanické klávesnice prožívají renesanci. Díky tišším spínačům a Bluetooth spojení jsou dnes ideální volbou nejen pro gamery, ale i pro náročné pracovníky na home office.</p>
-          <div class="editorial-card__cta">
-            <button class="editorial-card__btn">Číst článek</button>
-          </div>
-        </article>
+          <article class="editorial-card">
+            <div class="editorial-card__img">◈</div>
+            <h3 class="editorial-card__title">Nová éra mechanických klávesnic pro home office</h3>
+            <p class="editorial-card__perex">Mechanické klávesnice prožívají renesanci. Díky tišším spínačům a Bluetooth spojení jsou dnes ideální volbou nejen pro gamery, ale i pro náročné pracovníky na home office.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
 
-        <article class="editorial-card">
-          <div class="editorial-card__img">◎</div>
-          <h3 class="editorial-card__title">Ergonomie</h3>
-          <p class="editorial-card__perex">Správná myš může výrazně snížit zátěž zápěstí. Stačí krátký článek.</p>
-          <div class="editorial-card__cta">
-            <button class="editorial-card__btn">Číst článek</button>
-          </div>
-        </article>
+          <article class="editorial-card">
+            <div class="editorial-card__img">◎</div>
+            <h3 class="editorial-card__title">Ergonomie</h3>
+            <p class="editorial-card__perex">Správná myš může výrazně snížit zátěž zápěstí. Stačí krátký článek.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
 
-        <article class="editorial-card">
-          <div class="editorial-card__img">▣</div>
-          <h3 class="editorial-card__title">USB-C huby v roce 2025: co skutečně potřebuješ a co je zbytečné</h3>
-          <p class="editorial-card__perex">Trh je zaplavený USB-C huby všech cen a konfigurací. Porovnali jsme 12 modelů, testovali přenosové rychlosti, zahřívání i kompatibilitu s MacBook Pro a Windows laptopy. Výsledky vás možná překvapí — nejdražší není vždy nejlepší.</p>
-          <div class="editorial-card__cta">
-            <button class="editorial-card__btn">Číst článek</button>
-          </div>
-        </article>
+          <article class="editorial-card">
+            <div class="editorial-card__img">▣</div>
+            <h3 class="editorial-card__title">USB-C huby v roce 2025: co skutečně potřebuješ a co je zbytečné</h3>
+            <p class="editorial-card__perex">Trh je zaplavený USB-C huby všech cen a konfigurací. Porovnali jsme 12 modelů, testovali přenosové rychlosti, zahřívání i kompatibilitu s MacBook Pro a Windows laptopy. Výsledky vás možná překvapí — nejdražší není vždy nejlepší.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
 
+        </div>
       </div>
     </div>
 

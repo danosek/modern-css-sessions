@@ -8,26 +8,11 @@ code {
   font-family: var(--font-stack-monospace);
 }
 
-.live-label {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  margin-bottom: var(--base-2);
-}
-
 .demo-hint {
   margin-top: var(--base-2);
   font-size: var(--font-size-xs);
   color: var(--text-secondary);
   font-family: var(--font-stack-monospace);
-}
-
-.layout-section {
-  border-top: 1px solid var(--border);
-  padding-top: var(--base-4);
-  margin-top: var(--base-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-4);
 }
 
 /* ── Code block ──────────────────────────────────────────────────────────── */

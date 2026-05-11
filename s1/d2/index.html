@@ -27,200 +27,205 @@
   <div class="demo-stage">
 
     <!-- ── 1. clamp() — fluid typography ──────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">clamp()</code>
-        <span class="cf-section__desc">Fluid typografie — nadpis se plynule mění s šířkou okna</span>
-      </div>
+    <div class="demo-section">
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid typografie — nadpis se plynule mění s šířkou okna</h2>
 
-      <div class="cf-anatomy">
-        <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span class="cf-anatomy__fn">)</span>
-        <div class="cf-anatomy__labels">
-          <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
-          <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
-          <span class="cf-anatomy__label cf-anatomy__label--max">největší povolená hodnota</span>
-        </div>
-      </div>
+      <div class="demo-section__example">
 
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: clamp(1.25rem, 4vw, 3rem)</code>
-            <span class="cf-compare__note">plynule roste s oknem</span>
-          </div>
-          <div class="cf-demo-box">
-            <p class="cf-fluid-heading">Fluid nadpis</p>
+        <div class="cf-anatomy">
+          <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span class="cf-anatomy__fn">)</span>
+          <div class="cf-anatomy__labels">
+            <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
+            <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
+            <span class="cf-anatomy__label cf-anatomy__label--max">největší povolená hodnota</span>
           </div>
         </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: var(--font-size-xl)</code>
-            <span class="cf-compare__note">fixní velikost</span>
+
+        <div class="cf-compare">
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>font-size: clamp(1.25rem, 4vw, 3rem)</code>
+              <span class="cf-compare__note">plynule roste s oknem</span>
+            </div>
+            <div class="cf-demo-box">
+              <p class="cf-fluid-heading">Fluid nadpis</p>
+            </div>
           </div>
-          <div class="cf-demo-box">
-            <p class="cf-fixed-heading">Fixní nadpis</p>
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>font-size: var(--font-size-xl)</code>
+              <span class="cf-compare__note">fixní velikost</span>
+            </div>
+            <div class="cf-demo-box">
+              <p class="cf-fixed-heading">Fixní nadpis</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="cf-hint">
-        Zmenšuj nebo zvětšuj okno prohlížeče — fluid nadpis se mění plynule, fixní zůstává stejný.
+        <div class="cf-hint">
+          Zmenšuj nebo zvětšuj okno prohlížeče — fluid nadpis se mění plynule, fixní zůstává stejný.
+        </div>
+
       </div>
-    </section>
+    </div>
 
     <!-- ── 2. min() — container width ─────────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">min()</code>
-        <span class="cf-section__desc">Šířka kontejneru — vrátí nejmenší z hodnot</span>
-      </div>
+    <div class="demo-section">
+      <h2 class="demo-section__title"><code class="cf-fn">min()</code> — Šířka kontejneru — vrátí nejmenší z hodnot</h2>
 
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>width: min(100%, 640px)</code>
-            <span class="cf-compare__note">100 % nebo maximálně 640 px — vždy menší hodnota</span>
+      <div class="demo-section__example">
+
+        <div class="cf-compare">
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>width: min(100%, 640px)</code>
+              <span class="cf-compare__note">100 % nebo maximálně 640 px — vždy menší hodnota</span>
+            </div>
+            <div class="cf-demo-box cf-demo-box--ruler">
+              <div class="cf-min-box">
+                <span class="cf-box-label">min(100%, 640px)</span>
+              </div>
+            </div>
           </div>
-          <div class="cf-demo-box cf-demo-box--ruler">
-            <div class="cf-min-box">
-              <span class="cf-box-label">min(100%, 640px)</span>
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>max-width: 640px</code>
+              <span class="cf-compare__note">ekvivalentní zápis — ale <code>min()</code> přijme i více argumentů</span>
+            </div>
+            <div class="cf-demo-box cf-demo-box--ruler">
+              <div class="cf-maxwidth-box">
+                <span class="cf-box-label">max-width: 640px</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>max-width: 640px</code>
-            <span class="cf-compare__note">ekvivalentní zápis — ale <code>min()</code> přijme i více argumentů</span>
-          </div>
-          <div class="cf-demo-box cf-demo-box--ruler">
-            <div class="cf-maxwidth-box">
-              <span class="cf-box-label">max-width: 640px</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="cf-info-row">
-        <div class="cf-info-card">
-          <div class="cf-info-card__title">Proč <code>min()</code>?</div>
-          <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
+        <div class="cf-info-row">
+          <div class="cf-info-card">
+            <div class="cf-info-card__title">Proč <code>min()</code>?</div>
+            <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
+          </div>
         </div>
+
       </div>
-    </section>
+    </div>
 
     <!-- ── 3. max() — minimum guarantee ───────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">max()</code>
-        <span class="cf-section__desc">Garantované minimum — vrátí největší z hodnot</span>
-      </div>
+    <div class="demo-section">
+      <h2 class="demo-section__title"><code class="cf-fn">max()</code> — Garantované minimum — vrátí největší z hodnot</h2>
 
-      <div class="cf-compare">
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>padding: max(var(--base-2), 3vw)</code>
-            <span class="cf-compare__note">padding roste s viewportem, ale nikdy neklesne pod minimum</span>
+      <div class="demo-section__example">
+
+        <div class="cf-compare">
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>padding: max(var(--base-2), 3vw)</code>
+              <span class="cf-compare__note">padding roste s viewportem, ale nikdy neklesne pod minimum</span>
+            </div>
+            <div class="cf-demo-box">
+              <div class="cf-max-padding-box">
+                <span class="cf-box-label">Obsah s fluid paddingem</span>
+              </div>
+            </div>
           </div>
-          <div class="cf-demo-box">
-            <div class="cf-max-padding-box">
-              <span class="cf-box-label">Obsah s fluid paddingem</span>
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>font-size: max(14px, 1.5vw)</code>
+              <span class="cf-compare__note">nikdy nečitelně malé — minimum 14 px zaručeno</span>
+            </div>
+            <div class="cf-demo-box">
+              <p class="cf-max-fontsize">
+                Tento text je nikdy menší než 14 px, ale roste s šířkou okna díky 1.5vw.
+              </p>
             </div>
           </div>
         </div>
-        <div class="cf-compare__item">
-          <div class="cf-compare__label">
-            <code>font-size: max(14px, 1.5vw)</code>
-            <span class="cf-compare__note">nikdy nečitelně malé — minimum 14 px zaručeno</span>
+
+        <div class="cf-info-row">
+          <div class="cf-info-card">
+            <div class="cf-info-card__title">Proč <code>max()</code>?</div>
+            <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru. Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
           </div>
-          <div class="cf-demo-box">
-            <p class="cf-max-fontsize">
-              Tento text je nikdy menší než 14 px, ale roste s šířkou okna díky 1.5vw.
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 4. clamp() pro spacing ─────────────────────────────────────────── -->
+    <div class="demo-section">
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid mezery — <code>gap</code> se přizpůsobí viewportu</h2>
+
+      <div class="demo-section__example">
+
+        <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
+          <code>gap: clamp(var(--base-2), 3vw, var(--base-6))</code>
+          <span class="cf-compare__note">mezera mezi kartami roste plynule s oknem</span>
+        </div>
+
+        <div class="cf-fluid-grid">
+          <div class="cf-card">
+            <div class="cf-card__icon">A</div>
+            <div class="cf-card__title">Karta první</div>
+            <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
+          </div>
+          <div class="cf-card">
+            <div class="cf-card__icon">B</div>
+            <div class="cf-card__title">Karta druhá</div>
+            <div class="cf-card__body">Na mobilu minimum, na desktopu maximum, mezi tím plynulý přechod.</div>
+          </div>
+          <div class="cf-card">
+            <div class="cf-card__icon">C</div>
+            <div class="cf-card__title">Karta třetí</div>
+            <div class="cf-card__body">Žádné breakpointy — <code>clamp()</code> zvládne vše sám.</div>
+          </div>
+        </div>
+
+        <div class="cf-hint">
+          Změň šířku okna a sleduj, jak se mezery mezi kartami plynule mění.
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 5. Fluid type scale — ucelená typografická škála přes clamp() ──── -->
+    <div class="demo-section">
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid type scale — proporcionální typografická škála bez breakpointů</h2>
+
+      <div class="demo-section__example">
+
+        <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
+          <code>--step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
+          <span class="cf-compare__note">každá úroveň škály je fluid — h1, h2 i body text mění velikost společně</span>
+        </div>
+
+        <div class="cf-typescale">
+          <h2 class="cf-typescale__h1">Moderní typografie bez breakpointů</h2>
+          <h3 class="cf-typescale__h2">Fluid škála zachovává proporce na každé šířce okna</h3>
+          <p class="cf-typescale__body">
+            Každá úroveň je definovaná samostatnou <code>clamp()</code> hodnotou — minimum, preferovaná
+            fluid hodnota a maximum. Nadpisy a tělo textu tak rostou společně a jejich vzájemný poměr
+            zůstává konzistentní od mobilního rozlišení až po wide screen.
+          </p>
+        </div>
+
+        <div class="cf-hint">
+          Zmenšuj nebo zvětšuj okno — všechny tři úrovně se mění plynule a zachovávají vzájemné proporce.
+        </div>
+
+        <div class="cf-info-row">
+          <div class="cf-info-card">
+            <div class="cf-info-card__title">Fluid type scale — čtyři kroky</div>
+            <p>
+              <code>--step-0</code> (body): <code>clamp(0.875rem, 0.8rem + 0.4vw, 1rem)</code><br>
+              <code>--step-1</code> (h3): <code>clamp(1.125rem, 1rem + 0.6vw, 1.375rem)</code><br>
+              <code>--step-2</code> (h2): <code>clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem)</code><br>
+              <code>--step-3</code> (h1): <code>clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
             </p>
           </div>
         </div>
-      </div>
 
-      <div class="cf-info-row">
-        <div class="cf-info-card">
-          <div class="cf-info-card__title">Proč <code>max()</code>?</div>
-          <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru. Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
-        </div>
       </div>
-    </section>
-
-    <!-- ── 4. clamp() pro spacing ─────────────────────────────────────────── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">clamp()</code>
-        <span class="cf-section__desc">Fluid mezery — <code>gap</code> se přizpůsobí viewportu</span>
-      </div>
-
-      <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
-        <code>gap: clamp(var(--base-2), 3vw, var(--base-6))</code>
-        <span class="cf-compare__note">mezera mezi kartami roste plynule s oknem</span>
-      </div>
-
-      <div class="cf-fluid-grid">
-        <div class="cf-card">
-          <div class="cf-card__icon">A</div>
-          <div class="cf-card__title">Karta první</div>
-          <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
-        </div>
-        <div class="cf-card">
-          <div class="cf-card__icon">B</div>
-          <div class="cf-card__title">Karta druhá</div>
-          <div class="cf-card__body">Na mobilu minimum, na desktopu maximum, mezi tím plynulý přechod.</div>
-        </div>
-        <div class="cf-card">
-          <div class="cf-card__icon">C</div>
-          <div class="cf-card__title">Karta třetí</div>
-          <div class="cf-card__body">Žádné breakpointy — <code>clamp()</code> zvládne vše sám.</div>
-        </div>
-      </div>
-
-      <div class="cf-hint">
-        Změň šířku okna a sleduj, jak se mezery mezi kartami plynule mění.
-      </div>
-    </section>
-
-    <!-- ── 5. Fluid type scale — ucelená typografická škála přes clamp() ──── -->
-    <section class="cf-section">
-      <div class="cf-section__header">
-        <code class="cf-fn">clamp()</code>
-        <span class="cf-section__desc">Fluid type scale — proporcionální typografická škála bez breakpointů</span>
-      </div>
-
-      <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
-        <code>--step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
-        <span class="cf-compare__note">každá úroveň škály je fluid — h1, h2 i body text mění velikost společně</span>
-      </div>
-
-      <div class="cf-typescale">
-        <h2 class="cf-typescale__h1">Moderní typografie bez breakpointů</h2>
-        <h3 class="cf-typescale__h2">Fluid škála zachovává proporce na každé šířce okna</h3>
-        <p class="cf-typescale__body">
-          Každá úroveň je definovaná samostatnou <code>clamp()</code> hodnotou — minimum, preferovaná
-          fluid hodnota a maximum. Nadpisy a tělo textu tak rostou společně a jejich vzájemný poměr
-          zůstává konzistentní od mobilního rozlišení až po wide screen.
-        </p>
-      </div>
-
-      <div class="cf-hint">
-        Zmenšuj nebo zvětšuj okno — všechny tři úrovně se mění plynule a zachovávají vzájemné proporce.
-      </div>
-
-      <div class="cf-info-row">
-        <div class="cf-info-card">
-          <div class="cf-info-card__title">Fluid type scale — čtyři kroky</div>
-          <p>
-            <code>--step-0</code> (body): <code>clamp(0.875rem, 0.8rem + 0.4vw, 1rem)</code><br>
-            <code>--step-1</code> (h3): <code>clamp(1.125rem, 1rem + 0.6vw, 1.375rem)</code><br>
-            <code>--step-2</code> (h2): <code>clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem)</code><br>
-            <code>--step-3</code> (h1): <code>clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
-          </p>
-        </div>
-      </div>
-    </section>
+    </div>
 
   </div><!-- /demo-stage -->
 

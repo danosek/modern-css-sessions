@@ -14,12 +14,6 @@ code {
 
 /* ── Sdílené helpers ─────────────────────────────────────────────────────── */
 
-.live-label {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  margin-block-end: var(--base-2);
-}
-
 .sizing-btn {
   padding: var(--base-h) var(--base-2);
   background: var(--surface-main-variant);
@@ -35,24 +29,6 @@ code {
 .sizing-btn:hover {
   background: var(--surface-brand-primary-minimal);
   border-color: var(--surface-brand-primary-strong);
-}
-
-/* ── Sekce — společný obal každé demonstrace ─────────────────────────────── */
-
-.lp-section {
-  padding-block: var(--base-5);
-  border-block-end: 1px solid var(--border);
-}
-
-.lp-section:last-child {
-  border-block-end: none;
-}
-
-.lp-section--alt {
-  background: var(--surface-main-variant);
-  margin-inline: calc(var(--base-5) * -1);
-  padding-inline: var(--base-5);
-  border-block: 1px solid var(--border);
 }
 
 .lp-desc {

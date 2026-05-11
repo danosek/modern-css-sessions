@@ -27,8 +27,9 @@
   <div class="demo-stage">
 
     <!-- ── Sekce 1: Živá ukázka ──────────────────────────────────────────── -->
-    <div class="lp-section">
-      <div class="live-label">Živá ukázka — fyzické vs. logické vlastnosti</div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Živá ukázka — fyzické vs. logické vlastnosti</h2>
+      <div class="demo-section__example">
       <p class="lp-desc">
         Tlačítko přepíná směr čtení (<code>dir</code>) na celém demo kontejneru.
         Logická verze se automaticky překlopí do RTL, fyzická ne.
@@ -94,11 +95,13 @@
 
         </div>
       </div>
+      </div>
     </div>
 
     <!-- ── Sekce 2: Přehledová tabulka mappingu ──────────────────────────── -->
-    <div class="lp-section lp-section--alt">
-      <div class="live-label">Physical → Logical mapping</div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Physical → Logical mapping</h2>
+      <div class="demo-section__example">
       <p class="lp-desc">
         Přehled nejpoužívanějších fyzických vlastností a jejich logických protějšků.
       </p>
@@ -166,11 +169,13 @@
           </tbody>
         </table>
       </div>
+      </div>
     </div>
 
     <!-- ── Sekce 3: inset shorthand ──────────────────────────────────────── -->
-    <div class="lp-section">
-      <div class="live-label">Zkratka <code>inset</code></div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Zkratka <code>inset</code></h2>
+      <div class="demo-section__example">
       <p class="lp-desc">
         Vlastnost <code>inset</code> nahrazuje všechny čtyři poziční vlastnosti najednou
         a funguje stejně jako <code>margin</code> či <code>padding</code> co do pořadí hodnot.
@@ -226,11 +231,13 @@
         </div>
 
       </div>
+      </div>
     </div>
 
     <!-- ── Sekce 4: writing-mode — proč logické vlastnosti dávají smysl ────── -->
-    <div class="lp-section">
-      <div class="live-label">Logické vlastnosti a <code>writing-mode</code></div>
+    <div class="demo-section">
+      <h2 class="demo-section__title">Logické vlastnosti a <code>writing-mode</code></h2>
+      <div class="demo-section__example">
       <p class="lp-desc">
         Fyzické vlastnosti jako <code>padding-left</code> nebo <code>padding-right</code> jsou vázané
         na viewport, nikoli na směr textu. U vertikálního textu (<code>writing-mode: vertical-rl</code>)
@@ -277,6 +284,7 @@
         U fyzické karty je <code>border-left</code> nahoře — protože po otočení writing-mode je "vlevo"
         fyzicky nahoře. Logická <code>border-inline-start</code> vždy označuje začátek řádku textu,
         ať už je směr čtení jakýkoli.
+      </div>
       </div>
     </div>
 
