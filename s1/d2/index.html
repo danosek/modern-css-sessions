@@ -141,6 +141,21 @@
           </div>
         </div>
 
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>border-radius: max(4px, 1vw)</code>
+              <span class="cf-compare__note">zaoblení roste s viewportem, nikdy neklesne pod 4 px</span>
+            </div>
+            <div class="cf-demo-box">
+              <div class="cf-max-radius-row">
+                <button class="cf-radius-btn cf-radius-btn--max">max(4px, 1vw)</button>
+                <button class="cf-radius-btn cf-radius-btn--clamp">clamp(4px, 1vw, 16px)</button>
+                <button class="cf-radius-btn cf-radius-btn--fixed">border-radius: 4px</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="cf-info-row">
           <div class="cf-info-card">
             <div class="cf-info-card__title">Proč <code>max()</code>?</div>
@@ -151,15 +166,29 @@
       </div>
     </div>
 
-    <!-- ── 4. clamp() pro spacing ─────────────────────────────────────────── -->
+    <!-- ── 4. clamp() — responsivní karta (gap + radius + font + padding) ──── -->
     <div class="demo-section">
-      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid mezery — <code>gap</code> se přizpůsobí viewportu</h2>
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Responsivní karta — gap, padding, radius i font plynule reagují na viewport</h2>
 
       <div class="demo-section__example">
 
-        <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
-          <code>gap: clamp(var(--base-2), 3vw, var(--base-6))</code>
-          <span class="cf-compare__note">mezera mezi kartami roste plynule s oknem</span>
+        <div class="cf-card-props">
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">gap</span>
+            <code>clamp(var(--base-2), 3vw, var(--base-6))</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">padding</span>
+            <code>clamp(var(--base-2), 2vw, var(--base-5))</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">border-radius</span>
+            <code>clamp(4px, 1vw, 16px)</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">font-size</span>
+            <code>clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem)</code>
+          </div>
         </div>
 
         <div class="cf-fluid-grid">
@@ -181,7 +210,7 @@
         </div>
 
         <div class="cf-hint">
-          Změň šířku okna a sleduj, jak se mezery mezi kartami plynule mění.
+          Zmenšuj nebo zvětšuj okno — sleduj jak se plynule mění mezery, zaoblení, padding i velikost textu karet.
         </div>
 
       </div>
@@ -247,6 +276,19 @@
   gap: clamp(var(--base-2), 3vw, var(--base-6));
 }
 
+/* Responsivní karta — gap, padding, border-radius i font v jednom */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
+}
+
+.card {
+  padding:       clamp(var(--base-2), 2vw,  var(--base-5));
+  border-radius: clamp(4px,           1vw,  16px);
+  font-size:     clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
+}
+
 
 /* ── min() ───────────────────────────────────────────────────────────────── */
 
@@ -277,6 +319,18 @@
 .body-text {
   font-size: max(14px, 1.5vw);
   /* Nikdy pod 14 px — zaručuje čitelnost na malých obrazovkách */
+}
+
+/* border-radius — fluid zaoblení s garantovaným minimem */
+.btn {
+  border-radius: max(4px, 1vw);
+  /* Na mobilu: 4 px | Na desktopu: 1vw (větší) — vždy alespoň trochu zaoblené */
+}
+
+/* clamp() pro radius: ohraničí i maximum — hodí se např. na karty */
+.card {
+  border-radius: clamp(4px, 1vw, 16px);
+  /* Pod 4 px nikdy, nad 16 px nikdy, mezi tím fluid */
 }
 
 
