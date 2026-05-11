@@ -205,6 +205,30 @@
   margin: 0;
 }
 
+/* ── Sekce 3 — max(): fluid border-radius ────────────────────────────────── */
+
+.cf-max-radius-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-3);
+  align-items: center;
+}
+
+.cf-radius-btn {
+  padding: var(--base-2) var(--base-4);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  border: 2px solid var(--surface-brand-primary-strong);
+  background: var(--surface-brand-primary-minimal);
+  color: var(--text-primary);
+  cursor: default;
+  white-space: nowrap;
+}
+
+.cf-radius-btn--max    { border-radius: max(4px, 1vw); }
+.cf-radius-btn--clamp  { border-radius: clamp(4px, 1vw, 16px); }
+.cf-radius-btn--fixed  { border-radius: 4px; }
+
 /* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
 
 .cf-info-row {
@@ -233,7 +257,38 @@
   margin: 0;
 }
 
-/* ── Sekce 4 — clamp(): fluid gap v kartovém gridu ──────────────────────── */
+/* ── Sekce 4 — clamp(): responsivní karta (gap + padding + radius + font) ── */
+
+.cf-card-props {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+  margin-block-end: var(--base-4);
+}
+
+.cf-card-prop {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+}
+
+.cf-card-prop__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  min-width: 9ch;
+  flex-shrink: 0;
+}
+
+.cf-card-prop code {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
 
 .cf-fluid-grid {
   display: grid;
@@ -245,8 +300,8 @@
 .cf-card {
   background: var(--surface-main-variant);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--base-4);
+  border-radius: clamp(4px, 1vw, 16px);
+  padding: clamp(var(--base-2), 2vw, var(--base-5));
   display: flex;
   flex-direction: column;
   gap: var(--base-2);
@@ -270,7 +325,7 @@
 
 .cf-card__title {
   font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
+  font-size: clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
   color: var(--text-primary);
   font-weight: 600;
 }
