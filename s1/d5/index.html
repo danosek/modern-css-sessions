@@ -27,31 +27,33 @@
   <div class="demo-stage">
 
     <!-- Layer order visualization -->
-    <div class="live-label">Živá ukázka — pořadí vrstev bije specificitu selektorů:</div>
-    <div class="live-stage">
-      <div class="layer-diagram">
-        <div class="layer layer--reset">
-          <span class="layer__name">@layer reset</span>
-          <span class="layer__desc">Normalize, základní reset</span>
+    <div class="layout-section">
+      <div class="live-label">Živá ukázka — pořadí vrstev bije specificitu selektorů:</div>
+      <div class="live-stage">
+        <div class="layer-diagram">
+          <div class="layer layer--reset">
+            <span class="layer__name">@layer reset</span>
+            <span class="layer__desc">Normalize, základní reset</span>
+          </div>
+          <div class="layer layer--base">
+            <span class="layer__name">@layer base</span>
+            <span class="layer__desc">Typografie, barvy, tokeny</span>
+          </div>
+          <div class="layer layer--components">
+            <span class="layer__name">@layer components</span>
+            <span class="layer__desc">.btn, .card, .input…</span>
+          </div>
+          <div class="layer layer--utilities">
+            <span class="layer__name">@layer utilities</span>
+            <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
+          </div>
+          <div class="layer layer--unlayered">
+            <span class="layer__name">bez vrstvy (unlayered)</span>
+            <span class="layer__desc">Inline styly, přepsání ad hoc</span>
+          </div>
         </div>
-        <div class="layer layer--base">
-          <span class="layer__name">@layer base</span>
-          <span class="layer__desc">Typografie, barvy, tokeny</span>
-        </div>
-        <div class="layer layer--components">
-          <span class="layer__name">@layer components</span>
-          <span class="layer__desc">.btn, .card, .input…</span>
-        </div>
-        <div class="layer layer--utilities">
-          <span class="layer__name">@layer utilities</span>
-          <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
-        </div>
-        <div class="layer layer--unlayered">
-          <span class="layer__name">bez vrstvy (unlayered)</span>
-          <span class="layer__desc">Inline styly, přepsání ad hoc</span>
-        </div>
+        <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
       </div>
-      <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
     </div>
 
     <!-- The key demo: layer order vs. specificity -->

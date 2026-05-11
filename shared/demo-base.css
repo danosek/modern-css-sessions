@@ -151,3 +151,15 @@ body {
   font-size: var(--font-size-s);
   color: var(--text-primary-on-surface-brand-primary-subtle);
 }
+
+/* ── Full-screen sections ─────────────────────────────────────────────────── */
+/* Každá sekce/ukázka zabírá minimálně zbytek obrazovky po demo-header.       */
+/* --above-stage-h je nastaveno JavaScriptem v script.js každého dema.        */
+.layout-section,
+.cf-section,
+.lp-section {
+  min-height: calc(100svh - var(--above-stage-h, 200px) - var(--base-4));
+  border-top: 1px solid var(--border);
+  padding-top: var(--base-5);
+  margin-top: var(--base-5);
+}
