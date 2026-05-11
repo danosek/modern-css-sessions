@@ -38,7 +38,7 @@
   let title       = $state(demoPath);
 
   // Resize state
-  let leftFraction    = $state(0.5);   // fraction of grid width for left column
+  let leftFraction    = $state(0.33);  // fraction of grid width for left column
   let htmlPanelHeight = $state(220);   // px height of HTML panel when open
   let jsPanelHeight   = $state(220);   // px height of JS panel when open
   let colResizing     = $state(false);
@@ -203,7 +203,7 @@
   {:else}
     <div class="left-column">
       <div class="css-pane">
-        <div class="pane-label">style.css</div>
+        <div class="pane-label">CSS</div>
         <div class="pane-content">
           <CssEditor value={css} onchange={(v) => css = v} />
         </div>
@@ -254,7 +254,7 @@
   .editor-layout {
     display: grid;
     grid-template-rows: auto 1fr;
-    grid-template-columns: 50% 4px 1fr; /* default; inline style overrides on resize */
+    grid-template-columns: 33% 4px 1fr; /* default; inline style overrides on resize */
     height: 100vh;
     overflow: hidden;
     background: var(--surface-base);

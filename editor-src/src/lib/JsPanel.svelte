@@ -41,7 +41,7 @@
 </script>
 
 <div class="js-panel" class:open style="--panel-height: {panelHeight}px">
-  <div class="pane-label">script.js (readonly)</div>
+  <div class="pane-label">JS</div>
   <div bind:this={container} class="cm-wrapper"></div>
 </div>
 
