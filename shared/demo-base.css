@@ -65,7 +65,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-strong);
   padding: var(--base-3) var(--page-pad);
-  margin-bottom: var(--page-pad);
+  margin: var(--page-pad);
   overflow-x: auto;
 }
 
@@ -166,10 +166,12 @@ body {
 
 .demo-section {
   min-height: calc(100svh - var(--above-fold));
+  padding-block: var(--page-pad);
+}
+
+.demo-section:not(:first-child) {
   border-top: 1px solid var(--border);
-  padding-top: var(--base-5);
-  padding-bottom: var(--base-6);
-  margin-top: var(--base-5);
+  min-height: 100svh;
 }
 
 .demo-section__title {

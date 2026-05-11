@@ -8,7 +8,7 @@
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xl);
   font-style: normal;
-  color: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-minimal);
   background: var(--surface-brand-primary-minimal);
   padding: var(--base-h) var(--base-2);
   border-radius: var(--radius);
@@ -97,8 +97,8 @@
 /* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
 
 .cf-compare {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--base-4);
   margin-block-end: var(--base-3);
 }
@@ -126,13 +126,18 @@
 }
 
 .cf-demo-box {
-  background: var(--surface-brand-primary-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--base-3) var(--base-4);
-  min-height: 80px;
   display: flex;
   align-items: center;
+  line-height: 1;
+  
+}
+
+.cf-demo-box p{
+  /* content: '';
+  display: inline-block; */
+  border: 1px solid var(--surface-brand-secondary-strong);
+  padding: var(--base-2) var(--base-3);
+  border-radius: var(--radius-strong);
 }
 
 .cf-demo-box--ruler {
@@ -142,17 +147,17 @@
 
 .cf-fluid-heading {
   font-family: var(--font-stack-headings);
-  font-size: clamp(1.25rem, 4vw, 3rem);
+  font-size: clamp(1.25rem, 4vw, 5rem);
   color: var(--text-primary);
-  line-height: 1.2;
+  line-height: 1;
   margin: 0;
 }
 
 .cf-fixed-heading {
   font-family: var(--font-stack-headings);
-  font-size: var(--font-size-xl);
+  font-size: 1.25rem;
   color: var(--text-primary);
-  line-height: 1.2;
+  line-height: 1;
   margin: 0;
 }
 
@@ -298,6 +303,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--base-3);
+  resize: horizontal;
+  overflow: auto;
 }
 
 .cf-typescale__h1 {
@@ -336,4 +343,5 @@
   border-radius: var(--radius-subtle);
   padding: var(--base-2) var(--base-3);
   margin-block-start: var(--base-2);
+  inline-size: fit-content;
 }
