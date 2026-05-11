@@ -6,19 +6,27 @@
   padding: 0;
 }
 
+/* ── Stránkové proměnné ───────────────────────────────────────────────────── */
+
+:root {
+  --demo-header-h: 140px;   /* min-height .demo-header (border-box, vč. paddingu) */
+  --page-pad: var(--base-4); /* stránkový padding – aplikovaný na header a stage */
+  --above-fold: calc(var(--demo-header-h) + var(--page-pad)); /* pro min-height sekcí */
+}
+
 body {
   font-family: var(--font-stack-main);
   font-size: var(--font-size-base);
   color: var(--text-primary);
   background: var(--surface-base);
   min-height: 100vh;
-  padding: var(--base-4);
 }
 
 /* Header – název session a dema */
 .demo-header {
-  margin-bottom: var(--base-4);
-  padding-bottom: var(--base-2);
+  min-height: var(--demo-header-h);
+  padding: var(--page-pad) var(--page-pad) var(--base-2);
+  margin-bottom: var(--page-pad);
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -48,7 +56,7 @@ body {
 
 /* Stage – oblast kde běží demo */
 .demo-stage {
-  margin-bottom: var(--base-3);
+  padding: 0 var(--page-pad) var(--page-pad);
 }
 
 /* Volitelný code block pod demem */
@@ -56,7 +64,8 @@ body {
   background: var(--surface-main-dim);
   border: 1px solid var(--border);
   border-radius: var(--radius-strong);
-  padding: var(--base-3);
+  padding: var(--base-3) var(--page-pad);
+  margin-bottom: var(--page-pad);
   overflow-x: auto;
 }
 
@@ -154,10 +163,9 @@ body {
 
 /* ── Demo sections ────────────────────────────────────────────────────────── */
 /* Každá sekce zabírá minimálně celou obrazovku po demo-header.               */
-/* --above-stage-h nastavuje script.js každého dema.                          */
 
 .demo-section {
-  min-height: calc(100svh - var(--above-stage-h, 200px));
+  min-height: calc(100svh - var(--above-fold));
   border-top: 1px solid var(--border);
   padding-top: var(--base-5);
   padding-bottom: var(--base-6);
