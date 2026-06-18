@@ -51,23 +51,25 @@
     height: 0;
     overflow: hidden;
     transition: height 0.2s ease;
-    border-top: 0 solid var(--border);
+    border-top: 0 solid var(--text-primary);
     display: flex;
     flex-direction: column;
   }
 
   .html-panel.open {
     height: var(--panel-height, 220px);
-    border-top-width: 1px;
+    border-top-width: 2px;
   }
 
   .pane-label {
     padding: var(--base-h) var(--base-2);
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--text-secondary);
     background: var(--surface-main-dim);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--text-primary);
     flex-shrink: 0;
   }
 

@@ -262,7 +262,7 @@
     grid-template-columns: 33% 4px 1fr; /* default; inline style overrides on resize */
     height: 100vh;
     overflow: hidden;
-    background: var(--surface-base);
+    background: var(--surface-main);
     color: var(--text-primary);
     font-family: var(--font-stack-main);
     font-size: var(--font-size-base);
@@ -281,7 +281,7 @@
     gap: var(--base-2);
     padding: var(--base-h) var(--base-3);
     background: var(--surface-main);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--text-primary);
     min-height: 48px;
   }
 
@@ -297,6 +297,8 @@
   .editor-session {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
@@ -307,6 +309,8 @@
     font-family: var(--font-stack-headings);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-headings-regular);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
@@ -316,7 +320,9 @@
   .editor-feature {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
-    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-red);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -333,26 +339,28 @@
     align-items: center;
     gap: var(--base-h);
     padding: var(--base-h) var(--base-2);
-    background: var(--surface-control);
+    background: var(--surface-main);
     color: var(--text-primary);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 1px solid var(--text-primary);
+    border-radius: 0;
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-s);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
     white-space: nowrap;
     line-height: 1;
   }
   .btn:hover  { background: var(--surface-main-variant); }
   .btn.active {
-    background: var(--surface-brand-primary-subtle);
-    color: var(--text-primary-on-surface-brand-primary-subtle);
-    border-color: transparent;
+    background: var(--text-primary);
+    color: var(--surface-base);
+    border-color: var(--text-primary);
   }
   .btn-js.active {
-    background: var(--surface-brand-secondary-subtle);
-    color: var(--text-primary-on-surface-brand-secondary-subtle);
-    border-color: transparent;
+    background: var(--text-red);
+    color: var(--surface-base);
+    border-color: var(--text-red);
   }
   .btn-ghost {
     background: transparent;
@@ -365,10 +373,11 @@
   /* ── Segmented control (theme toggle) ────────────────────────────────────── */
   .theme-seg {
     display: flex;
-    background: var(--surface-main-variant);
-    border-radius: var(--radius);
-    padding: 2px;
-    gap: 2px;
+    background: transparent;
+    border: 1px solid var(--text-primary);
+    border-radius: 0;
+    padding: 0;
+    gap: 0;
   }
 
   .seg-btn {
@@ -376,24 +385,27 @@
     align-items: center;
     gap: var(--base-h);
     padding: var(--base-h) var(--base-2);
-    border-radius: calc(var(--radius) - 2px);
+    border-radius: 0;
     background: transparent;
     border: none;
     color: var(--text-secondary);
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-s);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
     white-space: nowrap;
     line-height: 1;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    transition: background 0.1s, color 0.1s;
   }
+  .seg-btn + .seg-btn { border-left: 1px solid var(--text-primary); }
   .seg-btn:not(.seg-active):hover {
     color: var(--text-primary);
   }
   .seg-btn.seg-active {
-    background: var(--surface-main);
-    color: var(--text-primary);
-    box-shadow: 0 1px 3px color-mix(in oklch, currentColor 0%, var(--overlay-moderate) 100%);
+    background: var(--text-primary);
+    color: var(--surface-base);
+    box-shadow: none;
   }
 
   /* ── Panes ───────────────────────────────────────────────────────────────── */
@@ -426,9 +438,11 @@
     padding: var(--base-h) var(--base-2);
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--text-secondary);
     background: var(--surface-main-dim);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--text-primary);
     flex-shrink: 0;
   }
 
@@ -442,26 +456,26 @@
     grid-column: 2;
     grid-row: 2;
     width: 4px;
-    background: var(--border);
+    background: var(--text-primary);
     cursor: col-resize;
-    transition: background 0.15s;
+    transition: background 0.1s;
     flex-shrink: 0;
   }
   .splitter-col:hover,
   .splitter-col.active {
-    background: var(--surface-brand-primary-moderate);
+    background: var(--text-red);
   }
 
   .splitter-row {
     height: 4px;
     flex-shrink: 0;
-    background: var(--border);
+    background: var(--text-primary);
     cursor: row-resize;
-    transition: background 0.15s;
+    transition: background 0.1s;
   }
   .splitter-row:hover,
   .splitter-row.active {
-    background: var(--surface-brand-primary-moderate);
+    background: var(--text-red);
   }
 
   /* ── Status messages ─────────────────────────────────────────────────────── */
@@ -470,7 +484,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-stack-monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--text-secondary);
   }
-  .status-error { color: var(--status-error); }
+  .status-error { color: var(--text-red); }
 </style>
