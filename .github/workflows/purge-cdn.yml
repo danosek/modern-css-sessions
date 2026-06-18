@@ -6,6 +6,7 @@ on:
     paths:
       - 'shared/demo-base.css'
       - 'shared/spectro-theme.css'
+      - 'shared/demo-highlight.js'
 
 jobs:
   pin-sha:

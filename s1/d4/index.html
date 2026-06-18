@@ -6,6 +6,8 @@
   <title>CSS Nesting – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -254,9 +256,9 @@
   </div><!-- /.demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* ─── CSS Nesting — klíčové vzory ─────────────────────────────────────────── */
-
-/* 1. Základní nesting — & je odkaz na rodičovský selektor */
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">CSS Nesting — klíčové vzory</h2>
+      <pre tabindex="0"><code class="language-css">/* 1. Základní nesting — & je odkaz na rodičovský selektor */
 .nav {
   display: flex;
   gap: var(--base-2);
@@ -295,6 +297,7 @@
   .card__title { font-weight: 600; }  /* implicitní & před potomkem */
   .card__body  { color: var(--text-secondary); }
 }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

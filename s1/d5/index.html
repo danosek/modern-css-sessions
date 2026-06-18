@@ -6,6 +6,8 @@
   <title>@layer – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -213,7 +215,8 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* Deklaruj pořadí vrstev na začátku CSS */
+    <div class="demo-code__section">
+      <pre tabindex="0"><code class="language-css">/* Deklaruj pořadí vrstev na začátku CSS */
 @layer reset, base, components, utilities;
 
 /* Naplň vrstvy */
@@ -244,6 +247,7 @@
     background: revert-layer;  /* vezme hodnotu z vrstvy 'base', ne components */
   }
 }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

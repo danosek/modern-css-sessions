@@ -6,6 +6,8 @@
   <title>Logical Properties – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -291,26 +293,24 @@
   </div><!-- .demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* ── Logical Properties ──────────────────────────────────────────────────── */
-
-/* Fyzické vlastnosti jsou vázané na viewport (top/right/bottom/left) */
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Logical Properties</h2>
+      <pre tabindex="0"><code class="language-css">/* Fyzické vlastnosti jsou vázané na viewport (top/right/bottom/left) */
 /* Logické vlastnosti jsou vázané na směr psaní (block / inline osy) */
 
 /* Inline osa → v LTR = vodorovná (←→), v RTL se otočí */
-/* Block osa  ↓ v LTR = svislá (↑↓), nemění se */
-
-
-/* ── Velikosti ────────────────────────────────────────────────────────────── */
-
-.box {
+/* Block osa  ↓ v LTR = svislá (↑↓), nemění se */</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Velikosti</h2>
+      <pre tabindex="0"><code class="language-css">.box {
   width: 200px;          /* → */  inline-size: 200px;
   height: 100px;         /* → */  block-size: 100px;
-}
-
-
-/* ── Odsazení ─────────────────────────────────────────────────────────────── */
-
-.card {
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Odsazení</h2>
+      <pre tabindex="0"><code class="language-css">.card {
   margin-top: 1rem;      /* → */  margin-block-start: 1rem;
   margin-bottom: 1rem;   /* → */  margin-block-end: 1rem;
   margin-left: 2rem;     /* → */  margin-inline-start: 2rem;
@@ -322,12 +322,11 @@
   padding-block-start: 1.5rem;    /* = padding-top */
   border-inline-start: 3px solid; /* = border-left */
   text-align: start;              /* = text-align: left v LTR */
-}
-
-
-/* ── Pozicování — inset ──────────────────────────────────────────────────── */
-
-/* Fyzicky: */
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Pozicování — inset</h2>
+      <pre tabindex="0"><code class="language-css">/* Fyzicky: */
 .overlay {
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -343,19 +342,17 @@
 .panel {
   inset: 1rem 2rem;         /* block: 1rem, inline: 2rem */
   inset-inline-start: 0;    /* = left v LTR, right v RTL */
-}
-
-
-/* ── Proč záleží? ─────────────────────────────────────────────────────────── */
-
-/* RTL jazyky (arabština, hebrejština) nebo vertical writing (japonština) —
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Proč záleží?</h2>
+      <pre tabindex="0"><code class="language-css">/* RTL jazyky (arabština, hebrejština) nebo vertical writing (japonština) —
    logické vlastnosti se automaticky přizpůsobí bez změny CSS.
-   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */
-
-
-/* ── writing-mode a logické vlastnosti ───────────────────────────────────── */
-
-/* Po otočení writing-mode se fyzické osy přeuspořádají:
+   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">writing-mode a logické vlastnosti</h2>
+      <pre tabindex="0"><code class="language-css">/* Po otočení writing-mode se fyzické osy přeuspořádají:
    vertical-rl → "vlevo" = nahoře, "vpravo" = dole                    */
 
 /* Fyzicky — špatně, padding-left jde nahoru místo doleva */
@@ -372,6 +369,7 @@
   padding-inline: 0.5rem;       /* = napříč osy textu */
   border-inline-start: 4px solid; /* = začátek řádku textu */
 }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

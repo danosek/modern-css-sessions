@@ -65,12 +65,13 @@ export default defineConfig(({ command }) => ({
         server.watcher.add(repoRoot + '/s*/d*/style.css');
         server.watcher.add(repoRoot + '/s*/d*/script.js');
         server.watcher.add(repoRoot + '/shared/*.css');
+        server.watcher.add(repoRoot + '/shared/*.js');
       },
 
       handleHotUpdate({ file, server }) {
         const rel = path.relative(repoRoot, file);
         const isDemo = /^s\d+\/d\d+\/(index\.html|style\.css|script\.js)$/.test(rel);
-        const isShared = /^shared\/.+\.css$/.test(rel);
+        const isShared = /^shared\/.+\.(css|js)$/.test(rel);
         if (!isDemo && !isShared) return;
 
         console.log(`\x1b[36m[demo-watch]\x1b[0m ${rel}`);

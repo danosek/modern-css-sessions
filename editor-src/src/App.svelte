@@ -27,6 +27,7 @@
   let css         = $state('');
   let js          = $state('');
   let sharedCss   = $state('');
+  let sharedJs    = $state('');
   let originalCss = $state('');
   let htmlOpen    = $state(false);
   let jsOpen      = $state(false);
@@ -62,9 +63,10 @@
         fetches.push(
           fetch('/shared/spectro-theme.css'),
           fetch('/shared/demo-base.css'),
+          fetch('/shared/demo-highlight.js'),
         );
       }
-      const [htmlRes, cssRes, jsRes, themeRes, baseRes] = await Promise.all(fetches);
+      const [htmlRes, cssRes, jsRes, themeRes, baseRes, hlRes] = await Promise.all(fetches);
       if (!htmlRes.ok) throw new Error(`Demo nenalezeno: ${demoPath}`);
       html        = await htmlRes.text();
       css         = cssRes.ok ? unwrapViteCss(await cssRes.text()) : '';
@@ -72,6 +74,7 @@
       if (import.meta.env.DEV) {
         sharedCss = (themeRes?.ok ? await themeRes.text() : '')
                   + (baseRes?.ok  ? await baseRes.text()  : '');
+        sharedJs  = hlRes?.ok ? await hlRes.text() : '';
       }
       originalCss = css;
       const mTitle   = html.match(/<h1[^>]*class="demo-title"[^>]*>([^<]+)<\/h1>/);
@@ -103,11 +106,13 @@
         const res = await fetch(`${DEMOS_BASE}${demoPath}/index.html?t=` + t);
         if (res.ok) html = await res.text();
       } else if (file.startsWith('shared/')) {
-        const [a, b] = await Promise.all([
+        const [a, b, c] = await Promise.all([
           fetch('/shared/spectro-theme.css?t=' + t),
           fetch('/shared/demo-base.css?t=' + t),
+          fetch('/shared/demo-highlight.js?t=' + t),
         ]);
         sharedCss = (a.ok ? await a.text() : '') + (b.ok ? await b.text() : '');
+        sharedJs  = c.ok ? await c.text() : '';
       }
     });
   }
@@ -243,7 +248,7 @@
     <div class="preview-pane">
       <div class="pane-label">Preview</div>
       <div class="pane-content">
-        <Preview {html} {css} {js} {sharedCss} {demoPath} {theme} />
+        <Preview {html} {css} {js} {sharedCss} {sharedJs} {demoPath} {theme} />
       </div>
     </div>
   {/if}

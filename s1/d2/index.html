@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="cs" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparison Functions – Modern CSS S1</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <button class="theme-toggle"
-    onclick="document.documentElement.dataset.theme =
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
       document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
     Toggle theme
   </button>
@@ -20,7 +25,9 @@
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">Comparison Functions</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">clamp()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">min()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max()</span>
+      <span class="demo-feature__kw">clamp()</span><span class="demo-feature__sep">·</span><span
+        class="demo-feature__kw">min()</span><span class="demo-feature__sep">·</span><span
+        class="demo-feature__kw">max()</span>
     </span>
   </div>
 
@@ -28,12 +35,16 @@
 
     <!-- ── 1. clamp() — fluid typography ──────────────────────────────────── -->
     <div class="demo-section">
-      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid typografie — nadpis se plynule mění s šířkou okna</h2>
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid typografie — nadpis se plynule mění s
+        šířkou okna</h2>
 
       <div class="demo-section__example">
 
         <div class="cf-anatomy">
-          <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span class="cf-anatomy__fn">)</span>
+          <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span
+            class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span
+            class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span
+            class="cf-anatomy__fn">)</span>
           <div class="cf-anatomy__labels">
             <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
             <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
@@ -103,7 +114,8 @@
         <div class="cf-info-row">
           <div class="cf-info-card">
             <div class="cf-info-card__title">Proč <code>min()</code>?</div>
-            <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
+            <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat
+              různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
           </div>
         </div>
 
@@ -112,7 +124,8 @@
 
     <!-- ── 3. max() — minimum guarantee ───────────────────────────────────── -->
     <div class="demo-section">
-      <h2 class="demo-section__title"><code class="cf-fn">max()</code> — Garantované minimum — vrátí největší z hodnot</h2>
+      <h2 class="demo-section__title"><code class="cf-fn">max()</code> — Garantované minimum — vrátí největší z hodnot
+      </h2>
 
       <div class="demo-section__example">
 
@@ -141,34 +154,27 @@
           </div>
         </div>
 
-          <div class="cf-compare__item">
-            <div class="cf-compare__label">
-              <code>border-radius: max(4px, 1vw)</code>
-              <span class="cf-compare__note">zaoblení roste s viewportem, nikdy neklesne pod 4 px</span>
-            </div>
-            <div class="cf-demo-box">
-              <div class="cf-max-radius-row">
-                <button class="cf-radius-btn cf-radius-btn--max">max(4px, 1vw)</button>
-                <button class="cf-radius-btn cf-radius-btn--clamp">clamp(4px, 1vw, 16px)</button>
-                <button class="cf-radius-btn cf-radius-btn--fixed">border-radius: 4px</button>
-              </div>
-            </div>
+        <div class="cf-compare__item">
+          <div class="cf-compare__label">
+            <code>border-radius: max(4px, 1vw)</code>
+            <span class="cf-compare__note">zaoblení roste s viewportem, nikdy neklesne pod 4 px</span>
           </div>
         </div>
-
-        <div class="cf-info-row">
-          <div class="cf-info-card">
-            <div class="cf-info-card__title">Proč <code>max()</code>?</div>
-            <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru. Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
-          </div>
-        </div>
-
       </div>
-    </div>
 
+      <div class="cf-info-row">
+        <div class="cf-info-card">
+          <div class="cf-info-card__title">Proč <code>max()</code>?</div>
+          <p>Používá se jako "spodní zarážka" — garantuje minimální hodnotu, zatímco umožňuje fluid chování nahoru.
+            Ideální pro dostupnost (čitelnost textu) a dostatečné klepací plochy.</p>
+        </div>
+      </div>
+
+    </div>
     <!-- ── 4. clamp() — responsivní karta (gap + radius + font + padding) ──── -->
     <div class="demo-section">
-      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Responsivní karta — gap, padding, radius i font plynule reagují na viewport</h2>
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Responsivní karta — gap, padding, radius i
+        font plynule reagují na viewport</h2>
 
       <div class="demo-section__example">
 
@@ -218,7 +224,8 @@
 
     <!-- ── 5. Fluid type scale — ucelená typografická škála přes clamp() ──── -->
     <div class="demo-section">
-      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid type scale — proporcionální typografická škála bez breakpointů</h2>
+      <h2 class="demo-section__title"><code class="cf-fn">clamp()</code> — Fluid type scale — proporcionální
+        typografická škála bez breakpointů</h2>
 
       <div class="demo-section__example">
 
@@ -255,13 +262,15 @@
 
       </div>
     </div>
+  </div>
+
 
   </div><!-- /demo-stage -->
 
   <div class="demo-code">
-    <pre><code>/* ── CSS Comparison Functions ────────────────────────────────────────────── */
-
-/* clamp(minimum, preferred, maximum)
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">CSS Comparison Functions</h2>
+      <pre tabindex="0"><code class="language-css">/* clamp(minimum, preferred, maximum)
    Vrátí preferred, ale nikdy méně než minimum a nikdy více než maximum.
    Ideální pro fluid typografii a spacing. */
 
@@ -287,12 +296,11 @@
   padding:       clamp(var(--base-2), 2vw,  var(--base-5));
   border-radius: clamp(4px,           1vw,  16px);
   font-size:     clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
-}
-
-
-/* ── min() ───────────────────────────────────────────────────────────────── */
-
-/* min(a, b, …) — vrátí nejmenší hodnotu ze seznamu.
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">min()</h2>
+      <pre tabindex="0"><code class="language-css">/* min(a, b, …) — vrátí nejmenší hodnotu ze seznamu.
    Výborné pro omezení šířky: buď 100 % nebo max. 640 px — co je menší. */
 
 .container {
@@ -303,12 +311,11 @@
 /* Kombinace více jednotek — není možné s max-width */
 .sidebar {
   width: min(50vw, 320px, 100%);
-}
-
-
-/* ── max() ───────────────────────────────────────────────────────────────── */
-
-/* max(a, b, …) — vrátí největší hodnotu ze seznamu.
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">max()</h2>
+      <pre tabindex="0"><code class="language-css">/* max(a, b, …) — vrátí největší hodnotu ze seznamu.
    Výborné jako "spodní zarážka": garantuje minimum, fluid nahoru. */
 
 .card {
@@ -331,20 +338,18 @@
 .card {
   border-radius: clamp(4px, 1vw, 16px);
   /* Pod 4 px nikdy, nad 16 px nikdy, mezi tím fluid */
-}
-
-
-/* ── Kombinace ────────────────────────────────────────────────────────────── */
-
-/* clamp() je zkratka pro max(min, min(preferred, max)) */
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Kombinace</h2>
+      <pre tabindex="0"><code class="language-css">/* clamp() je zkratka pro max(min, min(preferred, max)) */
 font-size: clamp(1rem, 2.5vw, 2rem);
 /* === */
-font-size: max(1rem, min(2.5vw, 2rem));
-
-
-/* ── Fluid type scale ────────────────────────────────────────────────────── */
-
-/* Ucelená škála — proporce zůstávají konzistentní na každé šířce okna */
+font-size: max(1rem, min(2.5vw, 2rem));</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Fluid type scale</h2>
+      <pre tabindex="0"><code class="language-css">/* Ucelená škála — proporce zůstávají konzistentní na každé šířce okna */
 :root {
   --step-0: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);    /* body */
   --step-1: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);  /* h3   */
@@ -356,8 +361,10 @@ h1   { font-size: var(--step-3); }
 h2   { font-size: var(--step-2); }
 h3   { font-size: var(--step-1); }
 body { font-size: var(--step-0); }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
