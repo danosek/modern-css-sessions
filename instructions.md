@@ -35,20 +35,20 @@ modern-css-demos/
 
 ---
 
-## Proč raw GitHub URL
+## Proč jsDelivr CDN
 
 StackBlitz otevře `s1/d1` jako **kořen projektu** – nic nad touto složkou nevidí. Relativní cesta `../../shared/` proto nefunguje.
 
-Raw GitHub URL funguje všude – StackBlitz, GitHub Pages, VS Code Live Server:
+jsDelivr funguje všude – StackBlitz, GitHub Pages, VS Code Live Server – a na rozdíl od raw GitHub URL správně posílá CORS hlavičky a kešuje soubory:
 
 ```html
 <link rel="stylesheet"
-  href="https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/spectro-theme.css">
+  href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@COMMIT_HASH/shared/spectro-theme.css">
 <link rel="stylesheet"
-  href="https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/demo-base.css">
+  href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@COMMIT_HASH/shared/demo-base.css">
 ```
 
-**Nahraď `[USERNAME]`** skutečným GitHub username v celém projektu.
+**`COMMIT_HASH`** se při každém commitu do `shared/` automaticky aktualizuje přes CI (`chore: pin shared CSS CDN` commity). Ruční změna není potřeba.
 
 ---
 
@@ -67,23 +67,9 @@ Dodaný Spectro theme má tuto konfiguraci (ze `spectro-seed.json`):
 | Scale ratio | 1.2 |
 | Contrast level | A (WCAG 2.1) |
 
-### Úprava font cest v spectro-theme.css
+### Font cesty v spectro-theme.css
 
-Původní soubor obsahuje relativní cesty:
-```css
-src: url('../fonts/ia-writer-quattro.woff2') format('woff2');
-src: url('../fonts/departure-mono.woff2') format('woff2');
-src: url('../fonts/ia-writer-mono.woff2') format('woff2');
-```
-
-Přepiš je na raw GitHub URL:
-```css
-src: url('https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/fonts/ia-writer-quattro.woff2') format('woff2');
-src: url('https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/fonts/departure-mono.woff2') format('woff2');
-src: url('https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/fonts/ia-writer-mono.woff2') format('woff2');
-```
-
-Jinak beze změn – soubor nekopíruj ručně, zkopíruj ho přímo z dodaného zipu.
+Fonty jsou uloženy v `shared/fonts/` a v `spectro-theme.css` jsou odkazovány přes jsDelivr CDN (stejný COMMIT_HASH jako sdílené CSS). CI je udržuje aktuální automaticky.
 
 ---
 
@@ -95,6 +81,8 @@ Sdílený wrapper pro všechna CSS dema (`shared/demo-base.css`). Výhradně Spe
 
 ## Šablona pro každé demo (index.html)
 
+Každé demo má vedle `index.html` vlastní `style.css` (demo-specifické styly) a `script.js` (interaktivita, pokud je potřeba).
+
 ```html
 <!DOCTYPE html>
 <html lang="cs" data-theme="light">
@@ -104,13 +92,12 @@ Sdílený wrapper pro všechna CSS dema (`shared/demo-base.css`). Výhradně Spe
   <title>[Název dema] – Modern CSS S[N]</title>
 
   <link rel="stylesheet"
-    href="https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/spectro-theme.css">
+    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@COMMIT_HASH/shared/spectro-theme.css">
   <link rel="stylesheet"
-    href="https://raw.githubusercontent.com/[USERNAME]/modern-css-demos/main/shared/demo-base.css">
-
-  <style>
-    /* CSS které demo ukazuje patří sem */
-  </style>
+    href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@COMMIT_HASH/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@COMMIT_HASH/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -123,18 +110,36 @@ Sdílený wrapper pro všechna CSS dema (`shared/demo-base.css`). Výhradně Spe
   <div class="demo-header">
     <div class="demo-session">S[N] – [Název session]</div>
     <h1 class="demo-title">[Název dema]</h1>
-    <span class="demo-feature">[CSS feature, např. :has()]</span>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">feature-a</span>
+      <span class="demo-feature__sep">·</span>
+      <span class="demo-feature__kw">feature-b</span>
+    </span>
   </div>
 
   <div class="demo-stage">
-    <!-- živé demo -->
+
+    <div class="demo-section">
+      <h2 class="demo-section__title">Popis sekce</h2>
+      <div class="demo-section__example">
+        <!-- živé demo -->
+      </div>
+    </div>
+
   </div>
 
-  <!-- volitelně -->
+  <!-- volitelně — referenční CSS pod demem.
+       Delší kód rozděl na pojmenované sekce (.demo-code__section).
+       shared/demo-highlight.js obarví syntaxi (Spectro tokeny) automaticky. -->
   <div class="demo-code">
-    <pre><code>/* relevantní CSS kód */</code></pre>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Název sekce</h2>
+      <pre tabindex="0"><code class="language-css">/* relevantní CSS kód */</code></pre>
+    </div>
+    <!-- další .demo-code__section dle potřeby -->
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
 ```
@@ -154,8 +159,8 @@ Hlavní `index.html` v kořeni repozitáře. Načítá stejné sdílené soubory
 
 | Session | Demo | StackBlitz |
 |---------|------|------------|
-| S1 – Foundations Refresh | D1 – Intrinsic sizing | [Otevřít](https://stackblitz.com/github/[USERNAME]/modern-css-demos/tree/main/s1/d1) |
-| S1 – Foundations Refresh | D2 – :has() | [Otevřít](https://stackblitz.com/github/[USERNAME]/modern-css-demos/tree/main/s1/d2) |
+| S1 – Foundations Refresh | D1 – Intrinsic sizing | [Otevřít](https://stackblitz.com/github/danosek/modern-css-sessions/tree/main/s1/d1) |
+| S1 – Foundations Refresh | D2 – Comparison functions | [Otevřít](https://stackblitz.com/github/danosek/modern-css-sessions/tree/main/s1/d2) |
 ...
 ```
 
@@ -167,14 +172,14 @@ Začni prázdnými demy – správná šablona, placeholder obsah. Dema plníme 
 
 ### S1 – Foundations Refresh (30. 6. 2026 / 90 min)
 - `d1` – Intrinsic sizing (`min-content`, `max-content`, `fit-content()`)
-- `d2` – `:has()` · `:is()` · `:where()` – parent & grouping selectors
-- `d3` – Container Queries
-- `d4` – `@layer` – cascade management
-- `d5` – Subgrid
-- `d6` – `reading-flow`
-- `d7` – CSS Nesting (`&`) – nativní vnoření bez preprocesoru
-- `d8` – Logical Properties (`margin-inline`, `padding-block`, `inset`)
-- `d9` – Comparison functions (`clamp()`, `min()`, `max()`) – fluid hodnoty
+- `d2` – Comparison functions (`clamp()`, `min()`, `max()`) – fluid hodnoty
+- `d3` – Logical Properties (`margin-inline`, `padding-block`, `inset`)
+- `d4` – CSS Nesting (`&`) – nativní vnoření bez preprocesoru
+- `d5` – `@layer` – cascade management
+- `d6` – `:has()` · `:is()` · `:where()` – parent & grouping selectors
+- `d7` – Container Queries
+- `d8` – Subgrid
+- `d9` – `reading-flow`
 
 ### S2 – Colors & Typography (srpen 2026 / 90 min)
 - `d1` – `oklch()` vs HSL – vizuální porovnání
@@ -230,6 +235,7 @@ Začni prázdnými demy – správná šablona, placeholder obsah. Dema plníme 
 - CSS demo kód patří do `<style>` tagu – žádné inline styly
 - `data-theme="light"` výchozí, theme toggle vždy přítomen
 - Každé demo je soběstačný soubor – závislosti jen přes raw GitHub URL
+- Referenční kód v `.demo-code` rozděl na `.demo-code__section` (s `.demo-code__title`), pokud má víc logických částí; `<code>` označ `class="language-css"`. Syntaxi obarví `shared/demo-highlight.js` (žádné ruční `<span>` v kódu)
 
 ---
 

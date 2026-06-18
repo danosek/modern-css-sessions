@@ -66,7 +66,21 @@ body {
   border-radius: var(--radius-strong);
   padding: var(--base-3) var(--page-pad);
   margin: var(--page-pad);
-  overflow-x: auto;
+}
+
+/* Rozdělení dlouhého kódu na pojmenované sekce */
+.demo-code__section + .demo-code__section {
+  margin-top: var(--base-3);
+  padding-top: var(--base-3);
+  border-top: 1px solid var(--border);
+}
+
+.demo-code__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  color: var(--text-secondary);
+  margin-bottom: var(--base-2);
 }
 
 .demo-code pre {
@@ -75,7 +89,37 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   white-space: pre;
+  overflow-x: auto;
 }
+
+/* Vodorovně scrollovatelný kód musí být dosažitelný klávesnicí (tabindex="0") */
+.demo-code pre:focus-visible {
+  outline: 2px solid var(--surface-brand-primary-moderate);
+  outline-offset: 2px;
+  border-radius: var(--radius-subtle);
+}
+
+/* Základní barva kódu — přebíjí případné demo `code { color: ... }`, takže i bez
+   highlighteru je referenční kód čitelný (ne jednolitě barevný). Spany .tok-*
+   mají stejnou specificitu a jsou níže, takže při obarvení vyhrají. */
+.demo-code code { color: var(--text-primary); }
+
+/* ── Syntax highlight (Spectro) — tokeny generuje shared/demo-highlight.js ─── */
+.demo-code .tok-comment   { color: var(--text-green); font-style: italic; }
+.demo-code .tok-prop      { color: var(--text-teal); }
+.demo-code .tok-value     { color: var(--text-primary); }
+.demo-code .tok-fn        { color: var(--text-teal-variant); }
+.demo-code .tok-num,
+.demo-code .tok-unit      { color: var(--text-amber); }
+.demo-code .tok-string    { color: var(--text-orange); }
+.demo-code .tok-selector  { color: var(--text-blue); }
+.demo-code .tok-pseudo    { color: var(--text-blue-variant); }
+.demo-code .tok-idsel,
+.demo-code .tok-var       { color: var(--text-navy); }
+.demo-code .tok-atrule    { color: var(--text-fuchsia); }
+.demo-code .tok-color     { color: var(--text-pink); }
+.demo-code .tok-important { color: var(--text-red); font-weight: bold; }
+.demo-code .tok-punct     { color: var(--text-secondary); }
 
 /* Theme toggle */
 .theme-toggle {

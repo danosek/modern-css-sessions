@@ -6,6 +6,8 @@
   <title>:has() – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -261,7 +263,8 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* :has() — rodičovský selektor */
+    <div class="demo-code__section">
+      <pre tabindex="0"><code class="language-css">/* :has() — rodičovský selektor */
 
 /* Celá řádka reaguje na stav checkboxu uvnitř — čistý CSS */
 .task:has(input:checked) {
@@ -296,6 +299,7 @@ article :is(h1, h2, h3, h4) { font-family: var(--font-stack-headings); }
 
 /* :where() — jako :is(), ale specificita = 0 → vždy přepsatelné */
 :where(button, input, select) { border-radius: var(--radius); }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

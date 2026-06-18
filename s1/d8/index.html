@@ -6,6 +6,8 @@
   <title>Subgrid – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -149,7 +151,9 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* Rodičovský grid definuje sloupce I řádky */
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Subgrid — základ</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodičovský grid definuje sloupce I řádky */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -171,11 +175,11 @@
 .product-card--no-subgrid {
   display: flex;
   flex-direction: column;
-}
-
-/* ─── Editoriální layout — 4 zóny zarovnané přes 3 karty ─── */
-
-/* Rodičovský grid: 3 sloupce + 4 explicitní řádky */
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Editoriální layout — 4 zóny zarovnané přes 3 karty</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodičovský grid: 3 sloupce + 4 explicitní řádky */
 .editorial-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -192,6 +196,7 @@
 
 /* Výsledek: CTA tlačítka všech karet sedí na stejné výšce
    i když mají nadpisy a perexy různé délky — bez JS, bez fixed výšek */</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

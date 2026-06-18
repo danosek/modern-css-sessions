@@ -210,30 +210,6 @@
   margin: 0;
 }
 
-/* ── Sekce 3 — max(): fluid border-radius ────────────────────────────────── */
-
-.cf-max-radius-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--base-3);
-  align-items: center;
-}
-
-.cf-radius-btn {
-  padding: var(--base-2) var(--base-4);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  border: 2px solid var(--surface-brand-primary-strong);
-  background: var(--surface-brand-primary-minimal);
-  color: var(--text-primary);
-  cursor: default;
-  white-space: nowrap;
-}
-
-.cf-radius-btn--max    { border-radius: max(4px, 1vw); }
-.cf-radius-btn--clamp  { border-radius: clamp(4px, 1vw, 16px); }
-.cf-radius-btn--fixed  { border-radius: 4px; }
-
 /* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
 
 .cf-info-row {
@@ -297,7 +273,7 @@
 
 .cf-fluid-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: clamp(var(--base-2), 3vw, var(--base-6));
   margin-block-end: var(--base-3);
 }

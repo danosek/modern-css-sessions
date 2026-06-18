@@ -6,6 +6,8 @@
   <title>Container Queries – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -172,7 +174,9 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* 1. Označ kontejner */
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Container query — základ</h2>
+      <pre tabindex="0"><code class="language-css">/* 1. Označ kontejner */
 .card-wrapper {
   container-type: inline-size;  /* sleduje inline rozměr */
   container-name: product;      /* volitelné jméno */
@@ -196,11 +200,11 @@
 
 /* Kdy použít co */
 @media (min-width: 768px)        { /* viewport — layout stránky, viditelnost */ }
-@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }
-
-/* ─── Range Container Queries (cross-browser, Chrome 111+, FF 110+, Safari 16+) ─── */
-
-/* Místo min-width / max-width — čitelnější range syntax */
+@container (min-width: 400px)    { /* kontejner — vnitřní komponenta */         }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Range Container Queries (cross-browser, Chrome 111+, FF 110+, Safari 16+)</h2>
+      <pre tabindex="0"><code class="language-css">/* Místo min-width / max-width — čitelnější range syntax */
 @container product (width < 360px) {
   /* stack layout — výchozí (základní styl) */
 }
@@ -228,6 +232,7 @@
 /* @container product (min-width: 360px)                   { ... } */
 /* @container product (min-width: 360px) and
               (max-width: 559px)                           { ... } */</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>

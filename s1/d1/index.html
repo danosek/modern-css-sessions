@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-base.css">
+  <script defer
+    src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@1734703b4da67bfbf892ed0a1a505e11d6e09290/shared/demo-highlight.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -149,7 +151,8 @@
   </div>
 
   <div class="demo-code">
-    <pre><code>/* Intrinsic sizing — základní hodnoty */
+    <div class="demo-code__section">
+      <pre tabindex="0"><code class="language-css">/* Intrinsic sizing — základní hodnoty */
 
 .box { width: min-content; }  /* šířka nejdelšího slova */
 .box { width: max-content; }  /* šířka celého obsahu na jednom řádku */
@@ -181,6 +184,7 @@
   /* Kratší obsah → šířka = obsah                                   */
   /* Delší obsah  → šířka zastropovaná na 300 px                    */
 }</code></pre>
+    </div>
   </div>
 
   <script src="script.js"></script>
