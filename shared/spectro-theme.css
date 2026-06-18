@@ -4620,7 +4620,7 @@ Version
 */
 @font-face {
     font-family: "ia-writer-quattro:main";
-    src: url('../fonts/ia-writer-quattro.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/fonts/ia-writer-quattro.woff2') format('woff2');
     font-weight: 400 700;
     font-style: normal;
     font-variation-settings: var(--font-axes-main);
@@ -4636,7 +4636,7 @@ Version
 */
 @font-face {
     font-family: "departure-mono:headings";
-    src: url('../fonts/departure-mono.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/fonts/departure-mono.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-variation-settings: var(--font-axes-headings);
@@ -4652,7 +4652,7 @@ Version
 */
 @font-face {
     font-family: "ia-writer-mono:monospace";
-    src: url('../fonts/ia-writer-mono.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/fonts/ia-writer-mono.woff2') format('woff2');
     font-weight: 400 700;
     font-style: normal;
     font-variation-settings: var(--font-axes-monospace);
@@ -4668,7 +4668,7 @@ Version
 */
 @font-face {
     font-family: "departure-mono:decorative";
-    src: url('../fonts/departure-mono.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@main/shared/fonts/departure-mono.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-variation-settings: var(--font-axes-decorative);
