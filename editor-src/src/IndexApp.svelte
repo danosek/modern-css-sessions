@@ -85,81 +85,138 @@
 </script>
 
 <button class="theme-toggle" onclick={() => theme = theme === 'dark' ? 'light' : 'dark'}>
-  Toggle theme
+  [ {theme === 'dark' ? 'LIGHT' : 'DARK'} ]
 </button>
 
-<div class="page-header demo-header">
-  <div class="demo-session">Tesco SW · červen 2026 – březen 2027</div>
-  <h1 class="page-title">Modern CSS Sessions</h1>
-  <p class="page-subtitle">Interaktivní CSS dema ke školícímu cyklu.</p>
-</div>
+<header class="masthead">
+  <div class="masthead__bar">
+    <span>[ TESCO SW ]</span>
+    <span class="mut">ČVN 2026 — BŘE 2027</span>
+  </div>
 
-<div class="sessions-grid">
+  <h1 class="masthead__title">MODERN<br>CSS<span class="reg">®</span></h1>
+
+  <p class="masthead__sub">
+    <span class="acc">&gt;&gt;&gt;</span> INTERAKTIVNÍ CSS DEMA KE ŠKOLÍCÍMU CYKLU
+  </p>
+
+  <div class="masthead__index">
+    <span>{sessions.length} SESSIONS</span>
+    <span>{sessions.reduce((n, s) => n + (s.demos?.length ?? 0), 0)} DEMO</span>
+  </div>
+</header>
+
+<main class="matrix">
   {#each sessions as session}
     <SessionCard {session} />
   {/each}
-</div>
+</main>
 
 <style>
   :global(body) {
-    max-width: 1440px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: var(--base-4) var(--base-4) var(--base-8);
+    padding: var(--base-3);
+    background: var(--surface-main);
+    color: var(--text-primary);
   }
 
-  /* ── Hero header ──────────────────────────────────────────── */
-
-  .page-header {
-    background-color: var(--surface-brand-primary-strong);
-    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-    background-size: 24px 24px;
-    border-radius: var(--radius-strong);
-    padding: var(--base-8) var(--base-6);
-    margin-bottom: var(--base-6);
+  /* Jemné scanline/grain přes celou plochu — analogová degradace */
+  :global(body)::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 200;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      color-mix(in oklch, var(--text-primary) 4%, transparent) 3px,
+      transparent 4px
+    );
   }
 
-  .demo-session {
+  /* ── Theme toggle (utilitární přepínač) ───────────────────── */
+  .theme-toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 210;
+    font-family: var(--font-stack-monospace);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: var(--text-primary);
+    color: var(--surface-base);
+    border: none;
+    border-radius: 0;
+    padding: var(--base) var(--base-2);
+    cursor: pointer;
+    box-shadow: none;
+  }
+  .theme-toggle:hover { background: var(--text-red); color: var(--surface-base); }
+
+  /* ── Masthead (blueprint title block) ─────────────────────── */
+  .masthead {
+    border: 2px solid var(--text-primary);
+    background: var(--surface-main);
+    margin-bottom: var(--base-3);
+  }
+
+  .masthead__bar,
+  .masthead__index {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--base-3);
+    padding: var(--base) var(--base-2);
+    font-family: var(--font-stack-monospace);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+  }
+  .masthead__bar { border-bottom: 2px solid var(--text-primary); justify-content: space-between; }
+  .masthead__index { border-top: 2px solid var(--text-primary); }
+  .mut { color: var(--text-secondary); }
+  .acc { color: var(--text-red); }
+  .masthead__index .mut { margin-left: auto; }
+
+  .masthead__title {
+    font-family: var(--font-stack-headings);
+    font-weight: var(--font-weight-headings-regular);
+    font-size: clamp(2.5rem, 10vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    padding: var(--base-3) var(--base-2) var(--base-2);
+  }
+  .masthead__title .reg {
+    color: var(--text-red);
+    font-size: 0.16em;
+    vertical-align: super;
+    letter-spacing: 0;
+  }
+
+  .masthead__sub {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-s);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    opacity: 0.5;
-    margin-bottom: var(--base-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    padding: 0 var(--base-2) var(--base-3);
   }
+  .masthead__sub .acc { margin-right: var(--base); }
 
-  .demo-session::before { content: '/* '; }
-  .demo-session::after  { content: ' */'; }
-
-  .page-title {
-    font-family: var(--font-stack-headings);
-    font-size: clamp(2rem, 5vw, 4.5rem);
-    font-weight: var(--font-weight-headings-regular);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    line-height: 1.05;
-    margin-bottom: var(--base-3);
-  }
-
-  .page-title::before {
-    content: '<';
-    color: var(--surface-brand-secondary-strong);
-    margin-right: 0.12em;
-  }
-
-  .page-title::after {
-    content: ' />';
-    color: var(--surface-brand-secondary-strong);
-  }
-
-  .page-subtitle {
-    font-size: var(--font-size-base);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    opacity: 0.65;
-  }
-
-  /* ── Sessions grid ────────────────────────────────────────── */
-
-  .sessions-grid {
+  /* ── Matrix (sessions) — razor-thin grid lines via gap ────── */
+  .matrix {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--base-3);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+    background: var(--text-primary);
+    border: 2px solid var(--text-primary);
   }
+
 </style>

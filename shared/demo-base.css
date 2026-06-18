@@ -1,4 +1,4 @@
-/* demo-base.css – sdílený wrapper pro všechna CSS dema */
+/* demo-base.css – sdílený wrapper pro všechna CSS dema (industrial-brutalist) */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -18,30 +18,36 @@ body {
   font-family: var(--font-stack-main);
   font-size: var(--font-size-base);
   color: var(--text-primary);
-  background: var(--surface-base);
+  background: var(--surface-main);
   min-height: 100vh;
 }
 
 /* Header – název session a dema */
 .demo-header {
   min-height: var(--demo-header-h);
-  padding: var(--page-pad) var(--page-pad) var(--base-2);
+  padding: var(--page-pad) var(--page-pad) var(--base-3);
   margin-bottom: var(--page-pad);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--text-primary);
   display: flex;
   flex-direction: column;
   gap: var(--base);
 }
 
 .demo-session {
-  font-size: var(--font-size-s);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   color: var(--text-secondary);
 }
 
 .demo-title {
   font-family: var(--font-stack-headings);
-  font-size: var(--font-size-xl);
+  font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: var(--font-weight-headings-regular);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
   color: var(--text-primary);
 }
 
@@ -49,9 +55,11 @@ body {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  color: var(--text-brand-secondary);
+  color: var(--text-red);
   font-size: var(--font-size-xs);
   font-family: var(--font-stack-monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* Stage – oblast kde běží demo */
@@ -62,8 +70,8 @@ body {
 /* Volitelný code block pod demem */
 .demo-code {
   background: var(--surface-main-dim);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
+  border: 2px solid var(--text-primary);
+  border-radius: 0;
   padding: var(--base-3) var(--page-pad);
   margin: var(--page-pad);
 }
@@ -79,9 +87,12 @@ body {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
   font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
   margin-bottom: var(--base-2);
 }
+.demo-code__title::before { content: '// '; color: var(--text-red); }
 
 .demo-code pre {
   font-family: var(--font-stack-monospace);
@@ -94,9 +105,9 @@ body {
 
 /* Vodorovně scrollovatelný kód musí být dosažitelný klávesnicí (tabindex="0") */
 .demo-code pre:focus-visible {
-  outline: 2px solid var(--surface-brand-primary-moderate);
+  outline: 2px solid var(--text-red);
   outline-offset: 2px;
-  border-radius: var(--radius-subtle);
+  border-radius: 0;
 }
 
 /* Základní barva kódu — přebíjí případné demo `code { color: ... }`, takže i bez
@@ -121,50 +132,55 @@ body {
 .demo-code .tok-important { color: var(--text-red); font-weight: bold; }
 .demo-code .tok-punct     { color: var(--text-secondary); }
 
-/* Theme toggle */
+/* Theme toggle (utilitární přepínač) */
 .theme-toggle {
   position: fixed;
-  top: var(--base-2);
-  right: var(--base-2);
-  height: var(--base-4);
-  padding: 0 var(--base-2);
-  background: var(--surface-control);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font-stack-main);
-  font-size: var(--font-size-s);
+  top: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--base) var(--base-2);
+  background: var(--text-primary);
+  color: var(--surface-base);
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   cursor: pointer;
-  box-shadow: var(--elevation);
+  box-shadow: none;
 }
 
 .theme-toggle:hover {
-  background: var(--surface-main-variant);
+  background: var(--text-red);
+  color: var(--surface-base);
 }
 
 /* Sdílená karta – srovnání hodnot, kontejner pro stage */
 .sizing-card {
   background: var(--surface-main-dim);
-  border: 1px solid var(--border-shiny);
-  border-radius: var(--radius-strong);
+  border: 1px solid var(--text-primary);
+  border-radius: 0;
   padding: var(--base-3);
-  box-shadow: var(--elevation-subtle);
+  box-shadow: none;
 }
 
 .sizing-card__label {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
-  color: var(--text-brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-red);
   margin-bottom: var(--base);
 }
 
 /* Interaktivní stage – resizable */
 .live-stage {
   background: var(--surface-main-dim);
-  border: 1px solid var(--border-shiny);
-  border-radius: var(--radius-strong);
+  border: 1px solid var(--text-primary);
+  border-radius: 0;
   padding: var(--base-3);
-  box-shadow: var(--elevation-subtle);
+  box-shadow: none;
   min-height: 120px;
   resize: horizontal;
   overflow: auto;
@@ -175,10 +191,10 @@ body {
 /* Layout stage – statické ukázky */
 .layout-stage {
   background: var(--surface-main-dim);
-  border: 1px solid var(--border-shiny);
-  border-radius: var(--radius-strong);
+  border: 1px solid var(--text-primary);
+  border-radius: 0;
   padding: var(--base-4);
-  box-shadow: var(--elevation-subtle);
+  box-shadow: none;
 }
 
 /* Badge – štítek (novinka, status…) */
@@ -186,10 +202,12 @@ body {
   display: inline-block;
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   padding: 2px var(--base);
   background: var(--surface-brand-secondary-subtle);
   border: 1px solid var(--surface-brand-secondary-moderate);
-  border-radius: var(--radius-subtle);
+  border-radius: 0;
   color: var(--text-primary-on-surface-brand-secondary-moderate);
   width: fit-content;
 }
@@ -198,7 +216,7 @@ body {
 .demo-box {
   background: var(--surface-brand-primary-subtle);
   border: 1px solid var(--surface-brand-primary-moderate);
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: var(--base-2) var(--base-3);
   overflow: hidden;
   font-size: var(--font-size-s);
@@ -214,7 +232,7 @@ body {
 }
 
 .demo-section:not(:first-child) {
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--text-primary);
   min-height: 100svh;
 }
 
@@ -222,6 +240,8 @@ body {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
   font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-secondary);
   margin-bottom: var(--base-4);
   line-height: 1.5;

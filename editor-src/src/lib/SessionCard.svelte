@@ -4,82 +4,83 @@
   let { session } = $props();
 </script>
 
-<div class="session-card" class:session-card--future={session.future}>
-  <div class="session-card__meta">
-    <span class="session-card__number">{session.number}</span>
-    {#if session.duration}
-      <span class="session-card__duration">{session.duration} min</span>
-    {/if}
+<section class="cell" class:cell--future={session.future}>
+  <div class="cell__head">
+    <span class="cell__no">{session.number}</span>
+    <span class="cell__dur">{session.future ? '[ PENDING ]' : (session.duration ? session.duration + ' MIN' : '')}</span>
   </div>
-  <div class="session-card__title">{session.title}</div>
+  <h2 class="cell__title">{session.title}</h2>
   {#if session.demos}
-    <ul class="session-card__demos">
+    <ul class="cell__demos">
       {#each session.demos as demo}
         <DemoItem sessionId={session.id} {demo} disabled={session.future} />
       {/each}
     </ul>
   {/if}
-</div>
+</section>
 
 <style>
-  .session-card {
+  .cell {
     background: var(--surface-main);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-strong);
-    padding: var(--base-4);
+    padding: var(--base-3);
     display: flex;
     flex-direction: column;
-    gap: var(--base-3);
-    box-shadow: var(--elevation);
+    gap: var(--base-2);
   }
 
-  .session-card--future {
-    opacity: 0.45;
+  /* Budoucí sessions: diagonální šrafa (classified/pending) místo opacity */
+  .cell--future {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 7px,
+        color-mix(in oklch, var(--text-primary) 6%, transparent) 7px,
+        color-mix(in oklch, var(--text-primary) 6%, transparent) 8px
+      ),
+      var(--surface-main);
+    color: var(--text-secondary);
   }
 
-  .session-card__meta {
+  .cell__head {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     gap: var(--base);
-  }
-
-  .session-card__number {
-    font-family: var(--font-stack-headings);
-    font-size: var(--font-size-base);
-    color: var(--surface-brand-primary-strong);
-  }
-
-  .session-card__duration {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
-    padding: 2px var(--base);
-    border-radius: var(--radius-subtle);
-    background: var(--surface-brand-primary-minimal);
-    color: var(--text-secondary);
-    border: 1px solid var(--surface-brand-primary-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
-  .session-card__title {
+  .cell__no {
     font-family: var(--font-stack-headings);
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-headings-regular);
-    color: var(--text-primary);
-    line-height: 1.2;
+    line-height: 1;
+    color: var(--text-red);
   }
+  .cell--future .cell__no { color: var(--text-secondary); }
 
-  .session-card__demos {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--base-h);
-    border-top: 3px solid transparent;
-    border-image: linear-gradient(
-      to right,
-      var(--surface-brand-secondary-strong),
-      var(--surface-brand-primary-strong) 60%,
-      transparent
-    ) 1;
-    padding-top: var(--base-2);
+  .cell__dur { color: var(--text-secondary); }
+
+  .cell__title {
+    font-family: var(--font-stack-headings);
+    font-weight: var(--font-weight-headings-regular);
+    font-size: var(--font-size-xl);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    color: var(--text-primary);
+    margin-bottom: var(--base);
   }
+  .cell--future .cell__title { color: var(--text-secondary); }
+
+  .cell__demos {
+    list-style: none;
+    margin: 0;
+    margin-top: auto;
+    padding: 0;
+    border-top: 2px solid var(--text-primary);
+  }
+  .cell--future .cell__demos { border-top-color: var(--text-secondary); }
 </style>
