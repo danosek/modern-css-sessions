@@ -45,7 +45,7 @@
     color: var(--surface-base);
   }
 
-  .row__idx { color: var(--text-red); }
+  .row__idx { color: var(--text-brand-primary); }
   .row__link:hover .row__idx,
   .row__link:hover .row__mark { color: var(--surface-base); }
 

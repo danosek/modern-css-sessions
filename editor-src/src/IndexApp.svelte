@@ -155,7 +155,7 @@
     cursor: pointer;
     box-shadow: none;
   }
-  .theme-toggle:hover { background: var(--text-red); color: var(--surface-base); }
+  .theme-toggle:hover { background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong); }
 
   /* ── Masthead (blueprint title block) ─────────────────────── */
   .masthead {
@@ -180,7 +180,7 @@
   .masthead__bar { border-bottom: 2px solid var(--text-primary); justify-content: space-between; }
   .masthead__index { border-top: 2px solid var(--text-primary); }
   .mut { color: var(--text-secondary); }
-  .acc { color: var(--text-red); }
+  .acc { color: var(--text-brand-primary); }
   .masthead__index .mut { margin-left: auto; }
 
   .masthead__title {
@@ -194,7 +194,7 @@
     padding: var(--base-3) var(--base-2) var(--base-2);
   }
   .masthead__title .reg {
-    color: var(--text-red);
+    color: var(--text-brand-primary);
     font-size: 0.16em;
     vertical-align: super;
     letter-spacing: 0;

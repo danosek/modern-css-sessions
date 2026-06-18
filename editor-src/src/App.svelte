@@ -322,7 +322,7 @@
     font-size: var(--font-size-xs);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-red);
+    color: var(--text-brand-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -358,9 +358,9 @@
     border-color: var(--text-primary);
   }
   .btn-js.active {
-    background: var(--text-red);
-    color: var(--surface-base);
-    border-color: var(--text-red);
+    background: var(--surface-brand-primary-strong);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+    border-color: var(--surface-brand-primary-strong);
   }
   .btn-ghost {
     background: transparent;
@@ -463,7 +463,7 @@
   }
   .splitter-col:hover,
   .splitter-col.active {
-    background: var(--text-red);
+    background: var(--surface-brand-primary-strong);
   }
 
   .splitter-row {
@@ -475,7 +475,7 @@
   }
   .splitter-row:hover,
   .splitter-row.active {
-    background: var(--text-red);
+    background: var(--surface-brand-primary-strong);
   }
 
   /* ── Status messages ─────────────────────────────────────────────────────── */

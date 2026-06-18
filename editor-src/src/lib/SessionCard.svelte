@@ -57,7 +57,7 @@
     font-family: var(--font-stack-headings);
     font-size: var(--font-size-xl);
     line-height: 1;
-    color: var(--text-red);
+    color: var(--text-brand-primary);
   }
   .cell--future .cell__no { color: var(--text-secondary); }
 

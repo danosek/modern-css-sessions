@@ -55,7 +55,7 @@ body {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  color: var(--text-red);
+  color: var(--text-brand-primary);
   font-size: var(--font-size-xs);
   font-family: var(--font-stack-monospace);
   text-transform: uppercase;
@@ -92,7 +92,7 @@ body {
   color: var(--text-secondary);
   margin-bottom: var(--base-2);
 }
-.demo-code__title::before { content: '// '; color: var(--text-red); }
+.demo-code__title::before { content: '// '; color: var(--text-brand-primary); }
 
 .demo-code pre {
   font-family: var(--font-stack-monospace);
@@ -105,7 +105,7 @@ body {
 
 /* Vodorovně scrollovatelný kód musí být dosažitelný klávesnicí (tabindex="0") */
 .demo-code pre:focus-visible {
-  outline: 2px solid var(--text-red);
+  outline: 2px solid var(--text-brand-primary);
   outline-offset: 2px;
   border-radius: 0;
 }
@@ -152,8 +152,8 @@ body {
 }
 
 .theme-toggle:hover {
-  background: var(--text-red);
-  color: var(--surface-base);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
 }
 
 /* Sdílená karta – srovnání hodnot, kontejner pro stage */
@@ -170,7 +170,7 @@ body {
   font-size: var(--font-size-s);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-red);
+  color: var(--text-brand-primary);
   margin-bottom: var(--base);
 }
 
