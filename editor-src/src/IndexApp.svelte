@@ -94,7 +94,7 @@
     <span class="mut">ČVN 2026 — BŘE 2027</span>
   </div>
 
-  <h1 class="masthead__title">MODERN<br>CSS<span class="reg">®</span></h1>
+  <h1 class="masthead__title">MODERN CSS<span class="reg">®</span></h1>
 
   <p class="masthead__sub">
     <span class="acc">&gt;&gt;&gt;</span> INTERAKTIVNÍ CSS DEMA KE ŠKOLÍCÍMU CYKLU
@@ -217,6 +217,13 @@
     gap: 2px;
     background: var(--text-primary);
     border: 2px solid var(--text-primary);
+
+  }
+  .matrix::before {
+    content: '';
+    padding-top: 100%;
+    background: red;
+    grid-column: 1 / -1;
   }
 
 </style>
