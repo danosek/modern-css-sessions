@@ -40,23 +40,19 @@
 }
 
 .cf-anatomy__min {
-  color: #2e7d32;
+  color: var(--text-green);
   font-weight: 600;
 }
 
 .cf-anatomy__pref {
-  color: #1565c0;
+  color: var(--text-blue);
   font-weight: 600;
 }
 
 .cf-anatomy__max {
-  color: #6a1b9a;
+  color: var(--text-fuchsia);
   font-weight: 600;
 }
-
-[data-theme="dark"] .cf-anatomy__min  { color: #66bb6a; }
-[data-theme="dark"] .cf-anatomy__pref { color: #64b5f6; }
-[data-theme="dark"] .cf-anatomy__max  { color: #ce93d8; }
 
 .cf-anatomy__labels {
   flex-basis: 100%;
@@ -86,13 +82,9 @@
   flex-shrink: 0;
 }
 
-.cf-anatomy__label--min::before  { background: #2e7d32; }
-.cf-anatomy__label--pref::before { background: #1565c0; }
-.cf-anatomy__label--max::before  { background: #6a1b9a; }
-
-[data-theme="dark"] .cf-anatomy__label--min::before  { background: #66bb6a; }
-[data-theme="dark"] .cf-anatomy__label--pref::before { background: #64b5f6; }
-[data-theme="dark"] .cf-anatomy__label--max::before  { background: #ce93d8; }
+.cf-anatomy__label--min::before  { background: var(--text-green); }
+.cf-anatomy__label--pref::before { background: var(--text-blue); }
+.cf-anatomy__label--max::before  { background: var(--text-fuchsia); }
 
 /* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
 
