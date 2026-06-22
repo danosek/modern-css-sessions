@@ -45,28 +45,6 @@ code {
   margin-bottom: var(--base-3);
 }
 
-.layout-example {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.layout-example__label {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--base-h) var(--base);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  color: var(--text-brand-primary);
-}
-
-.layout-example__label span {
-  font-family: var(--font-stack-main);
-  color: var(--text-secondary);
-  font-size: var(--font-size-s);
-}
-
 /* ── Product cards grid — hlavní subgrid ukázka ──────────────────────────── */
 /*    Toggle „Se subgrid" přidá třídu .use-subgrid na .products-grid          */
 
