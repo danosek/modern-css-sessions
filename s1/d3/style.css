@@ -46,7 +46,6 @@ code {
   border: 1px solid var(--border);
   border-radius: var(--radius-strong);
   padding: var(--base-4);
-  box-shadow: var(--elevation);
 }
 
 .lp-toggle-bar {
@@ -110,7 +109,6 @@ code {
 .lp-card {
   background: var(--surface-main);
   border-radius: var(--radius);
-  box-shadow: var(--elevation);
   position: relative;
   overflow: hidden;
 }
@@ -226,7 +224,6 @@ code {
   overflow-x: auto;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  box-shadow: var(--elevation);
 }
 
 .lp-table {

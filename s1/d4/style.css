@@ -165,12 +165,11 @@ code {
   border: 1px solid var(--border);
   border-radius: var(--radius-strong);
   overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
   display: flex;
   flex-direction: column;
 
   &:hover {
-    box-shadow: var(--elevation);
     transform: translateY(-2px);
   }
 
@@ -259,13 +258,12 @@ code {
   cursor: pointer;
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
-  transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  transition: filter 0.15s ease, transform 0.15s ease;
   outline: none;
 
   &:hover {
     filter: brightness(1.1);
     transform: translateY(-1px);
-    box-shadow: var(--elevation);
   }
 
   &:disabled {
@@ -274,7 +272,6 @@ code {
     pointer-events: none;
     transform: none;
     filter: none;
-    box-shadow: none;
   }
 
   &:focus-visible {
@@ -285,7 +282,6 @@ code {
   &.demo-btn--force-hover {
     filter: brightness(1.1);
     transform: translateY(-1px);
-    box-shadow: var(--elevation);
   }
 
   &.demo-btn--force-focus {
@@ -339,7 +335,7 @@ code {
   display: flex;
   flex-direction: column;
   gap: var(--base-2);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: border-color 0.2s ease;
 
   /* element selektory bez & — funguje jako .no-amp-card h2 */
   h2 {
@@ -365,7 +361,6 @@ code {
 
   /* pseudo-třídy a modifiery stále vyžadují & */
   &:hover {
-    box-shadow: var(--elevation);
     border-color: var(--surface-brand-primary-moderate);
   }
 

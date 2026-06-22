@@ -21,7 +21,6 @@ code {
   background: var(--surface-main-dim);
   border: 1px solid var(--border-shiny);
   border-radius: var(--radius-strong);
-  box-shadow: var(--elevation-subtle);
 }
 
 .cq-container {

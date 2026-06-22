@@ -82,7 +82,6 @@ code {
   border: 1px solid var(--border-shiny);
   border-radius: var(--radius-strong);
   padding: var(--base-4);
-  box-shadow: var(--elevation-subtle);
   margin-bottom: var(--base-4);
 }
 
