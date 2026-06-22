@@ -1,101 +1,134 @@
 ---
 name: industrial-brutalist-ui
-description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. Fonts and colors are sourced exclusively from the Spectro design system (tokens), never hardcoded. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+description: Our house UI language for Modern CSS Sessions — a Tactical Telemetry & CRT Terminal aesthetic built on top of the Spectro design system. Rigid modular grids, zero corner rounding, extreme type-scale contrast, monospace telemetry, analog degradation. Every font and colour comes from Spectro tokens (catalogued in DESIGN.md), never hardcoded.
 ---
 
-# SKILL: Industrial Brutalism & Tactical Telemetry UI
+# Industrial Brutalist UI — Tactical Telemetry on Spectro
 
-## 1. Skill Meta
-**Name:** Industrial Brutalism & Tactical Telemetry Interface Engineering
-**Description:** Advanced proficiency in architecting web interfaces that synthesize mid-century Swiss Typographic design, industrial manufacturing manuals, and retro-futuristic aerospace/military terminal interfaces. This discipline requires absolute mastery over rigid modular grids, extreme typographic scale contrast, purely utilitarian color palettes, and the programmatic simulation of analog degradation (halftones, CRT scanlines, bitmap dithering). The objective is to construct digital environments that project raw functionality, mechanical precision, and high data density, deliberately discarding conventional consumer UI patterns.
+This is the design language we built together for **Modern CSS Sessions**. We took the
+**Spectro** design system and themed it in the style of **Tactical Telemetry & CRT
+Terminal** — the look of classified databases, legacy mainframes and aerospace HUDs. This
+file is the playbook we follow whenever we build or extend a screen in the project (the
+index, the demo wrapper, the editor): it describes *how* we compose Spectro into that look.
 
-> **SPECTRO BINDING (overrides the original skill).** This project ships the **Spectro** design system (`shared/spectro-theme.css`, `shared/demo-base.css`). All typography and color in this skill MUST be expressed through Spectro CSS custom properties — never hardcoded hex values, font names, or magic sizes. Spectro tokens are theme-aware via `light-dark()`, so the light/dark substrate is selected with `data-theme` on the root and the *same* tokens resolve correctly. The repo rule stands: *výhradně Spectro tokeny — žádné hardcoded barvy ani rozměry.*
+Two rules sit above everything else:
 
-## 2. Visual Archetypes
-The design system operates by merging two distinct but highly compatible visual paradigms. **This project keeps Spectro's automatic theme** — `data-theme` follows `prefers-color-scheme` plus a manual toggle — so the SAME interface renders as *Swiss Industrial Print* in light mode and *Tactical Telemetry* in dark mode. These are the two faces of one theme-aware system: they are never mixed *within a single rendering* (the substrate switches the whole coherent archetype at once), but you always build **both** faces with the same theme-aware Spectro tokens. Do not hardcode a single substrate, and do not ask which archetype to use — support both via the tokens.
+1. **Every colour, font and dimension is a Spectro token.** No hardcoded hex, no font
+   names, no magic numbers. The complete token catalogue — palette, surfaces, text, fonts,
+   spacing, borders — lives in [`DESIGN.md`](../../../DESIGN.md) at the repo root, generated
+   from our theme in `src/spectro/`. This skill never re-states token values; it only says
+   how to combine them.
+2. **Zero corner rounding.** Our Spectro theme ships every radius token at `0` (`--radius`,
+   `--radius-subtle`, `--radius-strong`, `--radius-extreme` are all `0px`). Corners are hard
+   90°. Never reintroduce `border-radius`. (`--radius-circle` exists only for a true dot/pill
+   and we essentially never use it.)
 
-### 2.1 Swiss Industrial Print  →  `data-theme="light"`
-Derived from 1960s corporate identity systems and heavy machinery blueprints.
-*   **Characteristics:** High-contrast light substrate (`--surface-base` resolves to unbleached paper). Reliance on monolithic, heavy display typography. Unforgiving structural grids outlined by visible dividing lines (`--border`). Aggressive, asymmetric use of negative space punctuated by oversized, viewport-bleeding numerals or letterforms. Heavy use of a single hazard accent for alerts/highlights.
+## 1. The aesthetic — Tactical Telemetry & CRT Terminal
 
-### 2.2 Tactical Telemetry & CRT Terminal  →  `data-theme="dark"`
-Derived from classified military databases, legacy mainframes, and aerospace Heads-Up Displays (HUDs).
-*   **Characteristics:** Dark substrate (`--surface-base` resolves to a deactivated-CRT near-black, never pure `#000`). High-density tabular data presentation. Absolute dominance of monospaced typography. Integration of technical framing devices (ASCII brackets, crosshairs). Application of simulated hardware limitations (phosphor glow, scanlines, low bit-depth rendering).
+A single, committed look derived from classified military databases, legacy mainframes and
+aerospace Heads-Up Displays. Characteristics:
 
-## 3. Typographic Architecture
-Typography is the primary structural and decorative infrastructure. Imagery is secondary. The system demands extreme variance in scale, weight, and spacing. **All font families come from Spectro font-stack tokens — do not import or name fonts directly.**
+- High-density, tabular presentation of information.
+- Dominance of monospaced typography; structural headers in the heavy mono display face.
+- Technical framing devices — ASCII brackets, crosshairs, directional markers.
+- Hard-lined compartmentalisation: razor-thin grid rules, no soft edges, no shadows.
+- Optional simulated hardware limits — phosphor glow, scanlines, low bit-depth grain.
 
-| Role | Spectro token | Spectro font |
-|------|---------------|--------------|
+**Theme-aware, not two designs.** We keep Spectro's automatic theme (`data-theme` follows
+`prefers-color-scheme` plus a manual toggle). The *same* Tactical Telemetry interface renders
+on a light substrate (paper-grade neutrals) and a dark substrate (deactivated-CRT neutrals);
+the Spectro tokens flip via `light-dark()`. There is one aesthetic — never branch the markup
+per theme, never hardcode a substrate.
+
+## 2. Typographic architecture
+
+Typography is the primary structural and decorative infrastructure; imagery is secondary.
+All families come from Spectro font-stack tokens — never import or name a font directly.
+
+| Role | Spectro token | Font in our theme |
+|------|---------------|-------------------|
 | Macro / structural headers | `var(--font-stack-headings)` | Departure Mono (heavy mono display) |
 | Micro / data & telemetry | `var(--font-stack-monospace)` | iA Writer Mono |
 | Body / running copy | `var(--font-stack-main)` | iA Writer Quattro |
-| Textural disruption | `var(--font-stack-decorative)` | Departure Mono / serif fallback |
+| Textural disruption | `var(--font-stack-decorative)` | Departure Mono (decorative axis) |
 
-### 3.1 Macro-Typography (Structural Headers)
-*   **Family:** `font-family: var(--font-stack-headings);` (Departure Mono — its fixed-width pixel grotesque already reads as machined block lettering).
-*   **Implementation Parameters:**
-    *   **Scale:** Massive, fluid — `clamp()` only (e.g. `clamp(4rem, 10vw, 15rem)`), ideally anchored to Spectro size tokens where practical.
-    *   **Tracking:** Extremely tight, often negative (`-0.03em` to `-0.06em`) so glyphs fuse into solid architectural blocks.
-    *   **Leading:** Highly compressed (`0.85` to `0.95`).
-    *   **Casing:** Exclusively uppercase.
+### Macro-typography (structural headers)
+- `font-family: var(--font-stack-headings);`
+- Scale: massive, fluid — `clamp()` only, e.g. `clamp(2.5rem, 10vw, 7rem)`.
+- Tracking: tight, often negative (`-0.02em` to `-0.06em`) so glyphs fuse into blocks.
+- Leading: compressed (`0.82`–`0.95`). Casing: exclusively uppercase.
 
-### 3.2 Micro-Typography (Data & Telemetry)
-*   **Family:** `font-family: var(--font-stack-monospace);` (iA Writer Mono).
-*   **Implementation Parameters:**
-    *   **Scale:** Fixed and small — prefer `var(--font-size-xs)` / `var(--font-size-s)`.
-    *   **Tracking:** Generous (`0.05em` to `0.1em`) to simulate terminal matrices.
-    *   **Leading:** Standard to tight (`1.2` to `1.4`).
-    *   **Casing:** Exclusively uppercase. All metadata, navigation, unit IDs, coordinates.
+### Micro-typography (data & telemetry)
+- `font-family: var(--font-stack-monospace);`
+- Scale: fixed and small — prefer `var(--font-size-xs)` / `var(--font-size-s)`.
+- Tracking: generous (`0.06em`–`0.12em`) to read as a terminal matrix.
+- Casing: uppercase. Used for all metadata, navigation, unit IDs, section labels.
 
-### 3.3 Textural Contrast (Artistic Disruption)
-*   **Family:** `font-family: var(--font-stack-decorative);` — used exceedingly sparingly. Spectro has no high-contrast serif, so achieve "textural juxtaposition" through post-processing (halftone, 1-bit dithering) rather than relying on serif vector contrast. If decorative degradation does not earn its place, omit it.
+### Textural disruption
+- `font-family: var(--font-stack-decorative);` — used exceedingly sparingly, and only with
+  post-processing (halftone / 1-bit dithering). If degradation doesn't earn its place, omit it.
 
-## 4. Color System
-The color architecture is uncompromising. Gradients, soft drop shadows, and modern translucency are strictly prohibited. **Every color is a Spectro token.** Because Spectro tokens are theme-aware, you do not maintain two palettes — you set the substrate once via `data-theme` and reuse the same role tokens.
+## 3. Colour
 
-**CRITICAL: This project renders BOTH substrates automatically** (`data-theme` from `prefers-color-scheme` + manual toggle): light = Swiss Print, dark = Tactical Telemetry. Use only the theme-aware Spectro role tokens below so a single set of rules produces both faces — never hardcode a substrate, and never mix both within one rendering.
+Every colour is a Spectro token; the full set is in [`DESIGN.md`](../../../DESIGN.md). Because
+the tokens are theme-aware, you set the substrate once via `data-theme` and reuse the same
+role tokens for both light and dark.
 
-### Role → Spectro token mapping
 | Role | Spectro token(s) |
 |------|------------------|
-| Primary substrate / page | `var(--surface-base)` |
+| Primary substrate / page | `var(--surface-main)` (our pages) or `var(--surface-base)` |
 | Compartment / panel fills | `var(--surface-main)`, `var(--surface-main-dim)`, `var(--surface-main-variant)` |
 | Primary foreground (ink / phosphor) | `var(--text-primary)` |
 | Secondary / metadata text | `var(--text-secondary)` |
-| Structural dividers & frames | `var(--border)`, `var(--border-shiny)` |
-| **Hazard accent (the ONE accent)** | `var(--status-error)` / `var(--text-red)` for true hazard red, **or** the project brand accent `var(--text-brand-secondary)` / `var(--surface-brand-secondary-strong)`. Pick one and use it for strike-throughs, vital highlights, thick structural rules. |
-| Optional single terminal-green readout (dark only) | `var(--text-green)` — exactly one element, never general text |
+| Structural dividers, frames, grid lines | `var(--text-primary)` (bold rules) or `var(--border)` (hairlines) |
+| **The single accent** | brand: `var(--text-brand-primary)` (text) and `var(--surface-brand-primary-strong)` (fills) |
+| Genuine semantics only | `var(--status-error)` / `var(--text-red)` for errors, `!important`/invalid syntax |
 
-*   **No translucency hacks:** where overlay is needed, prefer `color-mix(in oklch, var(--…) X%, transparent)` over raw `rgba()`, so the result still tracks the theme.
-*   **Accent discipline:** the original aesthetic uses a single aviation red. With Spectro's current brand palette (amber primary / sage secondary) the faithful "hazard red" lives in the status tokens (`--status-error` / `--text-red`). Commit to ONE accent token for the whole interface.
+- **One accent, brand-bound.** The accent is the Spectro brand (goldenrod primary), not a
+  generic hazard red. Reserve red strictly for real error states and syntax semantics that
+  mirror the editor's highlight — never as decoration.
+- **No translucency hacks.** Where an overlay is needed, use `color-mix(in oklch, var(--…) X%,
+  transparent)` so it still tracks the theme. No gradients, no soft drop shadows.
 
-## 5. Layout and Spatial Engineering
-The layout must appear mathematically engineered. It rejects conventional web padding in favor of visible compartmentalization.
+## 4. Layout & spatial engineering
 
-*   **The Blueprint Grid:** Strict adherence to CSS Grid architectures. Elements do not float; they are anchored precisely to grid tracks and intersections.
-*   **Visible Compartmentalization:** Extensive use of solid borders (`1px`/`2px solid var(--border)`) to delineate zones. Horizontal rules (`<hr>`) frequently span the full container width to segregate operational units.
-*   **Bimodal Density:** Layouts oscillate between extreme data density (tightly packed monospace metadata) and vast expanses of calculated negative space framing macro-typography.
-*   **Geometry:** Absolute rejection of rounded corners. Force `border-radius: 0` everywhere (Spectro's `radiusIntensity` is 0 here, but state it explicitly) to enforce mechanical rigidity. Spacing should use Spectro spacing tokens (`--base`, `--base-2`…`--page-pad`) rather than arbitrary px.
+- **Blueprint grid.** Strict CSS Grid. Elements anchor to tracks and intersections; nothing
+  floats.
+- **Razor-thin rules via gap.** `display: grid; gap: 1px/2px;` with a `--text-primary` parent
+  background and `--surface-*` children yields perfect dividing lines without per-side borders.
+- **Visible compartmentalisation.** Solid `1px`/`2px` borders in `--text-primary` for major
+  frames, `--border` for inner subdivisions. Full-width `<hr>` to segregate units.
+- **Bimodal density.** Oscillate between tight monospace metadata clusters and vast negative
+  space framing macro-typography.
+- **Geometry.** Hard 90° corners everywhere (`border-radius: 0`). Spacing uses Spectro spacing
+  tokens (`--base`, `--base-2` … `--page-pad`), never arbitrary px.
 
-## 6. UI Components and Symbology
-Standard web UI conventions are replaced with utilitarian, industrial graphic elements.
+## 5. Components & symbology
 
-*   **Syntax Decoration:** ASCII characters frame data points.
-    *   *Framing:* `[ DELIVERY SYSTEMS ]`, `< RE-IND >`
-    *   *Directional:* `>>>`, `///`, `\\\\`
-*   **Industrial Markers:** Registration (`®`), copyright (`©`), trademark (`™`) symbols as structural geometric elements, not legal text.
-*   **Technical Assets:** Crosshairs (`+`) at grid intersections, repeating vertical lines (barcodes), thick horizontal warning stripes, and randomized string data (`REV 2.6`, `UNIT / D-01`) to simulate active mechanical processes.
+- **ASCII framing:** `[ DELIVERY SYSTEMS ]`, `< RE-IND >`; directional `>>>`, `///`, `\\\\`.
+- **Industrial markers:** registration `®`, copyright `©`, trademark `™` used as geometric
+  elements, not legal text. Keep these meaningful — avoid fake telemetry noise (version
+  strings, fabricated unit/status IDs) that adds nothing.
+- **Technical assets:** crosshairs `+` at grid intersections, repeating vertical rules
+  (barcodes), thick horizontal warning stripes.
 
-## 7. Textural and Post-Processing Effects
-To prevent a purely digital look, simulated analog degradation is engineered via CSS and SVG filters. Use Spectro tokens inside `color-mix()` for any tinting so effects stay theme-correct.
+## 6. Texture & post-processing
 
-*   **Halftone and 1-Bit Dithering:** Continuous-tone images / large decorative type → dot-matrix patterns, via `mix-blend-mode: multiply` overlays + SVG radial dot patterns.
-*   **CRT Scanlines (dark substrate):** `repeating-linear-gradient` simulating electron-beam sweeps, e.g. `repeating-linear-gradient(0deg, transparent, transparent 2px, color-mix(in oklch, var(--text-primary) 6%, transparent) 2px 4px)`.
-*   **Mechanical Noise:** A global low-opacity SVG static/noise filter on the DOM root for a unified physical grain in both substrates.
+To avoid a purely digital feel, engineer restrained analog degradation in CSS/SVG; tint with
+Spectro tokens via `color-mix()` so effects stay theme-correct.
 
-## 8. Web Engineering Directives
-1.  **Grid Determinism:** `display: grid; gap: 1px;` with contrasting parent/child surface tokens (`--border` parent, `--surface-base`/`--surface-main` children) to generate razor-thin dividing lines without per-side border declarations.
-2.  **Semantic Rigidity:** Build the DOM with precise semantic tags (`<data>`, `<samp>`, `<kbd>`, `<output>`, `<dl>`) reflecting the technical nature of the telemetry.
-3.  **Typography Clamping:** `clamp()` exclusively for macro-typography so massive text scales aggressively while keeping structural integrity across viewports.
-4.  **Spectro Source-of-Truth:** Never introduce hardcoded colors, font names, or arbitrary dimensions. Every value resolves to a Spectro token; switch substrate via `data-theme` only.
+- **Scanlines:** `repeating-linear-gradient` simulating an electron-beam sweep, e.g.
+  `repeating-linear-gradient(0deg, transparent 0 2px, color-mix(in oklch, var(--text-primary) 4%, transparent) 3px, transparent 4px)`.
+- **Halftone / 1-bit dithering:** continuous-tone imagery or decorative type → dot-matrix via
+  `mix-blend-mode` overlays + SVG radial-dot patterns.
+- **Mechanical noise:** a global low-opacity grain for a unified physical texture.
+- Keep texture legible — on data-dense or teaching content, dial it down or omit it.
+
+## 7. Engineering directives
+
+1. **Grid determinism** over multi-side borders (see §4).
+2. **Semantic rigidity:** build the DOM with precise tags (`<data>`, `<samp>`, `<kbd>`,
+   `<output>`, `<dl>`, real headings) reflecting the technical nature of the content.
+3. **Clamp macro-typography** with `clamp()` so huge text scales without breaking layout.
+4. **Spectro is the single source of truth.** Every value resolves to a token from
+   [`DESIGN.md`](../../../DESIGN.md); switch substrate via `data-theme` only. Never hardcode.
