@@ -22,7 +22,8 @@
   .row {
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-s);
-    text-transform: uppercase;
+    /* Bez uppercase — názvy jsou case-sensitive CSS termíny (oklch(), :has(),
+       appearance: base-select). Zobrazujeme je v korektním tvaru z dat. */
     letter-spacing: 0.04em;
     border-bottom: 1px solid var(--border);
   }

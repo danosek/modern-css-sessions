@@ -80,7 +80,6 @@
     margin: 0;
     margin-top: auto;
     padding: 0;
-    border-top: 2px solid var(--text-primary);
   }
   .cell--future .cell__demos { border-top-color: var(--text-secondary); }
 </style>

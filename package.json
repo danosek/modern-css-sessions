@@ -1,0 +1,16 @@
+{
+  "name": "modern-css-sessions",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Modern CSS Sessions — interaktivní CSS dema + editor. Root je orchestrátor; aplikace žije v editor-src/.",
+  "scripts": {
+    "dev": "npm --prefix editor-src run dev",
+    "build": "npm run build:editor && npm run build:index",
+    "build:editor": "npm --prefix editor-src run build",
+    "build:index": "npm --prefix editor-src run build:index",
+    "preview": "npm --prefix editor-src run preview",
+    "sync:theme": "node scripts/sync-theme.mjs",
+    "setup": "npm --prefix editor-src install"
+  }
+}

@@ -30,16 +30,16 @@
       demos: [
         { id: 'd1', index: 'D1', name: 'interpolate-size' },
         { id: 'd2', index: 'D2', name: 'field-sizing' },
-        { id: 'd3', index: 'D3', name: 'gap decorations' },
+        { id: 'd3', index: 'D3', name: 'Gap Decorations' },
         { id: 'd4', index: 'D4', name: 'shape()' },
       ],
     },
     {
       id: 's4', number: 'S4', title: 'Anchor Positioning + Popover', duration: 90, future: true,
       demos: [
-        { id: 'd1', index: 'D1', name: 'anchor-positioning' },
-        { id: 'd2', index: 'D2', name: 'popover API' },
-        { id: 'd3', index: 'D3', name: 'invoker commands' },
+        { id: 'd1', index: 'D1', name: 'Anchor Positioning' },
+        { id: 'd2', index: 'D2', name: 'Popover API' },
+        { id: 'd3', index: 'D3', name: 'Invoker Commands' },
       ],
     },
     {
@@ -56,16 +56,16 @@
       demos: [
         { id: 'd1', index: 'D1', name: 'scroll()' },
         { id: 'd2', index: 'D2', name: 'view()' },
-        { id: 'd3', index: 'D3', name: 'carousel' },
+        { id: 'd3', index: 'D3', name: 'Carousel' },
         { id: 'd4', index: 'D4', name: 'scroll-state' },
       ],
     },
     {
       id: 's7', number: 'S7', title: 'View Transitions', duration: 90, future: true,
       demos: [
-        { id: 'd1', index: 'D1', name: 'same-doc' },
-        { id: 'd2', index: 'D2', name: 'cross-doc' },
-        { id: 'd3', index: 'D3', name: 'shared element' },
+        { id: 'd1', index: 'D1', name: 'Same-document' },
+        { id: 'd2', index: 'D2', name: 'Cross-document' },
+        { id: 'd3', index: 'D3', name: 'Shared Element' },
       ],
     },
     {
@@ -210,20 +210,30 @@
   }
   .masthead__sub .acc { margin-right: var(--base); }
 
-  /* ── Matrix (sessions) — razor-thin grid lines via gap ────── */
+  /* ── Matrix (sessions) — razor-thin grid lines via gap ──────
+     Počet sloupců se odvozuje z počtu sessions, aby byl poslední řádek vždy
+     plný a nikde neprosvítalo --text-primary pozadí skrz prázdné buňky.
+     Paritu počtu čteme z pozice poslední buňky: :nth-child(even):last-child →
+     sudý počet, :nth-child(odd):last-child → lichý. (.cell renderuje jiný
+     komponent → nutné :global.) Sloupce vždy dělí počet → žádné díry. */
   .matrix {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 1fr;            /* mobil: 1 sloupec */
+    grid-auto-rows: 1fr;
     gap: 2px;
     background: var(--text-primary);
     border: 2px solid var(--text-primary);
-
   }
-  .matrix::before {
-    content: '';
-    padding-top: 100%;
-    background: red;
-    grid-column: 1 / -1;
+
+  /* Tablet+: sudý počet → 2 sloupce, lichý → 3 */
+  @media (min-width: 40rem) {
+    .matrix:has(> :global(.cell:nth-child(even):last-child)) { grid-template-columns: repeat(2, 1fr); }
+    .matrix:has(> :global(.cell:nth-child(odd):last-child))  { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Desktop: počet dělitelný 4 → 4 sloupce (8 sessions = 4×2) */
+  @media (min-width: 68rem) {
+    .matrix:has(> :global(.cell:nth-child(4n):last-child))   { grid-template-columns: repeat(4, 1fr); }
   }
 
 </style>
