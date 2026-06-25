@@ -1,0 +1,69 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D6 — :has() / :is() / :where()
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Pomocný typ ─────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
+}
+
+/* ── Živá ukázka — task list s :has(input:checked) ──────────────────────── */
+
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--base-2);
+  padding: var(--base-2) var(--base-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-front);
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.task input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--surface-brand-primary-strong);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.task label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.task-name {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  transition: text-decoration 0.15s;
+}
+
+.task-meta {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+}
+
+/* :has() — rodiče reaguje na stav potomka */
+.task:has(input:checked) {
+  opacity: 0.7;
+  background: var(--surface-main-dim);
+}
+
+.task:has(input:checked) .task-name {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}

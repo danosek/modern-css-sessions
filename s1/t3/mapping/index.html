@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physical → Logical mapping – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Physical → Logical mapping</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">margin-inline</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">padding-block</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <p class="lp-desc">
+        Přehled nejpoužívanějších fyzických vlastností a jejich logických protějšků.
+      </p>
+
+      <div class="lp-table-wrap">
+        <table class="lp-table">
+          <thead>
+            <tr>
+              <th>Fyzická vlastnost</th>
+              <th>Logická vlastnost</th>
+              <th>Popis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>width</code></td>
+              <td><code>inline-size</code></td>
+              <td>Rozměr podél osy inline (→)</td>
+            </tr>
+            <tr>
+              <td><code>height</code></td>
+              <td><code>block-size</code></td>
+              <td>Rozměr podél osy blokové (↓)</td>
+            </tr>
+            <tr>
+              <td><code>margin-top</code> / <code>margin-bottom</code></td>
+              <td><code>margin-block</code></td>
+              <td>Odsazení v blokové ose (zkratka pro obě)</td>
+            </tr>
+            <tr>
+              <td><code>margin-left</code> / <code>margin-right</code></td>
+              <td><code>margin-inline</code></td>
+              <td>Odsazení v inline ose (zkratka pro obě)</td>
+            </tr>
+            <tr>
+              <td><code>padding-top</code></td>
+              <td><code>padding-block-start</code></td>
+              <td>Vnitřní odsazení začátku blokové osy</td>
+            </tr>
+            <tr>
+              <td><code>padding-bottom</code></td>
+              <td><code>padding-block-end</code></td>
+              <td>Vnitřní odsazení konce blokové osy</td>
+            </tr>
+            <tr>
+              <td><code>top / right / bottom / left</code></td>
+              <td><code>inset</code></td>
+              <td>Zkratka pro všechny čtyři strany</td>
+            </tr>
+            <tr>
+              <td><code>left</code></td>
+              <td><code>inset-inline-start</code></td>
+              <td>Začátek inline osy (v LTR = vlevo)</td>
+            </tr>
+            <tr>
+              <td><code>border-left</code></td>
+              <td><code>border-inline-start</code></td>
+              <td>Rámeček začátku inline osy</td>
+            </tr>
+            <tr>
+              <td><code>text-align: left</code></td>
+              <td><code>text-align: start</code></td>
+              <td>Zarovnání k začátku inline osy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Velikosti</h2>
+      <pre tabindex="0"><code class="language-css">.box {
+  width: 200px;          /* → */  inline-size: 200px;
+  height: 100px;         /* → */  block-size: 100px;
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Odsazení</h2>
+      <pre tabindex="0"><code class="language-css">.card {
+  margin-top: 1rem;      /* → */  margin-block-start: 1rem;
+  margin-bottom: 1rem;   /* → */  margin-block-end: 1rem;
+  margin-left: 2rem;     /* → */  margin-inline-start: 2rem;
+
+  /* Zkratky (obě strany najednou) */
+  margin-block: 1rem;             /* = margin-top + margin-bottom */
+  margin-inline: 2rem;            /* = margin-left + margin-right */
+
+  padding-block-start: 1.5rem;    /* = padding-top */
+  border-inline-start: 3px solid; /* = border-left */
+  text-align: start;              /* = text-align: left v LTR */
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

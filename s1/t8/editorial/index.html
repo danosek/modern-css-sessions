@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editoriální layout — subgrid – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Editoriální layout — subgrid</h1>
+    <p class="demo-subtitle">Subgrid zarovná obrázek, nadpis, perex a CTA přes 3 karty s různě dlouhým textem</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">subgrid</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="editorial-toolbar" role="group" aria-label="Přepnout editoriální subgrid">
+          <button class="sizing-btn" aria-pressed="false" id="edit-btn-off">Bez subgrid</button>
+          <button class="sizing-btn" aria-pressed="true"  id="edit-btn-on">Se subgrid</button>
+        </div>
+
+        <p class="demo-section__sublabel" id="editorial-label">Živá ukázka — subgrid zarovná 4 zóny (obrázek / nadpis / perex / CTA) napříč kartami:</p>
+
+        <div class="editorial-grid use-subgrid" id="editorial-grid">
+
+          <article class="editorial-card">
+            <div class="editorial-card__img">◈</div>
+            <h3 class="editorial-card__title">Nová éra mechanických klávesnic pro home office</h3>
+            <p class="editorial-card__perex">Mechanické klávesnice prožívají renesanci. Díky tišším spínačům a Bluetooth spojení jsou dnes ideální volbou nejen pro gamery, ale i pro náročné pracovníky na home office.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
+
+          <article class="editorial-card">
+            <div class="editorial-card__img">◎</div>
+            <h3 class="editorial-card__title">Ergonomie</h3>
+            <p class="editorial-card__perex">Správná myš může výrazně snížit zátěž zápěstí. Stačí krátký článek.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
+
+          <article class="editorial-card">
+            <div class="editorial-card__img">▣</div>
+            <h3 class="editorial-card__title">USB-C huby v roce 2025: co skutečně potřebuješ a co je zbytečné</h3>
+            <p class="editorial-card__perex">Trh je zaplavený USB-C huby všech cen a konfigurací. Porovnali jsme 12 modelů, testovali přenosové rychlosti, zahřívání i kompatibilitu s MacBook Pro a Windows laptopy. Výsledky vás možná překvapí — nejdražší není vždy nejlepší.</p>
+            <div class="editorial-card__cta">
+              <button class="editorial-card__btn">Číst článek</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Editoriální layout — 4 zóny zarovnané přes 3 karty</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodičovský grid: 3 sloupce + 4 explicitní řádky */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, auto);  /* obrázek, nadpis, perex, CTA */
+  gap: var(--base-3);
+}
+
+/* Každá karta "vypůjčí" 4 řádky a předá je dětem přes subgrid */
+.editorial-card {
+  grid-row: span 4;
+  display: grid;
+  grid-template-rows: subgrid;   /* → obrázek/nadpis/perex/CTA aligned */
+}
+
+/* Výsledek: CTA tlačítka všech karet sedí na stejné výšce
+   i když mají nadpisy a perexy různé délky — bez JS, bez fixed výšek */</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

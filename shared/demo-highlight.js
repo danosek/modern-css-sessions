@@ -182,9 +182,72 @@
     }
   }
 
+  /* ── Indikátor aplikovaného argumentu funkce (min/max/clamp…) ───────────────
+   * Univerzální: každý argument dočasně (synchronně, bez překreslení) nasadí na
+   * cílový prvek přes inline !important a změří jeho used value; argument, jehož
+   * výsledek se shoduje se skutečnou hodnotou funkce, je ten aplikovaný.
+   * Nezávisí na typu funkce ani jednotce → půjde použít i jinde (např. zvýraznění
+   * aktivní hodnoty u container queries). */
+  function px(v) { return parseFloat(v) || 0; }
+
+  function resolveReadout(box) {
+    var target = document.querySelector(box.getAttribute('data-fn-target') || '');
+    if (!target) return;
+    var prop = box.getAttribute('data-fn-prop') || 'width';
+    var args = box.querySelectorAll('.fn-readout__arg');
+    if (!args.length) return;
+
+    var actual = px(getComputedStyle(target).getPropertyValue(prop));
+    var savedVal = target.style.getPropertyValue(prop);
+    var savedPrio = target.style.getPropertyPriority(prop);
+
+    var best = -1, bestDiff = Infinity;
+    for (var a = 0; a < args.length; a++) {
+      target.style.setProperty(prop, args[a].getAttribute('data-fn-arg'), 'important');
+      var diff = Math.abs(px(getComputedStyle(target).getPropertyValue(prop)) - actual);
+      if (diff < bestDiff) { bestDiff = diff; best = a; }
+    }
+    // obnovit původní inline hodnotu (typicky žádná — funkce je v stylesheetu)
+    if (savedVal) target.style.setProperty(prop, savedVal, savedPrio);
+    else target.style.removeProperty(prop);
+
+    for (var b = 0; b < args.length; b++) args[b].classList.toggle('is-active', b === best);
+    var out = box.querySelector('[data-fn-value]');
+    if (out) out.textContent = Math.round(actual) + 'px';
+  }
+
+  function initReadouts() {
+    var boxes = document.querySelectorAll('.fn-readout[data-fn-target]');
+    if (!boxes.length) return;
+
+    var raf = 0;
+    function schedule() {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        for (var i = 0; i < boxes.length; i++) resolveReadout(boxes[i]);
+      });
+    }
+
+    schedule();
+    window.addEventListener('resize', schedule);
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var ro = new ResizeObserver(schedule);
+      for (var i = 0; i < boxes.length; i++) {
+        var t = document.querySelector(boxes[i].getAttribute('data-fn-target') || '');
+        // sledujeme containing block (parent) — mění se s viewportem a neloopuje
+        // s naším dočasným měřením cílového prvku
+        if (t && t.parentElement) ro.observe(t.parentElement);
+      }
+    }
+  }
+
+  function boot() { run(); initReadouts(); }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    run();
+    boot();
   }
 })();

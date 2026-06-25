@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intrinsic sizing — hodnoty – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Intrinsic sizing — hodnoty</h1>
+    <p class="demo-subtitle">Živá ukázka — šířka boxu se mění podle vybrané hodnoty</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">min-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">fit-content</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <!-- Živé demo -->
+        <div class="live-section">
+          <!-- Přepínač -->
+          <div class="seg-toolbar" role="group" aria-label="Vyberte sizing hodnotu">
+            <button class="seg-btn" aria-pressed="true" data-value="auto">auto</button>
+            <button class="seg-btn" aria-pressed="false" data-value="min-content">min-content</button>
+            <button class="seg-btn" aria-pressed="false" data-value="max-content">max-content</button>
+            <button class="seg-btn" aria-pressed="false" data-value="fit-content">fit-content</button>
+          </div>
+          <div class="live-stage">
+            <div class="demo-box" data-sizing="fit-content">
+              <p>Toto je <strong>krátký text.</strong></p>
+              <p><em>A toto je podstatně delší věta, která ukazuje, jak se box roztáhne nebo zabalí.</em></p>
+            </div>
+          </div>
+          <div class="width-indicator">
+            <div class="width-indicator__bar"></div>
+            <span>0</span>
+            <span id="width-value">—</span>
+          </div>
+        </div>
+
+        <!-- Statické srovnání -->
+        <div style="margin-top: var(--base-5); border-top: 1px solid var(--border); padding-top: var(--base-4);">
+          <div class="demo-section__sublabel" style="margin-bottom: var(--base-3);">Srovnání všech hodnot vedle sebe:</div>
+          <div class="sizing-grid">
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: auto</div>
+              <div class="demo-box" style="width: auto">
+                Box vyplní dostupný prostor rodičovského elementu.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: min-content</div>
+              <div class="demo-box" style="width: min-content">
+                Box je tak úzký, jak dovoluje nejdelší nespolknutelné slovo.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: max-content</div>
+              <div class="demo-box" style="width: max-content">
+                Box je přesně tak široký, aby se vešel celý obsah na jeden řádek.
+              </div>
+            </div>
+            <div class="sizing-card">
+              <div class="sizing-card__label">width: fit-content</div>
+              <div class="demo-box" style="width: fit-content">
+                Box se smrskne na šířku obsahu, ale nepřekročí kontejner.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

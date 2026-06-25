@@ -1,0 +1,89 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D1 — Intrinsic Sizing
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
+}
+
+/* ── Živá ukázka — přepínač hodnot ──────────────────────────────────────── */
+
+/* Segmentová lišta: rámeček --text-primary (2px linky přes gap). Neaktivní
+   tlačítka mají barvu preview (--surface-main); aktivní svítí — pozadí
+   --text-primary (splyne s rámem) a text v barvě editoru (--surface-main). */
+/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
+
+/* ── Živá ukázka — data-atributy řídí šířku boxu ────────────────────────── */
+
+.demo-box p {
+  font-size: var(--font-size-base);
+  color: var(--text-primary-on-surface-brand-primary-subtle);
+  line-height: 1.5;
+}
+
+.demo-box p em {
+  font-style: normal;
+  color: var(--text-secondary-on-surface-brand-primary-subtle);
+}
+
+.demo-box[data-sizing="auto"]         { width: auto; }
+
+.demo-box[data-sizing="min-content"]  { width: min-content; }
+
+.demo-box[data-sizing="max-content"]  { width: max-content; }
+
+.demo-box[data-sizing="fit-content"]  { width: fit-content; }
+
+/* ── Živá ukázka — indikátor šířky ──────────────────────────────────────── */
+
+.demo-section__sublabel {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  margin-bottom: var(--base-2);
+}
+
+.width-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--base);
+  margin-top: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+.width-indicator__bar {
+  flex: 1 0 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: var(--radius-circle);
+  position: relative;
+}
+
+.width-indicator__bar::before,
+.width-indicator__bar::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 10px;
+  background: var(--text-primary);
+}
+
+.width-indicator__bar::before { left: 0; }
+
+.width-indicator__bar::after  { right: 0; }
+
+/* ── Srovnání — mřížka všech hodnot vedle sebe ───────────────────────────── */
+
+.sizing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--base-3);
+  margin-bottom: var(--base-4);
+}

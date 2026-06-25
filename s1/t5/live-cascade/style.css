@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D5 — @layer
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Pomocný typ + layout helpers ────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
+}
+
+/* ── Živá ukázka — diagram vrstev ────────────────────────────────────────── */
+
+.layer-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-2);
+  padding: var(--base-2) var(--base-3);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.layer:last-child {
+  border-bottom: none;
+}
+
+.layer--reset     { background: var(--surface-main-dim); }
+
+.layer--base      { background: var(--surface-main); }
+
+.layer--components { background: var(--surface-main-variant); }
+
+.layer--utilities  { background: var(--surface-brand-primary-minimal); }
+
+.layer--unlayered  {
+  background: var(--surface-brand-primary-subtle);
+  border-top: 2px solid var(--surface-brand-primary-moderate);
+}
+
+.layer__name {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.layer--unlayered .layer__name {
+  color: var(--text-brand-primary);
+  font-weight: 600;
+}
+
+.layer__desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+}
+
+.layer-note {
+  margin-top: var(--base-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+}
+
+/* ── Skutečné @layer demo — tlačítka v battlegroundu ────────────────────── */
+
+/* Pořadí vrstev deklarováno předem */
+@layer reset, base, components, utilities;
+
+@layer components {
+  .btn-primary {
+    background: var(--surface-brand-primary-strong);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+  }
+}
+
+@layer utilities {
+  .bg-brand {
+    background: var(--surface-brand-secondary-strong);
+    color: var(--text-primary-on-surface-brand-secondary-strong);
+  }
+}
+
+@layer components {
+  .rv-btn {
+    padding: var(--base-h) var(--base-3);
+    background: var(--surface-brand-primary-strong);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-stack-main);
+    font-size: var(--font-size-s);
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .rv-btn--ghost {
+    background: revert-layer;
+    border: 1px solid var(--surface-brand-primary-strong);
+    color: var(--text-brand-primary);
+  }
+}
+
+/* Skutečné pravidla pro demo anonymní vrstvy
+   Použijeme oddělené názvy anon-base / anon-theme aby nedošlo ke kolizi
+   s existující deklarací @layer reset, base, components, utilities výše. */
+@layer anon-base, anon-theme;
+
+@layer anon-theme {
+  .anon-swatch--theme {
+    background: var(--surface-brand-primary-strong);
+    color: var(--text-primary-on-surface-brand-primary-strong);
+  }
+}
+
+@layer anon-base {
+  .anon-swatch--base {
+    background: var(--surface-main-variant);
+    color: var(--text-primary);
+  }
+}
+
+/* Anonymní vrstva — vždy nižší než pojmenované, přestože je v kódu za nimi */
+@layer {
+  .anon-swatch--anon {
+    background: var(--surface-main-dim);
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-strong);
+  }
+}

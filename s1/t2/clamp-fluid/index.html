@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clamp() — fluid typografie – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">clamp() — fluid typografie</h1>
+    <p class="demo-subtitle">Nadpis se plynule mění s šířkou okna</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">font-size</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+
+      <div class="demo-section__example">
+
+        <div class="cf-anatomy">
+          <span class="cf-anatomy__fn">clamp(</span><span class="cf-anatomy__min">minimum</span><span
+            class="cf-anatomy__sep">,</span> <span class="cf-anatomy__pref">preferred</span><span
+            class="cf-anatomy__sep">,</span> <span class="cf-anatomy__max">maximum</span><span
+            class="cf-anatomy__fn">)</span>
+          <div class="cf-anatomy__labels">
+            <span class="cf-anatomy__label cf-anatomy__label--min">nejmenší povolená hodnota</span>
+            <span class="cf-anatomy__label cf-anatomy__label--pref">ideální hodnota (fluid)</span>
+            <span class="cf-anatomy__label cf-anatomy__label--max">největší povolená hodnota</span>
+          </div>
+        </div>
+
+        <div class="cf-compare">
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>font-size: clamp(1.25rem, 4vw, 5rem)</code>
+              <span class="cf-compare__note">plynule roste s oknem</span>
+            </div>
+            <div class="cf-demo-box">
+              <p class="cf-fluid-heading">Fluid nadpis</p>
+            </div>
+          </div>
+          <div class="cf-compare__item">
+            <div class="cf-compare__label">
+              <code>font-size: var(--font-size-xl)</code>
+              <span class="cf-compare__note">fixní velikost</span>
+            </div>
+            <div class="cf-demo-box">
+              <p class="cf-fixed-heading">Fixní nadpis</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cf-hint">
+          Zmenšuj nebo zvětšuj okno prohlížeče — fluid nadpis se mění plynule, fixní zůstává stejný.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D2 — Comparison Functions: clamp(), min(), max()
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Funkční badge v titulku sekce ───────────────────────────────────────── */
+
+.cf-fn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--text-primary-on-surface-brand-primary-minimal);
+  background: var(--surface-brand-primary-minimal);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius);
+}
+
+/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
+
+.cf-compare {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-4);
+  margin-block-end: var(--base-3);
+}
+
+.cf-compare__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.cf-compare__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cf-compare__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.cf-demo-box {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  
+}
+
+.cf-demo-box p{
+  /* content: '';
+  display: inline-block; */
+  border: 1px solid var(--surface-brand-secondary-strong);
+  padding: var(--base-2) var(--base-3);
+  border-radius: var(--radius-strong);
+}
+
+.cf-demo-box--ruler {
+  background: var(--surface-main-variant);
+  overflow: hidden;
+}
+
+/* ── Sekce 2 — min(): šířka kontejneru s horním limitem ──────────────────── */
+
+.cf-min-box {
+  width: min(100%, 640px);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+.cf-maxwidth-box {
+  max-width: 640px;
+  width: 100%;
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+.cf-box-label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
+
+.cf-info-row {
+  margin-block-start: var(--base-3);
+}
+
+.cf-info-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--surface-brand-primary-strong);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+}
+
+.cf-info-card__title {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-block-end: var(--base);
+}
+
+.cf-info-card p {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}

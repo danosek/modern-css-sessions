@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Živá ukázka — pořadí vrstev vs. specificita – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Živá ukázka — pořadí vrstev vs. specificita</h1>
+    <p class="demo-subtitle">Pořadí vrstev bije specificitu selektorů</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@layer</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <div class="live-stage">
+        <div class="layer-diagram">
+          <div class="layer layer--reset">
+            <span class="layer__name">@layer reset</span>
+            <span class="layer__desc">Normalize, základní reset</span>
+          </div>
+          <div class="layer layer--base">
+            <span class="layer__name">@layer base</span>
+            <span class="layer__desc">Typografie, barvy, tokeny</span>
+          </div>
+          <div class="layer layer--components">
+            <span class="layer__name">@layer components</span>
+            <span class="layer__desc">.btn, .card, .input…</span>
+          </div>
+          <div class="layer layer--utilities">
+            <span class="layer__name">@layer utilities</span>
+            <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
+          </div>
+          <div class="layer layer--unlayered">
+            <span class="layer__name">bez vrstvy (unlayered)</span>
+            <span class="layer__desc">Inline styly, přepsání ad hoc</span>
+          </div>
+        </div>
+        <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

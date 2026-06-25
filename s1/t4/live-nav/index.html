@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Živá ukázka — nesting navigace – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Živá ukázka — nesting navigace</h1>
+    <p class="demo-subtitle">Navigace stylovaná nativním nestingem (zkus hover &amp; aktivní položku):</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">nesting</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">&</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+        <div class="live-stage">
+          <nav class="nav-demo">
+            <ul class="nav-demo__list">
+              <li class="nav-demo__item">
+                <a href="#" class="nav-demo__link nav-demo__link--active">Domů</a>
+              </li>
+              <li class="nav-demo__item">
+                <a href="#" class="nav-demo__link">Komponenty</a>
+              </li>
+              <li class="nav-demo__item">
+                <a href="#" class="nav-demo__link">Dokumentace</a>
+              </li>
+              <li class="nav-demo__item nav-demo__item--disabled">
+                <a href="#" class="nav-demo__link">Archiv</a>
+              </li>
+            </ul>
+          </nav>
+          <p class="demo-hint">Celá navigace je stylovaná jedním vnořeným blokem <code>.nav-demo { … }</code></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

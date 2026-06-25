@@ -28,7 +28,7 @@ export default defineConfig(({ command }) => ({
 
         // ── Page routing ──────────────────────────────────────────────────────
         // `/`        → index-page.html  (přehled sessions / landing)
-        // `/editor/` → index.html       (CSS editor; loaded via ?demo=s1/d1)
+        // `/editor/` → index.html       (CSS editor; loaded via ?demo=s1/t1)
         // Registered in the configureServer body, so it runs *before* Vite's
         // own HTML middleware. Only exact page URLs are rewritten — every asset,
         // module and /demos|/shared request falls through untouched.
@@ -65,12 +65,12 @@ export default defineConfig(({ command }) => ({
           next();
         }
 
-        // /demos/s1/d1/style.css  (VITE_DEMOS_BASE = /demos/)
+        // /demos/s1/t1/style.css  (VITE_DEMOS_BASE = /demos/)
         server.middlewares.use('/demos', (req, res, next) => {
           serveRepoFile(req.url, res, next);
         });
 
-        // /__demo_css/s1/d1  → serves s1/d1/style.css as text/css
+        // /__demo_css/s1/t1  → serves s1/t1/style.css as text/css
         // URL has no .css extension so Vite's transform pipeline never matches it.
         server.middlewares.use('/__demo_css', (req, res, next) => {
           const demoPath = req.url.replace(/^\/+|\/+$/g, '');
@@ -84,7 +84,7 @@ export default defineConfig(({ command }) => ({
           }
         });
 
-        // Catch-all: /s1/d1/style.css  (DEMOS_BASE fell back to '../')
+        // Catch-all: /s1/t1/style.css  (DEMOS_BASE fell back to '../')
         server.middlewares.use((req, res, next) => {
           const url = (req.url ?? '').split('?')[0];
           if (/^\/(s\d+|shared)\//.test(url)) {
@@ -94,10 +94,11 @@ export default defineConfig(({ command }) => ({
           }
         });
 
-        // Watch demo + shared files so HMR events fire on external edits
-        server.watcher.add(repoRoot + '/s*/d*/index.html');
-        server.watcher.add(repoRoot + '/s*/d*/style.css');
-        server.watcher.add(repoRoot + '/s*/d*/script.js');
+        // Watch demo + shared files so HMR events fire on external edits.
+        // Dema jsou vnořená: s<sess>/t<topic>/<demo-slug>/{index.html,style.css,script.js}
+        server.watcher.add(repoRoot + '/s*/t*/*/index.html');
+        server.watcher.add(repoRoot + '/s*/t*/*/style.css');
+        server.watcher.add(repoRoot + '/s*/t*/*/script.js');
         server.watcher.add(repoRoot + '/shared/*.css');
         server.watcher.add(repoRoot + '/shared/*.js');
         // Watch the design-system source so edits propagate to shared/ (below)
@@ -115,7 +116,7 @@ export default defineConfig(({ command }) => ({
           return [];
         }
 
-        const isDemo = /^s\d+\/d\d+\/(index\.html|style\.css|script\.js)$/.test(rel);
+        const isDemo = /^s\d+\/t\d+\/[^/]+\/(index\.html|style\.css|script\.js)$/.test(rel);
         const isShared = /^shared\/.+\.(css|js)$/.test(rel);
         if (!isDemo && !isShared) return;
 

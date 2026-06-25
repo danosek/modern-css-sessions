@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@media uvnitř pravidla – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">@media uvnitř pravidla</h1>
+    <p class="demo-subtitle">Zmenši okno prohlížeče a sleduj změnu:</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@media</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="fluid-demo">
+          <div class="fluid-hero">
+            <h2 class="fluid-hero__title">Responzivní nadpis</h2>
+            <p class="fluid-hero__subtitle">Tento blok mění layout, velikost písma i padding — vše definováno uvnitř jednoho CSS pravidla.</p>
+            <div class="fluid-hero__badges">
+              <span class="fluid-badge">Desktop</span>
+              <span class="fluid-badge fluid-badge--mobile">Mobil</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base-4);">
+          <pre><code>.fluid-hero {
+  display: flex;
+  flex-direction: row;       /* desktop: řádek */
+  gap: var(--base-4);
+  padding: var(--base-5);
+
+  /* @media přímo uvnitř pravidla! */
+  @media (max-width: 600px) {
+    flex-direction: column;  /* mobil: sloupec */
+    padding: var(--base-3);
+  }
+
+  &amp; .fluid-hero__title {
+    font-size: var(--font-size-xxl);
+
+    @media (max-width: 600px) {
+      font-size: var(--font-size-xl);  /* menší na mobilu */
+    }
+  }
+}</code></pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

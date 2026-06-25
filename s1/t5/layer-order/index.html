@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hlavní princip — pořadí bije specificitu – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Hlavní princip — pořadí bije specificitu</h1>
+    <p class="demo-subtitle">Pořadí vrstvy bije specificitu</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@layer</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <div class="battle-grid">
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>@layer</code>
+            <span>utilities vrstva vítězí navzdory nižší specificitě</span>
+          </div>
+          <div class="layout-stage battle-stage">
+            <div class="battle-item">
+              <button class="btn btn-primary bg-brand">Tlačítko</button>
+              <div class="battle-rules">
+                <div class="battle-rule battle-rule--loser">
+                  <span class="battle-rule__sel">.btn-primary</span>
+                  <span class="battle-rule__layer">components (0,1,0)</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary</span>
+                </div>
+                <div class="battle-rule battle-rule--winner">
+                  <span class="battle-rule__sel">.bg-brand</span>
+                  <span class="battle-rule__layer">utilities (0,1,0) ← vrstva je výše</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>bez @layer</code>
+            <span>vyšší specificita vítězí (klasická kaskáda)</span>
+          </div>
+          <div class="layout-stage battle-stage">
+            <div class="battle-item">
+              <button class="btn-nl btn-primary-nl bg-brand-nl">Tlačítko</button>
+              <div class="battle-rules">
+                <div class="battle-rule battle-rule--winner">
+                  <span class="battle-rule__sel">.btn-primary-nl</span>
+                  <span class="battle-rule__layer">specificita (0,1,0) — stejná</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary ✓ (pozdější v kódu)</span>
+                </div>
+                <div class="battle-rule battle-rule--loser">
+                  <span class="battle-rule__sel">.bg-brand-nl</span>
+                  <span class="battle-rule__layer">specificita (0,1,0) — dřívější v kódu</span>
+                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

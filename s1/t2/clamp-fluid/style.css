@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D2 — Comparison Functions: clamp(), min(), max()
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Funkční badge v titulku sekce ───────────────────────────────────────── */
+
+.cf-fn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--text-primary-on-surface-brand-primary-minimal);
+  background: var(--surface-brand-primary-minimal);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius);
+}
+
+/* ── Sekce 1 — clamp(): diagram anatomie funkce ──────────────────────────── */
+
+.cf-anatomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5ch;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+  margin-block-end: var(--base-4);
+  position: relative;
+}
+
+.cf-anatomy__fn {
+  color: var(--text-primary);
+}
+
+.cf-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+/* Argumenty funkce — barva textu řízená přes --cf-color */
+.cf-anatomy__min,
+.cf-anatomy__pref,
+.cf-anatomy__max {
+  color: var(--cf-color);
+  font-weight: 600;
+}
+
+/* Role → --cf-color: jediný zdroj barvy — řídí text argumentu i puntík v legendě.
+   Nastaveno jednou per role na argumentu i na odpovídajícím labelu. */
+.cf-anatomy__min,
+.cf-anatomy__label--min  { --cf-color: var(--text-green); }
+
+.cf-anatomy__pref,
+.cf-anatomy__label--pref { --cf-color: var(--text-blue); }
+
+.cf-anatomy__max,
+.cf-anatomy__label--max  { --cf-color: var(--text-fuchsia); }
+
+.cf-anatomy__labels {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-4);
+}
+
+.cf-anatomy__label {
+  font-family: var(--font-stack-main);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--base-h);
+  margin-block-start: var(--base-2);
+}
+
+/* Puntík — barva řízená přes --cf-color (stejný zdroj jako text argumentu) */
+.cf-anatomy__label::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid var(--cf-color, var(--text-primary));
+}
+
+/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
+
+.cf-compare {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-4);
+  margin-block-end: var(--base-3);
+}
+
+.cf-compare__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.cf-compare__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cf-compare__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.cf-demo-box {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  
+}
+
+.cf-demo-box p{
+  /* content: '';
+  display: inline-block; */
+  border: 1px solid var(--surface-brand-secondary-strong);
+  padding: var(--base-2) var(--base-3);
+  border-radius: var(--radius-strong);
+}
+
+.cf-fluid-heading {
+  font-family: var(--font-stack-headings);
+  font-size: clamp(1.25rem, 4vw, 5rem);
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 0;
+}
+
+.cf-fixed-heading {
+  font-family: var(--font-stack-headings);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 0;
+}
+
+/* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */
+
+.cf-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-2);
+  inline-size: fit-content;
+}

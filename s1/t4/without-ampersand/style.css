@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D4 — CSS Nesting
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Pomocné třídy ───────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+}
+
+/* ── Code block ──────────────────────────────────────────────────────────── */
+
+.code-block {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--base-3) var(--base-4);
+}
+
+.code-block code {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* ── Živá ukázka — nesting bez & (implicitní & pro element selektory) ────── */
+/*
+  Od Chrome 112+, Firefox 117+, Safari 17.2+.
+  Element selektory (h2, p, span…) uvnitř bloku nepotřebují &.
+  Třídy, pseudo-třídy a pseudo-elementy & stále vyžadují.
+*/
+
+.no-amp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--base-3);
+}
+
+/*
+  Demo: .no-amp-card používá moderní syntaxi bez & u elementů
+  — h2 a p jsou potomci přímo, &:hover a &.--modifier s &
+*/
+.no-amp-card {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  padding: var(--base-3) var(--base-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  transition: border-color 0.2s ease;
+
+  /* element selektory bez & — funguje jako .no-amp-card h2 */
+  h2 {
+    font-family: var(--font-stack-headings);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--font-size-s);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  span {
+    font-size: var(--font-size-xs);
+    font-family: var(--font-stack-monospace);
+    color: var(--text-secondary);
+  }
+
+  /* pseudo-třídy a modifiery stále vyžadují & */
+  &:hover {
+    border-color: var(--surface-brand-primary-moderate);
+  }
+
+  &.no-amp-card--active {
+    border-color: var(--surface-brand-primary-strong);
+    background: var(--surface-brand-primary-minimal);
+
+    h2 {
+      color: var(--text-brand-primary);
+    }
+
+    span {
+      color: var(--text-brand-primary);
+    }
+  }
+}
+
+.no-amp-note {
+  margin-top: var(--base-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+  line-height: 1.6;
+}

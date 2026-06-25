@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nesting bez & – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Nesting bez &</h1>
+    <p class="demo-subtitle">Nesting bez &amp; — element selektory uvnitř bloku ampersand nepotřebují:</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">nesting</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="no-amp-grid">
+
+          <div class="no-amp-card">
+            <h2>Základní karta</h2>
+            <p>Element <code>h2</code> a <code>p</code> jsou psané bez ampersandu — stačí je vnořit přímo. Prohlédni si hover efekt.</p>
+            <span>footer · h2 a p bez &amp;</span>
+          </div>
+
+          <div class="no-amp-card no-amp-card--active">
+            <h2>Aktivní stav</h2>
+            <p>Modifier <code>&amp;.no-amp-card--active</code> stále vyžaduje <code>&amp;</code>. Uvnitř pak opět <code>h2</code> bez <code>&amp;</code>.</p>
+            <span>footer · &amp;.--active + h2 bez &amp;</span>
+          </div>
+
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base-4);">
+          <pre><code>.no-amp-card {
+  border-radius: var(--radius-strong);
+  padding: var(--base-3) var(--base-4);
+
+  /* element selektory nepotřebují & — platí od Chrome 112+, FF 117+, Safari 17.2+ */
+  h2 { font-size: var(--font-size-xl); color: var(--text-primary); }
+  p  { color: var(--text-secondary); line-height: 1.6; }
+  span { font-family: var(--font-stack-monospace); }
+
+  /* třídy, pseudo-třídy a pseudo-elementy & vyžadují nadále */
+  &amp;:hover          { box-shadow: var(--elevation); }
+  &amp;.no-amp-card--active {
+    border-color: var(--surface-brand-primary-strong);
+    h2 { color: var(--text-brand-primary); }  /* opět bez & */
+  }
+}</code></pre>
+        </div>
+
+        <p class="no-amp-note">Pravidlo: selektory začínající identifikátorem (element, <code>*</code>) implicitně dostanou <code>&amp;</code> jako předponu — výsledek je <code>.no-amp-card h2</code>. Třídy (<code>.foo</code>), atributy (<code>[type]</code>) a pseudo-třídy (<code>:hover</code>) se bez <code>&amp;</code> nepřipojí správně — prohlížeč je interpretuje jako <code>&amp; .foo</code> (s mezerou = potomek), ne <code>&amp;.foo</code> (bez mezery = modifier).</p>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

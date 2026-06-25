@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D2 — Comparison Functions: clamp(), min(), max()
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Funkční badge v titulku sekce ───────────────────────────────────────── */
+
+.cf-fn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--text-primary-on-surface-brand-primary-minimal);
+  background: var(--surface-brand-primary-minimal);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius);
+}
+
+.cf-compare__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cf-compare__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
+
+.cf-info-row {
+  margin-block-start: var(--base-3);
+}
+
+.cf-info-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--surface-brand-primary-strong);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+}
+
+.cf-info-card__title {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-block-end: var(--base);
+}
+
+.cf-info-card p {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Sekce 5 — fluid type scale: ucelený typografický systém přes clamp() ── */
+
+/* CSS proměnné škály — definovány inline na .cf-typescale elementu */
+
+.cf-typescale {
+  --step-0: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);
+  --step-1: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  --step-2: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);
+  --step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem);
+
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-5) var(--base-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+  resize: horizontal;
+  overflow: auto;
+}
+
+.cf-typescale__h1 {
+  font-family: var(--font-stack-headings);
+  font-size: var(--step-3);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.cf-typescale__h2 {
+  font-family: var(--font-stack-headings);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cf-typescale__body {
+  font-size: var(--step-0);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-inline-size: 60ch;
+}
+
+/* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */
+
+.cf-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-2);
+  inline-size: fit-content;
+}

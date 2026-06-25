@@ -1,0 +1,178 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D7 — Container Queries
+   Ukázky: resizable container, tři kontexty, range container queries
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
+}
+
+.cq-container {
+  container-type: inline-size;
+  container-name: product;
+  width: 100%;
+}
+
+/* Fixní šířky pro porovnání tří kontextů */
+.cq-container--220 { width: 220px; }
+
+.cq-container--400 { width: 400px; }
+
+/* ── Product card — základní styl (mobilní / úzký kontext) ──────────────── */
+
+.product-card {
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card__img {
+  height: 80px;
+  background: var(--surface-brand-primary-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--text-brand-primary);
+  flex-shrink: 0;
+}
+
+.product-card__body {
+  padding: var(--base-2) var(--base-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  flex: 1;
+}
+
+.product-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+}
+
+.product-card__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.product-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  margin-top: auto;
+  padding-top: var(--base);
+}
+
+.product-card__price {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.product-card__btn {
+  width: 100%;
+  padding: var(--base-h) var(--base-2);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.product-card__btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
+/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
+
+.context-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--base-3);
+  align-items: start;
+}
+
+.context-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.context-slot--flex {
+  grid-column: 1 / -1;
+}
+
+.context-slot__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--base);
+}
+
+/* ── Range container queries ─────────────────────────────────────────────── */
+/*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
+/*    Cross-browser: Chrome 111+, Firefox 110+, Safari 16+                     */
+
+/* width < 360px — stack layout (výchozí styl karty, nic navíc) */
+@container product (width < 360px) {
+  .product-card__img {
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .product-card__body {
+    padding: var(--base) var(--base-2);
+  }
+}
+
+/* 360px <= width < 560px — horizontální grid layout */
+@container product (360px <= width < 560px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+  }
+
+  .product-card__img {
+    height: 100%;
+    min-height: 140px;
+    font-size: 3rem;
+  }
+}
+
+/* width >= 560px — wide layout s footer jako řádkem */
+@container product (width >= 560px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+  }
+
+  .product-card__img {
+    height: 100%;
+    min-height: 150px;
+    font-size: 3.5rem;
+  }
+
+  .product-card__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-card__btn {
+    width: auto;
+    white-space: nowrap;
+  }
+}

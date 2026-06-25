@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logické vlastnosti a writing-mode – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Logické vlastnosti a writing-mode</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">writing-mode</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <p class="lp-desc">
+        Fyzické vlastnosti jako <code>padding-left</code> nebo <code>padding-right</code> jsou vázané
+        na viewport, nikoli na směr textu. U vertikálního textu (<code>writing-mode: vertical-rl</code>)
+        se osy otočí — to, co bylo "vlevo", je teď nahoře. Logické vlastnosti se otočí automaticky.
+      </p>
+
+      <div class="lp-wm-row">
+
+        <!-- Fyzická varianta -->
+        <div class="lp-wm-col">
+          <div class="lp-wm-col__label lp-wm-col__label--bad">Fyzické vlastnosti</div>
+          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
+            <div class="lp-wm-tag lp-wm-tag--physical">Štítek A</div>
+            <div class="lp-wm-tag lp-wm-tag--physical">Delší popis</div>
+          </div>
+          <pre class="lp-snippet"><code>/* Fyzické — otočení osy je matoucí */
+.tag {
+  writing-mode: vertical-rl;
+  padding-left: 1rem;   /* → teď nahoře */
+  padding-right: 1rem;  /* → teď dole */
+  border-left: 4px solid; /* → teď nahoře */
+}</code></pre>
+        </div>
+
+        <!-- Logická varianta -->
+        <div class="lp-wm-col">
+          <div class="lp-wm-col__label lp-wm-col__label--good">Logické vlastnosti</div>
+          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
+            <div class="lp-wm-tag lp-wm-tag--logical">Štítek A</div>
+            <div class="lp-wm-tag lp-wm-tag--logical">Delší popis</div>
+          </div>
+          <pre class="lp-snippet"><code>/* Logické — otočí se automaticky ✓ */
+.tag {
+  writing-mode: vertical-rl;
+  padding-block: 1rem;    /* → podél textu */
+  padding-inline: 0.5rem; /* → napříč textu */
+  border-inline-start: 4px solid; /* → začátek textu */
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="lp-wm-hint">
+        U fyzické karty je <code>border-left</code> nahoře — protože po otočení writing-mode je "vlevo"
+        fyzicky nahoře. Logická <code>border-inline-start</code> vždy označuje začátek řádku textu,
+        ať už je směr čtení jakýkoli.
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">writing-mode a logické vlastnosti</h2>
+      <pre tabindex="0"><code class="language-css">/* Po otočení writing-mode se fyzické osy přeuspořádají:
+   vertical-rl → "vlevo" = nahoře, "vpravo" = dole                    */
+
+/* Fyzicky — špatně, padding-left jde nahoru místo doleva */
+.tag-bad {
+  writing-mode: vertical-rl;
+  padding-left: 1rem;    /* teď je to nad textem */
+  border-left: 4px solid;/* teď je to nad textem */
+}
+
+/* Logicky — správně, padding-block jde podél textu */
+.tag-good {
+  writing-mode: vertical-rl;
+  padding-block: 1rem;          /* = podél osy textu */
+  padding-inline: 0.5rem;       /* = napříč osy textu */
+  border-inline-start: 4px solid; /* = začátek řádku textu */
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

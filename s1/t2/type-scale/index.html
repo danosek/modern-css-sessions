@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clamp() — fluid type scale – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">clamp() — fluid type scale</h1>
+    <p class="demo-subtitle">Proporcionální typografická škála bez breakpointů</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">font-size</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">type-scale</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+
+      <div class="demo-section__example">
+
+        <div class="cf-compare__label" style="margin-bottom: var(--base-3);">
+          <code>--step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
+          <span class="cf-compare__note">každá úroveň škály je fluid — h1, h2 i body text mění velikost společně</span>
+        </div>
+
+        <div class="cf-typescale">
+          <h2 class="cf-typescale__h1">Moderní typografie bez breakpointů</h2>
+          <h3 class="cf-typescale__h2">Fluid škála zachovává proporce na každé šířce okna</h3>
+          <p class="cf-typescale__body">
+            Každá úroveň je definovaná samostatnou <code>clamp()</code> hodnotou — minimum, preferovaná
+            fluid hodnota a maximum. Nadpisy a tělo textu tak rostou společně a jejich vzájemný poměr
+            zůstává konzistentní od mobilního rozlišení až po wide screen.
+          </p>
+        </div>
+
+        <div class="cf-hint">
+          Zmenšuj nebo zvětšuj okno — všechny tři úrovně se mění plynule a zachovávají vzájemné proporce.
+        </div>
+
+        <div class="cf-info-row">
+          <div class="cf-info-card">
+            <div class="cf-info-card__title">Fluid type scale — čtyři kroky</div>
+            <p>
+              <code>--step-0</code> (body): <code>clamp(0.875rem, 0.8rem + 0.4vw, 1rem)</code><br>
+              <code>--step-1</code> (h3): <code>clamp(1.125rem, 1rem + 0.6vw, 1.375rem)</code><br>
+              <code>--step-2</code> (h2): <code>clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem)</code><br>
+              <code>--step-3</code> (h1): <code>clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem)</code>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Fluid type scale</h2>
+      <pre tabindex="0"><code class="language-css">/* Ucelená škála — proporce zůstávají konzistentní na každé šířce okna */
+:root {
+  --step-0: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);    /* body */
+  --step-1: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);  /* h3   */
+  --step-2: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);/* h2   */
+  --step-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem);  /* h1   */
+}
+
+h1   { font-size: var(--step-3); }
+h2   { font-size: var(--step-2); }
+h3   { font-size: var(--step-1); }
+body { font-size: var(--step-0); }</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

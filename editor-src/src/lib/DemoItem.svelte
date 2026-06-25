@@ -1,5 +1,5 @@
 <script>
-  let { sessionId, demo, disabled = false } = $props();
+  let { sessionId, topicId, demo, disabled = false } = $props();
 </script>
 
 <li class="row">
@@ -7,13 +7,11 @@
     <span class="row__cell row__disabled">
       <span class="row__idx">{demo.index}</span>
       <span class="row__name">{demo.name}</span>
-      <span class="row__mark">//</span>
     </span>
   {:else}
-    <a class="row__cell row__link" href="editor/?demo={sessionId}/{demo.id}">
+    <a class="row__cell row__link" href="editor/?demo={sessionId}/{topicId}/{demo.slug}">
       <span class="row__idx">{demo.index}</span>
       <span class="row__name">{demo.name}</span>
-      <span class="row__mark">&rarr;</span>
     </a>
   {/if}
 </li>
@@ -23,18 +21,18 @@
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-s);
     /* Bez uppercase — názvy jsou case-sensitive CSS termíny (oklch(), :has(),
-       appearance: base-select). Zobrazujeme je v korektním tvaru z dat. */
+       appearance: base-select). Zobrazujeme je v korektním tvaru z dat.
+       Bez linek — řádky odděluje jen padding + hover invert (declutter). */
     letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border);
   }
-  .row:last-child { border-bottom: none; }
 
+  /* Index + název; index sloupec --base-3 lícuje s topic markerem (>>/// ) */
   .row__cell {
     display: grid;
-    grid-template-columns: 2.4em 1fr auto;
-    align-items: center;
+    grid-template-columns: var(--base-3) 1fr;
+    align-items: baseline;
     gap: var(--base);
-    padding: var(--base-h) var(--base-h);
+    padding: var(--base-h) var(--base);
   }
 
   .row__link {
@@ -46,17 +44,14 @@
     color: var(--surface-base);
   }
 
-  .row__idx { color: var(--text-brand-primary); }
-  .row__link:hover .row__idx,
-  .row__link:hover .row__mark { color: var(--surface-base); }
+  .row__idx { color: var(--text-brand-secondary); }   /* sage = demo (vs amber topic/session) */
+  .row__link:hover .row__idx { color: var(--surface-base); }
 
   .row__name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  .row__mark { color: var(--text-secondary); }
 
   .row__disabled {
     color: var(--text-secondary);

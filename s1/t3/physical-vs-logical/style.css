@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D3 — Logical Properties
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-subtle);
+}
+
+/* ── Sdílené helpers ─────────────────────────────────────────────────────── */
+
+.sizing-btn {
+  padding: var(--base-h) var(--base-2);
+  background: var(--surface-main-variant);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sizing-btn:hover {
+  background: var(--surface-brand-primary-minimal);
+  border-color: var(--surface-brand-primary-strong);
+}
+
+.lp-desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  margin-block: var(--base-2) var(--base-4);
+  line-height: 1.6;
+  max-inline-size: 72ch;
+}
+
+/* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
+
+.lp-demo-wrap {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  padding: var(--base-4);
+}
+
+.lp-toggle-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--base-3);
+  flex-wrap: wrap;
+  margin-block-end: var(--base-4);
+  padding-block-end: var(--base-3);
+  border-block-end: 1px solid var(--border);
+}
+
+.lp-dir-badge {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+}
+
+.lp-dir-badge strong {
+  color: var(--text-primary);
+}
+
+/* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
+.lp-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--base-4);
+}
+
+.lp-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.lp-col__label {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  font-family: var(--font-stack-monospace);
+  padding-block: var(--base-h);
+  padding-inline: var(--base-2);
+  border-radius: var(--radius);
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.lp-col__label--bad {
+  background: color-mix(in srgb, var(--status-error) 12%, transparent);
+  color: var(--status-error);
+  border: 1px solid color-mix(in srgb, var(--status-error) 25%, transparent);
+}
+
+.lp-col__label--good {
+  background: color-mix(in srgb, var(--status-success) 12%, transparent);
+  color: var(--status-success);
+  border: 1px solid color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+
+/* ── Sekce 1 — karty (srovnání fyzické vs. logické) ─────────────────────── */
+
+.lp-card {
+  background: var(--surface-main);
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fyzická karta — záměrně hardcoded fyzické vlastnosti (ukazujeme chybný přístup) */
+.lp-card--physical {
+  padding-top: var(--base-4);
+  padding-right: var(--base-3);
+  padding-bottom: var(--base-3);
+  padding-left: var(--base-3);
+  border-left: 4px solid var(--status-error);
+  margin-left: var(--base-2);
+}
+
+/* Logická karta — logické vlastnosti se automaticky překlopí v RTL */
+.lp-card--logical {
+  padding-block-start: var(--base-4);
+  padding-block-end: var(--base-3);
+  padding-inline: var(--base-3);
+  border-inline-start: 4px solid var(--status-success);
+  margin-inline-start: var(--base-2);
+}
+
+.lp-card__badge {
+  position: absolute;
+  inset-block-start: var(--base-2);
+  inset-inline-end: var(--base-2);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-monospace);
+  font-weight: 600;
+  padding: 0.15em 0.5em;
+  border-radius: var(--radius-subtle);
+}
+
+.lp-card__badge--bad {
+  background: color-mix(in srgb, var(--status-error) 12%, transparent);
+  color: var(--status-error);
+}
+
+.lp-card__badge--good {
+  background: color-mix(in srgb, var(--status-success) 12%, transparent);
+  color: var(--status-success);
+}
+
+.lp-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  margin-block-end: var(--base-2);
+}
+
+.lp-card__body {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-block-end: var(--base-3);
+}
+
+.lp-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+}
+
+.lp-card__tag {
+  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-monospace);
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-subtle);
+  background: var(--surface-main-variant);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.lp-card__tag--good {
+  background: color-mix(in srgb, var(--status-success) 10%, transparent);
+  color: var(--status-success);
+  border-color: color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+
+/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+
+.lp-snippet {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lp-snippet code {
+  font-family: var(--font-stack-monospace);
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  white-space: pre;
+}
+
+@media (max-width: 600px) {
+  .lp-inset-demo {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-inset-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}

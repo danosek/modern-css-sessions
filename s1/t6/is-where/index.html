@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>:is() a :where() — skupinové selektory – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">:is() a :where() — skupinové selektory</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">:is()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">:where()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <div class="iw-grid">
+
+        <div class="sizing-card">
+          <div class="sizing-card__label">:is() — specificita = max(argumentů)</div>
+          <div class="iw-demo">
+            <div class="iw-code">
+              <code>article :is(h1, h2, h3) { color: … }</code>
+              <span class="iw-spec">≡ article h1, article h2, article h3 { … }</span>
+            </div>
+            <div class="article-demo">
+              <p class="is-h2">Nadpis druhé úrovně</p>
+              <p class="is-p">Odstavec — není ve skupině :is()</p>
+              <p class="is-h3">Nadpis třetí úrovně</p>
+            </div>
+            <p class="iw-note">Specificita odpovídá nejsilnějšímu argumentu. <code>:is(#id, .class)</code> má specificitu ID selektoru pro všechny pravidla ve skupině.</p>
+          </div>
+        </div>
+
+        <div class="sizing-card">
+          <div class="sizing-card__label">:where() — specificita vždy = 0</div>
+          <div class="iw-demo">
+            <div class="iw-code">
+              <code>:where(.box) { background: violet; }</code>
+              <span class="iw-spec iw-spec--zero">specificita (0,0,0) → přepsatelné čímkoliv</span>
+            </div>
+            <div class="where-demo">
+              <div class="where-box">Výchozí styl přes :where()</div>
+              <div class="where-box where-box--override">Přepsán třídou .where-box--override<br><small>funguje, protože :where() má specificitu 0</small></div>
+            </div>
+            <p class="iw-note">Ideální pro reset / base styly — jakýkoliv selektor je přepíše bez <code>!important</code>. Používá se v design systémech pro přepisovatelné výchozí hodnoty.</p>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

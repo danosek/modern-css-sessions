@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@layer — praktické příklady – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">@layer — praktické příklady</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@layer</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <div class="examples-cols">
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>@import layer()</code>
+            <span>Third-party knihovna v nejnižší vrstvě</span>
+          </div>
+          <div class="layout-stage">
+            <div class="lib-demo">
+              <div class="lib-card lib-card--library">
+                <div class="lib-card__label">Knihovna (reset)</div>
+                <button class="lib-btn lib-btn--library">Tlačítko z knihovny</button>
+                <p class="lib-note">Styly jsou "uzamčeny" do vrstvy reset — nemohou ovlivnit naše komponenty.</p>
+              </div>
+              <div class="lib-card lib-card--ours">
+                <div class="lib-card__label">Naše komponenta (components)</div>
+                <button class="lib-btn lib-btn--ours">Naše tlačítko</button>
+                <p class="lib-note">Přebije knihovnu bez <code>!important</code> — prostě je v nižší vrstvě.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>revert-layer</code>
+            <span>Vrácení hodnoty na předchozí vrstvu</span>
+          </div>
+          <div class="layout-stage">
+            <div class="revert-demo">
+              <button class="rv-btn">Normální tlačítko</button>
+              <button class="rv-btn rv-btn--ghost">Ghost variant (revert-layer)</button>
+              <p class="lib-note"><code>background: revert-layer</code> vrátí hodnotu na to, co definovala nižší vrstva — bez znalosti konkrétní hodnoty.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Anonymní vrstva vs. pojmenovaná -->
+      <div class="layout-example">
+        <div class="layout-example__label">
+          <code>@layer { … }</code>
+          <span>Anonymní vrstva — vždy nižší než pojmenované</span>
+        </div>
+        <div class="layout-stage">
+          <div class="anon-diagram">
+            <div class="anon-layer anon-layer--unlayered">
+              <span class="anon-layer__name">bez vrstvy (unlayered)</span>
+              <span class="anon-layer__priority">priorita 4 — nejvyšší</span>
+            </div>
+            <div class="anon-layer anon-layer--named-theme">
+              <span class="anon-layer__name">@layer theme</span>
+              <span class="anon-layer__priority">priorita 3 ✓</span>
+            </div>
+            <div class="anon-layer anon-layer--named-base">
+              <span class="anon-layer__name">@layer base</span>
+              <span class="anon-layer__priority">priorita 2</span>
+            </div>
+            <div class="anon-layer anon-layer--anon">
+              <span class="anon-layer__name">@layer { … } — anonymní</span>
+              <span class="anon-layer__priority">priorita 1 — vždy nejnižší</span>
+            </div>
+          </div>
+
+          <div class="anon-swatches">
+            <span class="anon-swatch anon-swatch--theme">theme (pojmenovaná)</span>
+            <span class="anon-swatch anon-swatch--base">base (pojmenovaná)</span>
+            <span class="anon-swatch anon-swatch--anon">@layer { } anonymní</span>
+          </div>
+
+          <p class="anon-note">Deklarace <code>@layer base, theme;</code> fixuje pořadí — <code>theme</code> vždy bije <code>base</code>, bez ohledu na pořadí v kódu. Anonymní vrstva <code>@layer { … }</code> je vždy pod všemi pojmenovanými.</p>
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base);">
+          <pre><code>/* Pořadí deklarováno dopředu — poté lze @layer naplnit kamkoliv v kódu */
+@layer base, theme;
+
+/* theme > base — přestože @layer base je v kódu zapsán dřív */
+@layer theme { .btn { background: var(--surface-brand-primary-strong); } }
+@layer base  { .btn { background: var(--surface-main-dim); } }
+
+/* Anonymní vrstva — VŽDY nižší než pojmenované, i když je v kódu nakonec */
+@layer { .btn { background: red; } }   /* nikdy nevyhraje */</code></pre>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

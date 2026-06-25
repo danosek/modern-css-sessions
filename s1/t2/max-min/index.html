@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>max() · min() — řízené centrování – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">max() · min() — řízené centrování</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">margin-inline</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">width</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="seg-toolbar" role="group" aria-label="Technika centrování">
+          <button class="seg-btn" data-technique="max" aria-pressed="true">max() · margin-inline</button>
+          <button class="seg-btn" data-technique="min" aria-pressed="false">min() · width</button>
+        </div>
+
+        <div class="cc-telemetry">
+          <div class="cc-context">
+            <span class="cc-context__label">Kontejner</span>
+            <span class="cc-context__note">// 100% se počítá vůči němu</span>
+            <output class="cc-context__w" data-cc-context></output>
+          </div>
+
+          <div class="cc-solutions">
+            <div class="cc-solution" data-technique="max">
+              <div class="cc-solution__title">max() — řídí okraj</div>
+              <div class="fn-readout" data-fn-target="#cc-wrapper" data-fn-prop="margin-left">
+                <code class="fn-readout__expr"><span class="fn-readout__static">margin-inline: </span><span class="fn-readout__fn">max(</span><span class="fn-readout__arg" data-fn-arg="0px">0px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="calc((100% - 32rem) / 2)">(100% - 32rem) / 2</span><span class="fn-readout__fn">)</span></code>
+                <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+              </div>
+            </div>
+            <div class="cc-solution" data-technique="min">
+              <div class="cc-solution__title">min() — řídí šířku</div>
+              <div class="fn-readout" data-fn-target="#cc-wrapper" data-fn-prop="width">
+                <code class="fn-readout__expr"><span class="fn-readout__static">width: </span><span class="fn-readout__fn">min(</span><span class="fn-readout__arg" data-fn-arg="100%">100%</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="32rem">32rem</span><span class="fn-readout__fn">)</span></code>
+                <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+              </div>
+              <pre class="cc-solution__rest">margin-inline: auto;</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc-stage">
+          <div class="cc-wrapper" id="cc-wrapper" data-technique="max">
+            <p>Obsah zastropovaný na <strong>32rem</strong>, vycentrovaný.</p>
+            <output class="cc-wrapper__w" data-cc-width></output>
+          </div>
+        </div>
+
+        <p class="cc-hint">Táhni za pravý dolní roh stage pod 32rem → wrapper se roztáhne na plnou šířku. Přepni techniku → výsledek je identický.</p>
+
+        <div class="cf-info-row">
+          <div class="cf-info-card">
+            <div class="cf-info-card__title">Stejný problém, dvě řešení</div>
+            <p><strong>max()</strong> spočítá symetrický okraj — prvek zůstává „full-width", ale <code>margin-inline</code> ho stáhne na max. 32rem a vycentruje. <strong>min()</strong> spočítá šířku (max. 32rem) a <code>margin-inline: auto</code> ji vycentruje. Výsledek je identický — liší se jen tím, kterou vlastnost řídíš.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

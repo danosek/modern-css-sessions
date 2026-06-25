@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zkratka inset – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Zkratka inset</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">inset</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <p class="lp-desc">
+        Vlastnost <code>inset</code> nahrazuje všechny čtyři poziční vlastnosti najednou
+        a funguje stejně jako <code>margin</code> či <code>padding</code> co do pořadí hodnot.
+      </p>
+
+      <div class="lp-inset-demo">
+
+        <div class="lp-inset-item">
+          <div class="lp-inset-item__label lp-inset-item__label--before">Fyzicky (4 řádky)</div>
+          <pre class="lp-snippet lp-snippet--full"><code>/* Fyzicky — 4 vlastnosti */
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}</code></pre>
+          <div class="lp-inset-vis">
+            <div class="lp-inset-vis__box">
+              <div class="lp-inset-vis__inner lp-inset-vis__inner--physical">fyzické</div>
+            </div>
+            <ul class="lp-inset-vis__labels">
+              <li><code>top: 0</code></li>
+              <li><code>right: 0</code></li>
+              <li><code>bottom: 0</code></li>
+              <li><code>left: 0</code></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lp-inset-arrow">→</div>
+
+        <div class="lp-inset-item">
+          <div class="lp-inset-item__label lp-inset-item__label--after">Logicky (1 řádek)</div>
+          <pre class="lp-snippet lp-snippet--full"><code>/* Logicky — zkratka inset */
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* nebo s různými hodnotami */
+.panel {
+  inset: 1rem 0 0 1rem;
+}</code></pre>
+          <div class="lp-inset-vis">
+            <div class="lp-inset-vis__box">
+              <div class="lp-inset-vis__inner lp-inset-vis__inner--logical">inset: 0</div>
+            </div>
+            <ul class="lp-inset-vis__labels">
+              <li><code>inset: 0</code> ← vše najednou</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Pozicování — inset</h2>
+      <pre tabindex="0"><code class="language-css">/* Fyzicky: */
+.overlay {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+/* Logicky — zkratka inset: */
+.overlay {
+  position: absolute;
+  inset: 0;           /* = top right bottom left = 0 */
+}
+
+/* inset funguje jako margin/padding shorthand: */
+.panel {
+  inset: 1rem 2rem;         /* block: 1rem, inline: 2rem */
+  inset-inline-start: 0;    /* = left v LTR, right v RTL */
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

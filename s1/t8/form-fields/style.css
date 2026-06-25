@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D8 — Subgrid
+   Ukázky: produktové karty (subgrid vs. flex), formulářová pole, editoriální
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
+}
+
+/* ── Form alignment — subgrid pro zarovnání formulářových polí ────────────── */
+/*    display: contents na .form-row → label a input vstoupí přímo do gridu   */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--base-2) var(--base-3);
+  align-items: start;
+}
+
+.form-row {
+  display: contents; /* "průhledný obal" — dítě vstoupí do rodičovského gridu */
+}
+
+.form-label {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  padding-top: 6px;
+  white-space: nowrap;
+}
+
+.form-input-wrap {
+  display: flex;
+  gap: var(--base-2);
+  align-items: center;
+}
+
+.form-input {
+  flex: 1;
+  height: 32px;
+  background: var(--surface-front);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+  white-space: nowrap;
+}

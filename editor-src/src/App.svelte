@@ -49,7 +49,7 @@
 
   onMount(async () => {
     if (!demoPath) {
-      error = 'Chybí URL parametr ?demo= (např. ?demo=s1/d1)';
+      error = 'Chybí URL parametr ?demo= (např. ?demo=s1/t1)';
       loading = false;
       return;
     }
@@ -357,11 +357,6 @@
     color: var(--surface-base);
     border-color: var(--text-primary);
   }
-  .btn-js.active {
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    border-color: var(--surface-brand-primary-strong);
-  }
   .btn-ghost {
     background: transparent;
     border-color: transparent;
@@ -435,6 +430,7 @@
   }
 
   .pane-label {
+    position: relative;
     padding: var(--base-h) var(--base-2);
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
@@ -445,6 +441,21 @@
     border-bottom: 2px solid var(--text-primary);
     flex-shrink: 0;
   }
+  /* Dither swatch vpravo — pane label čte jako telemetry header */
+  .pane-label::after {
+    content: "";
+    position: absolute;
+    right: var(--base-2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--base-4);
+    height: var(--base-h);
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(90deg,
+        color-mix(in oklch, var(--text-primary) 14%, transparent) 0 1px,
+        transparent 1px 3px);
+  }
 
   .pane-content {
     flex: 1;
@@ -452,42 +463,74 @@
   }
 
   /* ── Resize splitters ────────────────────────────────────────────────────── */
+  /* Splittery jako kalibrované rails — dither "grip" zářezy přes plnou barvu.
+     Grip se opakuje i v hover vrstvě, aby nezmizel při uchopení. */
   .splitter-col {
     grid-column: 2;
     grid-row: 2;
     width: 4px;
-    background: var(--text-primary);
+    background:
+      repeating-linear-gradient(0deg,
+        color-mix(in oklch, var(--surface-main) 45%, transparent) 0 1px,
+        transparent 1px 4px),
+      var(--text-primary);
     cursor: col-resize;
     transition: background 0.1s;
     flex-shrink: 0;
   }
   .splitter-col:hover,
   .splitter-col.active {
-    background: var(--surface-brand-primary-strong);
+    background:
+      repeating-linear-gradient(0deg,
+        color-mix(in oklch, var(--surface-main) 45%, transparent) 0 1px,
+        transparent 1px 4px),
+      var(--surface-brand-primary-strong);
   }
 
   .splitter-row {
     height: 4px;
     flex-shrink: 0;
-    background: var(--text-primary);
+    background:
+      repeating-linear-gradient(90deg,
+        color-mix(in oklch, var(--surface-main) 45%, transparent) 0 1px,
+        transparent 1px 4px),
+      var(--text-primary);
     cursor: row-resize;
     transition: background 0.1s;
   }
   .splitter-row:hover,
   .splitter-row.active {
-    background: var(--surface-brand-primary-strong);
+    background:
+      repeating-linear-gradient(90deg,
+        color-mix(in oklch, var(--surface-main) 45%, transparent) 0 1px,
+        transparent 1px 4px),
+      var(--surface-brand-primary-strong);
   }
 
   /* ── Status messages ─────────────────────────────────────────────────────── */
   .status-msg {
     grid-column: 1 / -1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: var(--base-2);
     font-family: var(--font-stack-monospace);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--text-secondary);
+  }
+  /* Radar/přístrojový motiv nad status textem (blueprint) — prstenec + nitkový kříž */
+  .status-msg::before {
+    content: "";
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    background:
+      radial-gradient(circle, transparent 0 18px,
+        var(--border-strong) 18px 19px, transparent 19px),
+      linear-gradient(var(--border-strong) 0 0) center / 1px 100% no-repeat,
+      linear-gradient(var(--border-strong) 0 0) center / 100% 1px no-repeat;
   }
   .status-error { color: var(--text-red); }
 </style>

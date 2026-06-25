@@ -1,0 +1,136 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D3 — Logical Properties
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-subtle);
+}
+
+.lp-desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  margin-block: var(--base-2) var(--base-4);
+  line-height: 1.6;
+  max-inline-size: 72ch;
+}
+
+/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+
+.lp-snippet {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lp-snippet code {
+  font-family: var(--font-stack-monospace);
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  white-space: pre;
+}
+
+@media (max-width: 600px) {
+  .lp-inset-demo {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-inset-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}
+
+/* ── Sekce 4 — writing-mode: proč logické vlastnosti smysl i vertikálně ──── */
+
+/* Řada tagů pro srovnání: vertikální text s fyzickými vs. logickými vlastnostmi */
+.lp-wm-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--base-5);
+}
+
+.lp-wm-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+  align-items: flex-start;
+}
+
+.lp-wm-col__label {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  font-family: var(--font-stack-monospace);
+  padding-block: var(--base-h);
+  padding-inline: var(--base-2);
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+.lp-wm-col__label--bad {
+  background: color-mix(in srgb, var(--status-error) 12%, transparent);
+  color: var(--status-error);
+  border: 1px solid color-mix(in srgb, var(--status-error) 25%, transparent);
+}
+
+.lp-wm-col__label--good {
+  background: color-mix(in srgb, var(--status-success) 12%, transparent);
+  color: var(--status-success);
+  border: 1px solid color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+
+/* Základní tag — writing-mode: vertical-rl */
+.lp-wm-tag {
+  writing-mode: vertical-rl;
+  border-radius: var(--radius);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+}
+
+/* Fyzická verze — padding-left/right funguje špatně ve vertical-rl:
+   vlevo/vpravo jsou nyní nahoře/dole po otočení osy */
+.lp-wm-tag--physical {
+  padding-left: var(--base-4);
+  padding-right: var(--base-4);
+  padding-top: var(--base-2);
+  padding-bottom: var(--base-2);
+  border-left: 4px solid var(--status-error);
+}
+
+/* Logická verze — padding-block/inline se automaticky otočí se writing-mode */
+.lp-wm-tag--logical {
+  padding-block: var(--base-4);
+  padding-inline: var(--base-2);
+  border-inline-start: 4px solid var(--status-success);
+}
+
+.lp-wm-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-3);
+  max-inline-size: 60ch;
+  line-height: 1.6;
+}

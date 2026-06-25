@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subgrid pro formulářová pole – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Subgrid pro formulářová pole</h1>
+    <p class="demo-subtitle">Subgrid pro zarovnání formulářových polí</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">subgrid</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+        <div class="layout-stage">
+          <div class="form-grid">
+            <div class="form-row">
+              <label class="form-label">Jméno</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">E-mailová adresa</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Tel.</label>
+              <div class="form-input-wrap"><div class="form-input"></div></div>
+              <span class="form-hint">Volitelné</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

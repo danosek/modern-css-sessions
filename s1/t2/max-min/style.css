@@ -1,0 +1,147 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   max() · min() — řízené centrování obsahu (stejný problém, dvě řešení)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
+
+/* ── Stage — kontext, v němž se wrapper centruje (resizable pro ukázku) ───── */
+.cc-stage {
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border);
+  padding-block: var(--base-5);
+  overflow: auto;
+  resize: horizontal;
+  min-width: 220px;
+  max-width: 100%;
+  margin-block-end: var(--base-4);
+}
+
+/* ── Wrapper — zastropovaný a vycentrovaný obsah; cap přes proměnnou ──────── */
+.cc-wrapper {
+  --cc-cap: 32rem;
+  position: relative;
+  border: 2px solid var(--text-primary);
+  background: var(--surface-main);
+  padding: var(--base-4);
+}
+/* Řešení A — max() řídí okraj, prvek zůstává full-width */
+.cc-wrapper[data-technique="max"] {
+  margin-inline: max(0px, (100% - var(--cc-cap)) / 2);
+}
+/* Řešení B — min() řídí šířku, auto okraje centrují */
+.cc-wrapper[data-technique="min"] {
+  width: min(100%, var(--cc-cap));
+  margin-inline: auto;
+}
+
+/* ── Telemetrie (nahoře): šířka kontejneru + výpočty obou řešení ──────────── */
+.cc-telemetry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+  margin-block-end: var(--base-4);
+}
+
+/* Šířka kontejneru — referenční hodnota pro 100% (obsahová šířka stage).
+   Hairline pod řádkem je strukturní předěl, ne podtržení hodnoty. */
+.cc-context {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  padding-bottom: var(--base);
+  border-bottom: 1px solid var(--border);
+}
+.cc-context__label { color: var(--text-primary); }
+.cc-context__note  { color: var(--text-secondary); }
+.cc-context__w {
+  margin-inline-start: auto;
+  font-size: var(--font-size-s);
+  color: var(--text-brand-primary);
+}
+
+/* Pokyn pod vizuální stage */
+.cc-hint {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-block: var(--base-2) var(--base-4);
+}
+
+.cc-wrapper p {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+}
+.cc-wrapper__w {
+  display: inline-block;
+  margin-block-start: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  background: var(--surface-brand-primary-strong);
+  padding: var(--base-h) var(--base);
+}
+
+/* ── Dvě řešení — kód obou technik, aktivní zvýrazněná ───────────────────── */
+.cc-solutions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--base-2);
+}
+.cc-solution {
+  border: 1px solid var(--border);
+  padding: var(--base-2) var(--base-3);
+  opacity: 0.5;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+.cc-solution.is-active {
+  opacity: 1;
+  border-color: var(--text-brand-primary);
+}
+.cc-solution__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-block-end: var(--base);
+}
+.cc-solution.is-active .cc-solution__title { color: var(--text-brand-primary); }
+.cc-solution__rest {
+  margin-block-start: var(--base);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* ── Informační karta ────────────────────────────────────────────────────── */
+.cf-info-row { margin-block-start: var(--base-3); }
+.cf-info-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--surface-brand-primary-strong);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+}
+.cf-info-card__title {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-block-end: var(--base);
+}
+.cf-info-card p {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}

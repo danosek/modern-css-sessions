@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Živá ukázka — :has(input:checked) – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Živá ukázka — :has(input:checked)</h1>
+    <p class="demo-subtitle">.task:has(input:checked) přeškrtne celou řádku, čistý CSS</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">:has()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+        <div class="live-stage">
+          <ul class="task-list">
+            <li class="task">
+              <input type="checkbox" id="t1">
+              <label for="t1">
+                <span class="task-name">Zkontrolovat pull requesty</span>
+                <span class="task-meta">Vývoj · dnes</span>
+              </label>
+            </li>
+            <li class="task">
+              <input type="checkbox" id="t2">
+              <label for="t2">
+                <span class="task-name">Napsat testy pro novou komponentu</span>
+                <span class="task-meta">Vývoj · zítra</span>
+              </label>
+            </li>
+            <li class="task">
+              <input type="checkbox" id="t3">
+              <label for="t3">
+                <span class="task-name">Připravit prezentaci pro klienta</span>
+                <span class="task-meta">Design · pátek</span>
+              </label>
+            </li>
+            <li class="task">
+              <input type="checkbox" id="t4">
+              <label for="t4">
+                <span class="task-name">Nastavit CI pipeline pro nový projekt</span>
+                <span class="task-meta">Ops · příští týden</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

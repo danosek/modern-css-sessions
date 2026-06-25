@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fyzické vs. logické vlastnosti – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Fyzické vs. logické vlastnosti</h1>
+    <p class="demo-subtitle">Živá ukázka — fyzické vs. logické vlastnosti</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">inline-size</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">block-size</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <p class="lp-desc">
+        Tlačítko přepíná směr čtení (<code>dir</code>) na celém demo kontejneru.
+        Logická verze se automaticky překlopí do RTL, fyzická ne.
+      </p>
+
+      <div class="lp-demo-wrap" dir="ltr">
+        <div class="lp-toggle-bar">
+          <span class="lp-dir-badge" id="lp-dir-label">Aktuální směr: <strong>LTR</strong></span>
+          <button class="lp-dir-toggle sizing-btn">→ Přepnout na RTL</button>
+        </div>
+
+        <div class="lp-compare">
+
+          <!-- Fyzická varianta -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--bad">Fyzické vlastnosti</div>
+            <div class="lp-card lp-card--physical">
+              <div class="lp-card__badge lp-card__badge--bad">physical</div>
+              <h3 class="lp-card__title">Název položky</h3>
+              <p class="lp-card__body">
+                Tato karta používá <code>margin-left</code>, <code>padding-top</code>
+                a <code>border-left</code>. Při přepnutí do RTL se tyto vlastnosti
+                nepřeklopí — levý okraj zůstane vlevo.
+              </p>
+              <div class="lp-card__meta">
+                <span class="lp-card__tag">fyzická</span>
+                <span class="lp-card__tag">nepřeklápí se</span>
+              </div>
+            </div>
+            <pre class="lp-snippet"><code>/* Fyzické vlastnosti */
+.card {
+  margin-left: 1rem;
+  padding-top: 1.5rem;
+  border-left: 3px solid;
+  text-align: left;
+}</code></pre>
+          </div>
+
+          <!-- Logická varianta -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--good">Logické vlastnosti</div>
+            <div class="lp-card lp-card--logical">
+              <div class="lp-card__badge lp-card__badge--good">logical</div>
+              <h3 class="lp-card__title">Název položky</h3>
+              <p class="lp-card__body">
+                Tato karta používá <code>margin-inline-start</code>,
+                <code>padding-block-start</code> a <code>border-inline-start</code>.
+                Při přepnutí do RTL se automaticky překlopí na správnou stranu.
+              </p>
+              <div class="lp-card__meta">
+                <span class="lp-card__tag lp-card__tag--good">logická</span>
+                <span class="lp-card__tag lp-card__tag--good">překlopí se ✓</span>
+              </div>
+            </div>
+            <pre class="lp-snippet"><code>/* Logické vlastnosti */
+.card {
+  margin-inline-start: 1rem;
+  padding-block-start: 1.5rem;
+  border-inline-start: 3px solid;
+  text-align: start;
+}</code></pre>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Logical Properties</h2>
+      <pre tabindex="0"><code class="language-css">/* Fyzické vlastnosti jsou vázané na viewport (top/right/bottom/left) */
+/* Logické vlastnosti jsou vázané na směr psaní (block / inline osy) */
+
+/* Inline osa → v LTR = vodorovná (←→), v RTL se otočí */
+/* Block osa  ↓ v LTR = svislá (↑↓), nemění se */</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Proč záleží?</h2>
+      <pre tabindex="0"><code class="language-css">/* RTL jazyky (arabština, hebrejština) nebo vertical writing (japonština) —
+   logické vlastnosti se automaticky přizpůsobí bez změny CSS.
+   Fyzické vlastnosti zůstanou vždy na stejné straně viewportu.        */</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D2 — Comparison Functions: clamp(), min(), max()
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Funkční badge v titulku sekce ───────────────────────────────────────── */
+
+.cf-fn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--text-primary-on-surface-brand-primary-minimal);
+  background: var(--surface-brand-primary-minimal);
+  padding: var(--base-h) var(--base-2);
+  border-radius: var(--radius);
+}
+
+/* ── Sekce 4 — clamp(): responsivní karta (gap + padding + radius + font) ── */
+
+.cf-card-props {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--base-3) var(--base-4);
+  margin-block-end: var(--base-4);
+}
+
+.cf-card-prop {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+}
+
+.cf-card-prop__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  min-width: 9ch;
+  flex-shrink: 0;
+}
+
+.cf-card-prop code {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cf-fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
+  margin-block-end: var(--base-3);
+}
+
+.cf-card {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  border-radius: clamp(4px, 1vw, 16px);
+  padding: clamp(var(--base-2), 2vw, var(--base-5));
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.cf-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-strong);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.cf-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.cf-card__body {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */
+
+.cf-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-subtle);
+  padding: var(--base-2) var(--base-3);
+  margin-block-start: var(--base-2);
+  inline-size: fit-content;
+}

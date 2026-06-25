@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stejná komponenta ve 3 kontextech – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Stejná komponenta ve 3 kontextech</h1>
+    <p class="demo-subtitle">Stejná komponenta ve třech různých kontextech — @media by nefungovalo</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">@container</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+      <div class="context-row">
+        <div class="context-slot">
+          <div class="context-slot__label">Postranní panel · 220px</div>
+          <div class="cq-container cq-container--220">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Koupit</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="context-slot">
+          <div class="context-slot__label">Grid karet · 360px</div>
+          <div class="cq-container cq-container--360">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Přidat do košíku</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="context-slot context-slot--flex">
+          <div class="context-slot__label">Výpis produktů · plná šířka</div>
+          <div class="cq-container">
+            <article class="product-card">
+              <div class="product-card__img">⬡</div>
+              <div class="product-card__body">
+                <span class="product-card__badge">Novinka</span>
+                <h3 class="product-card__title">Bezdrátová klávesnice Pro</h3>
+                <p class="product-card__desc">Mechanická klávesnice s Bluetooth 5.2.</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">2 490 Kč</span>
+                  <button class="product-card__btn">Přidat do košíku</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

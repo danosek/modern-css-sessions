@@ -24,6 +24,7 @@ body {
 
 /* Header – název session a dema */
 .demo-header {
+  position: relative;
   min-height: var(--demo-header-h);
   padding: var(--page-pad) var(--page-pad) var(--base-3);
   margin-bottom: var(--page-pad);
@@ -31,6 +32,20 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--base);
+}
+
+/* Rohová registrační značka (blueprint) – tlumený nitkový kříž vpravo nahoře */
+.demo-header::after {
+  content: "";
+  position: absolute;
+  top: var(--base-2);
+  right: var(--base-2);
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--border-strong) 0 0) center / 1px 100% no-repeat,
+    linear-gradient(var(--border-strong) 0 0) center / 100% 1px no-repeat;
 }
 
 .demo-session {
@@ -42,6 +57,7 @@ body {
 }
 
 .demo-title {
+  position: relative;
   font-family: var(--font-stack-headings);
   font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: var(--font-weight-headings-regular);
@@ -49,6 +65,30 @@ body {
   letter-spacing: -0.02em;
   line-height: 0.95;
   color: var(--text-primary);
+}
+
+/* Anotační callout (blueprint) – amber "elbow" ukazující na titul.
+   Offset −16px leží uvnitř 32px paddingu headeru → bez horizontálního scrollu. */
+.demo-title::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--base-2));
+  top: 0.45em;
+  width: var(--base);
+  height: var(--base);
+  pointer-events: none;
+  background:
+    linear-gradient(var(--text-brand-primary) 0 0) left top / var(--base) 1px no-repeat,
+    linear-gradient(var(--text-brand-primary) 0 0) left top / 1px var(--base) no-repeat;
+}
+
+/* Popisný podtitul v hlavičce (přesunutý z bývalého .demo-section__title) */
+.demo-subtitle {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 70ch;
 }
 
 .demo-feature {
@@ -69,11 +109,37 @@ body {
 
 /* Volitelný code block pod demem */
 .demo-code {
+  position: relative;
   background: var(--surface-main-dim);
   border: 2px solid var(--text-primary);
   border-radius: 0;
   padding: var(--base-3) var(--page-pad);
   margin: var(--page-pad);
+}
+
+/* Kótovací značky v rozích (blueprint) – amber L-brackety na borderu.
+   Offset −1px leží na 2px borderu, kolem je 32px margin → bez scrollu. */
+.demo-code::before,
+.demo-code::after {
+  content: "";
+  position: absolute;
+  width: var(--base);
+  height: var(--base);
+  pointer-events: none;
+}
+.demo-code::before {
+  top: -1px;
+  left: -1px;
+  background:
+    linear-gradient(var(--text-brand-primary) 0 0) left top / var(--base) 1px no-repeat,
+    linear-gradient(var(--text-brand-primary) 0 0) left top / 1px var(--base) no-repeat;
+}
+.demo-code::after {
+  right: -1px;
+  bottom: -1px;
+  background:
+    linear-gradient(var(--text-brand-primary) 0 0) right bottom / var(--base) 1px no-repeat,
+    linear-gradient(var(--text-brand-primary) 0 0) right bottom / 1px var(--base) no-repeat;
 }
 
 /* Rozdělení dlouhého kódu na pojmenované sekce */
@@ -115,20 +181,22 @@ body {
    mají stejnou specificitu a jsou níže, takže při obarvení vyhrají. */
 .demo-code code { color: var(--text-primary); }
 
-/* ── Syntax highlight (Spectro) — tokeny generuje shared/demo-highlight.js ─── */
-.demo-code .tok-comment   { color: var(--text-green); font-style: italic; }
-.demo-code .tok-prop      { color: var(--text-teal); }
+/* ── Syntax highlight (Spectro) — tokeny generuje shared/demo-highlight.js ───
+   Monochromatický motiv (ladí s editorem): inkoust + tlumené, amber = selektory/
+   at-rules, sage = literály (string/number/unit/color), červená jen pro chyby. */
+.demo-code .tok-comment   { color: var(--text-secondary); font-style: italic; }
+.demo-code .tok-prop      { color: var(--text-secondary); }
 .demo-code .tok-value     { color: var(--text-primary); }
-.demo-code .tok-fn        { color: var(--text-teal-variant); }
+.demo-code .tok-fn        { color: var(--text-primary); }
 .demo-code .tok-num,
-.demo-code .tok-unit      { color: var(--text-amber); }
-.demo-code .tok-string    { color: var(--text-orange); }
-.demo-code .tok-selector  { color: var(--text-blue); }
-.demo-code .tok-pseudo    { color: var(--text-blue-variant); }
-.demo-code .tok-idsel,
-.demo-code .tok-var       { color: var(--text-navy); }
-.demo-code .tok-atrule    { color: var(--text-fuchsia); }
-.demo-code .tok-color     { color: var(--text-pink); }
+.demo-code .tok-unit      { color: var(--text-brand-secondary); }
+.demo-code .tok-string    { color: var(--text-brand-secondary); }
+.demo-code .tok-selector  { color: var(--text-brand-primary); }
+.demo-code .tok-pseudo    { color: var(--text-brand-primary); }
+.demo-code .tok-idsel     { color: var(--text-brand-primary); }
+.demo-code .tok-var       { color: var(--text-brand-secondary-variant); }
+.demo-code .tok-atrule    { color: var(--text-brand-primary); }
+.demo-code .tok-color     { color: var(--text-brand-secondary); }
 .demo-code .tok-important { color: var(--text-red); font-weight: bold; }
 .demo-code .tok-punct     { color: var(--text-secondary); }
 
@@ -159,7 +227,7 @@ body {
 /* Sdílená karta – srovnání hodnot, kontejner pro stage */
 .sizing-card {
   background: var(--surface-main-dim);
-  border: 1px solid var(--text-primary);
+  border: 2px dashed var(--border-strong);
   border-radius: 0;
   padding: var(--base-3);
   box-shadow: none;
@@ -177,7 +245,7 @@ body {
 /* Interaktivní stage – resizable */
 .live-stage {
   background: var(--surface-main-dim);
-  border: 1px solid var(--text-primary);
+  border: 2px dashed var(--border-strong  );
   border-radius: 0;
   padding: var(--base-3);
   box-shadow: none;
@@ -191,7 +259,7 @@ body {
 /* Layout stage – statické ukázky */
 .layout-stage {
   background: var(--surface-main-dim);
-  border: 1px solid var(--text-primary);
+  border: 1px dashed var(--border);
   border-radius: 0;
   padding: var(--base-4);
   box-shadow: none;
@@ -214,19 +282,115 @@ body {
 
 /* Sdílený barevný box – přes všechna dema */
 .demo-box {
-  background: var(--surface-brand-primary-subtle);
-  border: 1px solid var(--surface-brand-primary-moderate);
+  background: var(--surface-brand-primary-minimal);
+  border: 2px solid var(--surface-brand-primary-contrast);
   border-radius: 0;
   padding: var(--base-2) var(--base-3);
   overflow: hidden;
+  font-size: var(--font-size-base);
+  color: var(--text-primary-on-surface-brand-primary-minimal);
+  line-height: 1.5;
+}
+
+/* ── Reusable: segmentový přepínač (invertovaná lišta, aktivní svítí) ─────────
+   Bar = pozadí --text-primary; tlačítka v barvě preview (--surface-main),
+   aktivní (aria-pressed="true") se invertuje. JS hooky (data-*) jsou per-demo. */
+.seg-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  width: fit-content;
+  padding: 2px;
+  margin-block-end: var(--base-4);
+  background: var(--text-primary);
+}
+.seg-btn {
+  padding: var(--base-h) var(--base-2);
+  background: var(--surface-main);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
-  color: var(--text-primary-on-surface-brand-primary-subtle);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.seg-btn:hover:not([aria-pressed="true"]) { background: var(--surface-main); }
+.seg-btn[aria-pressed="true"] {
+  background: var(--text-primary);
+  color: var(--surface-main);
+}
+
+/* ── Reusable: indikátor aplikovaného argumentu funkce (min/max/clamp…) ───────
+   Deklarativní widget — autor napíše výraz, sdílený demo-highlight.js zvýrazní,
+   který argument se aktuálně aplikuje, a doplní resolved hodnotu. Markup:
+     <div class="fn-readout" data-fn-target="#el" data-fn-prop="width">
+       <code class="fn-readout__expr">width:
+         <span class="fn-readout__fn">min(</span>
+         <span class="fn-readout__arg" data-fn-arg="100%">100%</span>
+         <span class="fn-readout__sep">, </span>
+         <span class="fn-readout__arg" data-fn-arg="640px">640px</span>
+         <span class="fn-readout__fn">)</span></code>
+       <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+     </div>
+   Univerzální napříč funkcemi i jednotkami; znovupoužitelné i jinde. */
+.fn-readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  margin-bottom: var(--base-2);
+}
+
+.fn-readout__expr {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  padding: var(--base-h) var(--base-2);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+}
+
+.fn-readout__fn,
+.fn-readout__static { color: var(--text-primary); }
+.fn-readout__sep    { color: var(--text-secondary); }
+
+/* Argument — defaultně tlumený; aktivní (řídí JS) svítí jako zvýraznění */
+.fn-readout__arg {
+  padding: 0 var(--base-h);
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s;
+}
+.fn-readout__arg.is-active {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  font-weight: 600;
+}
+
+/* Resolved hodnota */
+.fn-readout__result {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+.fn-readout__result [data-fn-value] {
+  padding: var(--base-h) var(--base);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  font-weight: 600;
 }
 
 /* ── Demo sections ────────────────────────────────────────────────────────── */
 /* Každá sekce zabírá minimálně celou obrazovku po demo-header.               */
 
 .demo-section {
+  position: relative;
   min-height: calc(100svh - var(--above-fold));
   padding-block: var(--page-pad);
 }
@@ -234,6 +398,22 @@ body {
 .demo-section:not(:first-child) {
   border-top: 2px solid var(--text-primary);
   min-height: 100svh;
+}
+
+/* Tonální dither pruh u horní hrany sekce (jen mezi sekcemi).
+   8px vysoký, drží se hrany → nikdy nepřekrývá obsah dema. */
+.demo-section:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--base);
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg,
+      color-mix(in oklch, var(--text-primary) 8%, transparent) 0 1px,
+      transparent 1px 3px);
 }
 
 .demo-section__title {

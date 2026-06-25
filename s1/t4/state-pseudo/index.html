@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State a pseudo — &:hover, &:focus-visible – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">State a pseudo — &:hover, &:focus-visible</h1>
+    <p class="demo-subtitle">State a pseudo-selektory — &amp;:hover, &amp;:disabled, &amp;:focus-visible:</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">&:hover</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="btn-demo-grid">
+          <div class="btn-demo-item">
+            <button class="demo-btn">Normální</button>
+            <code class="btn-state-label">výchozí stav</code>
+          </div>
+          <div class="btn-demo-item">
+            <button class="demo-btn demo-btn--force-hover">Hover</button>
+            <code class="btn-state-label">&amp;:hover</code>
+          </div>
+          <div class="btn-demo-item">
+            <button class="demo-btn" disabled>Zakázáno</button>
+            <code class="btn-state-label">&amp;:disabled</code>
+          </div>
+          <div class="btn-demo-item">
+            <button class="demo-btn demo-btn--force-focus">Focus</button>
+            <code class="btn-state-label">&amp;:focus-visible</code>
+          </div>
+          <div class="btn-demo-item">
+            <button class="demo-btn demo-btn--secondary">Sekundární</button>
+            <code class="btn-state-label">&amp;.demo-btn--secondary</code>
+          </div>
+          <div class="btn-demo-item">
+            <button class="demo-btn demo-btn--danger">Nebezpečí</button>
+            <code class="btn-state-label">&amp;.demo-btn--danger</code>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top: var(--base-4);">
+          <pre><code>.demo-btn {
+  /* základní styly */
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+
+  &amp;:hover        { filter: brightness(1.1); transform: translateY(-1px); }
+  &amp;:disabled     { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  &amp;:focus-visible { outline: 2px solid var(--surface-brand-primary-strong);
+                    outline-offset: 3px; }
+  &amp;.demo-btn--secondary { background: var(--surface-main-variant); }
+  &amp;.demo-btn--danger    { background: var(--status-error); }
+}</code></pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

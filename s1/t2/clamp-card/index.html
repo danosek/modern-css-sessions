@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clamp() — responsivní karta – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">clamp() — responsivní karta</h1>
+    <p class="demo-subtitle">Gap, padding, radius i font plynule reagují na viewport</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">gap</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">padding</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">radius</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+
+      <div class="demo-section__example">
+
+        <div class="cf-card-props">
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">gap</span>
+            <code>clamp(var(--base-2), 3vw, var(--base-6))</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">padding</span>
+            <code>clamp(var(--base-2), 2vw, var(--base-5))</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">border-radius</span>
+            <code>clamp(4px, 1vw, 16px)</code>
+          </div>
+          <div class="cf-card-prop">
+            <span class="cf-card-prop__label">font-size</span>
+            <code>clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem)</code>
+          </div>
+        </div>
+
+        <div class="fn-readout" data-fn-target="#cf-card-1" data-fn-prop="border-top-left-radius">
+          <code class="fn-readout__expr"><span class="fn-readout__static">border-radius: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="4px">4px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="1vw">1vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="16px">16px</span><span class="fn-readout__fn">)</span></code>
+          <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+        </div>
+
+        <div class="cf-fluid-grid">
+          <div class="cf-card" id="cf-card-1">
+            <div class="cf-card__icon">A</div>
+            <div class="cf-card__title">Karta první</div>
+            <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
+          </div>
+          <div class="cf-card">
+            <div class="cf-card__icon">B</div>
+            <div class="cf-card__title">Karta druhá</div>
+            <div class="cf-card__body">Na mobilu minimum, na desktopu maximum, mezi tím plynulý přechod.</div>
+          </div>
+          <div class="cf-card">
+            <div class="cf-card__icon">C</div>
+            <div class="cf-card__title">Karta třetí</div>
+            <div class="cf-card__body">Žádné breakpointy — <code>clamp()</code> zvládne vše sám.</div>
+          </div>
+        </div>
+
+        <div class="cf-hint">
+          Zmenšuj nebo zvětšuj okno — sleduj jak se plynule mění mezery, zaoblení, padding i velikost textu karet.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">CSS Comparison Functions</h2>
+      <pre tabindex="0"><code class="language-css">/* clamp(minimum, preferred, maximum)
+   Vrátí preferred, ale nikdy méně než minimum a nikdy více než maximum.
+   Ideální pro fluid typografii a spacing. */
+
+.fluid-heading {
+  font-size: clamp(1.25rem, 4vw, 3rem);
+  /* Na úzkém okně: 1.25rem | Fluid střed: 4vw | Na širokém: 3rem */
+}
+
+.fluid-gap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
+}
+
+/* Responsivní karta — gap, padding, border-radius i font v jednom */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(var(--base-2), 3vw, var(--base-6));
+}
+
+.card {
+  padding:       clamp(var(--base-2), 2vw,  var(--base-5));
+  border-radius: clamp(4px,           1vw,  16px);
+  font-size:     clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

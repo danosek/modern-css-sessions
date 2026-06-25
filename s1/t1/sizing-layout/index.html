@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intrinsic sizing v layoutu – Modern CSS S1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8bdcd54618e303afb4511464c5e647306399406e/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S1 – Foundations Refresh</div>
+    <h1 class="demo-title">Intrinsic sizing v layoutu</h1>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">1fr</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <!-- 1: fit-content + margin: auto -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>fit-content</code> + <code>margin-inline: auto</code>
+            <span>Centrování bez pevné šířky</span>
+          </div>
+          <div class="layout-stage">
+            <div class="demo-box ex-callout">
+              Tato zpráva se přizpůsobí délce textu a zůstane vycentrovaná.
+            </div>
+            <div class="demo-box ex-callout">
+              Kratší zpráva.
+            </div>
+          </div>
+        </div>
+
+        <!-- 2: grid max-content labels -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: max-content 1fr</code>
+            <span>Štítky se auto-šíří podle nejdelšího, pole vyplní zbytek</span>
+          </div>
+          <div class="layout-stage">
+            <div class="ex-form-grid">
+              <span class="ex-label">Jméno</span>
+              <div class="ex-input"></div>
+              <span class="ex-label">E-mailová adresa</span>
+              <div class="ex-input"></div>
+              <span class="ex-label">Tel.</span>
+              <div class="ex-input"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: max-content 1fr max-content -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: max-content 1fr max-content</code>
+            <span>Postranní sloupce zaberou přesně tolik místa, kolik potřebují</span>
+          </div>
+          <div class="layout-stage">
+            <div class="ex-header-grid">
+              <nav class="ex-nav" contenteditable="true">Domů · O nás · Kontakt</nav>
+              <div class="ex-page-title" contenteditable="true">Název stránky</div>
+              <nav class="ex-nav" contenteditable="true">Přihlásit se · EN</nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

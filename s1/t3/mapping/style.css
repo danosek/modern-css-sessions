@@ -1,0 +1,99 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   D3 — Logical Properties
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-subtle);
+}
+
+.lp-desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  margin-block: var(--base-2) var(--base-4);
+  line-height: 1.6;
+  max-inline-size: 72ch;
+}
+
+/* ── Sekce 2 — tabulka fyzické → logické mapování ────────────────────────── */
+
+.lp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.lp-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-s);
+  background: var(--surface-main);
+}
+
+.lp-table thead {
+  background: var(--surface-brand-primary-minimal);
+}
+
+.lp-table th {
+  text-align: start;
+  padding-block: var(--base-2);
+  padding-inline: var(--base-3);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-family: var(--font-stack-monospace);
+  border-block-end: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.lp-table td {
+  padding-block: var(--base-2);
+  padding-inline: var(--base-3);
+  border-block-end: 1px solid var(--border);
+  color: var(--text-primary);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+/* Fyzická vlastnost — červená (upozornění) */
+.lp-table td:first-child code {
+  color: var(--status-error);
+  background: color-mix(in srgb, var(--status-error) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-error) 20%, transparent);
+}
+
+/* Logická vlastnost — zelená (doporučení) */
+.lp-table td:nth-child(2) code {
+  color: var(--status-success);
+  background: color-mix(in srgb, var(--status-success) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-success) 20%, transparent);
+}
+
+.lp-table td:last-child {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.lp-table tr:last-child td {
+  border-block-end: none;
+}
+
+.lp-table tbody tr:hover {
+  background: var(--surface-main-variant);
+}
+
+@media (max-width: 600px) {
+  .lp-inset-demo {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-inset-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}

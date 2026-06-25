@@ -105,12 +105,24 @@ role tokens for both light and dark.
 
 ## 5. Components & symbology
 
-- **ASCII framing:** `[ DELIVERY SYSTEMS ]`, `< RE-IND >`; directional `>>>`, `///`, `\\\\`.
+- **Decoration over rules (declutter rule).** Glyph markers and corners are the *primary*
+  structuring device — hairlines are the exception, not the default. Before adding a border,
+  ask if a marker/bracket/corner conveys the same grouping. If a screen reads as "too many
+  lines", convert dividers into symbolic markers and lean on whitespace + the monospace grid.
+  At most one structural rule per compartment (e.g. a section header underline); never a
+  hairline under every sub-item *and* every row.
+- **ASCII framing:** `[ DELIVERY SYSTEMS ]`, `[ PENDING ]`, `< RE-IND >`; directional `>>`,
+  `>>>`, `///`, `\\\\`. Brackets tag status/labels; chevrons mark direction/drill-in.
+- **CSS-native glyphs (thematic for this project):** `::` as a pseudo-element / namespace
+  separator (`S1 :: FOUNDATIONS`), and `{ }` to frame a group as a rule block (selector on the
+  head line, members as the "declarations") — a CSS-flavoured way to group without boxes.
+  Use deliberately, not on every element.
 - **Industrial markers:** registration `®`, copyright `©`, trademark `™` used as geometric
   elements, not legal text. Keep these meaningful — avoid fake telemetry noise (version
   strings, fabricated unit/status IDs) that adds nothing.
-- **Technical assets:** crosshairs `+` at grid intersections, repeating vertical rules
-  (barcodes), thick horizontal warning stripes.
+- **Technical assets:** registration crosshairs `+` and corner brackets (`⌐ ¬ ∟`) at frame
+  corners / grid intersections, repeating vertical rules (barcodes), thick horizontal warning
+  stripes. Prefer corner marks over a full box when only the *frame* needs to read.
 
 ## 6. Texture & post-processing
 
