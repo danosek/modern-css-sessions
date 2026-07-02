@@ -1,19 +1,16 @@
+// Logical Properties — přepínání směru čtení (dir) JEN na kartách.
+// Karty zůstávají na svých pozicích (grid je LTR), takže je vidět, jak se
+// u logické karty překlopí inline-start (barevný pruh) na druhou stranu,
+// kdežto u fyzické (border-left) zůstane vlevo.
 
-// D8 – Logical Properties: toggle dir="rtl" / dir="ltr" na demo kontejneru
+const btns  = document.querySelectorAll('.seg-btn');
+const cards = document.querySelectorAll('.lp-card');
 
-document.querySelectorAll('.lp-dir-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const demo = btn.closest('.lp-demo-wrap');
-    const current = demo.getAttribute('dir');
-    const next = current === 'rtl' ? 'ltr' : 'rtl';
+function setDir(dir) {
+  cards.forEach(c => c.setAttribute('dir', dir));
+  btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dir === dir)));
+}
 
-    demo.setAttribute('dir', next);
-    btn.textContent = next === 'rtl' ? '→ Přepnout na LTR' : '→ Přepnout na RTL';
+btns.forEach(b => b.addEventListener('click', () => setDir(b.dataset.dir)));
 
-    // Aktualizuj badge se směrem
-    const badge = demo.querySelector('#lp-dir-label');
-    if (badge) {
-      badge.innerHTML = `Aktuální směr: <strong>${next.toUpperCase()}</strong>`;
-    }
-  });
-});
+setDir('ltr');

@@ -32,18 +32,18 @@ const MANIFEST = {
   's1/t2': {
     session: SESSION,
     sections: [
+      { slug: 'min-width',   title: 'min() — maximální šířka',    feature: ['min()'], code: [1] },
+      { slug: 'max-width',   title: 'max() — minimální šířka',    feature: ['max()'] },
+      { slug: 'max-min',     title: 'max() · min() — řízené centrování', feature: ['max()', 'min()'], code: [2] },
       { slug: 'clamp-fluid', title: 'clamp() — fluid typografie', feature: ['clamp()'] },
-      { slug: 'min-width',   title: 'min() — šířka kontejneru',   feature: ['min()'], code: [1] },
-      { slug: 'max-min',     title: 'max() — garantované minimum', feature: ['max()'], code: [2] },
       { slug: 'clamp-card',  title: 'clamp() — responsivní karta', feature: ['clamp()'], code: [0] },
-      { slug: 'type-scale',  title: 'clamp() — fluid type scale',  feature: ['clamp()'], code: [4] },
     ],
   },
   's1/t3': {
     session: SESSION,
     sections: [
-      { slug: 'physical-vs-logical', title: 'Fyzické vs. logické vlastnosti', feature: ['inline-size', 'block-size'], code: [0, 4] },
       { slug: 'mapping',      title: 'Physical → Logical mapping', feature: ['margin-inline', 'padding-block'], code: [1, 2] },
+      { slug: 'physical-vs-logical', title: 'Fyzické vs. logické vlastnosti', feature: ['inline-size', 'block-size'], code: [0, 4] },
       { slug: 'inset',        title: 'Zkratka inset',              feature: ['inset'], code: [3] },
       { slug: 'writing-mode', title: 'Logické vlastnosti a writing-mode', feature: ['writing-mode'], code: [5] },
     ],
@@ -51,19 +51,16 @@ const MANIFEST = {
   's1/t4': {
     session: SESSION,
     sections: [
-      { slug: 'live-nav',          title: 'Živá ukázka — nesting navigace', feature: ['nesting', '&'] },
       { slug: 'flat-vs-nested',    title: 'Základní nesting — flat vs. nested', feature: ['&'], code: [0] },
-      { slug: 'state-pseudo',      title: 'State a pseudo — &:hover, &:focus-visible', feature: ['&:hover'] },
-      { slug: 'without-ampersand', title: 'Nesting bez &', feature: ['nesting'] },
       { slug: 'nested-media',      title: '@media uvnitř pravidla', feature: ['@media'] },
     ],
   },
   's1/t5': {
     session: SESSION,
     sections: [
-      { slug: 'live-cascade', title: 'Živá ukázka — pořadí vrstev vs. specificita', feature: ['@layer'] },
-      { slug: 'layer-order',  title: 'Hlavní princip — pořadí bije specificitu', feature: ['@layer'] },
-      { slug: 'examples',     title: '@layer — praktické příklady', feature: ['@layer'] },
+      { slug: 'live-cascade', title: 'Živá ukázka — pořadí vrstev bije specificitu', feature: ['@layer'] },
+      { slug: 'layer-order',  title: 'Hlavní princip — @layer vs. klasická kaskáda', feature: ['@layer'] },
+      { slug: 'examples',     title: '@layer — praktické příklady', feature: ['@layer', 'revert-layer'] },
     ],
   },
   's1/t6': {

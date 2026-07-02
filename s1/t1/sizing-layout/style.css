@@ -6,29 +6,8 @@
 
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
+  color: var(--text-brand-primary);
 }
-
-/* ── Živá ukázka — data-atributy řídí šířku boxu ────────────────────────── */
-
-.demo-box p {
-  font-size: var(--font-size-base);
-  color: var(--text-primary-on-surface-brand-primary-subtle);
-  line-height: 1.5;
-}
-
-.demo-box p em {
-  font-style: normal;
-  color: var(--text-secondary-on-surface-brand-primary-subtle);
-}
-
-.demo-box[data-sizing="auto"]         { width: auto; }
-
-.demo-box[data-sizing="min-content"]  { width: min-content; }
-
-.demo-box[data-sizing="max-content"]  { width: max-content; }
-
-.demo-box[data-sizing="fit-content"]  { width: fit-content; }
 
 /* ── Intrinsic sizing v layoutu ──────────────────────────────────────────── */
 
@@ -79,10 +58,9 @@ code {
 }
 
 .ex-input {
-  height: 32px;
+  height: var(--base-4);
   background: var(--surface-front);
   border: 2px solid;
-  border-radius: var(--radius);
 }
 
 /* ── Layout příklad 3 — max-content 1fr max-content hlavička ────────────── */
@@ -94,7 +72,6 @@ code {
   gap: var(--base-3);
   background: var(--surface-front);
   border: 2px solid;
-  border-radius: var(--radius);
   padding: var(--base-2) var(--base-3);
 }
 
@@ -108,4 +85,83 @@ code {
   font-size: var(--font-size-base);
   color: var(--text-primary);
   text-align: center;
+}
+
+/* ── Layout příklad 4 — min-content ikona + 1fr text (media object) ──────── */
+
+.ex-media {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  gap: var(--base-3);
+  background: var(--surface-front);
+  border: 2px solid;
+  padding: var(--base-2) var(--base-3);
+  margin-bottom: var(--base-2);
+}
+
+.ex-media:last-child { margin-bottom: 0; }
+
+.ex-media__term {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  line-height: 1.3;
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  background: var(--surface-brand-primary-strong);
+  padding: var(--base) var(--base-2);
+}
+
+.ex-media__text {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.ex-media__text strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+}
+
+/* ── Layout příklad 5 — fit-content() limit šířky sloupce ────────────────── */
+
+.ex-deflist {
+  display: grid;
+  grid-template-columns: fit-content(12rem) 1fr;
+  gap: var(--base-2) var(--base-3);
+  margin: 0;
+  background: var(--surface-front);
+  border: 2px solid;
+  padding: var(--base-3);
+}
+
+.ex-deflist dt {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ex-deflist dd {
+  margin: 0;
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Editovatelné prvky — vizuální signál, že do nich lze psát ────────────── */
+
+[contenteditable] {
+  cursor: text;
+  outline: 1px dashed var(--border-strong);
+  outline-offset: 3px;
+  transition: outline-color 0.15s;
+}
+
+[contenteditable]:hover { outline-color: var(--text-secondary); }
+
+[contenteditable]:focus,
+[contenteditable]:focus-visible {
+  outline: 2px solid var(--surface-brand-primary-strong);
+  outline-offset: 3px;
 }

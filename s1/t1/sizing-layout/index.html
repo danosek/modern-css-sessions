@@ -22,7 +22,7 @@
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">Intrinsic sizing v layoutu</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">1fr</span>
+      <span class="demo-feature__kw">min-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max-content</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">fit-content()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">1fr</span>
     </span>
   </div>
 
@@ -76,6 +76,42 @@
               <div class="ex-page-title" contenteditable="true">Název stránky</div>
               <nav class="ex-nav" contenteditable="true">Přihlásit se · EN</nav>
             </div>
+          </div>
+        </div>
+
+        <!-- 4: min-content — editovatelný textový sloupec (zúží se na nejdelší slovo) -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: min-content 1fr</code>
+            <span>Uprav text vlevo — sloupec se zúží přesně na jeho nejdelší slovo</span>
+          </div>
+          <div class="layout-stage">
+            <div class="ex-media">
+              <div class="ex-media__term" contenteditable="true">Důležité upozornění</div>
+              <div class="ex-media__text">
+                Levý sloupec je <code>min-content</code> — zúží se na nejdelší slovo svého obsahu
+                a zbytek zalomí. Napiš vlevo dlouhé slovo (<em>např. „nekompromisně"</em>) a sleduj,
+                jak se sloupec roztáhne.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5: fit-content() — sloupec roste s obsahem, ale s limitem -->
+        <div class="layout-example">
+          <div class="layout-example__label">
+            <code>grid-template-columns: fit-content(12rem) 1fr</code>
+            <span>Sloupec roste podle obsahu, ale nikdy nepřeroste 12rem — pak zalomí</span>
+          </div>
+          <div class="layout-stage">
+            <dl class="ex-deflist">
+              <dt contenteditable="true">Stav</dt>
+              <dd>Krátký term → sloupec se zúží na jeho šířku</dd>
+              <dt contenteditable="true">Velmi dlouhý název položky, který přeteče limit</dt>
+              <dd>Dlouhý term → sloupec roste, ale maximálně na 12rem, pak zalomí</dd>
+              <dt contenteditable="true">ID</dt>
+              <dd>SW-2026-0042</dd>
+            </dl>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@
     <h1 class="demo-title">clamp() — responsivní karta</h1>
     <p class="demo-subtitle">Gap, padding, radius i font plynule reagují na viewport</p>
     <span class="demo-feature">
-      <span class="demo-feature__kw">gap</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">padding</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">radius</span>
+      <span class="demo-feature__kw">gap</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">padding</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">radius</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">font-size</span>
     </span>
   </div>
 
@@ -33,33 +33,28 @@
       <div class="demo-section__example">
 
         <div class="cf-card-props">
-          <div class="cf-card-prop">
-            <span class="cf-card-prop__label">gap</span>
-            <code>clamp(var(--base-2), 3vw, var(--base-6))</code>
+          <div class="fn-readout" data-fn-target="#cf-card-grid" data-fn-prop="column-gap">
+            <code class="fn-readout__expr"><span class="fn-readout__static">gap: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="8px">8px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="7vw">7vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="56px">56px</span><span class="fn-readout__fn">)</span></code>
+            <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
           </div>
-          <div class="cf-card-prop">
-            <span class="cf-card-prop__label">padding</span>
-            <code>clamp(var(--base-2), 2vw, var(--base-5))</code>
+          <div class="fn-readout" data-fn-target="#cf-card-1" data-fn-prop="padding-top">
+            <code class="fn-readout__expr"><span class="fn-readout__static">padding: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="12px">12px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="6vw">6vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="64px">64px</span><span class="fn-readout__fn">)</span></code>
+            <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
           </div>
-          <div class="cf-card-prop">
-            <span class="cf-card-prop__label">border-radius</span>
-            <code>clamp(4px, 1vw, 16px)</code>
+          <div class="fn-readout" data-fn-target="#cf-card-1" data-fn-prop="border-top-left-radius">
+            <code class="fn-readout__expr"><span class="fn-readout__static">border-radius: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="2px">2px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="5vw">5vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="48px">48px</span><span class="fn-readout__fn">)</span></code>
+            <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
           </div>
-          <div class="cf-card-prop">
-            <span class="cf-card-prop__label">font-size</span>
-            <code>clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem)</code>
+          <div class="fn-readout" data-fn-target="#cf-card-title-1" data-fn-prop="font-size">
+            <code class="fn-readout__expr"><span class="fn-readout__static">font-size: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="1rem">1rem</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="calc(0.6rem + 2.5vw)">0.6rem + 2.5vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="2.5rem">2.5rem</span><span class="fn-readout__fn">)</span></code>
+            <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
           </div>
         </div>
 
-        <div class="fn-readout" data-fn-target="#cf-card-1" data-fn-prop="border-top-left-radius">
-          <code class="fn-readout__expr"><span class="fn-readout__static">border-radius: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="4px">4px</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="1vw">1vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="16px">16px</span><span class="fn-readout__fn">)</span></code>
-          <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
-        </div>
-
-        <div class="cf-fluid-grid">
+        <div class="cf-fluid-grid" id="cf-card-grid">
           <div class="cf-card" id="cf-card-1">
             <div class="cf-card__icon">A</div>
-            <div class="cf-card__title">Karta první</div>
+            <div class="cf-card__title" id="cf-card-title-1">Karta první</div>
             <div class="cf-card__body">Fluid gap zaručuje čitelné mezery na každé obrazovce.</div>
           </div>
           <div class="cf-card">
@@ -89,28 +84,21 @@
    Vrátí preferred, ale nikdy méně než minimum a nikdy více než maximum.
    Ideální pro fluid typografii a spacing. */
 
-.fluid-heading {
-  font-size: clamp(1.25rem, 4vw, 3rem);
-  /* Na úzkém okně: 1.25rem | Fluid střed: 4vw | Na širokém: 3rem */
-}
-
-.fluid-gap-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: clamp(var(--base-2), 3vw, var(--base-6));
-}
-
-/* Responsivní karta — gap, padding, border-radius i font v jednom */
+/* Responsivní karta — gap, padding, border-radius i font v jednom.
+   Záměrně dramatický rozsah, ať je přechod dobře vidět. */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: clamp(var(--base-2), 3vw, var(--base-6));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: clamp(8px, 7vw, 56px);
 }
 
 .card {
-  padding:       clamp(var(--base-2), 2vw,  var(--base-5));
-  border-radius: clamp(4px,           1vw,  16px);
-  font-size:     clamp(0.875rem, 0.7rem + 0.6vw, 1.125rem);
+  padding:       clamp(12px, 6vw, 64px);
+  border-radius: clamp(2px,  5vw, 48px);
+}
+
+.card__title {
+  font-size:     clamp(1rem, 0.6rem + 2.5vw, 2.5rem);
 }</code></pre>
     </div>
   </div>

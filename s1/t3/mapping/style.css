@@ -9,7 +9,6 @@ code {
   font-size: var(--font-size-s);
   background: var(--surface-main-variant);
   padding: 0.1em 0.35em;
-  border-radius: var(--radius-subtle);
 }
 
 .lp-desc {
@@ -20,63 +19,87 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Sekce 2 — tabulka fyzické → logické mapování ────────────────────────── */
+/* Mezinadpis pro druhou tabulku (jednotky) — mono štítek */
+.lp-subhead {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-block: var(--base-4) var(--base-2);
+}
+
+/* ── Mapovací tabulka — kompaktní tactical-HUD readout (skill §1/§4) ──────────
+   Hard 90° rám v --text-primary, monospace, vysoká hustota, žádné stíny ani
+   zaoblení. Jediný akcent: sage = doporučená logická vlastnost; fyzická tlumená
+   (starý zápis). Red rezervovaná pro chyby — proto ji tady nepoužíváme. */
 
 .lp-table-wrap {
   overflow-x: auto;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid var(--text-primary);
 }
 
 .lp-table {
   inline-size: 100%;
   border-collapse: collapse;
-  font-size: var(--font-size-s);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
   background: var(--surface-main);
 }
 
 .lp-table thead {
-  background: var(--surface-brand-primary-minimal);
+  background: var(--surface-main-dim);
 }
 
 .lp-table th {
   text-align: start;
-  padding-block: var(--base-2);
-  padding-inline: var(--base-3);
+  padding: var(--base-h) var(--base-2);
   font-size: var(--font-size-xs);
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
-  font-family: var(--font-stack-monospace);
-  border-block-end: 1px solid var(--border);
+  border-block-end: 1px solid var(--text-primary);
   white-space: nowrap;
 }
 
 .lp-table td {
-  padding-block: var(--base-2);
-  padding-inline: var(--base-3);
+  padding: var(--base-h) var(--base-2);
   border-block-end: 1px solid var(--border);
-  color: var(--text-primary);
-  vertical-align: top;
-  line-height: 1.5;
+  color: var(--text-secondary);
+  vertical-align: baseline;
+  line-height: 1.35;
 }
 
-/* Fyzická vlastnost — červená (upozornění) */
-.lp-table td:first-child code {
-  color: var(--status-error);
-  background: color-mix(in srgb, var(--status-error) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--status-error) 20%, transparent);
+/* První dva sloupce podle obsahu; popis (poslední) zabere zbytek šířky */
+.lp-table th:first-child,  .lp-table td:first-child,
+.lp-table th:nth-child(2), .lp-table td:nth-child(2) {
+  inline-size: 1%;
+  white-space: nowrap;
 }
 
-/* Logická vlastnost — zelená (doporučení) */
+/* Ploché mono tokeny — bez chipu, jen barva nese význam */
+.lp-table code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-size-xs);
+}
+
+/* Fyzická vlastnost — tlumená (starý způsob) */
+.lp-table td:first-child code { color: var(--text-secondary); }
+
+/* Logická vlastnost — sage (doporučený způsob) */
 .lp-table td:nth-child(2) code {
-  color: var(--status-success);
-  background: color-mix(in srgb, var(--status-success) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--status-success) 20%, transparent);
+  color: var(--text-brand-primary);
+  font-weight: 600;
 }
 
 .lp-table td:last-child {
   color: var(--text-secondary);
-  font-size: var(--font-size-xs);
+  font-family: var(--font-stack-main);
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .lp-table tr:last-child td {
@@ -85,15 +108,4 @@ code {
 
 .lp-table tbody tr:hover {
   background: var(--surface-main-variant);
-}
-
-@media (max-width: 600px) {
-  .lp-inset-demo {
-    grid-template-columns: 1fr;
-  }
-
-  .lp-inset-arrow {
-    transform: rotate(90deg);
-    justify-self: center;
-  }
 }

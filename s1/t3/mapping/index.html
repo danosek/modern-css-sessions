@@ -54,6 +54,11 @@
               <td>Rozměr podél osy blokové (↓)</td>
             </tr>
             <tr>
+              <td><code>max-width</code></td>
+              <td><code>max-inline-size</code></td>
+              <td>Horní limit rozměru v inline ose</td>
+            </tr>
+            <tr>
               <td><code>margin-top</code> / <code>margin-bottom</code></td>
               <td><code>margin-block</code></td>
               <td>Odsazení v blokové ose (zkratka pro obě)</td>
@@ -89,9 +94,60 @@
               <td>Rámeček začátku inline osy</td>
             </tr>
             <tr>
+              <td><code>border-top-left-radius</code></td>
+              <td><code>border-start-start-radius</code></td>
+              <td>Zaoblení rohu blok-start × inline-start</td>
+            </tr>
+            <tr>
+              <td><code>overflow-x</code> / <code>overflow-y</code></td>
+              <td><code>overflow-inline</code> / <code>overflow-block</code></td>
+              <td>Přetečení v inline / blokové ose</td>
+            </tr>
+            <tr>
+              <td><code>float: left</code></td>
+              <td><code>float: inline-start</code></td>
+              <td>Obtékání k začátku inline osy</td>
+            </tr>
+            <tr>
               <td><code>text-align: left</code></td>
               <td><code>text-align: start</code></td>
               <td>Zarovnání k začátku inline osy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="lp-subhead">Logické jednotky</p>
+
+      <div class="lp-table-wrap">
+        <table class="lp-table">
+          <thead>
+            <tr>
+              <th>Fyzická jednotka</th>
+              <th>Logická jednotka</th>
+              <th>Popis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>vw</code></td>
+              <td><code>vi</code></td>
+              <td>1 % rozměru viewportu v inline ose</td>
+            </tr>
+            <tr>
+              <td><code>vh</code></td>
+              <td><code>vb</code></td>
+              <td>1 % rozměru viewportu v blokové ose</td>
+            </tr>
+            <tr>
+              <td><code>cqw</code></td>
+              <td><code>cqi</code></td>
+              <td>1 % inline rozměru container-query kontejneru</td>
+            </tr>
+            <tr>
+              <td><code>cqh</code></td>
+              <td><code>cqb</code></td>
+              <td>1 % blokového rozměru container-query kontejneru</td>
             </tr>
           </tbody>
         </table>
@@ -122,6 +178,25 @@
   padding-block-start: 1.5rem;    /* = padding-top */
   border-inline-start: 3px solid; /* = border-left */
   text-align: start;              /* = text-align: left v LTR */
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Zaoblení &amp; obtékání</h2>
+      <pre tabindex="0"><code class="language-css">.tile {
+  border-top-left-radius: 8px;       /* → */  border-start-start-radius: 8px;
+  float: left;                       /* → */  float: inline-start;
+  overflow-y: auto;                  /* → */  overflow-block: auto;
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Logické jednotky</h2>
+      <pre tabindex="0"><code class="language-css">.hero {
+  inline-size: 80vi;   /* = 80vw v horizontálním psaní */
+  block-size:  50vb;   /* = 50vh */
+}
+
+@container (min-inline-size: 30rem) {
+  .card { padding-inline: 4cqi; }  /* = 4cqw */
 }</code></pre>
     </div>
   </div>

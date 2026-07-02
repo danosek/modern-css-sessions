@@ -32,57 +32,46 @@
       <p class="lp-desc">
         Vlastnost <code>inset</code> nahrazuje všechny čtyři poziční vlastnosti najednou
         a funguje stejně jako <code>margin</code> či <code>padding</code> co do pořadí hodnot.
+        Box uvnitř containeru je odsazený o <strong>20 %</strong> z každé strany — táhni
+        posuvníkem a sleduj, jak se obě verze (fyzická i logická) mění úplně stejně.
       </p>
 
-      <div class="lp-inset-demo">
+      <div class="lp-inset-controls">
+        <label for="inset-range">Odsazení boxu</label>
+        <input id="inset-range" class="lp-inset-range" type="range" min="0" max="40" value="20" step="1">
+        <output id="inset-val" class="lp-inset-controls__val">inset: 20%</output>
+      </div>
 
-        <div class="lp-inset-item">
-          <div class="lp-inset-item__label lp-inset-item__label--before">Fyzicky (4 řádky)</div>
-          <pre class="lp-snippet lp-snippet--full"><code>/* Fyzicky — 4 vlastnosti */
-.overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}</code></pre>
-          <div class="lp-inset-vis">
-            <div class="lp-inset-vis__box">
-              <div class="lp-inset-vis__inner lp-inset-vis__inner--physical">fyzické</div>
-            </div>
-            <ul class="lp-inset-vis__labels">
-              <li><code>top: 0</code></li>
-              <li><code>right: 0</code></li>
-              <li><code>bottom: 0</code></li>
-              <li><code>left: 0</code></li>
-            </ul>
+      <!-- BOXY NAHOŘE — bordered container + absolutně pozicovaný barevný element -->
+      <div class="lp-inset-boxes">
+        <div class="lp-inset-cell">
+          <div class="lp-inset-cell__label lp-inset-cell__label--before">Fyzicky · 4 vlastnosti</div>
+          <div class="lp-inset-box">
+            <span class="lp-inset-box__inner lp-inset-box__inner--physical">box</span>
           </div>
         </div>
 
-        <div class="lp-inset-arrow">→</div>
-
-        <div class="lp-inset-item">
-          <div class="lp-inset-item__label lp-inset-item__label--after">Logicky (1 řádek)</div>
-          <pre class="lp-snippet lp-snippet--full"><code>/* Logicky — zkratka inset */
-.overlay {
-  position: absolute;
-  inset: 0;
-}
-
-/* nebo s různými hodnotami */
-.panel {
-  inset: 1rem 0 0 1rem;
-}</code></pre>
-          <div class="lp-inset-vis">
-            <div class="lp-inset-vis__box">
-              <div class="lp-inset-vis__inner lp-inset-vis__inner--logical">inset: 0</div>
-            </div>
-            <ul class="lp-inset-vis__labels">
-              <li><code>inset: 0</code> ← vše najednou</li>
-            </ul>
+        <div class="lp-inset-cell">
+          <div class="lp-inset-cell__label lp-inset-cell__label--after">Logicky · inset</div>
+          <div class="lp-inset-box">
+            <span class="lp-inset-box__inner lp-inset-box__inner--logical">box</span>
           </div>
         </div>
+      </div>
 
+      <!-- KÓD DOLE -->
+      <div class="lp-inset-code">
+        <pre class="lp-snippet"><code>.box {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  bottom: 20%;
+  left: 20%;
+}</code></pre>
+        <pre class="lp-snippet"><code>.box {
+  position: absolute;
+  inset: 20%;
+}</code></pre>
       </div>
       </div>
     </div>
@@ -91,16 +80,16 @@
   <div class="demo-code">
     <div class="demo-code__section">
       <h2 class="demo-code__title">Pozicování — inset</h2>
-      <pre tabindex="0"><code class="language-css">/* Fyzicky: */
-.overlay {
+      <pre tabindex="0"><code class="language-css">/* Fyzicky — 4 vlastnosti: */
+.box {
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 20%; right: 20%; bottom: 20%; left: 20%;
 }
 
 /* Logicky — zkratka inset: */
-.overlay {
+.box {
   position: absolute;
-  inset: 0;           /* = top right bottom left = 0 */
+  inset: 20%;         /* = top right bottom left = 20% */
 }
 
 /* inset funguje jako margin/padding shorthand: */

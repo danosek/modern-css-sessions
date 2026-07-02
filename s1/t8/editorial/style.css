@@ -5,7 +5,7 @@
 
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
+  color: var(--text-brand-primary);
 }
 
 .sizing-btn {
@@ -13,7 +13,6 @@ code {
   background: var(--surface-control);
   color: var(--text-primary);
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
   cursor: pointer;
@@ -25,8 +24,8 @@ code {
 }
 
 .sizing-btn[aria-pressed="true"] {
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary-on-surface-brand-secondary-strong);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
   border-color: transparent;
 }
 
@@ -34,38 +33,6 @@ code {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   margin-bottom: var(--base-3);
-}
-
-/* ── Product cards grid — hlavní subgrid ukázka ──────────────────────────── */
-/*    Toggle „Se subgrid" přidá třídu .use-subgrid na .products-grid          */
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--base-3);
-  margin-bottom: var(--base-2);
-}
-
-/* SE subgrid: grid definuje explicitní řádky, karty je "vypůjčí" */
-.products-grid.use-subgrid {
-  grid-template-rows: repeat(5, auto);
-}
-
-.products-grid.use-subgrid .product-card {
-  grid-row: span 5;          /* karta obsadí 5 řádků rodiče */
-  display: grid;
-  grid-template-rows: subgrid; /* použij ty samé řádky */
-  gap: 0;
-}
-
-/* Se subgrid: desc je explicitní řádek, flex: 1 by nefungovalo */
-.use-subgrid .product-card__desc {
-  flex: unset;
-}
-
-/* Se subgrid: tlačítko sedí v explicitním řádku, margin-top není potřeba */
-.use-subgrid .product-card__btn {
-  margin-top: unset;
 }
 
 /* ── Editoriální layout — subgrid zarovná 4 zóny přes 3 karty ────────────── */
@@ -96,7 +63,6 @@ code {
 .editorial-card {
   background: var(--surface-front);
   border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -151,7 +117,6 @@ code {
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
   border: none;
-  border-radius: var(--radius);
   font-family: var(--font-stack-main);
   font-size: var(--font-size-s);
   cursor: pointer;

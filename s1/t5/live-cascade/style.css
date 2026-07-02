@@ -1,139 +1,154 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D5 — @layer
+   D5 — @layer · Živá ukázka (pořadí vrstev bije specificitu)
+   Soutěžící @layer pravidla žijí v inline <style id="lab-layers"> v index.html
+   (JS přepisuje jen pořadí). Tady je layout + základní (nesoutěžící) vzhled.
    ═══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Pomocný typ + layout helpers ────────────────────────────────────────── */
 
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
+  color: var(--text-brand-primary);
 }
 
-/* ── Živá ukázka — diagram vrstev ────────────────────────────────────────── */
+/* Základní vzhled tlačítka — MIMO vrstvy, nenastavuje background/color,
+   takže o barvě rozhoduje výhradně kaskáda @layer. */
+.lab-btn {
+  padding: var(--base-2) var(--base-4);
+  border: 2px solid var(--text-primary);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background 120ms steps(2, end), color 120ms steps(2, end);
+}
 
-.layer-diagram {
+.lab-grid {
+  display: grid;
+  grid-template-columns: minmax(140px, auto) 1fr;
+  gap: var(--base-4);
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .lab-grid { grid-template-columns: 1fr; }
+}
+
+.lab-stage {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border-radius: var(--radius-strong);
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  gap: var(--base-2);
+  padding: var(--base-5);
+  background: var(--surface-main-variant);
   border: 1px solid var(--border);
 }
+.lab-stage__cap {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
 
-.layer {
+/* Soutěžící pravidla — každé jako čitelná deklarace s barevným vzorkem.
+   Vítěze + verdikt řídí JS přes data-active / [data-verdict]. */
+.lab-rules {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin: 0;
+}
+
+.lab-rule {
+  display: grid;
+  gap: var(--base);
+  padding: var(--base-2) var(--base-3);
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--border);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+}
+
+.lab-rule__head {
+  display: flex;
   justify-content: space-between;
   gap: var(--base-2);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.lab-rule__head samp { color: var(--text-primary); background: none; }
+.lab-rule__spec { color: var(--text-secondary); }
+
+.lab-rule__decl {
+  display: flex;
+  align-items: center;
+  gap: var(--base);
+  margin: 0;
+}
+.lab-rule__decl code { color: var(--text-secondary); background: none; }
+
+/* Barevný vzorek = barva, kterou pravidlo nastaví (shoduje se s tlačítkem) */
+.lab-swatch {
+  inline-size: 1rem;
+  block-size: 1rem;
+  flex-shrink: 0;
+  border: 1px solid var(--text-primary);
+}
+.lab-swatch--components { background: var(--surface-brand-primary-strong); }
+.lab-swatch--utilities  { background: var(--surface-brand-secondary-strong); }
+
+.lab-rule__verdict {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+/* Vítěz — akcentovaný okraj + plné barvy; poražený ztlumený */
+.lab-rule[data-active="win"] {
+  border-color: var(--text-brand-primary);
+  border-inline-start-color: var(--text-brand-primary);
+  background: var(--surface-main-variant);
+}
+.lab-rule[data-active="win"] .lab-rule__decl code { color: var(--text-primary); }
+.lab-rule[data-active="win"] .lab-rule__verdict { color: var(--text-brand-primary); }
+.lab-rule[data-active="lose"] { opacity: 0.55; }
+
+.lab-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-3);
+  margin-top: var(--base-4);
+}
+
+.lab-toggle {
   padding: var(--base-2) var(--base-3);
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-
-.layer:last-child {
-  border-bottom: none;
-}
-
-.layer--reset     { background: var(--surface-main-dim); }
-
-.layer--base      { background: var(--surface-main); }
-
-.layer--components { background: var(--surface-main-variant); }
-
-.layer--utilities  { background: var(--surface-brand-primary-minimal); }
-
-.layer--unlayered  {
-  background: var(--surface-brand-primary-subtle);
-  border-top: 2px solid var(--surface-brand-primary-moderate);
-}
-
-.layer__name {
+  background: var(--surface-main);
+  border: 2px solid var(--text-primary);
+  color: var(--text-primary);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
-  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
 }
+.lab-toggle:hover { background: var(--surface-brand-primary-minimal); }
+.lab-toggle:focus-visible { outline: 2px solid var(--text-brand-primary); outline-offset: 2px; }
 
-.layer--unlayered .layer__name {
-  color: var(--text-brand-primary);
-  font-weight: 600;
-}
-
-.layer__desc {
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
+.lab-readout {
   font-family: var(--font-stack-monospace);
-}
-
-.layer-note {
-  margin-top: var(--base-2);
   font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
-  font-family: var(--font-stack-monospace);
 }
 
-/* ── Skutečné @layer demo — tlačítka v battlegroundu ────────────────────── */
-
-/* Pořadí vrstev deklarováno předem */
-@layer reset, base, components, utilities;
-
-@layer components {
-  .btn-primary {
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-  }
-}
-
-@layer utilities {
-  .bg-brand {
-    background: var(--surface-brand-secondary-strong);
-    color: var(--text-primary-on-surface-brand-secondary-strong);
-  }
-}
-
-@layer components {
-  .rv-btn {
-    padding: var(--base-h) var(--base-3);
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-    border: none;
-    border-radius: var(--radius);
-    font-family: var(--font-stack-main);
-    font-size: var(--font-size-s);
-    cursor: pointer;
-    width: fit-content;
-  }
-
-  .rv-btn--ghost {
-    background: revert-layer;
-    border: 1px solid var(--surface-brand-primary-strong);
-    color: var(--text-brand-primary);
-  }
-}
-
-/* Skutečné pravidla pro demo anonymní vrstvy
-   Použijeme oddělené názvy anon-base / anon-theme aby nedošlo ke kolizi
-   s existující deklarací @layer reset, base, components, utilities výše. */
-@layer anon-base, anon-theme;
-
-@layer anon-theme {
-  .anon-swatch--theme {
-    background: var(--surface-brand-primary-strong);
-    color: var(--text-primary-on-surface-brand-primary-strong);
-  }
-}
-
-@layer anon-base {
-  .anon-swatch--base {
-    background: var(--surface-main-variant);
-    color: var(--text-primary);
-  }
-}
-
-/* Anonymní vrstva — vždy nižší než pojmenované, přestože je v kódu za nimi */
-@layer {
-  .anon-swatch--anon {
-    background: var(--surface-main-dim);
-    color: var(--text-secondary);
-    border: 1px dashed var(--border-strong);
-  }
+.lab-note {
+  margin-top: var(--base-3);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 70ch;
+  line-height: 1.6;
 }

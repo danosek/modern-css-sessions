@@ -31,65 +31,70 @@
     <div class="demo-section">
       <div class="demo-section__example">
       <p class="lp-desc">
-        Tlačítko přepíná směr čtení (<code>dir</code>) na celém demo kontejneru.
-        Logická verze se automaticky překlopí do RTL, fyzická ne.
+        Obě karty mají <strong>identický obsah</strong> i layout — pruh, ikonu a velké
+        odsazení na <em>začátku</em>. Liší se jen tím, čím jsou nastylované: fyzickými,
+        nebo logickými vlastnostmi. Přepni do <strong>RTL</strong> a sleduj: u fyzické
+        karty zůstanou pruh i ikona vlevo (text ale teče zprava → rozpadne se to),
+        u logické se překlopí na začátek čtení a layout zůstane v pořádku.
       </p>
 
       <div class="lp-demo-wrap" dir="ltr">
-        <div class="lp-toggle-bar">
-          <span class="lp-dir-badge" id="lp-dir-label">Aktuální směr: <strong>LTR</strong></span>
-          <button class="lp-dir-toggle sizing-btn">→ Přepnout na RTL</button>
+        <div class="seg-toolbar" role="group" aria-label="Směr čtení">
+          <button class="seg-btn" data-dir="ltr" aria-pressed="true">LTR →</button>
+          <button class="seg-btn" data-dir="rtl" aria-pressed="false">← RTL</button>
         </div>
 
         <div class="lp-compare">
 
-          <!-- Fyzická varianta -->
+          <!-- Fyzická varianta — vše hardcoded vlevo (nepřeklopí se) -->
           <div class="lp-col">
             <div class="lp-col__label lp-col__label--bad">Fyzické vlastnosti</div>
             <div class="lp-card lp-card--physical">
-              <div class="lp-card__badge lp-card__badge--bad">physical</div>
-              <h3 class="lp-card__title">Název položky</h3>
+              <span class="lp-card__icon" aria-hidden="true">★</span>
+              <h3 class="lp-card__title">Responzivní karta</h3>
               <p class="lp-card__body">
-                Tato karta používá <code>margin-left</code>, <code>padding-top</code>
-                a <code>border-left</code>. Při přepnutí do RTL se tyto vlastnosti
-                nepřeklopí — levý okraj zůstane vlevo.
+                Stejný obsah, stejný layout — pruh, ikona i odsazení na začátku.
+                Liší se jen to, čím jsou nastylované. Přepni směr čtení a porovnej.
               </p>
               <div class="lp-card__meta">
-                <span class="lp-card__tag">fyzická</span>
-                <span class="lp-card__tag">nepřeklápí se</span>
+                <span class="lp-card__tag">UI</span>
+                <span class="lp-card__tag">Layout</span>
+                <span class="lp-card__tag">RTL</span>
               </div>
             </div>
-            <pre class="lp-snippet"><code>/* Fyzické vlastnosti */
-.card {
-  margin-left: 1rem;
-  padding-top: 1.5rem;
-  border-left: 3px solid;
-  text-align: left;
+            <pre class="lp-snippet"><code>.card {
+  border-left: 8px solid;
+  padding-left: 3.5rem;
+}
+
+.card .ico {
+  left: 0.75rem;
 }</code></pre>
           </div>
 
-          <!-- Logická varianta -->
+          <!-- Logická varianta — vše na inline-start (překlopí se) -->
           <div class="lp-col">
             <div class="lp-col__label lp-col__label--good">Logické vlastnosti</div>
             <div class="lp-card lp-card--logical">
-              <div class="lp-card__badge lp-card__badge--good">logical</div>
-              <h3 class="lp-card__title">Název položky</h3>
+              <span class="lp-card__icon" aria-hidden="true">★</span>
+              <h3 class="lp-card__title">Responzivní karta</h3>
               <p class="lp-card__body">
-                Tato karta používá <code>margin-inline-start</code>,
-                <code>padding-block-start</code> a <code>border-inline-start</code>.
-                Při přepnutí do RTL se automaticky překlopí na správnou stranu.
+                Stejný obsah, stejný layout — pruh, ikona i odsazení na začátku.
+                Liší se jen to, čím jsou nastylované. Přepni směr čtení a porovnej.
               </p>
               <div class="lp-card__meta">
-                <span class="lp-card__tag lp-card__tag--good">logická</span>
-                <span class="lp-card__tag lp-card__tag--good">překlopí se ✓</span>
+                <span class="lp-card__tag">UI</span>
+                <span class="lp-card__tag">Layout</span>
+                <span class="lp-card__tag">RTL</span>
               </div>
             </div>
-            <pre class="lp-snippet"><code>/* Logické vlastnosti */
-.card {
-  margin-inline-start: 1rem;
-  padding-block-start: 1.5rem;
-  border-inline-start: 3px solid;
-  text-align: start;
+            <pre class="lp-snippet"><code>.card {
+  border-inline-start: 8px solid;
+  padding-inline-start: 3.5rem;
+}
+
+.card .ico {
+  inset-inline-start: 0.75rem;
 }</code></pre>
           </div>
 

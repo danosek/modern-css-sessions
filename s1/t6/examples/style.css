@@ -6,7 +6,7 @@
 
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
+  color: var(--text-brand-primary);
 }
 
 /* ── Layout helpers ──────────────────────────────────────────────────────── */
@@ -60,11 +60,10 @@ code {
 }
 
 .field-input {
-  height: 36px;
+  height: calc(var(--base-4) + var(--base-h));
   padding: 0 var(--base-2);
   background: var(--surface-front);
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
   font-family: var(--font-stack-main);
   font-size: var(--font-size-s);
   color: var(--text-primary);
@@ -103,7 +102,6 @@ code {
 
 .nav-section {
   padding: var(--base-2) var(--base-3);
-  border-radius: var(--radius);
   border-left: 3px solid transparent;
   transition: background 0.15s, border-color 0.15s;
 }
@@ -132,7 +130,7 @@ code {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--border);
 }
 
 .nav-link {
@@ -164,29 +162,27 @@ code {
 .card {
   background: var(--surface-front);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
   padding: var(--base-3);
 }
 
 /* :has() — layout se mění podle přítomnosti potomka */
 .card:has(.card__img) {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: calc(var(--base-8) + var(--base-2)) 1fr;
   gap: var(--base-3);
   align-items: start;
   padding: var(--base-2) var(--base-3);
 }
 
 .card__img {
-  width: 80px;
-  height: 80px;
+  width: calc(var(--base-8) + var(--base-2));
+  height: calc(var(--base-8) + var(--base-2));
   background: var(--surface-brand-primary-subtle);
   border: 1px solid var(--surface-brand-primary-moderate);
-  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: var(--font-size-xxl);
   color: var(--text-brand-primary);
 }
 
@@ -251,7 +247,6 @@ code {
 .qq-item {
   background: var(--surface-brand-primary-minimal);
   border: 1px solid var(--surface-brand-primary-moderate);
-  border-radius: var(--radius);
   padding: var(--base-2) var(--base-3);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);

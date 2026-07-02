@@ -22,99 +22,81 @@
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">@layer — praktické příklady</h1>
     <span class="demo-feature">
-      <span class="demo-feature__kw">@layer</span>
+      <span class="demo-feature__kw">@layer</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">revert-layer</span>
     </span>
   </div>
 
   <div class="demo-stage">
     <div class="demo-section">
       <div class="demo-section__example">
-      <div class="examples-cols">
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>@import layer()</code>
-            <span>Third-party knihovna v nejnižší vrstvě</span>
+        <div class="examples-cols">
+
+          <!-- A: third-party knihovna uzamčená v nízké vrstvě -->
+          <div class="layout-example" id="lib">
+            <div class="layout-example__label">
+              <code>@import "lib" layer(reset)</code>
+              <span>Knihovna uzamčená v reset — naše komponenta ji přebije bez !important</span>
+            </div>
+            <div class="ex-stage">
+              <button class="lib-btn">Tlačítko</button>
+              <dl class="ex-rules">
+                <div class="ex-rule ex-rule--lose">
+                  <dt><samp>#lib .lib-btn</samp></dt>
+                  <dd>@layer reset (knihovna) · (1,1,0)</dd>
+                </div>
+                <div class="ex-rule ex-rule--win">
+                  <dt><samp>.lib-btn</samp></dt>
+                  <dd>@layer components (naše) · (0,1,0) · [ WIN ]</dd>
+                </div>
+              </dl>
+            </div>
           </div>
-          <div class="layout-stage">
-            <div class="lib-demo">
-              <div class="lib-card lib-card--library">
-                <div class="lib-card__label">Knihovna (reset)</div>
-                <button class="lib-btn lib-btn--library">Tlačítko z knihovny</button>
-                <p class="lib-note">Styly jsou "uzamčeny" do vrstvy reset — nemohou ovlivnit naše komponenty.</p>
+
+          <!-- B: revert-layer vrátí hodnotu na nižší vrstvu -->
+          <div class="layout-example">
+            <div class="layout-example__label">
+              <code>revert-layer</code>
+              <span>Vrátí hodnotu na to, co definovala nižší vrstva</span>
+            </div>
+            <div class="ex-stage">
+              <div class="ex-stage--row">
+                <button class="rv-btn">Normální (components)</button>
+                <button class="rv-btn rv-btn--ghost">Ghost — revert-layer</button>
               </div>
-              <div class="lib-card lib-card--ours">
-                <div class="lib-card__label">Naše komponenta (components)</div>
-                <button class="lib-btn lib-btn--ours">Naše tlačítko</button>
-                <p class="lib-note">Přebije knihovnu bez <code>!important</code> — prostě je v nižší vrstvě.</p>
-              </div>
+              <p class="ex-note">
+                <code>base</code> nastaví podklad, <code>components</code> ho přebije.
+                <code>background: revert-layer</code> v <code>components</code> ho vrátí
+                zpět na hodnotu z <code>base</code> — ne na průhlednou.
+              </p>
             </div>
           </div>
+
         </div>
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>revert-layer</code>
-            <span>Vrácení hodnoty na předchozí vrstvu</span>
-          </div>
-          <div class="layout-stage">
-            <div class="revert-demo">
-              <button class="rv-btn">Normální tlačítko</button>
-              <button class="rv-btn rv-btn--ghost">Ghost variant (revert-layer)</button>
-              <p class="lib-note"><code>background: revert-layer</code> vrátí hodnotu na to, co definovala nižší vrstva — bez znalosti konkrétní hodnoty.</p>
-            </div>
-          </div>
-        </div>
+        <p class="ex-note ex-note--full">
+          <code>@layer { … }</code> bez jména je <strong>vždy nižší</strong> než kterákoli
+          pojmenovaná vrstva — bez ohledu na pořadí v kódu.
+        </p>
 
-      </div>
+        <div class="demo-code">
+          <div class="demo-code__section">
+            <h2 class="demo-code__title">Pořadí, revert-layer a anonymní vrstva</h2>
+            <pre tabindex="0"><code class="language-css">/* Pořadí deklarováno dopředu — vrstvy lze poté naplnit kdekoli */
+@layer reset, base, components, utilities;
 
-      <!-- Anonymní vrstva vs. pojmenovaná -->
-      <div class="layout-example">
-        <div class="layout-example__label">
-          <code>@layer { … }</code>
-          <span>Anonymní vrstva — vždy nižší než pojmenované</span>
-        </div>
-        <div class="layout-stage">
-          <div class="anon-diagram">
-            <div class="anon-layer anon-layer--unlayered">
-              <span class="anon-layer__name">bez vrstvy (unlayered)</span>
-              <span class="anon-layer__priority">priorita 4 — nejvyšší</span>
-            </div>
-            <div class="anon-layer anon-layer--named-theme">
-              <span class="anon-layer__name">@layer theme</span>
-              <span class="anon-layer__priority">priorita 3 ✓</span>
-            </div>
-            <div class="anon-layer anon-layer--named-base">
-              <span class="anon-layer__name">@layer base</span>
-              <span class="anon-layer__priority">priorita 2</span>
-            </div>
-            <div class="anon-layer anon-layer--anon">
-              <span class="anon-layer__name">@layer { … } — anonymní</span>
-              <span class="anon-layer__priority">priorita 1 — vždy nejnižší</span>
-            </div>
-          </div>
+/* Knihovna v reset prohraje s naší components — i s vyšší specificitou */
+@layer reset      { #lib .lib-btn { background: gray; } }   /* (1,1,0) */
+@layer components { .lib-btn      { background: teal; } }   /* (0,1,0) → VYHRÁVÁ */
 
-          <div class="anon-swatches">
-            <span class="anon-swatch anon-swatch--theme">theme (pojmenovaná)</span>
-            <span class="anon-swatch anon-swatch--base">base (pojmenovaná)</span>
-            <span class="anon-swatch anon-swatch--anon">@layer { } anonymní</span>
-          </div>
-
-          <p class="anon-note">Deklarace <code>@layer base, theme;</code> fixuje pořadí — <code>theme</code> vždy bije <code>base</code>, bez ohledu na pořadí v kódu. Anonymní vrstva <code>@layer { … }</code> je vždy pod všemi pojmenovanými.</p>
-        </div>
-
-        <div class="code-block" style="margin-top: var(--base);">
-          <pre><code>/* Pořadí deklarováno dopředu — poté lze @layer naplnit kamkoliv v kódu */
-@layer base, theme;
-
-/* theme > base — přestože @layer base je v kódu zapsán dřív */
-@layer theme { .btn { background: var(--surface-brand-primary-strong); } }
-@layer base  { .btn { background: var(--surface-main-dim); } }
+/* revert-layer vrátí hodnotu na nižší vrstvu (base), ne na initial */
+@layer base       { .rv-btn       { background: #333; } }
+@layer components { .rv-btn--ghost { background: revert-layer; } }  /* → #333 z base */
 
 /* Anonymní vrstva — VŽDY nižší než pojmenované, i když je v kódu nakonec */
-@layer { .btn { background: red; } }   /* nikdy nevyhraje */</code></pre>
+@layer { .btn { background: red; } }   /* nikdy nevyhraje nad pojmenovanou */</code></pre>
+          </div>
         </div>
-      </div>
 
       </div>
     </div>

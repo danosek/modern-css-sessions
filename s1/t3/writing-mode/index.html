@@ -30,51 +30,58 @@
     <div class="demo-section">
       <div class="demo-section__example">
       <p class="lp-desc">
-        Fyzické vlastnosti jako <code>padding-left</code> nebo <code>padding-right</code> jsou vázané
-        na viewport, nikoli na směr textu. U vertikálního textu (<code>writing-mode: vertical-rl</code>)
-        se osy otočí — to, co bylo "vlevo", je teď nahoře. Logické vlastnosti se otočí automaticky.
+        Obě karty mají <strong>identický obsah</strong> i barevný pruh na začátku. Liší se jen tím,
+        čím je pruh nastylovaný — fyzicky (<code>border-left</code>), nebo logicky
+        (<code>border-inline-start</code>). Přepni na <strong>vertical-rl</strong> a sleduj pruh:
+        u fyzické karty zůstane <em>vlevo</em> (ale text teče shora dolů → je mimo začátek),
+        u logické se překlopí <em>nahoru</em>, na začátek řádku textu.
       </p>
 
-      <div class="lp-wm-row">
-
-        <!-- Fyzická varianta -->
-        <div class="lp-wm-col">
-          <div class="lp-wm-col__label lp-wm-col__label--bad">Fyzické vlastnosti</div>
-          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
-            <div class="lp-wm-tag lp-wm-tag--physical">Štítek A</div>
-            <div class="lp-wm-tag lp-wm-tag--physical">Delší popis</div>
-          </div>
-          <pre class="lp-snippet"><code>/* Fyzické — otočení osy je matoucí */
-.tag {
-  writing-mode: vertical-rl;
-  padding-left: 1rem;   /* → teď nahoře */
-  padding-right: 1rem;  /* → teď dole */
-  border-left: 4px solid; /* → teď nahoře */
-}</code></pre>
+      <div class="lp-wm">
+        <div class="seg-toolbar" role="group" aria-label="Writing mode">
+          <button class="seg-btn" data-wm="horizontal-tb" aria-pressed="true">horizontal-tb</button>
+          <button class="seg-btn" data-wm="vertical-rl" aria-pressed="false">vertical-rl</button>
         </div>
 
-        <!-- Logická varianta -->
-        <div class="lp-wm-col">
-          <div class="lp-wm-col__label lp-wm-col__label--good">Logické vlastnosti</div>
-          <div style="display: flex; gap: var(--base-3); align-items: flex-start;">
-            <div class="lp-wm-tag lp-wm-tag--logical">Štítek A</div>
-            <div class="lp-wm-tag lp-wm-tag--logical">Delší popis</div>
-          </div>
-          <pre class="lp-snippet"><code>/* Logické — otočí se automaticky ✓ */
-.tag {
-  writing-mode: vertical-rl;
-  padding-block: 1rem;    /* → podél textu */
-  padding-inline: 0.5rem; /* → napříč textu */
-  border-inline-start: 4px solid; /* → začátek textu */
+        <div class="lp-compare">
+
+          <!-- Fyzická varianta — border-left (nepřeklopí se) -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--bad">Fyzické vlastnosti</div>
+            <div class="lp-card lp-card--physical">
+              <h3 class="lp-card__title">Štítek</h3>
+              <p class="lp-card__body">
+                Stejný obsah, stejný pruh na začátku. Přepni writing-mode a sleduj, kam se pruh přesune.
+              </p>
+            </div>
+            <pre class="lp-snippet"><code>.card {
+  border-left: 8px solid;
+  padding-left: 2.5rem;
 }</code></pre>
+          </div>
+
+          <!-- Logická varianta — border-inline-start (překlopí se nahoru) -->
+          <div class="lp-col">
+            <div class="lp-col__label lp-col__label--good">Logické vlastnosti</div>
+            <div class="lp-card lp-card--logical">
+              <h3 class="lp-card__title">Štítek</h3>
+              <p class="lp-card__body">
+                Stejný obsah, stejný pruh na začátku. Přepni writing-mode a sleduj, kam se pruh přesune.
+              </p>
+            </div>
+            <pre class="lp-snippet"><code>.card {
+  border-inline-start: 8px solid;
+  padding-inline-start: 2.5rem;
+}</code></pre>
+          </div>
+
         </div>
 
-      </div>
-
-      <div class="lp-wm-hint">
-        U fyzické karty je <code>border-left</code> nahoře — protože po otočení writing-mode je "vlevo"
-        fyzicky nahoře. Logická <code>border-inline-start</code> vždy označuje začátek řádku textu,
-        ať už je směr čtení jakýkoli.
+        <div class="lp-wm-hint">
+          <code>border-inline-start</code> vždy označuje <strong>začátek řádku textu</strong> — proto se
+          ve <code>vertical-rl</code> překlopí nahoru. <code>border-left</code> je vázaný na viewport,
+          takže zůstane vlevo bez ohledu na směr textu.
+        </div>
       </div>
       </div>
     </div>
@@ -83,22 +90,22 @@
   <div class="demo-code">
     <div class="demo-code__section">
       <h2 class="demo-code__title">writing-mode a logické vlastnosti</h2>
-      <pre tabindex="0"><code class="language-css">/* Po otočení writing-mode se fyzické osy přeuspořádají:
-   vertical-rl → "vlevo" = nahoře, "vpravo" = dole                    */
+      <pre tabindex="0"><code class="language-css">/* vertical-rl → text teče shora dolů, řádky zprava doleva.
+   Začátek řádku (inline-start) je teď NAHOŘE.                 */
 
-/* Fyzicky — špatně, padding-left jde nahoru místo doleva */
-.tag-bad {
+/* Fyzicky — border-left je vázaný na viewport, zůstane vlevo,
+   takže je mimo začátek svislého textu */
+.card-physical {
   writing-mode: vertical-rl;
-  padding-left: 1rem;    /* teď je to nad textem */
-  border-left: 4px solid;/* teď je to nad textem */
+  border-left: 8px solid;     /* pořád vlevo */
+  padding-left: 2.5rem;       /* pořád vlevo */
 }
 
-/* Logicky — správně, padding-block jde podél textu */
-.tag-good {
+/* Logicky — border-inline-start se otočí na začátek řádku (nahoru) */
+.card-logical {
   writing-mode: vertical-rl;
-  padding-block: 1rem;          /* = podél osy textu */
-  padding-inline: 0.5rem;       /* = napříč osy textu */
-  border-inline-start: 4px solid; /* = začátek řádku textu */
+  border-inline-start: 8px solid;  /* = nahoře */
+  padding-inline-start: 2.5rem;    /* = nahoře */
 }</code></pre>
     </div>
   </div>

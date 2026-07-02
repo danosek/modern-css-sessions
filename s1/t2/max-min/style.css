@@ -89,21 +89,18 @@
   padding: var(--base-h) var(--base);
 }
 
-/* ── Dvě řešení — kód obou technik, aktivní zvýrazněná ───────────────────── */
+/* ── Řešení — kód jen aktuálně zvolené techniky (druhá je skrytá) ─────────── */
 .cc-solutions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--base-2);
 }
 .cc-solution {
-  border: 1px solid var(--border);
+  border: 1px solid var(--text-brand-primary);
   padding: var(--base-2) var(--base-3);
-  opacity: 0.5;
-  transition: opacity 0.15s, border-color 0.15s;
+  display: none;
 }
 .cc-solution.is-active {
-  opacity: 1;
-  border-color: var(--text-brand-primary);
+  display: block;
 }
 .cc-solution__title {
   font-family: var(--font-stack-monospace);
@@ -130,7 +127,6 @@
   background: var(--surface-main-variant);
   border: 1px solid var(--border);
   border-inline-start: 3px solid var(--surface-brand-primary-strong);
-  border-radius: var(--radius);
   padding: var(--base-3) var(--base-4);
 }
 .cf-info-card__title {

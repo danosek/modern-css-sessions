@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>min() — maximální šířka – Modern CSS S1</title>
+  <title>max() — minimální šířka – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -20,10 +20,10 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">min() — maximální šířka</h1>
-    <p class="demo-subtitle">Vrátí nejmenší z hodnot</p>
+    <h1 class="demo-title">max() — minimální šířka</h1>
+    <p class="demo-subtitle">Vrátí největší z hodnot</p>
     <span class="demo-feature">
-      <span class="demo-feature__kw">width</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">max-width</span>
+      <span class="demo-feature__kw">width</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">min-width</span>
     </span>
   </div>
 
@@ -35,26 +35,26 @@
         <div class="cf-compare">
           <div class="cf-compare__item">
             <div class="cf-compare__label">
-              <div class="fn-readout" data-fn-target="#cf-min-box" data-fn-prop="width">
-                <code class="fn-readout__expr"><span class="fn-readout__static">width: </span><span class="fn-readout__fn">min(</span><span class="fn-readout__arg" data-fn-arg="100%">100%</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="640px">640px</span><span class="fn-readout__fn">)</span></code>
+              <div class="fn-readout" data-fn-target="#cf-max-box" data-fn-prop="width">
+                <code class="fn-readout__expr"><span class="fn-readout__static">width: </span><span class="fn-readout__fn">max(</span><span class="fn-readout__arg" data-fn-arg="50%">50%</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="320px">320px</span><span class="fn-readout__fn">)</span></code>
                 <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
               </div>
-              <span class="cf-compare__note">100 % nebo maximálně 640 px — vždy menší hodnota</span>
+              <span class="cf-compare__note">50 % nebo minimálně 320 px — vždy větší hodnota</span>
             </div>
             <div class="cf-demo-box cf-demo-box--ruler">
-              <div class="cf-min-box" id="cf-min-box">
-                <span class="cf-box-label">min(100%, 640px)</span>
+              <div class="cf-max-box" id="cf-max-box">
+                <span class="cf-box-label">max(50%, 320px)</span>
               </div>
             </div>
           </div>
           <div class="cf-compare__item">
             <div class="cf-compare__label">
-              <code>max-width: 640px</code>
-              <span class="cf-compare__note">ekvivalentní zápis — ale <code>min()</code> přijme i více argumentů</span>
+              <code>min-width: 320px</code>
+              <span class="cf-compare__note">ekvivalentní zápis — ale <code>max()</code> přijme i více argumentů</span>
             </div>
             <div class="cf-demo-box cf-demo-box--ruler">
-              <div class="cf-maxwidth-box">
-                <span class="cf-box-label">max-width: 640px</span>
+              <div class="cf-minwidth-box">
+                <span class="cf-box-label">min-width: 320px</span>
               </div>
             </div>
           </div>
@@ -62,9 +62,9 @@
 
         <div class="cf-info-row">
           <div class="cf-info-card">
-            <div class="cf-info-card__title">Proč <code>min()</code>?</div>
-            <p>Na rozdíl od <code>max-width</code> přijme <code>min()</code> libovolný počet argumentů a může kombinovat
-              různé jednotky — například <code>min(50vw, 400px, 100%)</code>.</p>
+            <div class="cf-info-card__title">Proč <code>max()</code>?</div>
+            <p>Na rozdíl od <code>min-width</code> přijme <code>max()</code> libovolný počet argumentů a může kombinovat
+              různé jednotky — například <code>max(50vw, 320px, 20rem)</code>.</p>
           </div>
         </div>
 
@@ -74,18 +74,18 @@
 
   <div class="demo-code">
     <div class="demo-code__section">
-      <h2 class="demo-code__title">min()</h2>
-      <pre tabindex="0"><code class="language-css">/* min(a, b, …) — vrátí nejmenší hodnotu ze seznamu.
-   Výborné pro omezení šířky: buď 100 % nebo max. 640 px — co je menší. */
+      <h2 class="demo-code__title">max()</h2>
+      <pre tabindex="0"><code class="language-css">/* max(a, b, …) — vrátí největší hodnotu ze seznamu.
+   Výborné pro spodní hranici šířky: buď 50 % nebo min. 320 px — co je větší. */
 
 .container {
-  width: min(100%, 640px);
-  /* Ekvivalentní: max-width: 640px — ale min() přijme více argumentů */
+  width: max(50%, 320px);
+  /* Ekvivalentní: width: 50%; min-width: 320px — ale max() přijme více argumentů */
 }
 
-/* Kombinace více jednotek — není možné s max-width */
+/* Kombinace více jednotek — není možné s min-width */
 .sidebar {
-  width: min(50vw, 320px, 100%);
+  width: max(50vw, 320px, 20rem);
 }</code></pre>
     </div>
   </div>

@@ -110,7 +110,7 @@ body {
 /* Volitelný code block pod demem */
 .demo-code {
   position: relative;
-  background: var(--surface-main-dim);
+  background: var(--surface-main-variant);
   border: 2px solid var(--text-primary);
   border-radius: 0;
   padding: var(--base-3) var(--page-pad);

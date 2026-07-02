@@ -13,7 +13,6 @@ code {
 .code-block {
   background: var(--surface-main-variant);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
   overflow: auto;
 }
 
@@ -33,7 +32,6 @@ code {
 
 .fluid-demo {
   border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
   overflow: hidden;
 }
 
@@ -96,7 +94,6 @@ code {
   font-size: var(--font-size-xs);
   font-family: var(--font-stack-monospace);
   padding: var(--base-h) var(--base-2);
-  border-radius: var(--radius-subtle);
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
   white-space: nowrap;

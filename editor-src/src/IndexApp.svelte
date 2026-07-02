@@ -9,47 +9,44 @@
       topics: [
         { id: 't1', name: 'Intrinsic Sizing', demos: [
           { slug: 'sizing-values', index: 'D1', name: 'auto · min · max · fit-content' },
-          { slug: 'sizing-layout', index: 'D2', name: 'v layoutu (grid · centrování)' },
+          { slug: 'sizing-layout', index: 'D2', name: 'V layoutu (grid · centrování)' },
         ] },
-        { id: 't2', name: 'clamp() · min() · max()', demos: [
-          { slug: 'clamp-fluid', index: 'D1', name: 'clamp() — fluid typografie' },
-          { slug: 'min-width',   index: 'D2', name: 'min() — šířka kontejneru' },
+        { id: 't2', name: 'min() · max() · clamp()', demos: [
+          { slug: 'min-width',   index: 'D1', name: 'min() — maximální šířka' },
+          { slug: 'max-width',   index: 'D2', name: 'max() — minimální šířka' },
           { slug: 'max-min',     index: 'D3', name: 'max() · min() — řízené centrování' },
-          { slug: 'clamp-card',  index: 'D4', name: 'clamp() — responsivní karta' },
-          { slug: 'type-scale',  index: 'D5', name: 'clamp() — fluid type scale' },
+          { slug: 'clamp-fluid', index: 'D4', name: 'clamp() — fluid typografie' },
+          { slug: 'clamp-card',  index: 'D5', name: 'clamp() — responsivní karta' },
         ] },
         { id: 't3', name: 'Logical Properties', demos: [
-          { slug: 'physical-vs-logical', index: 'D1', name: 'fyzické vs. logické' },
-          { slug: 'mapping',      index: 'D2', name: 'physical → logical mapping' },
-          { slug: 'inset',        index: 'D3', name: 'zkratka inset' },
+          { slug: 'mapping',      index: 'D1', name: 'Physical → logical mapping' },
+          { slug: 'physical-vs-logical', index: 'D2', name: 'Fyzické vs. logické' },
+          { slug: 'inset',        index: 'D3', name: 'Zkratka inset' },
           { slug: 'writing-mode', index: 'D4', name: 'writing-mode' },
         ] },
         { id: 't4', name: 'CSS Nesting', demos: [
-          { slug: 'live-nav',          index: 'D1', name: 'živá ukázka — navigace' },
-          { slug: 'flat-vs-nested',    index: 'D2', name: 'flat vs. nested' },
-          { slug: 'state-pseudo',      index: 'D3', name: '&:hover · &:focus-visible' },
-          { slug: 'without-ampersand', index: 'D4', name: 'nesting bez &' },
-          { slug: 'nested-media',      index: 'D5', name: '@media uvnitř pravidla' },
+          { slug: 'flat-vs-nested', index: 'D1', name: 'Flat vs. nested' },
+          { slug: 'nested-media',   index: 'D2', name: '@media uvnitř pravidla' },
         ] },
         { id: 't5', name: '@layer', demos: [
-          { slug: 'live-cascade', index: 'D1', name: 'živá ukázka — pořadí vs. specificita' },
-          { slug: 'layer-order',  index: 'D2', name: 'pořadí bije specificitu' },
-          { slug: 'examples',     index: 'D3', name: 'praktické příklady' },
+          { slug: 'live-cascade', index: 'D1', name: 'Živá ukázka — pořadí vs. specificita' },
+          { slug: 'layer-order',  index: 'D2', name: 'Pořadí bije specificitu' },
+          { slug: 'examples',     index: 'D3', name: 'Praktické příklady' },
         ] },
         { id: 't6', name: ':has() · :is() · :where()', demos: [
           { slug: 'live-checklist', index: 'D1', name: ':has(input:checked)' },
-          { slug: 'examples',       index: 'D2', name: 'praktické příklady' },
+          { slug: 'examples',       index: 'D2', name: 'Praktické příklady' },
           { slug: 'is-where',       index: 'D3', name: ':is() · :where()' },
         ] },
         { id: 't7', name: 'Container Queries', demos: [
-          { slug: 'live-resize',    index: 'D1', name: 'živá ukázka — resize' },
-          { slug: 'three-contexts', index: 'D2', name: '3 kontexty' },
-          { slug: 'range-queries',  index: 'D3', name: 'range syntax' },
+          { slug: 'live-resize',    index: 'D1', name: 'Živá ukázka — resize' },
+          { slug: 'three-contexts', index: 'D2', name: 'Tři kontexty' },
+          { slug: 'range-queries',  index: 'D3', name: 'Range syntax' },
         ] },
         { id: 't8', name: 'Subgrid', demos: [
-          { slug: 'live-cards',  index: 'D1', name: 'řádky karet' },
-          { slug: 'form-fields', index: 'D2', name: 'formulářová pole' },
-          { slug: 'editorial',   index: 'D3', name: 'editoriální layout' },
+          { slug: 'live-cards',  index: 'D1', name: 'Řádky karet' },
+          { slug: 'form-fields', index: 'D2', name: 'Formulářová pole' },
+          { slug: 'editorial',   index: 'D3', name: 'Editoriální layout' },
         ] },
       ],
     },
@@ -120,41 +117,31 @@
 </button>
 
 <header class="masthead">
-  <div class="masthead__ident">
-    <span>[ TESCO SW ]</span>
-    <span class="mut">CSS · TRN · 2026</span>
-    <span class="masthead__period mut">ČVN 2026 — BŘE 2027</span>
-  </div>
-
-  <div class="masthead__core">
-    <div class="masthead__primary">
-      <h1 class="masthead__title">Modern CSS<br>Sessions</h1>
-      <p class="masthead__mission"><span class="acc">&gt;&gt;&gt;</span> INTERAKTIVNÍ CSS DEMA KE ŠKOLÍCÍMU CYKLU</p>
-    </div>
-    <dl class="masthead__telem">
-      <div class="masthead__trow">
-        <dt>SESSIONS</dt>
-        <dd><data value="{liveCount}">{liveCount}</data> / <data value="{sessions.length}">{sessions.length}</data></dd>
-      </div>
-      <div class="masthead__trow">
-        <dt>TOPICS</dt>
-        <dd><data value="{topicCount}">{topicCount}</data></dd>
-      </div>
-      <div class="masthead__trow">
-        <dt>DEMOS</dt>
-        <dd><data value="{demoCount}">{demoCount}</data></dd>
-      </div>
-      <div class="masthead__trow masthead__trow--active">
-        <dt>ACTIVE</dt>
-        <dd>{activeSession?.number ?? '—'}</dd>
-      </div>
-    </dl>
+  <div class="masthead__primary">
+    <h1 class="masthead__title">Modern CSS<br>Sessions</h1>
+    <p class="masthead__mission"><span class="acc">&gt;&gt;&gt;</span> INTERAKTIVNÍ CSS DEMA KE ŠKOLÍCÍMU CYKLU</p>
   </div>
 
   <div class="masthead__status">
     <span class="masthead__active-id">{activeSession?.number}</span>
     <span class="masthead__sep">::</span>
     <span class="masthead__active-title">{activeSession?.title?.toUpperCase()}</span>
+
+    <dl class="masthead__stats">
+      <div class="masthead__stat">
+        <dt>SESSIONS</dt>
+        <dd><data value="{liveCount}">{liveCount}</data> / <data value="{sessions.length}">{sessions.length}</data></dd>
+      </div>
+      <div class="masthead__stat">
+        <dt>TOPICS</dt>
+        <dd><data value="{topicCount}">{topicCount}</data></dd>
+      </div>
+      <div class="masthead__stat">
+        <dt>DEMOS</dt>
+        <dd><data value="{demoCount}">{demoCount}</data></dd>
+      </div>
+    </dl>
+
     <span class="masthead__ramp" aria-hidden="true">░░▒▒▓▓██▓▓▒▒░░</span>
     <span class="masthead__live">[ STATUS :: LIVE ]</span>
   </div>
@@ -217,38 +204,14 @@
   .masthead {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--base-3);
     padding: var(--base-3) var(--base-4);
     margin-bottom: var(--base-8);
     background: var(--surface-main-variant);
     border-block: 2px solid var(--text-primary);
   }
 
-  /* Identifikační lišta: mise / jednotka / čas */
-  .masthead__ident {
-    display: flex;
-    align-items: center;
-    gap: var(--base-3);
-    font-family: var(--font-stack-monospace);
-    font-size: var(--font-size-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding-bottom: var(--base-2);
-    border-bottom: 1px solid var(--border);
-    margin-bottom: var(--base-3);
-  }
-  .masthead__period { margin-left: auto; }
-  .mut { color: var(--text-secondary); }
   .acc { color: var(--text-primary); }
-
-  /* HUD jádro — makro-titulek vlevo, telemetrický panel vpravo */
-  .masthead__core {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--base-6);
-    align-items: end;
-    margin-bottom: var(--base-3);
-  }
 
   .masthead__primary {
     display: flex;
@@ -278,33 +241,12 @@
   }
   .masthead__mission .acc { color: var(--text-primary); margin-right: var(--base); }
 
-  /* Telemetrický panel — 2-sloupcový dl (dt :: dd), zarovnaný dolů */
-  .masthead__telem {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: var(--base-h) var(--base-3);
-    align-content: end;
-    font-family: var(--font-stack-monospace);
-    font-size: var(--font-size-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin: 0;
-    padding: 0 0 0 var(--base-4);
-    border-left: 1px solid var(--border);
-  }
-  .masthead__trow { display: contents; }
-  .masthead__trow dt { color: var(--text-secondary); white-space: nowrap; }
-  .masthead__trow dt::after { content: ' ::'; }
-  .masthead__trow dd { color: var(--text-primary); margin: 0; }
-  .masthead__trow--active dt,
-  .masthead__trow--active dt::after { color: var(--text-brand-primary); }
-  .masthead__trow--active dd { color: var(--text-brand-secondary); }
-
-  /* Stavová lišta — aktivní session + dithering */
+  /* Stavová lišta — aktivní session + statistiky + dithering */
   .masthead__status {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--base-2);
+    gap: var(--base) var(--base-2);
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
     text-transform: uppercase;
@@ -316,6 +258,22 @@
   .masthead__active-id { color: var(--text-brand-primary); }
   .masthead__sep { color: var(--text-secondary); }
   .masthead__active-title { color: var(--text-primary); }
+
+  /* Statistiky — přesunuté z telem panelu; dt :: dd, hodnoty sage */
+  .masthead__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--base) var(--base-3);
+    margin: 0 0 0 var(--base-3);
+    padding-left: var(--base-3);
+    border-left: 1px solid var(--border);
+  }
+  .masthead__stat { display: flex; align-items: baseline; gap: var(--base-h); }
+  .masthead__stat dt { color: var(--text-secondary); }
+  .masthead__stat dt::after { content: ' ::'; }
+  .masthead__stat dd { margin: 0; color: var(--text-brand-secondary); }
+
   .masthead__ramp {
     margin-left: auto;
     font-family: var(--font-stack-decorative);

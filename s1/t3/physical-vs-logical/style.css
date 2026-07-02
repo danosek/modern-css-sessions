@@ -9,32 +9,13 @@ code {
   font-size: var(--font-size-s);
   background: var(--surface-main-variant);
   padding: 0.1em 0.35em;
-  border-radius: var(--radius-subtle);
 }
 
-/* ── Sdílené helpers ─────────────────────────────────────────────────────── */
-
-.sizing-btn {
-  padding: var(--base-h) var(--base-2);
-  background: var(--surface-main-variant);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.sizing-btn:hover {
-  background: var(--surface-brand-primary-minimal);
-  border-color: var(--surface-brand-primary-strong);
-}
+/* (segmentový přepínač .seg-toolbar / .seg-btn je sdílený v demo-base.css) */
 
 .lp-desc {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
-  margin-block: var(--base-2) var(--base-4);
   line-height: 1.6;
   max-inline-size: 72ch;
 }
@@ -42,36 +23,18 @@ code {
 /* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
 
 .lp-demo-wrap {
-  background: var(--surface-main-variant);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  padding: var(--base-4);
+ 
 }
 
-.lp-toggle-bar {
-  display: flex;
-  align-items: center;
-  gap: var(--base-3);
-  flex-wrap: wrap;
+/* Segmentový přepínač má vlastní spodní předěl k oddělení od karet */
+.seg-toolbar {
   margin-block-end: var(--base-4);
-  padding-block-end: var(--base-3);
-  border-block-end: 1px solid var(--border);
-}
-
-.lp-dir-badge {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  font-family: var(--font-stack-monospace);
-}
-
-.lp-dir-badge strong {
-  color: var(--text-primary);
 }
 
 /* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
 .lp-compare {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
   gap: var(--base-4);
 }
 
@@ -81,112 +44,105 @@ code {
   gap: var(--base-3);
 }
 
+/* ── Sekce 1 — karty (srovnání fyzické vs. logické) ─────────────────────── */
+
+/* Obě karty mají identický obsah i layout — pruh, ikonu a velké odsazení na
+   začátku. Liší se POUZE tím, čím je to nastylované: fyzická verze vše váže na
+   levou stranu (border-left, padding-left, left → v RTL zůstane vlevo, odtržené
+   od textu), logická na začátek čtení (border-inline-start, padding-inline-start,
+   inset-inline-start → v RTL se celé překlopí doprava a drží pohromadě). */
+.lp-card {
+  position: relative;
+  background: var(--surface-main-bright);
+  border: 1px solid var(--text-primary);
+  transition: border-color 0.15s;
+}
+
+/* Fyzická karta — vše vázané na levou stranu (physical) */
+.lp-card--physical {
+  border-left: 8px solid var(--text-brand-primary);
+  padding: var(--base-3);
+  padding-left: calc(var(--base-3) + 3.25rem);
+}
+.lp-card--physical .lp-card__icon {
+  top: var(--base-3);
+  left: var(--base-3);
+}
+
+/* Logická karta — vše vázané na začátek čtení (logical) */
+.lp-card--logical {
+  border-inline-start: 8px solid var(--text-brand-primary);
+  padding: var(--base-3);
+  padding-inline-start: calc(var(--base-3) + 3.25rem);
+}
+.lp-card--logical .lp-card__icon {
+  inset-block-start: var(--base-3);
+  inset-inline-start: var(--base-3);
+}
+
+/* Vedoucí ikona — absolutní, sedí ve velkém odsazení na začátku karty */
+.lp-card__icon {
+  position: absolute;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-l);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* Štítek sloupce — popisek nad kartou (fyzické vs. logické) */
 .lp-col__label {
+  font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
   font-weight: 600;
-  font-family: var(--font-stack-monospace);
-  padding-block: var(--base-h);
-  padding-inline: var(--base-2);
-  border-radius: var(--radius);
-  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: var(--base-h) var(--base-2);
   align-self: flex-start;
 }
 
+/* Fyzická strana — neutrální, nepreferovaná */
 .lp-col__label--bad {
-  background: color-mix(in srgb, var(--status-error) 12%, transparent);
-  color: var(--status-error);
-  border: 1px solid color-mix(in srgb, var(--status-error) 25%, transparent);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
 }
 
+/* Logická strana — jediný akcent, preferovaná */
 .lp-col__label--good {
-  background: color-mix(in srgb, var(--status-success) 12%, transparent);
-  color: var(--status-success);
-  border: 1px solid color-mix(in srgb, var(--status-success) 25%, transparent);
-}
-
-/* ── Sekce 1 — karty (srovnání fyzické vs. logické) ─────────────────────── */
-
-.lp-card {
-  background: var(--surface-main);
-  border-radius: var(--radius);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Fyzická karta — záměrně hardcoded fyzické vlastnosti (ukazujeme chybný přístup) */
-.lp-card--physical {
-  padding-top: var(--base-4);
-  padding-right: var(--base-3);
-  padding-bottom: var(--base-3);
-  padding-left: var(--base-3);
-  border-left: 4px solid var(--status-error);
-  margin-left: var(--base-2);
-}
-
-/* Logická karta — logické vlastnosti se automaticky překlopí v RTL */
-.lp-card--logical {
-  padding-block-start: var(--base-4);
-  padding-block-end: var(--base-3);
-  padding-inline: var(--base-3);
-  border-inline-start: 4px solid var(--status-success);
-  margin-inline-start: var(--base-2);
-}
-
-.lp-card__badge {
-  position: absolute;
-  inset-block-start: var(--base-2);
-  inset-inline-end: var(--base-2);
-  font-size: var(--font-size-xs);
-  font-family: var(--font-stack-monospace);
-  font-weight: 600;
-  padding: 0.15em 0.5em;
-  border-radius: var(--radius-subtle);
-}
-
-.lp-card__badge--bad {
-  background: color-mix(in srgb, var(--status-error) 12%, transparent);
-  color: var(--status-error);
-}
-
-.lp-card__badge--good {
-  background: color-mix(in srgb, var(--status-success) 12%, transparent);
-  color: var(--status-success);
+  color: var(--text-brand-primary);
+  background: var(--surface-brand-primary-minimal);
 }
 
 .lp-card__title {
   font-family: var(--font-stack-headings);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-l);
   color: var(--text-primary);
-  margin-block-end: var(--base-2);
 }
 
 .lp-card__body {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-block-end: var(--base-3);
+  margin: var(--base-2) 0 0;
 }
 
 .lp-card__meta {
   display: flex;
   flex-wrap: wrap;
   gap: var(--base);
+  margin-block-start: var(--base-3);
 }
 
 .lp-card__tag {
   font-size: var(--font-size-xs);
   font-family: var(--font-stack-monospace);
   padding: 0.15em 0.6em;
-  border-radius: var(--radius-subtle);
   background: var(--surface-main-variant);
   color: var(--text-secondary);
   border: 1px solid var(--border);
-}
-
-.lp-card__tag--good {
-  background: color-mix(in srgb, var(--status-success) 10%, transparent);
-  color: var(--status-success);
-  border-color: color-mix(in srgb, var(--status-success) 25%, transparent);
 }
 
 /* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
@@ -194,7 +150,6 @@ code {
 .lp-snippet {
   background: var(--surface-main);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
   padding: var(--base-3);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
@@ -212,15 +167,4 @@ code {
   border-radius: 0;
   color: inherit;
   white-space: pre;
-}
-
-@media (max-width: 600px) {
-  .lp-inset-demo {
-    grid-template-columns: 1fr;
-  }
-
-  .lp-inset-arrow {
-    transform: rotate(90deg);
-    justify-self: center;
-  }
 }

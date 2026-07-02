@@ -1,95 +1,94 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D6 — :has() / :is() / :where()
+   D6 — :is() / :where() — skupinové selektory (specificity clash)
    ═══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Pomocný typ ─────────────────────────────────────────────────────────── */
 
 code {
   font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
+  color: var(--text-brand-primary);
 }
 
-/* ── :is() / :where() — skupinové selektory ──────────────────────────────── */
+.iw-intro {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 80ch;
+  margin-block-end: var(--base-4);
+}
 
+/* Dvě karty vedle sebe (na úzku pod sebou) */
 .iw-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--base-4);
+}
+
+.iw-card {
+  display: flex;
+  flex-direction: column;
   gap: var(--base-3);
+  padding: var(--base-3);
+  background: var(--surface-main);
+  border: 1px solid var(--border);
 }
 
-.iw-demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
+.iw-card__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+  margin: 0;
 }
 
+/* Kódový blok — vždy kontejnovaný, nikdy nepřeteče kartu */
 .iw-code {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-h);
-}
-
-.iw-spec {
+  margin: 0;
+  padding: var(--base-2) var(--base-3);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  overflow-x: auto;
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
-  color: var(--text-secondary);
+  line-height: 1.5;
+  color: var(--text-primary);
 }
-
-.iw-spec--zero {
-  color: var(--status-success);
-}
+.iw-code code { font-family: inherit; color: inherit; background: none; white-space: pre; }
+.iw-c { color: var(--text-secondary); }
 
 .iw-note {
   font-size: var(--font-size-xs);
   color: var(--text-secondary);
   line-height: 1.5;
+  margin: 0;
 }
 
-/* :is() article demo */
-.article-demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-  padding: var(--base-2) 0;
-}
-
-.is-h2 {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--text-brand-primary);
-}
-
-.is-h3 {
-  font-family: var(--font-stack-headings);
+/* ── Výsledek — řádek vyplněný barvou VÍTĚZNÉHO pravidla ──────────────────── */
+.iw-clash p {
+  margin: 0;
+  padding: var(--base-3);
+  font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
   font-weight: 600;
-  color: var(--text-brand-primary);
 }
 
-.is-p {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
+/* :is() strana — :is(#hot, .row) = (1,0,0) přebije pozdější .row (0,1,0) →
+   řádek si drží barvu skupiny (sage) */
+:is(#hot, .row) {
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
 }
-
-/* :where() demo */
-.where-demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-}
-
-:where(.where-box) {
-  background: var(--surface-brand-secondary-subtle);
-  border: 1px solid var(--surface-brand-secondary-moderate);
-  border-radius: var(--radius);
-  padding: var(--base-2) var(--base-3);
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-}
-
-.where-box--override {
+.row {                                   /* (0,1,0) — později, ale prohraje */
   background: var(--surface-main-dim);
-  border-color: var(--border-strong);
-  color: var(--text-primary);
+  color: var(--text-secondary);
+}
+
+/* :where() strana — :where(#hot2, .row2) = (0,0,0); pozdější .row2 (0,1,0)
+   ji přebije → řádek vezme barvu pozdějšího pravidla (amber) */
+:where(#hot2, .row2) {
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
+}
+.row2 {                                  /* (0,1,0) — později, vyhraje */
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
 }

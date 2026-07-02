@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Živá ukázka — pořadí vrstev vs. specificita – Modern CSS S1</title>
+  <title>Živá ukázka — pořadí vrstev bije specificitu – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -18,10 +18,22 @@
     Toggle theme
   </button>
 
+  <!-- Soutěžící @layer pravidla — JS přepisuje JEN pořadí ve statementu níže.
+       Barvu tlačítka pak rozhodne čistě kaskáda vrstev. -->
+  <style id="lab-layers">
+    @layer components, utilities;
+    @layer components {
+      #live .lab-btn { background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong); }
+    }
+    @layer utilities {
+      .lab-btn { background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong); }
+    }
+  </style>
+
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Živá ukázka — pořadí vrstev vs. specificita</h1>
-    <p class="demo-subtitle">Pořadí vrstev bije specificitu selektorů</p>
+    <h1 class="demo-title">Živá ukázka — pořadí vrstev bije specificitu</h1>
+    <p class="demo-subtitle">Přepni pořadí @layer a sleduj, jak nižší specificita ve vyšší vrstvě vyhraje</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">@layer</span>
     </span>
@@ -29,33 +41,68 @@
 
   <div class="demo-stage">
     <div class="demo-section">
-      <div class="demo-section__example">
-      <div class="live-stage">
-        <div class="layer-diagram">
-          <div class="layer layer--reset">
-            <span class="layer__name">@layer reset</span>
-            <span class="layer__desc">Normalize, základní reset</span>
+      <div class="demo-section__example" id="live">
+
+        <div class="lab-grid">
+          <div class="lab-stage">
+            <button type="button" class="lab-btn" id="lab-btn">Tlačítko</button>
+            <span class="lab-stage__cap">↑ výsledek kaskády</span>
           </div>
-          <div class="layer layer--base">
-            <span class="layer__name">@layer base</span>
-            <span class="layer__desc">Typografie, barvy, tokeny</span>
-          </div>
-          <div class="layer layer--components">
-            <span class="layer__name">@layer components</span>
-            <span class="layer__desc">.btn, .card, .input…</span>
-          </div>
-          <div class="layer layer--utilities">
-            <span class="layer__name">@layer utilities</span>
-            <span class="layer__desc">.mt-4, .text-center, .hidden…</span>
-          </div>
-          <div class="layer layer--unlayered">
-            <span class="layer__name">bez vrstvy (unlayered)</span>
-            <span class="layer__desc">Inline styly, přepsání ad hoc</span>
-          </div>
+
+          <dl class="lab-rules">
+            <div class="lab-rule" data-rule="components">
+              <dt class="lab-rule__head">
+                <samp>@layer components</samp>
+                <span class="lab-rule__spec">(1,1,0)</span>
+              </dt>
+              <dd class="lab-rule__decl">
+                <span class="lab-swatch lab-swatch--components" aria-hidden="true"></span>
+                <code>#live .lab-btn { background: brand-primary }</code>
+              </dd>
+              <dd class="lab-rule__verdict" data-verdict></dd>
+            </div>
+            <div class="lab-rule" data-rule="utilities">
+              <dt class="lab-rule__head">
+                <samp>@layer utilities</samp>
+                <span class="lab-rule__spec">(0,1,0)</span>
+              </dt>
+              <dd class="lab-rule__decl">
+                <span class="lab-swatch lab-swatch--utilities" aria-hidden="true"></span>
+                <code>.lab-btn { background: brand-secondary }</code>
+              </dd>
+              <dd class="lab-rule__verdict" data-verdict></dd>
+            </div>
+          </dl>
         </div>
-        <p class="layer-note">↑ Vyšší vrstva = vyšší priorita — bez ohledu na specificitu selektoru</p>
+
+        <div class="lab-control">
+          <button type="button" class="lab-toggle" id="lab-toggle" aria-pressed="true">
+            &gt;&gt; Prohodit pořadí vrstev
+          </button>
+          <output class="lab-readout" id="lab-readout" for="lab-toggle"></output>
+        </div>
+
+        <p class="lab-note">
+          Vítězí pravidlo z <strong>pozdější vrstvy</strong> — i když má <strong>nižší</strong>
+          specificitu. Pořadí <code>@layer</code> bije specificitu selektoru.
+        </p>
+
       </div>
-      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Pořadí vrstev rozhoduje</h2>
+      <pre tabindex="0"><code class="language-css">/* Pořadí deklarace určuje prioritu — pozdější vrstva vyhrává */
+@layer components, utilities;
+
+@layer components {
+  #live .lab-btn { background: tomato; }   /* (1,1,0) — VYŠŠÍ specificita */
+}
+@layer utilities {
+  .lab-btn { background: teal; }           /* (0,1,0) — NIŽŠÍ, ale pozdější vrstva → vyhrává */
+}</code></pre>
     </div>
   </div>
 

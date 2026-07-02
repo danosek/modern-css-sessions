@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D2 — Comparison Functions: clamp(), min(), max()
+   D3 — Comparison Functions: max() jako spodní hranice šířky (floor)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
+/* ── Srovnání — fluid vs. fixní ──────────────────────────────────────────── */
 
 .cf-compare {
   display: flex;
@@ -37,14 +37,6 @@
   display: flex;
   align-items: center;
   line-height: 1;
-  
-}
-
-.cf-demo-box p{
-  /* content: '';
-  display: inline-block; */
-  border: 1px solid var(--surface-brand-secondary-strong);
-  padding: var(--base-2) var(--base-3);
 }
 
 .cf-demo-box--ruler {
@@ -52,10 +44,10 @@
   overflow: hidden;
 }
 
-/* ── Sekce 2 — min(): šířka kontejneru s horním limitem ──────────────────── */
+/* ── max(): šířka kontejneru se spodním limitem ──────────────────────────── */
 
-.cf-min-box {
-  width: min(100%, 640px);
+.cf-max-box {
+  width: max(50%, 320px);
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
   padding: var(--base-2) var(--base-3);
@@ -63,9 +55,9 @@
   font-size: var(--font-size-s);
 }
 
-.cf-maxwidth-box {
-  max-width: 640px;
-  width: 100%;
+.cf-minwidth-box {
+  width: 50%;
+  min-width: 320px;
   background: var(--surface-brand-secondary-strong);
   color: var(--text-primary);
   padding: var(--base-2) var(--base-3);
@@ -78,7 +70,7 @@
   font-size: var(--font-size-s);
 }
 
-/* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
+/* ── Informační karta s vysvětlením ──────────────────────────────────────── */
 
 .cf-info-row {
   margin-block-start: var(--base-3);

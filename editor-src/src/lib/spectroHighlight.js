@@ -24,7 +24,7 @@ export const spectroSyntax = syntaxHighlighting(HighlightStyle.define([
 
   // ── Tlumené identifikátory — props recedují, hodnoty zůstanou inkoustové ────
   { tag: tags.propertyName,                      color: 'var(--text-secondary)' },         // CSS property (display, padding…)
-  { tag: tags.variableName,                      color: 'var(--text-brand-secondary-variant)' }, // --custom-props / JS vars
+  { tag: tags.variableName,                      color: 'var(--text-brand-secondary)' }, // --custom-props / JS vars
   { tag: tags.function(tags.variableName),       color: 'var(--text-primary)' },   // var(), clamp(), repeat()…
   { tag: tags.function(tags.propertyName),       color: 'var(--text-primary)' },
   { tag: tags.operatorKeyword,                   color: 'var(--text-primary)' },   // typeof instanceof / CSS fn calls

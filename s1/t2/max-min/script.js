@@ -12,6 +12,10 @@ function setTechnique(t) {
   btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.technique === t)));
   solutions.forEach(s => s.classList.toggle('is-active', s.dataset.technique === t));
   updateWidth();
+  // Přepnutí techniky mění used value wrapperu (width vs. margin), ale ne velikost
+  // stage — sdílený fn-readout se přepočítává na resize, tak ho ručně poštouchneme,
+  // aby zobrazený výpočet aktivního řešení nezůstal zastaralý.
+  window.dispatchEvent(new Event('resize'));
 }
 
 function updateWidth() {

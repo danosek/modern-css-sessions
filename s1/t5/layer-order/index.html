@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hlavní princip — pořadí bije specificitu – Modern CSS S1</title>
+  <title>Hlavní princip — @layer vs. klasická kaskáda – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -20,8 +20,8 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Hlavní princip — pořadí bije specificitu</h1>
-    <p class="demo-subtitle">Pořadí vrstvy bije specificitu</p>
+    <h1 class="demo-title">Hlavní princip — @layer vs. klasická kaskáda</h1>
+    <p class="demo-subtitle">Stejné dva selektory: jednou ve vrstvách, jednou bez nich</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">@layer</span>
     </span>
@@ -30,58 +30,65 @@
   <div class="demo-stage">
     <div class="demo-section">
       <div class="demo-section__example">
-      <div class="battle-grid">
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>@layer</code>
-            <span>utilities vrstva vítězí navzdory nižší specificitě</span>
-          </div>
-          <div class="layout-stage battle-stage">
-            <div class="battle-item">
-              <button class="btn btn-primary bg-brand">Tlačítko</button>
-              <div class="battle-rules">
-                <div class="battle-rule battle-rule--loser">
-                  <span class="battle-rule__sel">.btn-primary</span>
-                  <span class="battle-rule__layer">components (0,1,0)</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary</span>
-                </div>
-                <div class="battle-rule battle-rule--winner">
-                  <span class="battle-rule__sel">.bg-brand</span>
-                  <span class="battle-rule__layer">utilities (0,1,0) ← vrstva je výše</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary ✓</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="bo-grid">
 
-        <div class="layout-example">
-          <div class="layout-example__label">
-            <code>bez @layer</code>
-            <span>vyšší specificita vítězí (klasická kaskáda)</span>
-          </div>
-          <div class="layout-stage battle-stage">
-            <div class="battle-item">
-              <button class="btn-nl btn-primary-nl bg-brand-nl">Tlačítko</button>
-              <div class="battle-rules">
-                <div class="battle-rule battle-rule--winner">
-                  <span class="battle-rule__sel">.btn-primary-nl</span>
-                  <span class="battle-rule__layer">specificita (0,1,0) — stejná</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong);">primary ✓ (pozdější v kódu)</span>
-                </div>
-                <div class="battle-rule battle-rule--loser">
-                  <span class="battle-rule__sel">.bg-brand-nl</span>
-                  <span class="battle-rule__layer">specificita (0,1,0) — dřívější v kódu</span>
-                  <span class="battle-rule__value" style="background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong);">secondary</span>
-                </div>
-              </div>
+          <!-- Panel A: s @layer -->
+          <article class="bo-panel">
+            <h2 class="bo-panel__title">&gt;&gt; S @layer</h2>
+            <div class="bo-stage">
+              <button class="btn btn-primary btn-util">Tlačítko</button>
             </div>
-          </div>
+            <dl class="bo-rules">
+              <div class="bo-rule bo-rule--lose">
+                <dt><samp>.btn.btn-primary</samp></dt>
+                <dd>@layer components · (0,2,0)</dd>
+              </div>
+              <div class="bo-rule bo-rule--win">
+                <dt><samp>.btn-util</samp></dt>
+                <dd>@layer utilities · (0,1,0) · [ WIN ]</dd>
+              </div>
+            </dl>
+            <p class="bo-verdict">Vyhrává <strong>nižší</strong> specificita — je ve vyšší vrstvě.</p>
+          </article>
+
+          <!-- Panel B: bez @layer -->
+          <article class="bo-panel">
+            <h2 class="bo-panel__title">&gt;&gt; Bez @layer</h2>
+            <div class="bo-stage">
+              <button class="btn btn-primary-nl btn-util-nl">Tlačítko</button>
+            </div>
+            <dl class="bo-rules">
+              <div class="bo-rule bo-rule--win">
+                <dt><samp>.btn.btn-primary-nl</samp></dt>
+                <dd>(0,2,0) · [ WIN ]</dd>
+              </div>
+              <div class="bo-rule bo-rule--lose">
+                <dt><samp>.btn-util-nl</samp></dt>
+                <dd>(0,1,0) · pozdější v kódu</dd>
+              </div>
+            </dl>
+            <p class="bo-verdict">Vyhrává <strong>vyšší</strong> specificita — klasická kaskáda.</p>
+          </article>
+
         </div>
 
       </div>
-      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Stejné selektory, jeden rozdíl: @layer</h2>
+      <pre tabindex="0"><code class="language-css">/* S @layer — pořadí vrstvy bije specificitu */
+@layer components, utilities;
+
+@layer components { .btn.btn-primary { background: tomato; } }  /* (0,2,0) → prohrává */
+@layer utilities  { .btn-util       { background: teal;   } }  /* (0,1,0) → VYHRÁVÁ */
+
+/* Bez @layer — vyhraje vyšší specificita (klasická kaskáda) */
+.btn.btn-primary-nl { background: tomato; }   /* (0,2,0) → VYHRÁVÁ */
+.btn-util-nl        { background: teal;   }   /* (0,1,0) → prohrává */</code></pre>
     </div>
   </div>
 
