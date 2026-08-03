@@ -1,4 +1,4 @@
-// ── Produktové karty — toggle subgrid ────────────────────────────────────
+// ── Karty — subgrid řádků: toggle ────────────────────────────────────────
 
 const grid   = document.getElementById('products-grid');
 const btnOff = document.getElementById('btn-off');

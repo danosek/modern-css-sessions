@@ -1,5 +1,5 @@
-// Zkratka inset — posuvník mění odsazení boxu od containeru. Jedna CSS proměnná
-// (--inset) řídí obě verze najednou: fyzickou (top/right/bottom/left) i logickou
+// inset — posuvník mění odsazení boxu od containeru. Jedna CSS proměnná
+// (--inset) řídí obě verze najednou: rozepsanou (top/right/bottom/left) i zkratku
 // (inset) — vizuálně dokazuje, že dávají identický výsledek.
 
 const range = document.getElementById('inset-range');

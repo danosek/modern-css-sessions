@@ -1,1 +1,1 @@
-/* min() — šířka kontejneru — bez JS (čistě CSS). */
+/* min() — strop šířky — bez JS (čistě CSS). */

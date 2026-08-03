@@ -1,7 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D5 — @layer · Praktické příklady
-   Dva REÁLNÉ vzory: (A) přebití third-party knihovny pořadím vrstev na STEJNÉM
-   prvku, (B) revert-layer vracející hodnotu na skutečnou nižší vrstvu.
+   t5 D3 — @layer · Vendor CSS · revert-layer
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {

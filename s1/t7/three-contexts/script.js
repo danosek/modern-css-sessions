@@ -1,1 +1,1 @@
-/* Stejná komponenta ve 3 kontextech — bez JS (čistě CSS). */
+/* Jedna karta, tři kontexty — bez JS (čistě CSS). */

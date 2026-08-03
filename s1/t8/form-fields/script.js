@@ -1,1 +1,1 @@
-/* Subgrid pro formulářová pole — bez JS (čistě CSS). */
+/* Formulář — subgrid sloupců — bez JS (čistě CSS). */

@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D7 — Container Queries
-   Ukázky: resizable container, tři kontexty, range container queries
+   t7 D1 — Container Queries · Resize kontejneru
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {
@@ -101,24 +100,28 @@ code {
   opacity: 0.85;
 }
 
-/* ── Range container queries ─────────────────────────────────────────────── */
-/*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
-/*    Cross-browser: Chrome 111+, Firefox 110+, Safari 16+                     */
+/* ── Živý readout — šířka kontejneru + právě aktivní breakpoint ───────────── */
 
-/* width < 360px — stack layout (výchozí styl karty, nic navíc) */
-@container product (width < 360px) {
-  .product-card__img {
-    height: 70px;
-    font-size: 2rem;
-  }
-
-  .product-card__body {
-    padding: var(--base) var(--base-2);
-  }
+.cq-readout {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  margin-bottom: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
 }
 
-/* 360px <= width < 560px — horizontální grid layout */
-@container product (360px <= width < 560px) {
+.cq-readout #cq-width {
+  color: var(--text-brand-primary);
+}
+
+/* ── Container queries — mobile-first, klasická syntaxe ───────────────────── */
+/*    Úzký kontejner = výchozí stack; breakpointy 400 px a 560 px              */
+
+/* width >= 400px — horizontální grid layout */
+@container product (min-width: 400px) {
   .product-card {
     display: grid;
     grid-template-columns: 140px 1fr;
@@ -131,15 +134,13 @@ code {
   }
 }
 
-/* width >= 560px — wide layout s footer jako řádkem */
-@container product (width >= 560px) {
+/* width >= 560px — wide layout s footerem jako řádkem */
+@container product (min-width: 560px) {
   .product-card {
-    display: grid;
     grid-template-columns: 160px 1fr;
   }
 
   .product-card__img {
-    height: 100%;
     min-height: 150px;
     font-size: 3.5rem;
   }

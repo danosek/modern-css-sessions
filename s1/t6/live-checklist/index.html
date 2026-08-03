@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Živá ukázka — :has(input:checked) – Modern CSS S1</title>
+  <title>:has(input:checked) – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -20,7 +20,7 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Živá ukázka — :has(input:checked)</h1>
+    <h1 class="demo-title">:has(input:checked)</h1>
     <p class="demo-subtitle">.task:has(input:checked) přeškrtne celou řádku, čistý CSS</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">:has()</span>
@@ -33,7 +33,8 @@
         <div class="live-stage">
           <ul class="task-list">
             <li class="task">
-              <input type="checkbox" id="t1">
+              <!-- Předzaškrtnuto — efekt :has(input:checked) je vidět hned při načtení -->
+              <input type="checkbox" id="t1" checked>
               <label for="t1">
                 <span class="task-name">Zkontrolovat pull requesty</span>
                 <span class="task-meta">Vývoj · dnes</span>

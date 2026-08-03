@@ -1,4 +1,4 @@
-// Živá ukázka @layer — přepínání POŘADÍ vrstev. Barvu tlačítka rozhoduje výhradně
+// Prohoď pořadí vrstev — přepínání POŘADÍ @layer. Barvu tlačítka rozhoduje výhradně
 // kaskáda @layer: přepsáním pořadí v inline <style> se znovu přeparsuje a tlačítko
 // se přebarví. Vítězí pravidlo z pozdější vrstvy — i s nižší specificitou.
 

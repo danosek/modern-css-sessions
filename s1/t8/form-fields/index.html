@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subgrid pro formulářová pole – Modern CSS S1</title>
+  <title>Formulář — subgrid sloupců – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -20,8 +20,8 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Subgrid pro formulářová pole</h1>
-    <p class="demo-subtitle">Subgrid pro zarovnání formulářových polí</p>
+    <h1 class="demo-title">Formulář — subgrid sloupců</h1>
+    <p class="demo-subtitle">Labely, inputy i hinty v zarovnaných sloupcích — a řádek zůstává stylovatelný (zkus hover)</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">subgrid</span>
     </span>
@@ -33,21 +33,45 @@
         <div class="layout-stage">
           <div class="form-grid">
             <div class="form-row">
-              <label class="form-label">Jméno</label>
-              <div class="form-input-wrap"><div class="form-input"></div></div>
+              <label class="form-label" for="ff-name">Jméno</label>
+              <input class="form-input" type="text" id="ff-name">
             </div>
             <div class="form-row">
-              <label class="form-label">E-mailová adresa</label>
-              <div class="form-input-wrap"><div class="form-input"></div></div>
+              <label class="form-label" for="ff-email">E-mailová adresa</label>
+              <input class="form-input" type="email" id="ff-email">
             </div>
             <div class="form-row">
-              <label class="form-label">Tel.</label>
-              <div class="form-input-wrap"><div class="form-input"></div></div>
+              <label class="form-label" for="ff-tel">Tel.</label>
+              <input class="form-input" type="tel" id="ff-tel">
               <span class="form-hint">Volitelné</span>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Subgrid — zarovnané sloupce, stylovatelný řádek</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodič definuje 3 sloupce: label / input / hint */
+.form-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+}
+
+/* Řádek si přes subgrid „vypůjčí" sloupce rodiče —
+   labely a hinty se zarovnají napříč všemi řádky */
+.form-row {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Bonus proti display: contents — řádek zůstává skutečným
+   boxem, takže ho lze stylovat (hover, background, border).
+   display: contents by obal řádku zahodil úplně. */
+.form-row:hover { background: var(--surface-main-dim); }</code></pre>
     </div>
   </div>
 

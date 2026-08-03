@@ -1,7 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D5 — @layer · Hlavní princip (@layer vs. klasická kaskáda)
-   Oba panely jsou SKUTEČNÝ výstup kaskády. Stejné dvě specificity v obou —
-   jediná proměnná je přítomnost @layer.
+   t5 D2 — @layer · Pořadí bije specificitu
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {

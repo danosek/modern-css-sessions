@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D3 — Logical Properties
+   t3 D4 — Logical Properties · inset
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Inline kód ──────────────────────────────────────────────────────────── */
@@ -132,7 +132,7 @@ code {
   border: 2px solid;
 }
 
-/* Fyzická verze — 4 vlastnosti top/right/bottom/left */
+/* Rozepsaná verze — 4 vlastnosti top/right/bottom/left */
 .lp-inset-box__inner--physical {
   top: var(--inset);
   right: var(--inset);
@@ -140,7 +140,8 @@ code {
   left: var(--inset);
 }
 
-/* Logická verze — zkratka inset (jedna vlastnost, stejný výsledek) */
+/* Zkratka inset — jedna vlastnost, stejný výsledek (pozor: fyzická,
+   logické protějšky jsou inset-block / inset-inline) */
 .lp-inset-box__inner--logical {
   inset: var(--inset);
 }

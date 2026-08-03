@@ -1,1 +1,1 @@
-/* @layer — praktické příklady — bez JS (čistě CSS). */
+/* Vendor CSS · revert-layer — bez JS (čistě CSS). */

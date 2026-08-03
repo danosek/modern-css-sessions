@@ -1,1 +1,1 @@
-/* Hlavní princip — @layer vs. klasická kaskáda — bez JS (čistě CSS). */
+/* Pořadí bije specificitu — bez JS (čistě CSS). */

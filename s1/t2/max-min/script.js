@@ -1,4 +1,4 @@
-// max() · min() — řízené centrování: přepínání techniky aplikované na .wrapper.
+// min() + max() — centrování: přepínání techniky aplikované na .wrapper.
 
 const btns      = document.querySelectorAll('.seg-btn');
 const wrapper   = document.querySelector('.cc-wrapper');

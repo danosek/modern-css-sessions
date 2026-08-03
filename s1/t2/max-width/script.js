@@ -1,1 +1,1 @@
-/* max() — minimální šířka — bez JS (čistě CSS). */
+/* max() — podlaha šířky — bez JS (čistě CSS). */

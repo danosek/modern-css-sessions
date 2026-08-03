@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D8 — Subgrid
-   Ukázky: produktové karty (subgrid vs. flex), formulářová pole, editoriální
+   t8 D1 — Subgrid · Karty — subgrid řádků
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {
@@ -45,6 +44,7 @@ code {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start; /* bez subgrid: každá karta má vlastní výšku → vidět nezarovnání */
   gap: var(--base-3);
   margin-bottom: var(--base-2);
 }
@@ -96,12 +96,6 @@ code {
   color: var(--text-secondary);
   line-height: 1.5;
   padding: var(--base) var(--base-3);
-  flex: 1; /* bez subgrid: roztáhne se na zbývající výšku */
-}
-
-/* Se subgrid: desc je explicitní řádek, flex: 1 by nefungovalo */
-.use-subgrid .product-card__desc {
-  flex: unset;
 }
 
 .product-card__price {
@@ -135,36 +129,8 @@ code {
   font-size: var(--font-size-s);
   cursor: pointer;
   transition: opacity 0.15s;
-  margin-top: auto; /* bez subgrid: přilep na dno */
-}
-
-/* Se subgrid: tlačítko sedí v explicitním řádku, margin-top není potřeba */
-.use-subgrid .product-card__btn {
-  margin-top: unset;
 }
 
 .product-card__btn:hover {
   opacity: 0.85;
-}
-
-/* SE subgrid: 4 explicitní řádky — obrázek / nadpis / perex / CTA */
-.editorial-grid.use-subgrid {
-  grid-template-rows: repeat(4, auto);
-}
-
-.editorial-grid.use-subgrid .editorial-card {
-  grid-row: span 4;
-  display: grid;
-  grid-template-rows: subgrid;
-  gap: 0;
-}
-
-/* Se subgrid: perex je explicitní řádek, flex: 1 by nefungovalo */
-.use-subgrid .editorial-card__perex {
-  flex: unset;
-}
-
-/* Se subgrid: CTA sedí v explicitním řádku */
-.use-subgrid .editorial-card__cta {
-  margin-top: unset;
 }

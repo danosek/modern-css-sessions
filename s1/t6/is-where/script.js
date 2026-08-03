@@ -1,1 +1,1 @@
-/* :is() a :where() — skupinové selektory — bez JS (čistě CSS). */
+/* :is() · :where() — bez JS (čistě CSS). */

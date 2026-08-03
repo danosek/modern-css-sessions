@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D2 — Comparison Functions: clamp(), min(), max()
+   t2 D4 — Comparison Functions · clamp() — fluid typografie
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Sekce 1 — clamp(): diagram anatomie funkce ──────────────────────────── */
@@ -115,9 +115,11 @@
   padding: var(--base-2) var(--base-3);
 }
 
+/* Meze zvolené tak, aby se OBĚ projevily při resize okna:
+   4vw = 1.5rem při 600px, 3rem při 1200px — mimo tento rozsah clamp „drží" */
 .cf-fluid-heading {
   font-family: var(--font-stack-headings);
-  font-size: clamp(1.25rem, 4vw, 5rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
   color: var(--text-primary);
   line-height: 1;
   margin: 0;
@@ -125,7 +127,7 @@
 
 .cf-fixed-heading {
   font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-xl);
   color: var(--text-primary);
   line-height: 1;
   margin: 0;

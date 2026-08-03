@@ -1,7 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D5 — @layer · Živá ukázka (pořadí vrstev bije specificitu)
-   Soutěžící @layer pravidla žijí v inline <style id="lab-layers"> v index.html
-   (JS přepisuje jen pořadí). Tady je layout + základní (nesoutěžící) vzhled.
+   t5 D1 — @layer · Prohoď pořadí vrstev
    ═══════════════════════════════════════════════════════════════════════════ */
 
 code {

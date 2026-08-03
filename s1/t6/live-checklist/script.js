@@ -1,1 +1,1 @@
-/* Živá ukázka — :has(input:checked) — bez JS (čistě CSS). */
+/* :has(input:checked) — bez JS (čistě CSS). */

@@ -1,4 +1,4 @@
-// Logické vlastnosti a writing-mode — přepínání osy textu na kartách.
+// writing-mode — přepínání osy textu na kartách.
 // Karty mají stabilní fyzický rozměr; mění se jen orientace textu a poloha
 // logických hran. Fyzický pruh (border-left) zůstane vlevo, logický
 // (border-inline-start) se přesune na začátek řádku (ve vertical-rl = nahoru).

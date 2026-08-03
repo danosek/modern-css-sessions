@@ -1,4 +1,4 @@
-// Logical Properties — přepínání směru čtení (dir) JEN na kartách.
+// dir — přepínání směru čtení JEN na kartách.
 // Karty zůstávají na svých pozicích (grid je LTR), takže je vidět, jak se
 // u logické karty překlopí inline-start (barevný pruh) na druhou stranu,
 // kdežto u fyzické (border-left) zůstane vlevo.

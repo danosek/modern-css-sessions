@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D1 — Intrinsic Sizing
+   t1 D1 — Intrinsic Sizing · min-content · max-content · fit-content
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Živá ukázka — přepínač hodnot ──────────────────────────────────────── */
@@ -38,12 +38,15 @@
   margin-bottom: var(--base-2);
 }
 
+/* Šířku i odsazení nastavuje JS podle skutečné pozice boxu (viz script.js) —
+   pravítko tak lícuje s boxem uvnitř stage, která má border a padding. */
 .width-indicator {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--base);
+  max-width: 100%;
   margin-top: var(--base-2);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
@@ -78,4 +81,25 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--base-3);
   margin-bottom: var(--base-4);
+}
+
+/* max-content záměrně přetéká kontejner — ořízneme na hraně karty (čárkovaný
+   okraj = hranice kontejneru) a označíme, ať to nevypadá jako rozbitý render */
+.sizing-card--overflow {
+  position: relative;
+  overflow: hidden;
+}
+
+.sizing-card--overflow::after {
+  content: 'přeteče →';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px var(--base);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
 }

@@ -1,1 +1,1 @@
-/* Intrinsic sizing v layoutu — bez JS (čistě CSS). */
+/* V gridu · centrování — bez JS (čistě CSS). */

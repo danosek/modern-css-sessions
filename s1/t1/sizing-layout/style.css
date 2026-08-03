@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   D1 — Intrinsic Sizing
+   t1 D2 — Intrinsic Sizing · V gridu · centrování
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Inline kód ──────────────────────────────────────────────────────────── */
@@ -140,6 +140,7 @@ code {
   font-size: var(--font-size-s);
   font-weight: 600;
   color: var(--text-primary);
+  overflow-wrap: anywhere;
 }
 
 .ex-deflist dd {

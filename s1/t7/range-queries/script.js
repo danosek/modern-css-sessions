@@ -1,1 +1,1 @@
-/* Range container queries — bez JS (čistě CSS). */
+/* Range syntaxe — bez JS (čistě CSS). */
