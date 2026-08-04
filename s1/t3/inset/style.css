@@ -1,14 +1,8 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t3 D4 — Logical Properties · inset
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t3 D4 — inset */
 
-/* ── POINTA DEMA — inset = zkratka za 4 offsety ──────────────────────────── */
+/* ── POINTA DEMA — inset
+      zkratka za 4 offsety */
 
-/* Jedna proměnná --inset (mění ji posuvník) řídí obě verze najednou:
-   rozepsanou (top/right/bottom/left) i zkratku (inset) — vizuálně dokazuje, že
-   dávají identický výsledek. Container potřebuje position: relative (vztažný
-   rámec) a definitní rozměr (block-size + inline-size), aby procenta
-   v offsetech měla z čeho počítat. */
 .lp-inset-boxes {
   --inset: 20%;
   display: grid;
@@ -17,7 +11,9 @@
   gap: var(--base-3);
 }
 
-/* Bordered container s definitní výškou */
+/* relative + definitní rozměr:
+   procenta v offsetech mají
+   z čeho počítat */
 .lp-inset-box {
   position: relative;
   inline-size: 100%;
@@ -26,7 +22,6 @@
   overflow: hidden;
 }
 
-/* Barevný element v absolutní pozici, odsazený o --inset */
 .lp-inset-box__inner {
   position: absolute;
   display: grid;
@@ -39,23 +34,23 @@
   border: 2px solid;
 }
 
-/* Rozepsaná verze — 4 vlastnosti top/right/bottom/left */
-.lp-inset-box__inner--physical {
+.lp-inset-box__inner--longhand {
   top: var(--inset);
   right: var(--inset);
   bottom: var(--inset);
   left: var(--inset);
 }
 
-/* Zkratka inset — jedna vlastnost, stejný výsledek (pozor: fyzická,
-   logické protějšky jsou inset-block / inset-inline) */
-.lp-inset-box__inner--logical {
+/* pozor: inset je fyzická,
+   logicky inset-block / inset-inline */
+.lp-inset-box__inner--shorthand {
   inset: var(--inset);
 }
 
-/* ── Podpůrné styly — ovládání, popisky, layout kódu ─────────────────────── */
+/* ── Podpůrné styly
+      ovládání, popisky, layout kódu */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── Inline kód */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -71,9 +66,8 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Sekce 3 — ovládání ──────────────────────────────────────────────────── */
+/* ── Ovládání — posuvník */
 
-/* Ovládání — posuvník mění odsazení boxu od containeru (sdílený --inset) */
 .lp-inset-controls {
   display: flex;
   align-items: center;
@@ -98,7 +92,6 @@ code {
   padding: var(--base-h) var(--base);
 }
 
-/* Na úzkém viewportu boxy pod sebe (přepisuje mřížku z POINTY výše) */
 @media (max-width: 600px) {
   .lp-inset-boxes {
     grid-template-columns: 1fr;
@@ -130,7 +123,6 @@ code {
   color: var(--text-brand-primary);
 }
 
-/* Kód dole — dva snippety vedle sebe */
 .lp-inset-code {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -143,7 +135,7 @@ code {
   }
 }
 
-/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+/* ── Code snippety pod boxy */
 
 .lp-snippet {
   background: var(--surface-main);

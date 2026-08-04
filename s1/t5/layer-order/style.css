@@ -1,36 +1,48 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t5 D2 — @layer · Pořadí bije specificitu
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t5 D2 — Pořadí bije specificitu */
 
-/* ── POINTA DEMA — vrstva rozhoduje dřív než specificita selektoru ───────── */
+/* ── POINTA DEMA — @layer vs. specificita
+      Vrstva rozhoduje dřív
+      než specificita selektoru. */
 
-/* ── S @layer — pozdější vrstva bije vyšší specificitu ───────────────────── */
+/* ── S @layer — pozdější vrstva bije
+      vyšší specificitu. */
 @layer components, utilities;
 
 @layer components {
-  .btn.btn-primary {          /* (0,2,0) — VYŠŠÍ, ale nižší vrstva → prohrává */
+  /* (0,2,0) — VYŠŠÍ specificita,
+     ale nižší vrstva → prohrává */
+  .btn.btn-primary {
     background: var(--surface-brand-primary-strong);
     color: var(--text-primary-on-surface-brand-primary-strong);
   }
 }
 @layer utilities {
-  .btn-util {                 /* (0,1,0) — NIŽŠÍ, ale vyšší vrstva → VYHRÁVÁ */
+  /* (0,1,0) — NIŽŠÍ specificita,
+     ale vyšší vrstva → VYHRÁVÁ */
+  .btn-util {
     background: var(--surface-brand-secondary-strong);
     color: var(--text-primary-on-surface-brand-secondary-strong);
   }
 }
 
-/* ── Bez @layer — identické specificity, žádné vrstvy ────────────────────── */
-.btn.btn-primary-nl {         /* (0,2,0) → VYHRÁVÁ (klasická kaskáda) */
+/* ── Bez @layer — identické specificity
+      a žádné vrstvy. */
+
+/* (0,2,0) → VYHRÁVÁ (klasická kaskáda) */
+.btn.btn-primary-nl {
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
 }
-.btn-util-nl {                /* (0,1,0) → prohrává, i když je v kódu později */
+
+/* (0,1,0) → prohrává,
+   i když je v kódu později */
+.btn-util-nl {
   background: var(--surface-brand-secondary-strong);
   color: var(--text-primary-on-surface-brand-secondary-strong);
 }
 
-/* Základní vzhled — mimo vrstvy, bez background (o barvě rozhoduje kaskáda) */
+/* mimo vrstvy, bez background:
+   o barvě rozhoduje kaskáda */
 .btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
@@ -39,14 +51,16 @@
   cursor: pointer;
 }
 
-/* ── Podpůrné styly — panely, scéna, výpis pravidel, verdikt ─────────────── */
+/* ── Podpůrné styly
+      panely, scéna, výpis pravidel,
+      verdikt. */
 
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-primary);
 }
 
-/* ── Layout ──────────────────────────────────────────────────────────────── */
+/* ── Layout */
 
 .bo-grid {
   display: grid;

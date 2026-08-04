@@ -15,6 +15,7 @@
         doc: value,
         extensions: [
           basicSetup,
+          EditorView.lineWrapping,   // basicSetup zalamování nezapíná
           jsLang(),
           spectroSyntax,
           EditorState.readOnly.of(true),

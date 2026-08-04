@@ -1,35 +1,43 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t6 D3 — Parent & grouping selectors · :is() · :where()
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t6 D3 — :is() · :where() */
 
-/* ── POINTA DEMA — :is() drží specificitu, :where() ji nuluje ────────────── */
+/* ── POINTA DEMA — :is() · :where()
+      :is() drží specificitu,
+      :where() ji nuluje. */
 
-/* Pořadí těchto čtyř pravidel JE pointa: v obou blocích jde stejné jednoduché
-   pravidlo (0,1,0) až PO skupině — rozhoduje jen specificita skupiny. */
+/* Pořadí je v obou blocích stejné —
+   liší se jen specificita skupiny */
 
-/* :is() strana — :is(#hot, .row) = (1,0,0) přebije pozdější .row (0,1,0) →
-   řádek si drží barvu skupiny (sage) */
+/* :is() bere specificitu nejsilnějšího
+   ze seznamu → #hot dá (1,0,0) */
 :is(#hot, .row) {
   background: var(--surface-brand-secondary-strong);
   color: var(--text-primary-on-surface-brand-secondary-strong);
 }
-.row {                                   /* (0,1,0) — později, ale prohraje */
-  background: var(--surface-main-dim);
-  color: var(--text-secondary);
-}
 
-/* :where() strana — :where(#hot2, .row2) = (0,0,0); pozdější .row2 (0,1,0)
-   ji přebije → řádek vezme barvu pozdějšího pravidla (amber) */
-:where(#hot2, .row2) {
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary-on-surface-brand-secondary-strong);
-}
-.row2 {                                  /* (0,1,0) — později, vyhraje */
+/* (0,1,0) — později, ale prohraje.
+   Stejná barva jako u .row2 vpravo —
+   rozdíl je jen v tom, kdo vyhraje. */
+.row {
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
 }
 
-/* ── Podpůrné styly — úvod, karty, kódové bloky, výsledkový řádek ────────── */
+/* :where() je vždy (0,0,0),
+   i když obsahuje #id */
+:where(#hot2, .row2) {
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
+}
+
+/* (0,1,0) — později, vyhraje */
+.row2 {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* ── Podpůrné styly
+      Úvod, karty, kódové bloky,
+      výsledkový řádek. */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -44,7 +52,6 @@ code {
   margin-block-end: var(--base-4);
 }
 
-/* Dvě karty vedle sebe (na úzku pod sebou) */
 .iw-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -69,7 +76,6 @@ code {
   margin: 0;
 }
 
-/* Kódový blok — vždy kontejnovaný, nikdy nepřeteče kartu */
 .iw-code {
   margin: 0;
   padding: var(--base-2) var(--base-3);
@@ -91,8 +97,7 @@ code {
   margin: 0;
 }
 
-/* Výsledek — řádek vyplněný barvou VÍTĚZNÉHO pravidla (jen rám a typografie,
-   barvu určuje pointa výše) */
+/* barvu řádku určuje pointa výše */
 .iw-clash p {
   margin: 0;
   padding: var(--base-3);

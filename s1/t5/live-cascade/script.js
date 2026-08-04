@@ -1,8 +1,9 @@
-// Prohoď pořadí vrstev — přepínání POŘADÍ @layer. Barvu tlačítka rozhoduje výhradně
-// kaskáda @layer: přepsáním pořadí v inline <style> se znovu přeparsuje a tlačítko
-// se přebarví. Vítězí pravidlo z pozdější vrstvy — i s nižší specificitou.
+// Prohoď pořadí vrstev. Soutěžící pravidla jsou ve style.css a nikdo je nemění —
+// tlačítko přepisuje JEDINÝ řádek: @layer statement v <style id="lab-order">.
+// Prohlížeč si po přepsání musí pořadí vrstev přepočítat, a to udělá jen když
+// hlavní sheet zaregistruje své vrstvy znovu — proto ho vyměníme za jeho klon.
 
-const sheet   = document.getElementById('lab-layers');
+const order   = document.getElementById('lab-order');
 const toggle  = document.getElementById('lab-toggle');
 const readout = document.getElementById('lab-readout');
 const rules = {
@@ -10,23 +11,23 @@ const rules = {
   utilities:  document.querySelector('.lab-rule[data-rule="utilities"]'),
 };
 
-// Soutěžící pravidla jsou fixní; mění se jen pořadí v @layer statementu.
-function css(order) {
-  return `
-    @layer ${order};
-    @layer components {
-      #live .lab-btn { background: var(--surface-brand-primary-strong); color: var(--text-primary-on-surface-brand-primary-strong); }
-    }
-    @layer utilities {
-      .lab-btn { background: var(--surface-brand-secondary-strong); color: var(--text-primary-on-surface-brand-secondary-strong); }
-    }`;
+// Hlavní sheet dema: samostatně je to <link href="style.css">, v editoru ho
+// preview nahrazuje <style> na stejném místě — bereme tedy poslední styl v head.
+function demoSheet() {
+  const all = [...document.querySelectorAll('head link[rel="stylesheet"], head style')];
+  return all.filter(el => el !== order).pop();
 }
 
 let utilitiesLast = true; // výchozí: @layer components, utilities;
 
-function apply() {
-  const order  = utilitiesLast ? 'components, utilities' : 'utilities, components';
-  sheet.textContent = css(order);                 // plný reparse → jistá rekaskáda
+function apply(reregister = true) {
+  const seq = utilitiesLast ? 'components, utilities' : 'utilities, components';
+  order.textContent = `@layer ${seq};`;
+
+  if (reregister) {
+    const sheet = demoSheet();
+    if (sheet) sheet.replaceWith(sheet.cloneNode(true));
+  }
 
   const winner = utilitiesLast ? 'utilities' : 'components';
   const loser  = utilitiesLast ? 'components' : 'utilities';
@@ -36,9 +37,10 @@ function apply() {
   rules[loser].querySelector('[data-verdict]').textContent = '// prohrává';
 
   toggle.setAttribute('aria-pressed', String(utilitiesLast));
-  readout.textContent = '@layer ' + order + ';';
+  readout.textContent = '@layer ' + seq + ';';
 }
 
 toggle.addEventListener('click', () => { utilitiesLast = !utilitiesLast; apply(); });
 
-apply();
+// Při načtení statement už odpovídá výchozímu stavu — jen doplníme popisky.
+apply(false);

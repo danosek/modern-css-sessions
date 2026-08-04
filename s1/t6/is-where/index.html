@@ -42,10 +42,10 @@
           <section class="iw-card">
             <h2 class="iw-card__label">:is() — drží specificitu</h2>
             <pre class="iw-code"><code>:is(#hot, .row) {  <span class="iw-c">/* (1,0,0) */</span>
-  background: sage;
+  background: var(--surface-brand-secondary-strong);
 }
 .row {             <span class="iw-c">/* (0,1,0) — později */</span>
-  background: muted;
+  background: var(--surface-brand-primary-strong);
 }</code></pre>
             <article class="iw-clash iw-clash--is">
               <p id="hot" class="row">&gt;&gt; vyhrálo :is() pravidlo</p>
@@ -57,10 +57,10 @@
           <section class="iw-card">
             <h2 class="iw-card__label">:where() — specificita 0</h2>
             <pre class="iw-code"><code>:where(#hot2, .row2) {  <span class="iw-c">/* (0,0,0) */</span>
-  background: sage;
+  background: var(--surface-brand-secondary-strong);
 }
 .row2 {                 <span class="iw-c">/* (0,1,0) — později */</span>
-  background: amber;
+  background: var(--surface-brand-primary-strong);
 }</code></pre>
             <article class="iw-clash iw-clash--where">
               <p id="hot2" class="row2">&gt;&gt; vyhrálo pozdější .row2</p>

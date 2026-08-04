@@ -1,11 +1,10 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t8 D2 — Subgrid · Formulář — subgrid sloupců
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t8 D2 — Formulář — subgrid sloupců */
 
-/* ── POINTA DEMA — grid-template-columns: subgrid ─────────────────────────── */
+/* ── POINTA DEMA
+      grid-template-columns: subgrid */
 
-/* Rodičovský grid: 3 sloupce — label / input / hint.
-   Šířky se počítají z obsahu VŠECH řádků dohromady. */
+/* Šířky sloupců se počítají z obsahu
+   VŠECH řádků dohromady. */
 .form-grid {
   display: grid;
   grid-template-columns: max-content 1fr max-content;
@@ -13,9 +12,8 @@
   row-gap: var(--base);
 }
 
-/* Každý řádek si přes subgrid „vypůjčí" sloupce rodiče — labely, inputy
-   i hinty sedí v zarovnaných sloupcích napříč všemi řádky. Na rozdíl od
-   display: contents řádek ZŮSTÁVÁ skutečným boxem → jde stylovat (hover). */
+/* Na rozdíl od display: contents
+   zůstává řádek skutečným boxem. */
 .form-row {
   grid-column: span 3;
   display: grid;
@@ -24,12 +22,14 @@
   padding-block: var(--base-h);
 }
 
-/* Důkaz, že řádek je pořád box: hover obarví celý řádek. */
+/* Proto ho jde stylovat —
+   hover obarví celý řádek. */
 .form-row:hover {
   background: var(--surface-main-dim);
 }
 
-/* ── Podpůrné styly — vzhled labelu, inputu a hintu ───────────────────────── */
+/* ── Podpůrné styly
+      Vzhled labelu, inputu a hintu. */
 
 .form-label {
   font-size: var(--font-size-s);

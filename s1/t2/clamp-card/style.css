@@ -1,18 +1,21 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t2 D5 — Comparison Functions · clamp() — responsivní karta
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t2 D5 — clamp() — responsivní karta */
 
-/* ── POINTA DEMA — clamp() v gap, padding, radius i font-size ────────────── */
+/* ── POINTA DEMA — clamp()
+      v gap, padding, radius
+      i font-size. */
 
-/* Fluid gap — 7vw mezi 8 a 56 px; mřížka sama zalamuje bez breakpointů */
+/* auto-fit, ne auto-fill — prázdné
+   koleje se sbalí,
+   karty se rozšíří. */
 .cf-fluid-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(8px, 7vw, 56px);
   margin-block-end: var(--base-3);
 }
 
-/* Fluid radius i padding — záměrně dramatický rozsah, ať je přechod vidět */
+/* Záměrně dramatický rozsah mezí,
+   ať je přechod dobře vidět. */
 .cf-card {
   background: var(--surface-main-variant);
   border: 1px solid var(--border);
@@ -23,7 +26,9 @@
   gap: var(--base-2);
 }
 
-/* Fluid typografie — preferred jako calc(rem + vw), aby šlo zoomovat */
+/* preferred jako calc(rem + vw) —
+   čisté vw by zablokovalo
+   zoom textu. */
 .cf-card__title {
   font-family: var(--font-stack-headings);
   font-size: clamp(1rem, 0.6rem + 2.5vw, 2.5rem);
@@ -31,9 +36,10 @@
   font-weight: 600;
 }
 
-/* ── Podpůrné styly — panel readoutů, obsah karty, hint ──────────────────── */
+/* ── Podpůrné styly
+      Panel readoutů, obsah karty,
+      hint. */
 
-/* Panel s živými readouty — každý fluid prop ukazuje aktivní argument clamp() */
 .cf-card-props {
   background: var(--surface-main-variant);
   border: 1px solid var(--border);
@@ -61,7 +67,7 @@
   line-height: 1.5;
 }
 
-/* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */
+/* ── Nápověda */
 
 .cf-hint {
   font-size: var(--font-size-xs);

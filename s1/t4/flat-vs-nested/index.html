@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flat vs. nested – Modern CSS S1</title>
+  <title>Nesting vs. Less – Modern CSS S1</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
   <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
@@ -20,8 +20,8 @@
 
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
-    <h1 class="demo-title">Flat vs. nested</h1>
-    <p class="demo-subtitle">Stejné styly dvakrát — opakovaný selektor vs. jeden blok s &amp;</p>
+    <h1 class="demo-title">Nesting vs. Less</h1>
+    <p class="demo-subtitle">Co se z Lessu přepíše jeden na jeden a kde nativní <code>&amp;</code> funguje jinak</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">&</span>
     </span>
@@ -34,35 +34,58 @@
         <div class="compare-grid">
 
           <div class="compare-col">
-            <div class="compare-col__label compare-col__label--old">Flat CSS (tradiční)</div>
+            <div class="compare-col__label compare-col__label--less">Less</div>
             <div class="code-block">
-              <pre><code>.card { background: …; border-radius: …; }
-.card__title { font-size: …; color: …; }
-.card__body { padding: …; color: …; }
-.card__footer { border-top: …; }
-.card:hover { box-shadow: …; }
-.card--featured { border-color: …; }</code></pre>
+              <pre><code>.card {
+  background: …;
+
+  .card__title { font-size: …; }
+  &amp;:hover { box-shadow: …; }
+
+  &amp;--featured { border-color: …; }
+  &amp;__body { padding: …; }
+}</code></pre>
             </div>
-            <div class="compare-col__note">Selektor <code>.card</code> se opakuje → obtížnější přesun, rename</div>
+            <div class="compare-col__note">Preprocesor selektory <strong>skládá z textu</strong>, takže <code>&amp;--featured</code> slepí na <code>.card--featured</code></div>
           </div>
 
           <div class="compare-col">
-            <div class="compare-col__label compare-col__label--new">Nested CSS (nativní)</div>
+            <div class="compare-col__label compare-col__label--native">Nativní CSS</div>
             <div class="code-block code-block--highlight">
               <pre><code>.card {
   background: …;
-  border-radius: …;
 
-  &amp; .card__title { font-size: …; color: …; }
-  &amp; .card__body  { padding: …;  color: …; }
-  &amp; .card__footer { border-top: …; }
-  &amp;:hover { box-shadow: …; }
+  .card__title { font-size: …; }   /* stejné */
+  &amp;:hover { box-shadow: …; }        /* stejné */
+
+  /* &amp;--featured — NEFUNGUJE */
   &amp;.card--featured { border-color: …; }
+  .card__body { padding: …; }
 }</code></pre>
             </div>
-            <div class="compare-col__note">Vše v jednom bloku → přehlednost, snadný refactoring</div>
+            <div class="compare-col__note"><code>&amp;</code> je <strong>skutečný selektor</strong>, ne text — slepit ho s příponou nelze</div>
           </div>
 
+        </div>
+
+        <div class="nest-notes">
+          <div class="nest-note">
+            <div class="nest-note__head">Co je stejné</div>
+            <p>Vnořený potomek i <code>&amp;</code> před pseudo-třídou, pseudo-elementem a další třídou se
+              chovají jako v Lessu. <code>&amp;</code> smí být i uprostřed: <code>.dark &amp; { … }</code>.</p>
+          </div>
+          <div class="nest-note">
+            <div class="nest-note__head">Past 1 — žádné slepování</div>
+            <p><code>&amp;--featured</code> ani <code>&amp;__body</code> nejsou platné CSS. Selektor musíš napsat celý
+              (<code>&amp;.card--featured</code>, <code>.card__body</code>), takže BEM zápisy z Lessu se sem
+              nepřepíšou jeden na jeden.</p>
+          </div>
+          <div class="nest-note">
+            <div class="nest-note__head">Past 2 — specificita <code>&amp;</code></div>
+            <p><code>&amp;</code> nese specificitu jako <code>:is()</code> celého seznamu rodičů, tedy nejsilnějšího z nich.
+              V <code>.btn, #hero { &amp; span { … } }</code> má vnořené pravidlo specificitu <code>#hero</code> — u
+              preprocesoru by vznikly dva selektory, každý s vlastní specificitou.</p>
+          </div>
         </div>
 
         <!-- Živé karty demonstrující nested strukturu -->
@@ -77,7 +100,7 @@
           </div>
           <div class="card card--featured">
             <div class="card__header">
-              <span class="card__badge card__badge--featured">Doporučeno</span>
+              <span class="card__badge card__badge--featured">Modifier</span>
             </div>
             <div class="card__title">Varianta <code>&amp;.card--featured</code></div>
             <div class="card__body">Modifier třída přidaná přes <code>&amp;.card--featured { … }</code> — ampersand je selektor rodiče.</div>
@@ -124,7 +147,7 @@
   }
 }
 
-/* 4. Nesting bez & — od Chrome 112+, Firefox 117+, Safari 17.2+ */
+/* 4. & je u potomka nepovinný — implicitně se doplní */
 .card {
   border-radius: var(--radius);
 

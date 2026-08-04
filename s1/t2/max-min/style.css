@@ -1,10 +1,11 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t2 D3 — Comparison Functions · min() + max() — centrování
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t2 D3 — min() + max() — centrování */
 
-/* ── POINTA DEMA — dvě cesty ke stejnému zastropování a centrování ───────── */
+/* ── POINTA DEMA — dvě cesty
+      ke stejnému zastropování
+      a centrování. */
 
-/* Wrapper — cap 32rem drží proměnná, aby ji obě řešení níž sdílela */
+/* Cap 32rem drží proměnná — obě
+   řešení níž sdílejí tutéž mez. */
 .cc-wrapper {
   --cc-cap: 32rem;
   position: relative;
@@ -12,20 +13,24 @@
   background: var(--surface-main);
   padding: var(--base-4);
 }
-/* Řešení A — max() řídí okraj, prvek zůstává full-width.
-   Nad 32rem kontejneru vyhraje (100% - cap)/2, pod ním 0px → okraj zmizí. */
+
+/* A — max() řídí okraj: nad cap
+   vyhraje (100% - cap)/2,
+   pod ním 0px. */
 .cc-wrapper[data-technique="max"] {
   margin-inline: max(0px, (100% - var(--cc-cap)) / 2);
 }
-/* Řešení B — min() řídí šířku, auto okraje centrují.
-   Do 32rem vyhraje 100 %, nad ní se šířka zastropuje na cap. */
+
+/* B — min() řídí šířku: do cap
+   vyhraje 100 %, nad ní
+   se zastropuje. */
 .cc-wrapper[data-technique="min"] {
   width: min(100%, var(--cc-cap));
   margin-inline: auto;
 }
 
-/* Stage — kontext, vůči kterému se 100 % v obou funkcích počítá.
-   resize: horizontal dovolí měnit ho tažením a vidět přepnutí větve. */
+/* Stage — vůči její šířce se
+   100 % v obou funkcích počítá. */
 .cc-stage {
   background: var(--surface-main-dim);
   border: 1px solid var(--border);
@@ -37,11 +42,11 @@
   margin-block-end: var(--base-4);
 }
 
-/* ── Podpůrné styly — telemetrie, výpis řešení, popisky, info karta ──────── */
+/* ── Podpůrné styly
+      Telemetrie, výpis řešení,
+      popisky, info karta. */
 
-/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
-
-/* ── Telemetrie (nahoře): šířka kontejneru + výpočty obou řešení ──────────── */
+/* ── Telemetrie */
 .cc-telemetry {
   display: flex;
   flex-direction: column;
@@ -49,8 +54,6 @@
   margin-block-end: var(--base-4);
 }
 
-/* Šířka kontejneru — referenční hodnota pro 100% (obsahová šířka stage).
-   Hairline pod řádkem je strukturní předěl, ne podtržení hodnoty. */
 .cc-context {
   display: flex;
   align-items: baseline;
@@ -72,7 +75,6 @@
   color: var(--text-brand-primary);
 }
 
-/* Pokyn pod vizuální stage */
 .cc-hint {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
@@ -96,7 +98,7 @@
   padding: var(--base-h) var(--base);
 }
 
-/* ── Řešení — kód jen aktuálně zvolené techniky (druhá je skrytá) ─────────── */
+/* ── Výpis řešení */
 .cc-solutions {
   display: grid;
   gap: var(--base-2);
@@ -128,7 +130,7 @@
   line-height: 1.6;
 }
 
-/* ── Informační karta ────────────────────────────────────────────────────── */
+/* ── Informační karta */
 .cf-info-row { margin-block-start: var(--base-3); }
 .cf-info-card {
   background: var(--surface-main-variant);

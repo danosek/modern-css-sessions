@@ -1,20 +1,19 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t7 D1 — Container Queries · Resize kontejneru
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t7 D1 — Resize kontejneru */
 
-/* ── POINTA DEMA — @container: karta reaguje na svůj kontejner, ne na okno ─── */
+/* ── POINTA DEMA — @container
+      Karta reaguje na svůj kontejner,
+      ne na šířku okna. */
 
-/*    1) Z prvku se stane query kontejner — bez container-type nemá @container
-         co měřit; container-name mu dá jméno, na které se breakpointy odvolávají */
-
+/* Bez container-type není co měřit.
+   Jméno použijí dotazy níž. */
 .cq-container {
   container-type: inline-size;
   container-name: product;
   width: 100%;
 }
 
-/*    2) Výchozí (nejužší) podoba karty — přesně to, co breakpointy níž přepisují */
-
+/* Výchozí nejužší podoba karty.
+   Musí zůstat NAD @container bloky. */
 .product-card {
   background: var(--surface-front);
   border: 1px solid var(--border);
@@ -54,10 +53,9 @@
   transition: opacity 0.15s;
 }
 
-/*    3) Breakpointy se ptají kontejneru „product", ne viewportu.
-         Mobile-first, klasická syntaxe: úzko = stack, pak 400 px a 560 px      */
+/* Dotazy míří na kontejner „product",
+   ne na viewport. */
 
-/* width >= 400px — horizontální grid layout */
 @container product (min-width: 400px) {
   .product-card {
     display: grid;
@@ -71,7 +69,6 @@
   }
 }
 
-/* width >= 560px — wide layout s footerem jako řádkem */
 @container product (min-width: 560px) {
   .product-card {
     grid-template-columns: 160px 1fr;
@@ -94,10 +91,10 @@
   }
 }
 
-/* ── Podpůrné styly — resize rámec, readout, vnitřek karty, typografie ────── */
+/* ── Podpůrné styly
+      Rámec, readout, vnitřek karty. */
 
-/* ── Resizable container wrapper ─────────────────────────────────────────── */
-/*    Uživatel může táhnout za pravý dolní roh a sledovat breakpointy karty   */
+/* ── Resizable container wrapper */
 
 .cq-resize-wrap {
   resize: horizontal;
@@ -110,7 +107,7 @@
   border: 1px solid var(--border-shiny);
 }
 
-/* ── Živý readout — šířka kontejneru + právě aktivní breakpoint ───────────── */
+/* ── Readout */
 
 .cq-readout {
   display: flex;
@@ -127,7 +124,7 @@
   color: var(--text-brand-primary);
 }
 
-/* ── Vnitřek karty — obsah, typografie ───────────────────────────────────── */
+/* ── Vnitřek karty — obsah, typografie */
 
 .product-card__body {
   padding: var(--base-2) var(--base-3);
@@ -140,7 +137,7 @@
 .product-card__title {
   font-family: var(--font-stack-headings);
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
+  font-weight: var(--font-weight-main);
   color: var(--text-primary);
 }
 

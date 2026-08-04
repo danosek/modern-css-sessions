@@ -1,12 +1,10 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t3 D3 — Logical Properties · writing-mode
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t3 D3 — writing-mode */
 
-/* ── POINTA DEMA — writing-mode otočí logické hrany ──────────────────────── */
+/* ── POINTA DEMA — writing-mode
+      otočí logické hrany karty */
 
-/* Karta má STABILNÍ fyzický rozměr (width/min-height) — při změně writing-mode
-   se nemění tvar boxu, mění se jen orientace textu a poloha logických hran.
-   Samotný writing-mode nastavuje script.js inline na .lp-card. */
+/* fyzický rozměr držíme stabilní,
+   mění se jen orientace textu */
 .lp-card {
   width: 100%;
   min-height: 220px;
@@ -14,23 +12,26 @@
   border: 1px solid var(--border);
 }
 
-/* Fyzická karta — pruh přes border-left → vždy vlevo, i když text teče svisle */
+/* pruh zůstane vlevo, i když
+   text teče svisle */
 .lp-card--physical {
   border-left: 8px solid var(--text-brand-primary);
   padding: var(--base-3);
   padding-left: calc(var(--base-3) + 2rem);
 }
 
-/* Logická karta — pruh přes border-inline-start → drží se začátku řádku textu */
+/* pruh se otočí s textem,
+   drží se začátku řádku */
 .lp-card--logical {
   border-inline-start: 8px solid var(--text-brand-primary);
   padding: var(--base-3);
   padding-inline-start: calc(var(--base-3) + 2rem);
 }
 
-/* ── Podpůrné styly — layout, popisky, obsah karty ───────────────────────── */
+/* ── Podpůrné styly
+      layout, popisky, obsah karty */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── Inline kód */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -46,7 +47,7 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Sekce 4 — mřížka a popisky srovnání ─────────────────────────────────── */
+/* ── Mřížka srovnání a popisky */
 
 .seg-toolbar {
   margin-block-end: var(--base-4);
@@ -54,7 +55,7 @@ code {
 
 .lp-compare {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--base-4);
 }
 
@@ -94,7 +95,8 @@ code {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   line-height: 1.6;
-  margin: var(--base-2) 0 0;
+  margin: 0;
+  margin-block-start: var(--base-2);
 }
 
 .lp-wm-hint {
@@ -108,7 +110,7 @@ code {
   line-height: 1.6;
 }
 
-/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+/* ── Code snippety */
 
 .lp-snippet {
   background: var(--surface-main);

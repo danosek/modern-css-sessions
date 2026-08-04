@@ -25,7 +25,7 @@
           { slug: 'inset',               index: 'D4', name: 'inset' },
         ] },
         { id: 't4', name: 'CSS Nesting', demos: [
-          { slug: 'flat-vs-nested', index: 'D1', name: 'Flat vs. nested' },
+          { slug: 'flat-vs-nested', index: 'D1', name: 'Nesting vs. Less' },
           { slug: 'nested-media',   index: 'D2', name: '@media uvnitř pravidla' },
         ] },
         { id: 't5', name: '@layer', demos: [
@@ -46,7 +46,6 @@
         { id: 't8', name: 'Subgrid', demos: [
           { slug: 'live-cards',  index: 'D1', name: 'Karty — subgrid řádků' },
           { slug: 'form-fields', index: 'D2', name: 'Formulář — subgrid sloupců' },
-          { slug: 'editorial',   index: 'D3', name: 'Editoriální layout' },
         ] },
       ],
     },

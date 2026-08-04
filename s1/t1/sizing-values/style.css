@@ -1,28 +1,27 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t1 D1 — Intrinsic Sizing · min-content · max-content · fit-content
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t1 D1 — min-content · max-content · fit-content */
 
-/* ── POINTA DEMA — width: min-content · max-content · fit-content ───────── */
+/* ── POINTA DEMA — width
+      min-content · max-content ·
+      fit-content */
 
-/* Přepínač nad boxem jen přepisuje atribut data-sizing (viz script.js).
-   Celý efekt dema dělají tyto čtyři deklarace width. */
+/* vyplní rodiče */
+.demo-box[data-sizing="auto"] { width: auto; }
 
-.demo-box[data-sizing="auto"]         { width: auto; }         /* výchozí — box vyplní rodiče */
+/* nejužší, co obsah dovolí —
+   nejdelší slovo */
+.demo-box[data-sizing="min-content"] { width: min-content; }
 
-.demo-box[data-sizing="min-content"]  { width: min-content; }  /* nejužší, co obsah dovolí — nejdelší slovo */
+/* obsah na jeden řádek —
+   klidně přeteče */
+.demo-box[data-sizing="max-content"] { width: max-content; }
 
-.demo-box[data-sizing="max-content"]  { width: max-content; }  /* obsah na jeden řádek — klidně přeteče */
+/* jako max-content,
+   ale nepřeteče kontejner */
+.demo-box[data-sizing="fit-content"] { width: fit-content; }
 
-.demo-box[data-sizing="fit-content"]  { width: fit-content; }  /* jako max-content, ale nepřeteče kontejner */
-
-/* ── Podpůrné styly — obsah boxu, pravítko, srovnávací mřížka ───────────── */
-
-/* Segmentová lišta: rámeček --text-primary (2px linky přes gap). Neaktivní
-   tlačítka mají barvu preview (--surface-main); aktivní svítí — pozadí
-   --text-primary (splyne s rámem) a text v barvě editoru (--surface-main). */
-/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
-
-/* ── Živá ukázka — text uvnitř boxu ─────────────────────────────────────── */
+/* ── Podpůrné styly
+      Obsah boxu, pravítko,
+      srovnávací mřížka. */
 
 .demo-box p {
   font-size: var(--font-size-base);
@@ -35,16 +34,14 @@
   color: var(--text-secondary-on-surface-brand-primary-subtle);
 }
 
-/* ── Živá ukázka — indikátor šířky ──────────────────────────────────────── */
-
 .demo-section__sublabel {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
   margin-bottom: var(--base-2);
 }
 
-/* Šířku i odsazení nastavuje JS podle skutečné pozice boxu (viz script.js) —
-   pravítko tak lícuje s boxem uvnitř stage, která má border a padding. */
+/* Šířku pravítka nastavuje JS
+   podle šířky boxu. */
 .width-indicator {
   display: flex;
   align-items: center;
@@ -79,17 +76,21 @@
 
 .width-indicator__bar::after  { right: 0; }
 
-/* ── Srovnání — mřížka všech hodnot vedle sebe ──────────────────────────── */
+/* ── Srovnání — mřížka všech
+      hodnot vedle sebe */
 
+/* auto-fit, ne auto-fill —
+   prázdné koleje se sbalí. */
 .sizing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--base-3);
   margin-bottom: var(--base-4);
 }
 
-/* max-content záměrně přetéká kontejner — ořízneme na hraně karty (čárkovaný
-   okraj = hranice kontejneru) a označíme, ať to nevypadá jako rozbitý render */
+/* max-content záměrně přetéká —
+   ořízneme na hraně kontejneru
+   a označíme. */
 .sizing-card--overflow {
   position: relative;
   overflow: hidden;

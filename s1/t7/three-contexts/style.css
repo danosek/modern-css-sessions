@@ -1,25 +1,24 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t7 D2 — Container Queries · Jedna karta, tři kontexty
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t7 D2 — Jedna karta, tři kontexty */
 
-/* ── POINTA DEMA — jedna karta, tři šířky kontejneru, tři layouty ─────────── */
+/* ── POINTA DEMA — tři kontexty
+      Jedna karta, tři šířky kontejneru,
+      tři layouty. */
 
-/*    1) Každý slot je vlastní query kontejner — karta se pak ptá jeho šířky,
-         ne šířky okna. Proto můžou být tři různé podoby na jedné obrazovce.   */
-
+/* Každý slot je vlastní kontejner →
+   tři podoby karty na jedné obrazovce. */
 .cq-container {
   container-type: inline-size;
   container-name: product;
   width: 100%;
 }
 
-/* Fixní šířky pro porovnání tří kontextů */
+/* Fixní šířky — tři kontexty vedle sebe. */
 .cq-container--220 { width: 220px; }
 
 .cq-container--360 { width: 360px; }
 
-/*    2) Výchozí podoba karty — základ, který query bloky níž přepisují        */
-
+/* Výchozí podoba karty.
+   Musí zůstat NAD @container bloky. */
 .product-card {
   background: var(--surface-front);
   border: 1px solid var(--border);
@@ -67,13 +66,10 @@
   transition: opacity 0.15s;
 }
 
-/*    3) Tři nepřekrývající se rozsahy — každý slot padne přesně do jednoho    */
+/* ── Range container queries */
 
-/* ── Range container queries ─────────────────────────────────────────────── */
-/*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
-/*    Cross-browser: Chrome 111+, Firefox 110+, Safari 16+                     */
-
-/* width < 360px — stack layout (výchozí styl karty, nic navíc) */
+/* Tři nepřekrývající se rozsahy —
+   každý slot padne přesně do jednoho. */
 @container product (width < 360px) {
   .product-card__img {
     height: 70px;
@@ -85,7 +81,6 @@
   }
 }
 
-/* 360px <= width < 560px — horizontální grid layout */
 @container product (360px <= width < 560px) {
   .product-card {
     display: grid;
@@ -99,7 +94,6 @@
   }
 }
 
-/* width >= 560px — wide layout s footer jako řádkem */
 @container product (width >= 560px) {
   .product-card {
     display: grid;
@@ -124,10 +118,11 @@
   }
 }
 
-/* ── Podpůrné styly — srovnávací mřížka, popisky, vnitřek karty ───────────── */
+/* ── Podpůrné styly
+      Srovnávací mřížka, popisky,
+      vnitřek karty. */
 
-/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
-/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
+/* ── Tři kontexty — srovnávací sekce */
 
 .context-row {
   display: grid;
@@ -154,12 +149,12 @@
   padding-bottom: var(--base);
 }
 
-/* ── Vnitřek karty — obsah, typografie ───────────────────────────────────── */
+/* ── Vnitřek karty — obsah, typografie */
 
 .product-card__title {
   font-family: var(--font-stack-headings);
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
+  font-weight: var(--font-weight-main);
   color: var(--text-primary);
 }
 

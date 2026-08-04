@@ -1,27 +1,21 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t3 D1 — Logical Properties · Physical → Logical mapping
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t3 D1 — Physical → Logical mapping */
 
-/* ── POINTA DEMA — barevný kód: fyzické vs. logické ──────────────────────── */
+/* ── POINTA DEMA — barevný kód
+      fyzické vs. logické zápisy */
 
-/* Samotný tahák (páry width→inline-size, margin-left→margin-inline, …) je
-   v tabulce v index.html. CSS k němu přidává jediné didaktické sdělení —
-   barevné rozlišení obou sloupců: fyzický zápis tlumeně (starý způsob),
-   logický v sage (doporučený). Red je rezervovaná pro chyby, tady se
-   nepoužívá. Zbytek souboru je jen sazba tabulky. */
-
-/* Fyzická vlastnost — tlumená (starý způsob) */
+/* fyzický zápis — starý způsob */
 .lp-table td:first-child code { color: var(--text-secondary); }
 
-/* Logická vlastnost — sage (doporučený způsob) */
+/* logický zápis — doporučený */
 .lp-table td:nth-child(2) code {
   color: var(--text-brand-primary);
   font-weight: 600;
 }
 
-/* ── Podpůrné styly — tabulka, mono štítky, inline kód ───────────────────── */
+/* ── Podpůrné styly
+      tabulka, mono štítky, inline kód */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── Inline kód */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -30,15 +24,6 @@ code {
   padding: 0.1em 0.35em;
 }
 
-.lp-desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  margin-block: var(--base-2) var(--base-4);
-  line-height: 1.6;
-  max-inline-size: 72ch;
-}
-
-/* Mezinadpis pro druhou tabulku (jednotky) — mono štítek */
 .lp-subhead {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
@@ -48,9 +33,7 @@ code {
   margin-block: var(--base-4) var(--base-2);
 }
 
-/* ── Mapovací tabulka — kompaktní tactical-HUD readout (skill §1/§4) ──────────
-   Hard 90° rám v --text-primary, monospace, vysoká hustota, žádné stíny ani
-   zaoblení. Barevný akcent sloupců řeší sekce POINTA nahoře. */
+/* ── Mapovací tabulka */
 
 .lp-table-wrap {
   overflow-x: auto;
@@ -89,14 +72,14 @@ code {
   line-height: 1.35;
 }
 
-/* První dva sloupce podle obsahu; popis (poslední) zabere zbytek šířky */
+/* 1% + nowrap = sloupec se sbalí
+   na obsah, popis zabere zbytek */
 .lp-table th:first-child,  .lp-table td:first-child,
 .lp-table th:nth-child(2), .lp-table td:nth-child(2) {
   inline-size: 1%;
   white-space: nowrap;
 }
 
-/* Ploché mono tokeny — bez chipu, jen barva nese význam */
 .lp-table code {
   background: none;
   border: none;

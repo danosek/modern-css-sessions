@@ -21,7 +21,7 @@
   <div class="demo-header">
     <div class="demo-session">S1 – Foundations Refresh</div>
     <h1 class="demo-title">Vendor CSS · revert-layer</h1>
-    <p class="demo-subtitle">Knihovna uzamčená ve vrstvě a návrat hodnoty přes revert-layer</p>
+    <p class="demo-subtitle">Přepni hodnotu u ghost tlačítka a sleduj, kam se vrátí — o vrstvu níž, nebo až na výchozí styl</p>
     <span class="demo-feature">
       <span class="demo-feature__kw">@layer</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">revert-layer</span>
     </span>
@@ -43,12 +43,26 @@
               <button class="lib-btn">Tlačítko</button>
               <dl class="ex-rules">
                 <div class="ex-rule ex-rule--lose">
-                  <dt><samp>#lib .lib-btn</samp></dt>
-                  <dd>@layer reset (knihovna) · (1,1,0)</dd>
+                  <dt class="ex-rule__head">
+                    <samp>@layer reset (knihovna)</samp>
+                    <span class="ex-rule__spec">(1,1,0)</span>
+                  </dt>
+                  <dd class="ex-rule__decl">
+                    <span class="ex-swatch ex-swatch--lib-reset" aria-hidden="true"></span>
+                    <code>#lib .lib-btn { background: main-variant }</code>
+                  </dd>
+                  <dd class="ex-rule__verdict">prohrává — nižší vrstva</dd>
                 </div>
                 <div class="ex-rule ex-rule--win">
-                  <dt><samp>.lib-btn</samp></dt>
-                  <dd>@layer components (naše) · (0,1,0) · [ WIN ]</dd>
+                  <dt class="ex-rule__head">
+                    <samp>@layer components (naše)</samp>
+                    <span class="ex-rule__spec">(0,1,0)</span>
+                  </dt>
+                  <dd class="ex-rule__decl">
+                    <span class="ex-swatch ex-swatch--lib-comp" aria-hidden="true"></span>
+                    <code>.lib-btn { background: brand-primary }</code>
+                  </dd>
+                  <dd class="ex-rule__verdict">[ WIN ] — vyšší vrstva</dd>
                 </div>
               </dl>
             </div>
@@ -62,14 +76,59 @@
             </div>
             <div class="ex-stage">
               <div class="ex-stage--row">
-                <button class="rv-btn">Normální (components)</button>
-                <button class="rv-btn rv-btn--ghost">Ghost — revert-layer</button>
+                <div class="ex-btn">
+                  <button class="rv-btn">Normální</button>
+                  <span class="ex-btn__cap">↑ krok 2</span>
+                </div>
+                <div class="ex-btn">
+                  <button class="rv-btn rv-btn--ghost" id="rv-ghost-btn">Ghost</button>
+                  <span class="ex-btn__cap" id="rv-cap">↑ krok 3</span>
+                </div>
               </div>
-              <p class="ex-note">
-                <code>base</code> nastaví podklad, <code>components</code> ho přebije.
-                <code>background: revert-layer</code> v <code>components</code> ho vrátí
-                zpět na hodnotu z <code>base</code> — ne na průhlednou.
-              </p>
+
+              <div class="seg-toolbar" role="group" aria-label="Hodnota pro background u ghost tlačítka">
+                <button class="seg-btn" data-value="none" aria-pressed="false">bez deklarace</button>
+                <button class="seg-btn" data-value="revert-layer" aria-pressed="true">revert-layer</button>
+                <button class="seg-btn" data-value="revert" aria-pressed="false">revert</button>
+              </div>
+              <output class="rv-readout" id="rv-readout"></output>
+
+              <dl class="ex-rules">
+                <div class="ex-rule">
+                  <dt class="ex-rule__head">
+                    <samp>1 · @layer base</samp>
+                    <span class="ex-rule__spec">(0,1,0)</span>
+                  </dt>
+                  <dd class="ex-rule__decl">
+                    <span class="ex-swatch ex-swatch--rv-base" aria-hidden="true"></span>
+                    <code>.rv-btn { background: gray-strong }</code>
+                  </dd>
+                  <dd class="ex-rule__verdict">podklad — sem se hodnota vrací</dd>
+                </div>
+                <div class="ex-rule">
+                  <dt class="ex-rule__head">
+                    <samp>2 · @layer components</samp>
+                    <span class="ex-rule__spec">(0,1,0)</span>
+                  </dt>
+                  <dd class="ex-rule__decl">
+                    <span class="ex-swatch ex-swatch--rv-comp" aria-hidden="true"></span>
+                    <code>.rv-btn { background: brand-primary }</code>
+                  </dd>
+                  <dd class="ex-rule__verdict">přebíjí krok 1 → normální tlačítko</dd>
+                </div>
+                <div class="ex-rule ex-rule--win" id="rv-step3">
+                  <dt class="ex-rule__head">
+                    <samp>3 · @layer components</samp>
+                    <span class="ex-rule__spec">(0,1,0)</span>
+                  </dt>
+                  <dd class="ex-rule__decl">
+                    <span class="ex-swatch" id="rv-swatch" aria-hidden="true"></span>
+                    <code id="rv-decl">.rv-btn--ghost { background: revert-layer }</code>
+                  </dd>
+                  <dd class="ex-rule__verdict" id="rv-verdict"></dd>
+                </div>
+              </dl>
+              <p class="ex-note" id="rv-note"></p>
             </div>
           </div>
 
@@ -91,9 +150,15 @@
 @layer reset      { #lib .lib-btn { background: gray; } }   /* (1,1,0) */
 @layer components { .lib-btn      { background: teal; } }   /* (0,1,0) → VYHRÁVÁ */
 
-/* revert-layer vrátí hodnotu na nižší vrstvu (base), ne na initial */
-@layer base       { .rv-btn       { background: #333; } }
-@layer components { .rv-btn--ghost { background: revert-layer; } }  /* → #333 z base */
+/* revert-layer vrací hodnotu o vrstvu níž (base), ne na výchozí */
+@layer base       { .rv-btn        { background: gray; } }   /* 1 — podklad */
+@layer components { .rv-btn        { background: teal; }      /* 2 — přebíjí */
+                    .rv-btn--ghost { background: revert-layer; } }  /* 3 → gray z base */
+
+/* Tři hodnoty, tři různé cíle — přepínač v demu mění právě tuhle deklaraci:
+   (nic)        → zůstane teal z components (krok 2)
+   revert-layer → gray z base — jen o JEDNU vrstvu níž
+   revert       → až na styl prohlížeče, vrstvy se přeskočí celé  */
 
 /* Anonymní vrstva — řadí se podle prvního výskytu jako každá jiná.
    Nejde na ni odkázat a každý @layer { } blok = nová, uzavřená vrstva */

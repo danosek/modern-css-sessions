@@ -1,24 +1,24 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t7 D3 — Container Queries · Range syntaxe
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t7 D3 — Range syntaxe */
 
-/* ── POINTA DEMA — range syntaxe: meze operátory místo min-/max-width ─────── */
+/* ── POINTA DEMA — range syntaxe
+      Meze zapsané operátory,
+      ne min-/max-width. */
 
-/*    1) Kontejner, jehož šířku budou range výrazy níž porovnávat              */
-
+/* Kontejner, jehož šířku porovnávají
+   range výrazy níž. */
 .cq-container {
   container-type: inline-size;
   container-name: product;
   width: 100%;
 }
 
-/* Fixní šířky pro porovnání tří kontextů */
+/* Fixní šířky — tři kontexty vedle sebe. */
 .cq-container--220 { width: 220px; }
 
 .cq-container--400 { width: 400px; }
 
-/*    2) Výchozí podoba karty — základ, který query bloky níž přepisují        */
-
+/* Výchozí podoba karty.
+   Musí zůstat NAD @container bloky. */
 .product-card {
   background: var(--surface-front);
   border: 1px solid var(--border);
@@ -66,14 +66,13 @@
   transition: opacity 0.15s;
 }
 
-/*    3) Tady je ta featura: <, >=, a celý interval na jeden řádek —
-         žádné min-width/max-width a žádné hlídání ±1px na hranicích          */
+/* ── Range container queries
+      Cross-browser: Chrome 111+,
+      Firefox 110+, Safari 16+ */
 
-/* ── Range container queries ─────────────────────────────────────────────── */
-/*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
-/*    Cross-browser: Chrome 111+, Firefox 110+, Safari 16+                     */
-
-/* width < 360px — stack layout (výchozí styl karty, nic navíc) */
+/* Celý interval na jeden řádek —
+   žádné min-/max-width,
+   žádné hlídání ±1px. */
 @container product (width < 360px) {
   .product-card__img {
     height: 70px;
@@ -85,7 +84,6 @@
   }
 }
 
-/* 360px <= width < 560px — horizontální grid layout */
 @container product (360px <= width < 560px) {
   .product-card {
     display: grid;
@@ -99,7 +97,6 @@
   }
 }
 
-/* width >= 560px — wide layout s footer jako řádkem */
 @container product (width >= 560px) {
   .product-card {
     display: grid;
@@ -124,10 +121,11 @@
   }
 }
 
-/* ── Podpůrné styly — srovnávací mřížka, popisky, vnitřek karty ───────────── */
+/* ── Podpůrné styly
+      Srovnávací mřížka, popisky,
+      vnitřek karty. */
 
-/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
-/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
+/* ── Tři kontexty — srovnávací sekce */
 
 .context-row {
   display: grid;
@@ -154,12 +152,12 @@
   padding-bottom: var(--base);
 }
 
-/* ── Vnitřek karty — obsah, typografie ───────────────────────────────────── */
+/* ── Vnitřek karty — obsah, typografie */
 
 .product-card__title {
   font-family: var(--font-stack-headings);
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
+  font-weight: var(--font-weight-main);
   color: var(--text-primary);
 }
 

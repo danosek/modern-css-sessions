@@ -94,23 +94,24 @@
         <div class="layout-example">
           <div class="layout-example__label">
             <code>.card:has(.card__img)</code>
-            <span>Layout se automaticky přizpůsobí obsahu</span>
+            <span>Odeber obrázek z DOM a karta se přestyluje sama — bez třídy, bez JS ve stylech</span>
           </div>
           <div class="layout-stage">
             <div class="cards-demo">
-              <div class="card">
+              <button type="button" class="seg-btn card-toggle" id="img-toggle" aria-pressed="true">
+                &gt;&gt; Odeber obrázek z DOM
+              </button>
+
+              <div class="card" id="has-card">
                 <div class="card__img">◫</div>
                 <div class="card__body">
-                  <strong class="card__title">S obrázkem — horizontální grid</strong>
-                  <p class="card__text">Karta obsahuje <code>.card__img</code>, proto <code>:has(.card__img)</code> přepne layout na <code>grid-template-columns: 100px 1fr</code>.</p>
+                  <strong class="card__title">Produktová karta</strong>
+                  <p class="card__text">Tahle karta nemá žádnou třídu podle varianty. Rozhoduje
+                    <strong>jen to, jestli uvnitř leží</strong> <code>.card__img</code>.</p>
                 </div>
               </div>
-              <div class="card">
-                <div class="card__body">
-                  <strong class="card__title">Bez obrázku — textový blok</strong>
-                  <p class="card__text">Karta neobsahuje <code>.card__img</code>. Selektor <code>:has()</code> se neaplikuje, karta zůstane jako jednoduchý blok.</p>
-                </div>
-              </div>
+
+              <output class="card-readout" id="has-readout"></output>
             </div>
           </div>
         </div>
@@ -160,7 +161,7 @@
             <p class="qq-note">Grid sám zjistí kolik má přímých potomků — žádný JS, žádné třídy přidávané ručně. <code>:has(&gt; .qq-item:nth-child(3))</code> se aplikuje, jakmile existuje třetí přímý potomek.</p>
           </div>
 
-          <div class="code-block" style="margin-top: var(--base);">
+          <div class="code-block qq-code">
             <pre><code>/* 1–2 položky: jeden sloupec (výchozí) */
 .qq-grid { display: grid; grid-template-columns: 1fr; gap: var(--base-2); }
 

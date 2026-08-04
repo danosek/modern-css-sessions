@@ -1,14 +1,10 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t4 D2 — CSS Nesting · @media uvnitř pravidla
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t4 D2 — @media uvnitř pravidla */
 
-/* ── POINTA DEMA — @media vnořené přímo do pravidla ─────────────────────── */
+/* ── POINTA DEMA — vnořený @media
+      Patří přímo do pravidla. */
 
-/*
-  Žádný samostatný @media blok na konci souboru: breakpoint je vždy u toho
-  pravidla, kterého se týká — i u vnořených potomků. Deklarace v @media
-  přepisuje tu základní nad sebou, proto musí zůstat pod ní.
-*/
+/* vnořený @media přepisuje deklarace
+   nad sebou — musí zůstat pod nimi */
 .fluid-hero {
   display: flex;
   flex-direction: row;
@@ -17,7 +13,6 @@
   padding: var(--base-5);
   background: var(--surface-brand-primary-minimal);
 
-  /* mobil: z řádku sloupec — vlastní breakpoint pro samotný hero */
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
@@ -32,7 +27,8 @@
     color: var(--text-primary);
     flex: 0 0 auto;
 
-    /* každý potomek má svůj vlastní @media přímo u sebe */
+    /* breakpoint u toho pravidla,
+       kterého se týká — i u potomků */
     @media (max-width: 600px) {
       font-size: var(--font-size-xl);
     }
@@ -61,7 +57,8 @@
   }
 }
 
-/* @media umí být i uvnitř nested modifieru (&.fluid-badge--mobile) */
+/* @media funguje i uvnitř
+   vnořeného modifieru */
 .fluid-badge {
   display: inline-block;
   font-size: var(--font-size-xs);
@@ -71,12 +68,17 @@
   color: var(--text-primary-on-surface-brand-primary-strong);
   white-space: nowrap;
 
+  @media (max-width: 600px) {
+    background: var(--surface-main-variant);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
   &.fluid-badge--mobile {
     background: var(--surface-main-variant);
     color: var(--text-secondary);
     border: 1px solid var(--border);
 
-    /* pod 600 px se rozsvítí štítek „Mobil" */
     @media (max-width: 600px) {
       background: var(--surface-brand-secondary-strong);
       color: var(--text-primary-on-surface-brand-primary-strong);
@@ -85,22 +87,23 @@
   }
 }
 
-/* ── Podpůrné styly — rám ukázky, code blok, inline kód ─────────────────── */
+/* ── Podpůrné styly
+      rám ukázky, code blok, inline kód */
 
-/* ── Rám živé ukázky ────────────────────────────────────────────────────── */
+/* ── Rám ukázky */
 
 .fluid-demo {
   border: 1px solid var(--border);
   overflow: hidden;
 }
 
-/* ── Pomocné třídy ──────────────────────────────────────────────────────── */
+/* ── Pomocné třídy */
 
 code {
   font-family: var(--font-stack-monospace);
 }
 
-/* ── Code block ─────────────────────────────────────────────────────────── */
+/* ── Code block */
 
 .code-block {
   background: var(--surface-main-variant);

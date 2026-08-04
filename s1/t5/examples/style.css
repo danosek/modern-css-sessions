@@ -1,28 +1,34 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t5 D3 — @layer · Vendor CSS · revert-layer
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t5 D3 — Vendor CSS · revert-layer */
 
-/* ── POINTA DEMA — vrstvy vs. specificita + revert-layer ─────────────────── */
+/* ── POINTA DEMA — @layer
+      Vrstva rozhoduje dřív než specificita.
+      revert-layer vrací hodnotu do base. */
 
-/* Pořadí vrstev pro oba příklady */
 @layer reset, base, components, utilities;
 
-/* ── A: knihovna (reset) vs. naše komponenta (components) — jeden prvek ───── */
+/* ── A: reset (knihovna) vs. components */
+
+/* (1,1,0) — vyšší specificita, nižší vrstva.
+   Prohrává. */
 @layer reset {
-  #lib .lib-btn {             /* (1,1,0) — vyšší specificita, nižší vrstva → prohrává */
+  #lib .lib-btn {
     background: var(--surface-main-variant);
     color: var(--text-secondary);
     border-color: var(--border-strong);
   }
 }
+
+/* (0,1,0) — nižší specificita, vyšší vrstva.
+   VYHRÁVÁ. */
 @layer components {
-  .lib-btn {                  /* (0,1,0) — nižší specificita, vyšší vrstva → VYHRÁVÁ */
+  .lib-btn {
     background: var(--surface-brand-primary-strong);
     color: var(--text-primary-on-surface-brand-primary-strong);
   }
 }
 
-/* Základní vzhled — mimo vrstvy, bez background (o barvě rozhodují vrstvy) */
+/* Mimo vrstvy, bez background —
+   o barvě rozhodují vrstvy. */
 .lib-btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
@@ -31,25 +37,43 @@
   cursor: pointer;
 }
 
-/* ── B: revert-layer — base definuje hodnotu, na kterou se vrací ──────────── */
+/* ── B: revert-layer — řetěz tří kroků */
+
+/* KROK 1 — spodní vrstva je cíl revertu.
+   Tuhle šedou dostane ghost zpátky. */
 @layer base {
-  .rv-btn {                   /* spodní vrstva = cíl revert-layer */
-    background: var(--surface-main-dim);
-    color: var(--text-primary);
+  .rv-btn {
+    background: var(--surface-gray-strong);
+    color: var(--text-primary-on-surface-gray-strong);
   }
 }
+
 @layer components {
+  /* KROK 2 — přebíjí base. */
   .rv-btn {
     background: var(--surface-brand-primary-strong);
     color: var(--text-primary-on-surface-brand-primary-strong);
   }
+
+  /* KROK 3 — dvě hodnoty, dva různé cíle.
+     Přepínač v demu rozhoduje, která
+     z nich je na tlačítku aktivní. */
+
+  /* o JEDNU vrstvu níž → šedá z base */
   .rv-btn--ghost {
-    background: revert-layer;  /* → vrátí se na base: surface-main-dim (viditelné) */
+    background: revert-layer;
     color: revert-layer;
+  }
+
+  /* až na styl prohlížeče, vrstvy pryč */
+  .rv-btn--revert {
+    background: revert;
+    color: revert;
   }
 }
 
-/* Základní vzhled — mimo vrstvy, bez background (o barvě rozhodují vrstvy) */
+/* Mimo vrstvy, bez background —
+   o barvě rozhodují vrstvy. */
 .rv-btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
@@ -58,14 +82,15 @@
   cursor: pointer;
 }
 
-/* ── Podpůrné styly — sloupce, scény, výpis pravidel, poznámky ───────────── */
+/* ── Podpůrné styly
+      Sloupce, scény, výpis pravidel. */
 
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-primary);
 }
 
-/* ── Layout ──────────────────────────────────────────────────────────────── */
+/* ── Layout */
 
 .layout-example {
   display: flex;
@@ -91,7 +116,7 @@ code {
 
 .examples-cols {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: var(--base-4);
   margin-block-end: var(--base-4);
 }
@@ -107,29 +132,106 @@ code {
 .ex-stage--row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--base-3);
-  align-items: center;
+  gap: var(--base-4);
+  align-items: start;
 }
 
-.ex-rules { display: grid; gap: var(--base-h); }
+/* ── Přepínač hodnoty a jeho readout */
+
+.rv-readout {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  background: var(--surface-brand-primary-strong);
+  padding: var(--base-h) var(--base);
+  justify-self: start;
+}
+
+/* ── Tlačítko + popiska pod ním */
+
+.ex-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--base-h);
+}
+
+.ex-btn__cap {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+/* ── Výpis soutěžících pravidel
+      Stejná karta jako v D1 a D2. */
+
+.ex-rules {
+  display: grid;
+  gap: var(--base-h);
+  margin: 0;
+}
 
 .ex-rule {
   display: grid;
   gap: var(--base-h);
-  padding: var(--base-2);
+  padding: var(--base-2) var(--base-3);
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--border);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-xs);
+}
+
+.ex-rule__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--base-2);
+  margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
-.ex-rule dt { margin: 0; }
-.ex-rule dd { color: var(--text-secondary); }
+.ex-rule__head samp { color: var(--text-primary); background: none; }
+.ex-rule__spec { color: var(--text-secondary); }
+
+.ex-rule__decl {
+  display: flex;
+  align-items: center;
+  gap: var(--base);
+  margin: 0;
+}
+.ex-rule__decl code { color: var(--text-secondary); background: none; }
+
+/* Vzorek = skutečná barva z toho pravidla.
+   Shodné vzorky = shodná hodnota. */
+.ex-swatch {
+  inline-size: 1rem;
+  block-size: 1rem;
+  flex-shrink: 0;
+  border: 1px solid var(--text-primary);
+}
+.ex-swatch--lib-reset { background: var(--surface-main-variant); }
+.ex-swatch--lib-comp  { background: var(--surface-brand-primary-strong); }
+.ex-swatch--rv-base   { background: var(--surface-gray-strong); }
+.ex-swatch--rv-comp   { background: var(--surface-brand-primary-strong); }
+
+.ex-rule__verdict {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
 .ex-rule--win {
+  border-color: var(--text-brand-primary);
+  border-inline-start-color: var(--text-brand-primary);
   background: var(--surface-brand-primary-minimal);
-  color: var(--text-brand-primary);
 }
-.ex-rule--win samp { color: var(--text-brand-primary); }
-.ex-rule--lose { opacity: 0.5; }
+.ex-rule--win .ex-rule__head samp { color: var(--text-brand-primary); }
+.ex-rule--win .ex-rule__decl code { color: var(--text-primary); }
+.ex-rule--win .ex-rule__verdict { color: var(--text-brand-primary); }
+.ex-rule--lose { opacity: 0.55; }
 
 .ex-note {
   font-size: var(--font-size-s);

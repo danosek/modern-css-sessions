@@ -83,11 +83,12 @@
   <div class="demo-code">
     <div class="demo-code__section">
       <h2 class="demo-code__title">Subgrid — základ</h2>
-      <pre tabindex="0"><code class="language-css">/* Rodičovský grid definuje sloupce I řádky */
+      <pre tabindex="0"><code class="language-css">/* Rodičovský grid definuje sloupce I řádky — řádků musí být
+   tolik, kolik jich karta přes span pokrývá (tady 5) */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;   /* řádky se tvoří automaticky */
+  grid-template-rows: repeat(5, auto);
   gap: var(--base-3);
 }
 

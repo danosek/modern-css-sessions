@@ -1,23 +1,16 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t3 D2 — Logical Properties · dir
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t3 D2 — dir */
 
-/* ── POINTA DEMA — fyzické vs. logické hrany karty ───────────────────────── */
+/* ── POINTA DEMA — border-inline-start
+      fyzické vs. logické hrany karty */
 
-/* Obě karty mají identický obsah i layout — pruh, ikonu a velké odsazení na
-   začátku. Liší se POUZE tím, čím je to nastylované: fyzická verze vše váže na
-   levou stranu (border-left, padding-left, left → v RTL zůstane vlevo, odtržené
-   od textu), logická na začátek čtení (border-inline-start, padding-inline-start,
-   inset-inline-start → v RTL se celé překlopí doprava a drží pohromadě).
-   dir="rtl" nastavuje script.js jen na kartách, mřížka zůstává LTR. */
 .lp-card {
   position: relative;
   background: var(--surface-main-bright);
   border: 1px solid var(--text-primary);
-  transition: border-color 0.15s;
 }
 
-/* Fyzická karta — vše vázané na levou stranu (physical) */
+/* v RTL zůstane vlevo,
+   odtrhne se od textu */
 .lp-card--physical {
   border-left: 8px solid var(--text-brand-primary);
   padding: var(--base-3);
@@ -28,7 +21,8 @@
   left: var(--base-3);
 }
 
-/* Logická karta — vše vázané na začátek čtení (logical) */
+/* v RTL se překlopí doprava
+   a drží pohromadě s textem */
 .lp-card--logical {
   border-inline-start: 8px solid var(--text-brand-primary);
   padding: var(--base-3);
@@ -39,7 +33,6 @@
   inset-inline-start: var(--base-3);
 }
 
-/* Vedoucí ikona — absolutní, sedí ve velkém odsazení na začátku karty */
 .lp-card__icon {
   position: absolute;
   inline-size: 2.25rem;
@@ -52,9 +45,10 @@
   color: var(--text-primary-on-surface-brand-primary-strong);
 }
 
-/* ── Podpůrné styly — layout, popisky, obsah karty ───────────────────────── */
+/* ── Podpůrné styly
+      layout, popisky, obsah karty */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── Inline kód */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -63,8 +57,6 @@ code {
   padding: 0.1em 0.35em;
 }
 
-/* (segmentový přepínač .seg-toolbar / .seg-btn je sdílený v demo-base.css) */
-
 .lp-desc {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
@@ -72,21 +64,15 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
+/* ── Mřížka srovnání */
 
-.lp-demo-wrap {
- 
-}
-
-/* Segmentový přepínač má vlastní spodní předěl k oddělení od karet */
 .seg-toolbar {
   margin-block-end: var(--base-4);
 }
 
-/* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
 .lp-compare {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
   gap: var(--base-4);
 }
 
@@ -96,7 +82,6 @@ code {
   gap: var(--base-3);
 }
 
-/* Štítek sloupce — popisek nad kartou (fyzické vs. logické) */
 .lp-col__label {
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
@@ -107,13 +92,11 @@ code {
   align-self: flex-start;
 }
 
-/* Fyzická strana — neutrální, nepreferovaná */
 .lp-col__label--bad {
   color: var(--text-secondary);
   background: var(--surface-main-variant);
 }
 
-/* Logická strana — jediný akcent, preferovaná */
 .lp-col__label--good {
   color: var(--text-brand-primary);
   background: var(--surface-brand-primary-minimal);
@@ -148,7 +131,7 @@ code {
   border: 1px solid var(--border);
 }
 
-/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+/* ── Code snippety */
 
 .lp-snippet {
   background: var(--surface-main);

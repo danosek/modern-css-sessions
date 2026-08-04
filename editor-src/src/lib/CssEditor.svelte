@@ -54,6 +54,9 @@
       doc: value,
       extensions: [
         basicSetup,
+        // Zalamování řádků — basicSetup ho nezapíná. Bez toho se v panelu
+        // (na projektoru ~50 znaků) odřezávají komentáře i deklarace.
+        EditorView.lineWrapping,
         cssLang(),
         spectroSyntax,
         spectroTheme,

@@ -1,1 +1,1 @@
-/* Flat vs. nested — bez JS (čistě CSS). */
+/* Nesting vs. Less — bez JS (čistě CSS). */

@@ -1,28 +1,24 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t6 D1 — Parent & grouping selectors · :has(input:checked)
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t6 D1 — :has(input:checked) */
 
-/* ── POINTA DEMA — :has(input:checked): rodič reaguje na stav potomka ────── */
+/* ── POINTA DEMA — :has(input:checked)
+      Rodič reaguje na stav potomka. */
 
-/* Zaškrtnutý checkbox uvnitř řádky přebarví a ztiší CELOU řádku.
-   Bez :has() by to nešlo — CSS neumí selektovat rodiče podle potomka. */
+/* Bez :has() nejde rodiče vybrat
+   podle stavu potomka */
 .task:has(input:checked) {
   opacity: 0.7;
   background: var(--surface-main-dim);
 }
 
-/* :has() lze kombinovat s potomkem — stylujeme sourozence checkboxu */
+/* podmínka na rodiči, stylovaný je
+   až potomek za :has() */
 .task:has(input:checked) .task-name {
   text-decoration: line-through;
   color: var(--text-secondary);
 }
 
-/* ── Podpůrné styly — task list, řádky, typografie ───────────────────────── */
-
-code {
-  font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
-}
+/* ── Podpůrné styly
+      Task list, řádky, typografie. */
 
 .task-list {
   list-style: none;
@@ -61,7 +57,6 @@ code {
 .task-name {
   font-size: var(--font-size-base);
   color: var(--text-primary);
-  transition: text-decoration 0.15s;
 }
 
 .task-meta {

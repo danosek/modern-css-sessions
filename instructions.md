@@ -158,24 +158,34 @@ Každé demo má vedle `index.html` vlastní `style.css` (demo-specifické styly
 Lektor demo promítá a **CSS čte účastníkům nahlas**. Pravidla, která jsou pointou dema, proto patří na začátek souboru – ne aby se k nim scrollovalo přes stylování popisků a code bloků. Každý `style.css` má dvě sekce:
 
 ```css
-/* ═══════════════════════════════════════════════════════════════════════════
-   t<N> D<M> — <Topic> · <Název dema>
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t<N> D<M> — <Název dema> */
 
-/* ── POINTA DEMA — <co se tu učí> ─────────────────────────────────────────── */
+/* ── POINTA DEMA — <featura>
+      <Věta, co se tu učí.> */
 
-/* Učená featura a pravidla, bez kterých nedává smysl (u subgridu i rodičovský
-   grid, u container queries i container-type). Komentář u pravidla říká PROČ. */
+/* Krátká věta, PROČ je to tak.
+   Druhý řádek, když se nevejde. */
+.selektor { … }
 
-/* ── Podpůrné styly — <mřížka, karty, popisky> ────────────────────────────── */
-
-/* Všechno ostatní: layout scaffolding, typografie, barvy, code bloky. */
+/* ── Podpůrné styly
+      <Mřížka, karty, popisky.> */
 ```
 
 - **Pointa = featura z názvu dema a z `demo-feature` chipu** + minimum kontextu, aby se dala vysvětlit bez skákání po souboru.
 - **Přeskládání nesmí změnit kaskádu.** Pravidlo v `@media`/`@container` přepisuje základní pravidlo, takže základ musí zůstat **nad** query – když jde query nahoru, jde s ní i to, co přepisuje. Pořadí `@layer` statementu a `@layer` bloků je sémantika, s tou se nehýbe.
 - Ověřuj strojově, ne okem: vyrenderuj demo v headless Chrome, vypiš `getComputedStyle` všech elementů (custom properties setřídit – Chrome je vypisuje v nestabilním pořadí) a porovnej dump před/po. Musí být bajtově identický.
 - Do dema nepatří mrtvý kód: selektor bez odpovídajícího HTML nebo zakomentovaný zbytek účastníka, který kód čte, jen zdržuje.
+
+### Komentáře – sazba na šířku panelu
+
+CSS panel v editoru zabírá **třetinu obrazovky**; na projekčních 1280×720 je v něm vidět jen ~50 znaků. Zalamování je zapnuté (`EditorView.lineWrapping`), takže dlouhý komentář se zabalí a rozsype – konec věty i `*/` spadnou na vlastní řádek pod odsazení kódu.
+
+- **Žádný komentářový řádek nad ~46 znaků.** Delší myšlenku rozlož na dva až tři řádky, pokračovací odsaď třemi mezerami.
+- **Komentář patří přímo nad pravidlo, bez prázdného řádku mezi nimi** – vizuálně tak drží se svým blokem.
+- **Žádné dlouhé koncové komentáře za deklarací** (`padding: 2px; /* dlouhé vysvětlení */`) – zarovnávací mezery se v úzkém panelu rozsypou nejvíc. Koncový komentář nech jen když je celý řádek do ~46 znaků.
+- Nezlom řádek tak, aby pokračování začínalo pomlčkou `—`; přeformuluj (dvojtečka, čárka).
+- Hlavička je **jeden řádek** `/* t<N> D<M> — <Název> */`; topic se neopakuje, je vidět v liště editoru i v dashboardu.
+- Komentář má cenu jen když říká něco o **probírané featuře**, co z kódu neplyne. Instalatérství dema (co dělá JS, jakou třídu přidává toggle), převyprávění kódu a popisy vzhledu do dema nepatří.
 
 ---
 
@@ -242,7 +252,7 @@ Zdroj pravdy pro dashboard je `editor-src/src/IndexApp.svelte`; tenhle seznam s 
 - **D4** `inset` – inset
 
 #### `t4` – CSS Nesting
-- **D1** `flat-vs-nested` – Flat vs. nested
+- **D1** `flat-vs-nested` – Nesting vs. Less
 - **D2** `nested-media` – @media uvnitř pravidla
 
 #### `t5` – `@layer`
@@ -263,7 +273,8 @@ Zdroj pravdy pro dashboard je `editor-src/src/IndexApp.svelte`; tenhle seznam s 
 #### `t8` – Subgrid
 - **D1** `live-cards` – Karty — subgrid řádků
 - **D2** `form-fields` – Formulář — subgrid sloupců
-- **D3** `editorial` – Editoriální layout
+
+> Původní D3 `editorial` byl smazán (4. 8. 2026): mechanicky totožný s D1 – stejný rodičovský grid, `grid-template-rows: repeat(N, auto)`, `grid-row: span N` a subgrid, jen s jiným obsahem. Dvakrát totéž si v 90 minutách nemůžeme dovolit. Kdyby t8 mělo dostat třetí demo, musí přinést **jiný mechanismus**, ne jiný obsah – např. subgrid v obou osách nebo pojmenované linky rodiče zděděné přes subgrid (`grid-column: main / wide`).
 
 > `s1/d9` (`reading-flow`) je orphan ze staré ploché struktury – není v dashboardu.
 

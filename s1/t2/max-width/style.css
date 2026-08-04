@@ -1,11 +1,11 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t2 D2 — Comparison Functions · max() — podlaha šířky
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t2 D2 — max() — podlaha šířky */
 
-/* ── POINTA DEMA — max() jako podlaha šířky ──────────────────────────────── */
+/* ── POINTA DEMA — max() jako
+      podlaha šířky */
 
-/* max(50%, 320px) → vždy ta větší hodnota. Nad 640 px kontejneru vyhraje 50 %,
-   pod ním se prvek zapře o 320 px a dál se nezmenšuje. */
+/* max(50%, 320px) → vždy větší
+   hodnota; pod 640 px drží
+   podlahu 320 px. */
 .cf-max-box {
   width: max(50%, 320px);
   background: var(--surface-brand-primary-strong);
@@ -15,8 +15,9 @@
   font-size: var(--font-size-s);
 }
 
-/* Referenční ekvivalent nad ním — stejný výsledek přes dvě deklarace;
-   max() to zvládne jednou a přijme libovolný počet argumentů. */
+/* Stejný výsledek klasicky ve dvou
+   deklaracích; max() zvládne
+   i víc hranic. */
 .cf-minwidth-box {
   width: 50%;
   min-width: 320px;
@@ -27,9 +28,11 @@
   font-size: var(--font-size-s);
 }
 
-/* ── Podpůrné styly — srovnání, pravítko, popisky, info karta ────────────── */
+/* ── Podpůrné styly
+      Srovnání, pravítko, popisky,
+      info karta. */
 
-/* ── Srovnávací dvojice boxů ─────────────────────────────────────────────── */
+/* ── Srovnávací dvojice boxů */
 
 .cf-compare {
   display: flex;
@@ -66,7 +69,6 @@
   line-height: 1;
 }
 
-/* Pravítko — podklad, vůči kterému je vidět reálná šířka boxu */
 .cf-demo-box--ruler {
   background: var(--surface-main-variant);
   overflow: hidden;
@@ -77,7 +79,7 @@
   font-size: var(--font-size-s);
 }
 
-/* ── Informační karta s vysvětlením ──────────────────────────────────────── */
+/* ── Informační karta */
 
 .cf-info-row {
   margin-block-start: var(--base-3);

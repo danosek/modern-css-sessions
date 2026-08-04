@@ -1,29 +1,29 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   t6 D2 — Parent & grouping selectors · :has() v praxi
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* t6 D2 — :has() v praxi */
 
-/* ── POINTA DEMA — :has(): rodič se řídí obsahem a stavem potomků ────────── */
+/* ── POINTA DEMA — :has()
+      Rodič se řídí obsahem
+      a stavem potomků. */
 
-/* 1) Validace formuláře — :has() + :user-invalid / :user-valid, bez JS.
-      Stav <input> vytáhneme na .field a odtud stylujeme i label. */
+/* 1) Validace — :has() vytáhne stav
+   inputu na .field, odtud i na label */
 .field:has(.field-input:user-invalid) .field-label {
-  color: var(--status-error);
+  color: var(--text-status-error);
 }
 
 .field:has(.field-input:user-invalid) .field-input {
-  border-color: var(--status-error);
+  border-color: var(--surface-status-error-strong);
 }
 
 .field:has(.field-input:user-valid) .field-label {
-  color: var(--status-success);
+  color: var(--text-status-success);
 }
 
 .field:has(.field-input:user-valid) .field-input {
-  border-color: var(--status-success);
+  border-color: var(--surface-status-success-strong);
 }
 
-/* 2) Navigace — sekce se zvýrazní, když uvnitř leží aktivní odkaz.
-      Základní .nav-section drží 3px průhledný okraj, :has() ho jen přebarví. */
+/* 2) Navigace — průhledný okraj drží
+   místo, :has() ho jen přebarví */
 .nav-section {
   padding: var(--base-2) var(--base-3);
   border-left: 3px solid transparent;
@@ -39,7 +39,10 @@
   color: var(--text-brand-primary);
 }
 
-/* 3) Karta — layout se mění podle PŘÍTOMNOSTI potomka (ne podle třídy) */
+/* 3) Karta — o vzhledu rozhoduje
+   PŘÍTOMNOST potomka, ne třída */
+
+/* S obrázkem: dva sloupce vedle sebe */
 .card:has(.card__img) {
   display: grid;
   grid-template-columns: calc(var(--base-8) + var(--base-2)) 1fr;
@@ -48,27 +51,57 @@
   padding: var(--base-2) var(--base-3);
 }
 
-/* 4) Quantity query — počet sloupců podle POČTU přímých potomků.
-      Žádný JS, žádné ručně přidávané třídy. */
+/* Bez obrázku: jiná typografie i akcent,
+   takže je vidět, že zasáhlo CSS —
+   ne že jen zmizel jeden element. */
+.card:not(:has(.card__img)) {
+  border-inline-start: 4px solid var(--surface-brand-primary-strong);
+  background: var(--surface-brand-primary-minimal);
+}
 
-/* Základní grid — 1 sloupec (1–2 položky) */
+.card:not(:has(.card__img)) .card__title {
+  font-size: var(--font-size-l);
+  color: var(--text-brand-primary);
+}
+
+/* Štítek vykreslený z CSS — bez obrázku
+   ho v HTML není odkud vzít. */
+.card:not(:has(.card__img)) .card__body::before {
+  content: 'jen text';
+  display: inline-block;
+  margin-block-end: var(--base);
+  padding: 2px var(--base);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* 4) Quantity query — počet sloupců
+   podle POČTU potomků, bez JS */
+
+/* 1 až 2 položky */
 .qq-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--base-2);
 }
 
-/* 3+ položky — 2 sloupce */
+/* existuje 3. položka → je jich 3 a víc */
 .qq-grid:has(> .qq-item:nth-child(3)) {
   grid-template-columns: 1fr 1fr;
 }
 
-/* 5+ položky — 3 sloupce (stejná specificita, rozhoduje pozdější pořadí) */
+/* 5 a víc; stejná specificita,
+   rozhoduje pozdější pořadí */
 .qq-grid:has(> .qq-item:nth-child(5)) {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-/* ── Podpůrné styly — pomocný typ a mřížka příkladů ──────────────────────── */
+/* ── Podpůrné styly
+      Pomocný typ a mřížka příkladů. */
 
 code {
   font-family: var(--font-stack-monospace);
@@ -97,13 +130,15 @@ code {
   font-size: var(--font-size-s);
 }
 
+/* auto-fit, ne auto-fill —
+   prázdné koleje se sbalí. */
 .examples-cols {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--base-3);
 }
 
-/* ── Podpůrné styly — formulářová pole ───────────────────────────────────── */
+/* ── Podpůrné styly — formulářová pole */
 
 .field {
   display: flex;
@@ -138,7 +173,7 @@ code {
   border-color: var(--surface-brand-primary-strong);
 }
 
-/* ── Podpůrné styly — navigace ───────────────────────────────────────────── */
+/* ── Podpůrné styly — navigace */
 
 .nav-demo {
   display: flex;
@@ -181,7 +216,7 @@ code {
   font-weight: 600;
 }
 
-/* ── Podpůrné styly — karty ──────────────────────────────────────────────── */
+/* ── Podpůrné styly — karty */
 
 .cards-demo {
   display: flex;
@@ -220,7 +255,8 @@ code {
   line-height: 1.5;
 }
 
-/* ── Podpůrné styly — quantity query, obal a položky ─────────────────────── */
+/* ── Podpůrné styly
+      Quantity query, obal a položky. */
 
 .qq-variants {
   display: flex;
@@ -260,4 +296,43 @@ code {
   color: var(--text-secondary);
   font-family: var(--font-stack-monospace);
   line-height: 1.6;
+}
+
+/* ── Code block pod quantity query */
+
+.code-block {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--base-3) var(--base-4);
+}
+
+.code-block code {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.qq-code {
+  margin-top: var(--base);
+}
+
+/* ── Přepínač obrázku u :has() karty */
+
+.card-toggle {
+  align-self: start;
+  margin-block-end: var(--base-2);
+}
+
+.card-readout {
+  display: block;
+  margin-block-start: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
 }
