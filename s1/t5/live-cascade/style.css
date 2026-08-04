@@ -2,13 +2,13 @@
    t5 D1 — @layer · Prohoď pořadí vrstev
    ═══════════════════════════════════════════════════════════════════════════ */
 
-code {
-  font-family: var(--font-stack-monospace);
-  color: var(--text-brand-primary);
-}
+/* ── POINTA DEMA — barvu tlačítka rozhoduje jen pořadí @layer ────────────── */
 
-/* Základní vzhled tlačítka — MIMO vrstvy, nenastavuje background/color,
-   takže o barvě rozhoduje výhradně kaskáda @layer. */
+/* Soutěžící @layer components / @layer utilities jsou v index.html v <style
+   id="lab-layers"> — JS přepisuje JEN pořadí ve @layer statementu.
+   Tohle je základní vzhled tlačítka MIMO vrstvy: záměrně NEnastavuje
+   background ani color, takže o barvě rozhoduje výhradně kaskáda vrstev.
+   (transition dělá přebarvení při prohození pořadí viditelným.) */
 .lab-btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
@@ -16,6 +16,13 @@ code {
   font-size: var(--font-size-base);
   cursor: pointer;
   transition: background 120ms steps(2, end), color 120ms steps(2, end);
+}
+
+/* ── Podpůrné styly — mřížka, scéna, výpis pravidel, ovládání ────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-primary);
 }
 
 .lab-grid {

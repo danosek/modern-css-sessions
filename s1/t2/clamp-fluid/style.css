@@ -2,7 +2,30 @@
    t2 D4 — Comparison Functions · clamp() — fluid typografie
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Sekce 1 — clamp(): diagram anatomie funkce ──────────────────────────── */
+/* ── POINTA DEMA — clamp() ve font-size (fluid vs. fixní nadpis) ─────────── */
+
+/* Meze zvolené tak, aby se OBĚ projevily při resize okna:
+   4vw = 1.5rem při 600px, 3rem při 1200px — mimo tento rozsah clamp „drží" */
+.cf-fluid-heading {
+  font-family: var(--font-stack-headings);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 0;
+}
+
+/* Kontrolní vzorek — fixní token, při resize se nehne */
+.cf-fixed-heading {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 0;
+}
+
+/* ── Podpůrné styly — anatomie clamp(), srovnávací mřížka, hint ──────────── */
+
+/* ── Diagram anatomie funkce ─────────────────────────────────────────────── */
 
 .cf-anatomy {
   display: flex;
@@ -72,7 +95,7 @@
   border: 2px solid var(--cf-color, var(--text-primary));
 }
 
-/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
+/* ── Srovnání fluid vs. fixní — mřížka a popisky ─────────────────────────── */
 
 .cf-compare {
   display: flex;
@@ -107,30 +130,12 @@
   display: flex;
   align-items: center;
   line-height: 1;
-  
+
 }
 
 .cf-demo-box p{
   border: 1px solid var(--surface-brand-secondary-strong);
   padding: var(--base-2) var(--base-3);
-}
-
-/* Meze zvolené tak, aby se OBĚ projevily při resize okna:
-   4vw = 1.5rem při 600px, 3rem při 1200px — mimo tento rozsah clamp „drží" */
-.cf-fluid-heading {
-  font-family: var(--font-stack-headings);
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  color: var(--text-primary);
-  line-height: 1;
-  margin: 0;
-}
-
-.cf-fixed-heading {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-xl);
-  color: var(--text-primary);
-  line-height: 1;
-  margin: 0;
 }
 
 /* ── Sdílená nápověda / hint ─────────────────────────────────────────────── */

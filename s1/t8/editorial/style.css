@@ -2,10 +2,49 @@
    t8 D3 — Subgrid · Editoriální layout
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── POINTA DEMA — subgrid zarovná 4 zóny přes 3 karty ────────────────────── */
+/*    Problém: bez subgrid nadpisy, perexy a CTA nesedí na stejné výšce       */
+/*    Řešení: rodičovský grid definuje 4 řádky, karty je "vypůjčí" přes       */
+/*            grid-template-rows: subgrid                                     */
+
+/* Wrapper — toggle mezi subgrid a flex variantou */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start; /* bez subgrid: každá karta má vlastní výšku → vidět nezarovnání */
+  gap: var(--base-3);
+}
+
+/* SE subgrid: 4 explicitní řádky — obrázek / nadpis / perex / CTA */
+.editorial-grid.use-subgrid {
+  grid-template-rows: repeat(4, auto);
+}
+
+.editorial-grid.use-subgrid .editorial-card {
+  grid-row: span 4;
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: 0;
+}
+
+/* BEZ subgrid: každá karta je nezávislý flex sloupeček. Nižší specificita
+   než pravidlo výše, takže v subgrid režimu vyhraje display: grid. */
+.editorial-card {
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Podpůrné styly — toolbar, obsah karty, typografie ────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-primary);
 }
+
+/* ── Toolbar a popisek ───────────────────────────────────────────────────── */
 
 .sizing-btn {
   padding: var(--base-h) var(--base-2);
@@ -34,39 +73,15 @@ code {
   margin-bottom: var(--base-3);
 }
 
-/* ── Editoriální layout — subgrid zarovná 4 zóny přes 3 karty ────────────── */
-/*    Problém: bez subgrid nadpisy, perexy a CTA nesedí na stejné výšce       */
-/*    Řešení: rodičovský grid definuje 4 řádky, karty je "vypůjčí" přes       */
-/*            grid-template-rows: subgrid                                       */
-
-/* Wrapper — toggle mezi subgrid a flex variantou */
-.editorial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: start; /* bez subgrid: každá karta má vlastní výšku → vidět nezarovnání */
-  gap: var(--base-3);
-}
-
-/* SE subgrid: 4 explicitní řádky — obrázek / nadpis / perex / CTA */
-.editorial-grid.use-subgrid {
-  grid-template-rows: repeat(4, auto);
-}
-
-.editorial-grid.use-subgrid .editorial-card {
-  grid-row: span 4;
-  display: grid;
-  grid-template-rows: subgrid;
-  gap: 0;
-}
-
-/* BEZ subgrid: každá karta je nezávislý flex sloupeček */
-.editorial-card {
-  background: var(--surface-front);
-  border: 1px solid var(--border);
-  overflow: hidden;
+/* Toolbar pro editoriální sekci */
+.editorial-toolbar {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--base);
+  margin-bottom: var(--base-3);
 }
+
+/* ── Obsah karty — 4 zóny, které subgrid zarovnává ───────────────────────── */
 
 .editorial-card__img {
   height: 120px;
@@ -114,12 +129,4 @@ code {
 
 .editorial-card__btn:hover {
   opacity: 0.85;
-}
-
-/* Toolbar pro editoriální sekci */
-.editorial-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--base);
-  margin-bottom: var(--base-3);
 }

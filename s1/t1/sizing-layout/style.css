@@ -2,14 +2,89 @@
    t1 D2 — Intrinsic Sizing · V gridu · centrování
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── POINTA DEMA — intrinsic sizing v grid stopách a centrování ─────────── */
+
+/* Pět vzorů z praxe. Vždy jde o jedinou vlastnost: width, nebo
+   grid-template-columns s intrinsic hodnotou. Zbytek je jen kosmetika. */
+
+/* ── Příklad 1 — fit-content + margin-inline: auto ──────────────────────── */
+
+/* Box se zúží na obsah (fit-content), auto marginy ho pak vycentrují —
+   centrování bez jakékoli pevné šířky. */
+.ex-callout {
+  width: fit-content;
+  margin-inline: auto;
+  margin-bottom: var(--base-2);
+}
+
+.ex-callout:last-child { margin-bottom: 0; }
+
+/* ── Příklad 2 — max-content štítky, 1fr vstupní pole ───────────────────── */
+
+/* Sloupec štítků = max-content, tedy přesně nejdelší štítek na jeden řádek;
+   1fr sebere všechno zbylé místo. */
+.ex-form-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--base-2) var(--base-3);
+  align-items: center;
+}
+
+/* ── Příklad 3 — max-content 1fr max-content hlavička ───────────────────── */
+
+/* Krajní sloupce zaberou jen tolik, kolik potřebují; prostřední 1fr zbytek —
+   titulek tak zůstane opticky uprostřed. */
+.ex-header-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: var(--base-3);
+  background: var(--surface-front);
+  border: 2px solid;
+  padding: var(--base-2) var(--base-3);
+}
+
+/* ── Příklad 4 — min-content ikona/term + 1fr text (media object) ───────── */
+
+/* min-content = nejužší, co obsah dovolí: sloupec se stáhne na nejdelší slovo
+   a ostatní slova zalomí (term je editovatelný, jde to zkusit naživo). */
+.ex-media {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  gap: var(--base-3);
+  background: var(--surface-front);
+  border: 2px solid;
+  padding: var(--base-2) var(--base-3);
+  margin-bottom: var(--base-2);
+}
+
+.ex-media:last-child { margin-bottom: 0; }
+
+/* ── Příklad 5 — fit-content() limit šířky sloupce ──────────────────────── */
+
+/* fit-content(12rem) = roste s obsahem jako max-content, ale nejvýš na 12rem;
+   nad limitem se chová jako max-width a zalomí. */
+.ex-deflist {
+  display: grid;
+  grid-template-columns: fit-content(12rem) 1fr;
+  gap: var(--base-2) var(--base-3);
+  margin: 0;
+  background: var(--surface-front);
+  border: 2px solid;
+  padding: var(--base-3);
+}
+
+/* ── Podpůrné styly — popisky, obsah příkladů, editovatelné prvky ───────── */
+
+/* ── Inline kód ─────────────────────────────────────────────────────────── */
 
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-primary);
 }
 
-/* ── Intrinsic sizing v layoutu ──────────────────────────────────────────── */
+/* ── Rám jednoho příkladu + jeho popisek ────────────────────────────────── */
 
 .layout-example {
   display: flex;
@@ -33,24 +108,7 @@ code {
   font-size: var(--font-size-s);
 }
 
-/* ── Layout příklad 1 — fit-content + margin-inline: auto ───────────────── */
-
-.ex-callout {
-  width: fit-content;
-  margin-inline: auto;
-  margin-bottom: var(--base-2);
-}
-
-.ex-callout:last-child { margin-bottom: 0; }
-
-/* ── Layout příklad 2 — max-content labels, 1fr vstupní pole ────────────── */
-
-.ex-form-grid {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: var(--base-2) var(--base-3);
-  align-items: center;
-}
+/* ── Obsah příkladu 2 — štítky a vstupní pole ───────────────────────────── */
 
 .ex-label {
   font-size: var(--font-size-base);
@@ -63,17 +121,7 @@ code {
   border: 2px solid;
 }
 
-/* ── Layout příklad 3 — max-content 1fr max-content hlavička ────────────── */
-
-.ex-header-grid {
-  display: grid;
-  grid-template-columns: max-content 1fr max-content;
-  align-items: center;
-  gap: var(--base-3);
-  background: var(--surface-front);
-  border: 2px solid;
-  padding: var(--base-2) var(--base-3);
-}
+/* ── Obsah příkladu 3 — navigace a titulek ──────────────────────────────── */
 
 .ex-nav {
   color: var(--text-secondary);
@@ -87,20 +135,7 @@ code {
   text-align: center;
 }
 
-/* ── Layout příklad 4 — min-content ikona + 1fr text (media object) ──────── */
-
-.ex-media {
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  align-items: center;
-  gap: var(--base-3);
-  background: var(--surface-front);
-  border: 2px solid;
-  padding: var(--base-2) var(--base-3);
-  margin-bottom: var(--base-2);
-}
-
-.ex-media:last-child { margin-bottom: 0; }
+/* ── Obsah příkladu 4 — term a text ─────────────────────────────────────── */
 
 .ex-media__term {
   font-family: var(--font-stack-monospace);
@@ -123,17 +158,7 @@ code {
   font-size: var(--font-size-base);
 }
 
-/* ── Layout příklad 5 — fit-content() limit šířky sloupce ────────────────── */
-
-.ex-deflist {
-  display: grid;
-  grid-template-columns: fit-content(12rem) 1fr;
-  gap: var(--base-2) var(--base-3);
-  margin: 0;
-  background: var(--surface-front);
-  border: 2px solid;
-  padding: var(--base-3);
-}
+/* ── Obsah příkladu 5 — dt / dd ─────────────────────────────────────────── */
 
 .ex-deflist dt {
   font-family: var(--font-stack-monospace);
@@ -150,7 +175,7 @@ code {
   line-height: 1.5;
 }
 
-/* ── Editovatelné prvky — vizuální signál, že do nich lze psát ────────────── */
+/* ── Editovatelné prvky — vizuální signál, že do nich lze psát ──────────── */
 
 [contenteditable] {
   cursor: text;

@@ -2,6 +2,25 @@
    t3 D1 — Logical Properties · Physical → Logical mapping
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── POINTA DEMA — barevný kód: fyzické vs. logické ──────────────────────── */
+
+/* Samotný tahák (páry width→inline-size, margin-left→margin-inline, …) je
+   v tabulce v index.html. CSS k němu přidává jediné didaktické sdělení —
+   barevné rozlišení obou sloupců: fyzický zápis tlumeně (starý způsob),
+   logický v sage (doporučený). Red je rezervovaná pro chyby, tady se
+   nepoužívá. Zbytek souboru je jen sazba tabulky. */
+
+/* Fyzická vlastnost — tlumená (starý způsob) */
+.lp-table td:first-child code { color: var(--text-secondary); }
+
+/* Logická vlastnost — sage (doporučený způsob) */
+.lp-table td:nth-child(2) code {
+  color: var(--text-brand-primary);
+  font-weight: 600;
+}
+
+/* ── Podpůrné styly — tabulka, mono štítky, inline kód ───────────────────── */
+
 /* ── Inline kód ──────────────────────────────────────────────────────────── */
 
 code {
@@ -31,8 +50,7 @@ code {
 
 /* ── Mapovací tabulka — kompaktní tactical-HUD readout (skill §1/§4) ──────────
    Hard 90° rám v --text-primary, monospace, vysoká hustota, žádné stíny ani
-   zaoblení. Jediný akcent: sage = doporučená logická vlastnost; fyzická tlumená
-   (starý zápis). Red rezervovaná pro chyby — proto ji tady nepoužíváme. */
+   zaoblení. Barevný akcent sloupců řeší sekce POINTA nahoře. */
 
 .lp-table-wrap {
   overflow-x: auto;
@@ -84,15 +102,6 @@ code {
   border: none;
   padding: 0;
   font-size: var(--font-size-xs);
-}
-
-/* Fyzická vlastnost — tlumená (starý způsob) */
-.lp-table td:first-child code { color: var(--text-secondary); }
-
-/* Logická vlastnost — sage (doporučený způsob) */
-.lp-table td:nth-child(2) code {
-  color: var(--text-brand-primary);
-  font-weight: 600;
 }
 
 .lp-table td:last-child {

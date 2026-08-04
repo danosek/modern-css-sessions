@@ -153,6 +153,32 @@ Každé demo má vedle `index.html` vlastní `style.css` (demo-specifické styly
 
 ---
 
+## Struktura `style.css` – pointa nahoru
+
+Lektor demo promítá a **CSS čte účastníkům nahlas**. Pravidla, která jsou pointou dema, proto patří na začátek souboru – ne aby se k nim scrollovalo přes stylování popisků a code bloků. Každý `style.css` má dvě sekce:
+
+```css
+/* ═══════════════════════════════════════════════════════════════════════════
+   t<N> D<M> — <Topic> · <Název dema>
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── POINTA DEMA — <co se tu učí> ─────────────────────────────────────────── */
+
+/* Učená featura a pravidla, bez kterých nedává smysl (u subgridu i rodičovský
+   grid, u container queries i container-type). Komentář u pravidla říká PROČ. */
+
+/* ── Podpůrné styly — <mřížka, karty, popisky> ────────────────────────────── */
+
+/* Všechno ostatní: layout scaffolding, typografie, barvy, code bloky. */
+```
+
+- **Pointa = featura z názvu dema a z `demo-feature` chipu** + minimum kontextu, aby se dala vysvětlit bez skákání po souboru.
+- **Přeskládání nesmí změnit kaskádu.** Pravidlo v `@media`/`@container` přepisuje základní pravidlo, takže základ musí zůstat **nad** query – když jde query nahoru, jde s ní i to, co přepisuje. Pořadí `@layer` statementu a `@layer` bloků je sémantika, s tou se nehýbe.
+- Ověřuj strojově, ne okem: vyrenderuj demo v headless Chrome, vypiš `getComputedStyle` všech elementů (custom properties setřídit – Chrome je vypisuje v nestabilním pořadí) a porovnej dump před/po. Musí být bajtově identický.
+- Do dema nepatří mrtvý kód: selektor bez odpovídajícího HTML nebo zakomentovaný zbytek účastníka, který kód čte, jen zdržuje.
+
+---
+
 ## Přehledová stránka (root index.html)
 
 Hlavní `index.html` v kořeni repozitáře. **Needituj ho ručně** – je to build artefakt; zdroj je `editor-src/index-page.html` + `editor-src/src/IndexApp.svelte` a CI ho při deploji přestaví (`npm run build:index`). Grid karet – každá session = karta, uvnitř topicy a pod nimi dema. Vizuálně odliš 120min sessions (S4, S6) od 90min.

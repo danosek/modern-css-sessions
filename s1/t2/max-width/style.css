@@ -2,7 +2,34 @@
    t2 D2 — Comparison Functions · max() — podlaha šířky
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Srovnání — fluid vs. fixní ──────────────────────────────────────────── */
+/* ── POINTA DEMA — max() jako podlaha šířky ──────────────────────────────── */
+
+/* max(50%, 320px) → vždy ta větší hodnota. Nad 640 px kontejneru vyhraje 50 %,
+   pod ním se prvek zapře o 320 px a dál se nezmenšuje. */
+.cf-max-box {
+  width: max(50%, 320px);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* Referenční ekvivalent nad ním — stejný výsledek přes dvě deklarace;
+   max() to zvládne jednou a přijme libovolný počet argumentů. */
+.cf-minwidth-box {
+  width: 50%;
+  min-width: 320px;
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* ── Podpůrné styly — srovnání, pravítko, popisky, info karta ────────────── */
+
+/* ── Srovnávací dvojice boxů ─────────────────────────────────────────────── */
 
 .cf-compare {
   display: flex;
@@ -39,30 +66,10 @@
   line-height: 1;
 }
 
+/* Pravítko — podklad, vůči kterému je vidět reálná šířka boxu */
 .cf-demo-box--ruler {
   background: var(--surface-main-variant);
   overflow: hidden;
-}
-
-/* ── max(): šířka kontejneru se spodním limitem ──────────────────────────── */
-
-.cf-max-box {
-  width: max(50%, 320px);
-  background: var(--surface-brand-primary-strong);
-  color: var(--text-primary-on-surface-brand-primary-strong);
-  padding: var(--base-2) var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-}
-
-.cf-minwidth-box {
-  width: 50%;
-  min-width: 320px;
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary);
-  padding: var(--base-2) var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
 }
 
 .cf-box-label {

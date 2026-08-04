@@ -2,14 +2,27 @@
    t1 D1 — Intrinsic Sizing · min-content · max-content · fit-content
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Živá ukázka — přepínač hodnot ──────────────────────────────────────── */
+/* ── POINTA DEMA — width: min-content · max-content · fit-content ───────── */
+
+/* Přepínač nad boxem jen přepisuje atribut data-sizing (viz script.js).
+   Celý efekt dema dělají tyto čtyři deklarace width. */
+
+.demo-box[data-sizing="auto"]         { width: auto; }         /* výchozí — box vyplní rodiče */
+
+.demo-box[data-sizing="min-content"]  { width: min-content; }  /* nejužší, co obsah dovolí — nejdelší slovo */
+
+.demo-box[data-sizing="max-content"]  { width: max-content; }  /* obsah na jeden řádek — klidně přeteče */
+
+.demo-box[data-sizing="fit-content"]  { width: fit-content; }  /* jako max-content, ale nepřeteče kontejner */
+
+/* ── Podpůrné styly — obsah boxu, pravítko, srovnávací mřížka ───────────── */
 
 /* Segmentová lišta: rámeček --text-primary (2px linky přes gap). Neaktivní
    tlačítka mají barvu preview (--surface-main); aktivní svítí — pozadí
    --text-primary (splyne s rámem) a text v barvě editoru (--surface-main). */
 /* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
 
-/* ── Živá ukázka — data-atributy řídí šířku boxu ────────────────────────── */
+/* ── Živá ukázka — text uvnitř boxu ─────────────────────────────────────── */
 
 .demo-box p {
   font-size: var(--font-size-base);
@@ -21,14 +34,6 @@
   font-style: normal;
   color: var(--text-secondary-on-surface-brand-primary-subtle);
 }
-
-.demo-box[data-sizing="auto"]         { width: auto; }
-
-.demo-box[data-sizing="min-content"]  { width: min-content; }
-
-.demo-box[data-sizing="max-content"]  { width: max-content; }
-
-.demo-box[data-sizing="fit-content"]  { width: fit-content; }
 
 /* ── Živá ukázka — indikátor šířky ──────────────────────────────────────── */
 
@@ -74,7 +79,7 @@
 
 .width-indicator__bar::after  { right: 0; }
 
-/* ── Srovnání — mřížka všech hodnot vedle sebe ───────────────────────────── */
+/* ── Srovnání — mřížka všech hodnot vedle sebe ──────────────────────────── */
 
 .sizing-grid {
   display: grid;

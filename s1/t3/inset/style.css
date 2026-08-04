@@ -2,112 +2,19 @@
    t3 D4 — Logical Properties · inset
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
+/* ── POINTA DEMA — inset = zkratka za 4 offsety ──────────────────────────── */
 
-code {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  background: var(--surface-main-variant);
-  padding: 0.1em 0.35em;
-}
-
-.lp-desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-inline-size: 72ch;
-}
-
-/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
-
-.lp-snippet {
-  background: var(--surface-main);
-  border: 1px solid var(--border);
-  padding: var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  overflow-x: auto;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.lp-snippet code {
-  font-family: var(--font-stack-monospace);
-  font-size: inherit;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  color: inherit;
-  white-space: pre;
-}
-
-/* ── Sekce 3 — inset shorthand: vizualizace + srovnání kódu ─────────────── */
-
-/* Ovládání — posuvník mění odsazení boxu od containeru (sdílený --inset) */
-.lp-inset-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--base-2);
-  flex-wrap: nowrap;
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  inline-size: min(100%, 480px);
-}
-
-.lp-inset-range {
-  flex: 1;
-  min-inline-size: 180px;
-  accent-color: var(--surface-brand-primary-strong);
-}
-
-.lp-inset-controls__val {
-  font-weight: 600;
-  color: var(--text-primary-on-surface-brand-primary-strong);
-  background: var(--surface-brand-primary-strong);
-  padding: var(--base-h) var(--base);
-}
-
-/* Boxy nahoře — sdílený --inset řídí obě verze. Definitní rozměr containeru
-   (block-size + inline-size), aby procenta top/right/bottom/left/inset fungovala. */
+/* Jedna proměnná --inset (mění ji posuvník) řídí obě verze najednou:
+   rozepsanou (top/right/bottom/left) i zkratku (inset) — vizuálně dokazuje, že
+   dávají identický výsledek. Container potřebuje position: relative (vztažný
+   rámec) a definitní rozměr (block-size + inline-size), aby procenta
+   v offsetech měla z čeho počítat. */
 .lp-inset-boxes {
   --inset: 20%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: end;
   gap: var(--base-3);
-}
-
-@media (max-width: 600px) {
-  .lp-inset-boxes {
-    grid-template-columns: 1fr;
-  }
-}
-
-.lp-inset-cell {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.lp-inset-cell__label {
-  font-size: var(--font-size-s);
-  font-weight: 600;
-  font-family: var(--font-stack-monospace);
-  padding-block: var(--base-h);
-  padding-inline: var(--base-2);
-  align-self: flex-start;
-}
-
-.lp-inset-cell__label--before {
-  background: var(--surface-main-variant);
-  color: var(--text-secondary);
-}
-
-.lp-inset-cell__label--after {
-  background: var(--surface-brand-primary-minimal);
-  color: var(--text-brand-primary);
 }
 
 /* Bordered container s definitní výškou */
@@ -146,6 +53,83 @@ code {
   inset: var(--inset);
 }
 
+/* ── Podpůrné styly — ovládání, popisky, layout kódu ─────────────────────── */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  padding: 0.1em 0.35em;
+}
+
+.lp-desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 72ch;
+}
+
+/* ── Sekce 3 — ovládání ──────────────────────────────────────────────────── */
+
+/* Ovládání — posuvník mění odsazení boxu od containeru (sdílený --inset) */
+.lp-inset-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--base-2);
+  flex-wrap: nowrap;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  inline-size: min(100%, 480px);
+}
+
+.lp-inset-range {
+  flex: 1;
+  min-inline-size: 180px;
+  accent-color: var(--surface-brand-primary-strong);
+}
+
+.lp-inset-controls__val {
+  font-weight: 600;
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  background: var(--surface-brand-primary-strong);
+  padding: var(--base-h) var(--base);
+}
+
+/* Na úzkém viewportu boxy pod sebe (přepisuje mřížku z POINTY výše) */
+@media (max-width: 600px) {
+  .lp-inset-boxes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-inset-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.lp-inset-cell__label {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  font-family: var(--font-stack-monospace);
+  padding-block: var(--base-h);
+  padding-inline: var(--base-2);
+  align-self: flex-start;
+}
+
+.lp-inset-cell__label--before {
+  background: var(--surface-main-variant);
+  color: var(--text-secondary);
+}
+
+.lp-inset-cell__label--after {
+  background: var(--surface-brand-primary-minimal);
+  color: var(--text-brand-primary);
+}
+
 /* Kód dole — dva snippety vedle sebe */
 .lp-inset-code {
   display: grid;
@@ -157,4 +141,28 @@ code {
   .lp-inset-code {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+
+.lp-snippet {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  padding: var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lp-snippet code {
+  font-family: var(--font-stack-monospace);
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  white-space: pre;
 }

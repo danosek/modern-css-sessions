@@ -2,9 +2,30 @@
    t2 D3 — Comparison Functions · min() + max() — centrování
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
+/* ── POINTA DEMA — dvě cesty ke stejnému zastropování a centrování ───────── */
 
-/* ── Stage — kontext, v němž se wrapper centruje (resizable pro ukázku) ───── */
+/* Wrapper — cap 32rem drží proměnná, aby ji obě řešení níž sdílela */
+.cc-wrapper {
+  --cc-cap: 32rem;
+  position: relative;
+  border: 2px solid var(--text-primary);
+  background: var(--surface-main);
+  padding: var(--base-4);
+}
+/* Řešení A — max() řídí okraj, prvek zůstává full-width.
+   Nad 32rem kontejneru vyhraje (100% - cap)/2, pod ním 0px → okraj zmizí. */
+.cc-wrapper[data-technique="max"] {
+  margin-inline: max(0px, (100% - var(--cc-cap)) / 2);
+}
+/* Řešení B — min() řídí šířku, auto okraje centrují.
+   Do 32rem vyhraje 100 %, nad ní se šířka zastropuje na cap. */
+.cc-wrapper[data-technique="min"] {
+  width: min(100%, var(--cc-cap));
+  margin-inline: auto;
+}
+
+/* Stage — kontext, vůči kterému se 100 % v obou funkcích počítá.
+   resize: horizontal dovolí měnit ho tažením a vidět přepnutí větve. */
 .cc-stage {
   background: var(--surface-main-dim);
   border: 1px solid var(--border);
@@ -16,23 +37,9 @@
   margin-block-end: var(--base-4);
 }
 
-/* ── Wrapper — zastropovaný a vycentrovaný obsah; cap přes proměnnou ──────── */
-.cc-wrapper {
-  --cc-cap: 32rem;
-  position: relative;
-  border: 2px solid var(--text-primary);
-  background: var(--surface-main);
-  padding: var(--base-4);
-}
-/* Řešení A — max() řídí okraj, prvek zůstává full-width */
-.cc-wrapper[data-technique="max"] {
-  margin-inline: max(0px, (100% - var(--cc-cap)) / 2);
-}
-/* Řešení B — min() řídí šířku, auto okraje centrují */
-.cc-wrapper[data-technique="min"] {
-  width: min(100%, var(--cc-cap));
-  margin-inline: auto;
-}
+/* ── Podpůrné styly — telemetrie, výpis řešení, popisky, info karta ──────── */
+
+/* Segmentový přepínač (.seg-toolbar / .seg-btn) je sdílený v demo-base.css. */
 
 /* ── Telemetrie (nahoře): šířka kontejneru + výpočty obou řešení ──────────── */
 .cc-telemetry {

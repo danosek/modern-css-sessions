@@ -2,42 +2,12 @@
    t4 D2 — CSS Nesting · @media uvnitř pravidla
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Pomocné třídy ───────────────────────────────────────────────────────── */
-
-code {
-  font-family: var(--font-stack-monospace);
-}
-
-/* ── Code block ──────────────────────────────────────────────────────────── */
-
-.code-block {
-  background: var(--surface-main-variant);
-  border: 1px solid var(--border);
-  overflow: auto;
-}
-
-.code-block pre {
-  margin: 0;
-  padding: var(--base-3) var(--base-4);
-}
-
-.code-block code {
-  font-size: var(--font-size-s);
-  color: var(--text-primary);
-  line-height: 1.6;
-  white-space: pre;
-}
-
-/* ── @media uvnitř pravidla — fluid hero ────────────────────────────────── */
-
-.fluid-demo {
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
+/* ── POINTA DEMA — @media vnořené přímo do pravidla ─────────────────────── */
 
 /*
-  Demo: @media přímo uvnitř .fluid-hero pravidla
-  + & .fluid-hero__title s vlastní nested @media
+  Žádný samostatný @media blok na konci souboru: breakpoint je vždy u toho
+  pravidla, kterého se týká — i u vnořených potomků. Deklarace v @media
+  přepisuje tu základní nad sebou, proto musí zůstat pod ní.
 */
 .fluid-hero {
   display: flex;
@@ -47,6 +17,7 @@ code {
   padding: var(--base-5);
   background: var(--surface-brand-primary-minimal);
 
+  /* mobil: z řádku sloupec — vlastní breakpoint pro samotný hero */
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
@@ -61,6 +32,7 @@ code {
     color: var(--text-primary);
     flex: 0 0 auto;
 
+    /* každý potomek má svůj vlastní @media přímo u sebe */
     @media (max-width: 600px) {
       font-size: var(--font-size-xl);
     }
@@ -89,6 +61,7 @@ code {
   }
 }
 
+/* @media umí být i uvnitř nested modifieru (&.fluid-badge--mobile) */
 .fluid-badge {
   display: inline-block;
   font-size: var(--font-size-xs);
@@ -103,10 +76,46 @@ code {
     color: var(--text-secondary);
     border: 1px solid var(--border);
 
+    /* pod 600 px se rozsvítí štítek „Mobil" */
     @media (max-width: 600px) {
       background: var(--surface-brand-secondary-strong);
       color: var(--text-primary-on-surface-brand-primary-strong);
       border-color: transparent;
     }
   }
+}
+
+/* ── Podpůrné styly — rám ukázky, code blok, inline kód ─────────────────── */
+
+/* ── Rám živé ukázky ────────────────────────────────────────────────────── */
+
+.fluid-demo {
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* ── Pomocné třídy ──────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+}
+
+/* ── Code block ─────────────────────────────────────────────────────────── */
+
+.code-block {
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--base-3) var(--base-4);
+}
+
+.code-block code {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre;
 }

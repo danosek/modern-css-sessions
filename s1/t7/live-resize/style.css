@@ -2,24 +2,10 @@
    t7 D1 — Container Queries · Resize kontejneru
    ═══════════════════════════════════════════════════════════════════════════ */
 
-code {
-  font-family: var(--font-stack-monospace);
-  color: var(--text-brand-primary);
-}
+/* ── POINTA DEMA — @container: karta reaguje na svůj kontejner, ne na okno ─── */
 
-/* ── Resizable container wrapper ─────────────────────────────────────────── */
-/*    Uživatel může táhnout za pravý dolní roh a sledovat breakpointy karty   */
-
-.cq-resize-wrap {
-  resize: horizontal;
-  overflow: auto;
-  min-width: 200px;
-  max-width: 100%;
-  margin-bottom: var(--base-4);
-  padding: var(--base-3);
-  background: var(--surface-main-dim);
-  border: 1px solid var(--border-shiny);
-}
+/*    1) Z prvku se stane query kontejner — bez container-type nemá @container
+         co měřit; container-name mu dá jméno, na které se breakpointy odvolávají */
 
 .cq-container {
   container-type: inline-size;
@@ -27,7 +13,7 @@ code {
   width: 100%;
 }
 
-/* ── Product card — základní styl (mobilní / úzký kontext) ──────────────── */
+/*    2) Výchozí (nejužší) podoba karty — přesně to, co breakpointy níž přepisují */
 
 .product-card {
   background: var(--surface-front);
@@ -48,40 +34,12 @@ code {
   flex-shrink: 0;
 }
 
-.product-card__body {
-  padding: var(--base-2) var(--base-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-  flex: 1;
-}
-
-.product-card__title {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
-  color: var(--text-primary);
-}
-
-.product-card__desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
 .product-card__footer {
   display: flex;
   flex-direction: column;
   gap: var(--base);
   margin-top: auto;
   padding-top: var(--base);
-}
-
-.product-card__price {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--text-primary);
 }
 
 .product-card__btn {
@@ -96,29 +54,8 @@ code {
   transition: opacity 0.15s;
 }
 
-.product-card__btn:hover {
-  opacity: 0.85;
-}
-
-/* ── Živý readout — šířka kontejneru + právě aktivní breakpoint ───────────── */
-
-.cq-readout {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--base-h) var(--base-2);
-  margin-bottom: var(--base-2);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-}
-
-.cq-readout #cq-width {
-  color: var(--text-brand-primary);
-}
-
-/* ── Container queries — mobile-first, klasická syntaxe ───────────────────── */
-/*    Úzký kontejner = výchozí stack; breakpointy 400 px a 560 px              */
+/*    3) Breakpointy se ptají kontejneru „product", ne viewportu.
+         Mobile-first, klasická syntaxe: úzko = stack, pak 400 px a 560 px      */
 
 /* width >= 400px — horizontální grid layout */
 @container product (min-width: 400px) {
@@ -155,4 +92,76 @@ code {
     width: auto;
     white-space: nowrap;
   }
+}
+
+/* ── Podpůrné styly — resize rámec, readout, vnitřek karty, typografie ────── */
+
+/* ── Resizable container wrapper ─────────────────────────────────────────── */
+/*    Uživatel může táhnout za pravý dolní roh a sledovat breakpointy karty   */
+
+.cq-resize-wrap {
+  resize: horizontal;
+  overflow: auto;
+  min-width: 200px;
+  max-width: 100%;
+  margin-bottom: var(--base-4);
+  padding: var(--base-3);
+  background: var(--surface-main-dim);
+  border: 1px solid var(--border-shiny);
+}
+
+/* ── Živý readout — šířka kontejneru + právě aktivní breakpoint ───────────── */
+
+.cq-readout {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-2);
+  margin-bottom: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.cq-readout #cq-width {
+  color: var(--text-brand-primary);
+}
+
+/* ── Vnitřek karty — obsah, typografie ───────────────────────────────────── */
+
+.product-card__body {
+  padding: var(--base-2) var(--base-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  flex: 1;
+}
+
+.product-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+}
+
+.product-card__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.product-card__price {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.product-card__btn:hover {
+  opacity: 0.85;
+}
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-primary);
 }

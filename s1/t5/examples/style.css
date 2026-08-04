@@ -2,10 +2,7 @@
    t5 D3 — @layer · Vendor CSS · revert-layer
    ═══════════════════════════════════════════════════════════════════════════ */
 
-code {
-  font-family: var(--font-stack-monospace);
-  color: var(--text-brand-primary);
-}
+/* ── POINTA DEMA — vrstvy vs. specificita + revert-layer ─────────────────── */
 
 /* Pořadí vrstev pro oba příklady */
 @layer reset, base, components, utilities;
@@ -25,6 +22,7 @@ code {
   }
 }
 
+/* Základní vzhled — mimo vrstvy, bez background (o barvě rozhodují vrstvy) */
 .lib-btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
@@ -51,12 +49,20 @@ code {
   }
 }
 
+/* Základní vzhled — mimo vrstvy, bez background (o barvě rozhodují vrstvy) */
 .rv-btn {
   padding: var(--base-2) var(--base-4);
   border: 2px solid var(--text-primary);
   font-family: var(--font-stack-main);
   font-size: var(--font-size-s);
   cursor: pointer;
+}
+
+/* ── Podpůrné styly — sloupce, scény, výpis pravidel, poznámky ───────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-primary);
 }
 
 /* ── Layout ──────────────────────────────────────────────────────────────── */

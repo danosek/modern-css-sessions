@@ -2,6 +2,34 @@
    t3 D3 — Logical Properties · writing-mode
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── POINTA DEMA — writing-mode otočí logické hrany ──────────────────────── */
+
+/* Karta má STABILNÍ fyzický rozměr (width/min-height) — při změně writing-mode
+   se nemění tvar boxu, mění se jen orientace textu a poloha logických hran.
+   Samotný writing-mode nastavuje script.js inline na .lp-card. */
+.lp-card {
+  width: 100%;
+  min-height: 220px;
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+}
+
+/* Fyzická karta — pruh přes border-left → vždy vlevo, i když text teče svisle */
+.lp-card--physical {
+  border-left: 8px solid var(--text-brand-primary);
+  padding: var(--base-3);
+  padding-left: calc(var(--base-3) + 2rem);
+}
+
+/* Logická karta — pruh přes border-inline-start → drží se začátku řádku textu */
+.lp-card--logical {
+  border-inline-start: 8px solid var(--text-brand-primary);
+  padding: var(--base-3);
+  padding-inline-start: calc(var(--base-3) + 2rem);
+}
+
+/* ── Podpůrné styly — layout, popisky, obsah karty ───────────────────────── */
+
 /* ── Inline kód ──────────────────────────────────────────────────────────── */
 
 code {
@@ -18,31 +46,7 @@ code {
   max-inline-size: 72ch;
 }
 
-/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
-
-.lp-snippet {
-  background: var(--surface-main);
-  border: 1px solid var(--border);
-  padding: var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  overflow-x: auto;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.lp-snippet code {
-  font-family: var(--font-stack-monospace);
-  font-size: inherit;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  color: inherit;
-  white-space: pre;
-}
-
-/* ── Sekce 4 — writing-mode: stejné karty, přepínač osy textu ─────────────── */
+/* ── Sekce 4 — mřížka a popisky srovnání ─────────────────────────────────── */
 
 .seg-toolbar {
   margin-block-end: var(--base-4);
@@ -79,29 +83,6 @@ code {
   color: var(--text-brand-primary);
 }
 
-/* Karta má STABILNÍ fyzický rozměr (width/min-height) — při změně writing-mode
-   se nemění tvar boxu, mění se jen orientace textu a poloha logických hran. */
-.lp-card {
-  width: 100%;
-  min-height: 220px;
-  background: var(--surface-main);
-  border: 1px solid var(--border);
-}
-
-/* Fyzická karta — pruh přes border-left → vždy vlevo, i když text teče svisle */
-.lp-card--physical {
-  border-left: 8px solid var(--text-brand-primary);
-  padding: var(--base-3);
-  padding-left: calc(var(--base-3) + 2rem);
-}
-
-/* Logická karta — pruh přes border-inline-start → drží se začátku řádku textu */
-.lp-card--logical {
-  border-inline-start: 8px solid var(--text-brand-primary);
-  padding: var(--base-3);
-  padding-inline-start: calc(var(--base-3) + 2rem);
-}
-
 .lp-card__title {
   font-family: var(--font-stack-headings);
   font-size: var(--font-size-l);
@@ -125,4 +106,28 @@ code {
   margin-block-start: var(--base-4);
   max-inline-size: 72ch;
   line-height: 1.6;
+}
+
+/* ── Sekce 1 — code snippety v demo-stage ────────────────────────────────── */
+
+.lp-snippet {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  padding: var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lp-snippet code {
+  font-family: var(--font-stack-monospace);
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  white-space: pre;
 }

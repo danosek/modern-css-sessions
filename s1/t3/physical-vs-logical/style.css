@@ -2,55 +2,14 @@
    t3 D2 — Logical Properties · dir
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Inline kód ──────────────────────────────────────────────────────────── */
-
-code {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-  background: var(--surface-main-variant);
-  padding: 0.1em 0.35em;
-}
-
-/* (segmentový přepínač .seg-toolbar / .seg-btn je sdílený v demo-base.css) */
-
-.lp-desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-inline-size: 72ch;
-}
-
-/* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
-
-.lp-demo-wrap {
- 
-}
-
-/* Segmentový přepínač má vlastní spodní předěl k oddělení od karet */
-.seg-toolbar {
-  margin-block-end: var(--base-4);
-}
-
-/* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
-.lp-compare {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-  gap: var(--base-4);
-}
-
-.lp-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-3);
-}
-
-/* ── Sekce 1 — karty (srovnání fyzické vs. logické) ─────────────────────── */
+/* ── POINTA DEMA — fyzické vs. logické hrany karty ───────────────────────── */
 
 /* Obě karty mají identický obsah i layout — pruh, ikonu a velké odsazení na
    začátku. Liší se POUZE tím, čím je to nastylované: fyzická verze vše váže na
    levou stranu (border-left, padding-left, left → v RTL zůstane vlevo, odtržené
    od textu), logická na začátek čtení (border-inline-start, padding-inline-start,
-   inset-inline-start → v RTL se celé překlopí doprava a drží pohromadě). */
+   inset-inline-start → v RTL se celé překlopí doprava a drží pohromadě).
+   dir="rtl" nastavuje script.js jen na kartách, mřížka zůstává LTR. */
 .lp-card {
   position: relative;
   background: var(--surface-main-bright);
@@ -91,6 +50,50 @@ code {
   font-size: var(--font-size-l);
   background: var(--surface-brand-primary-strong);
   color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* ── Podpůrné styly — layout, popisky, obsah karty ───────────────────────── */
+
+/* ── Inline kód ──────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  padding: 0.1em 0.35em;
+}
+
+/* (segmentový přepínač .seg-toolbar / .seg-btn je sdílený v demo-base.css) */
+
+.lp-desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 72ch;
+}
+
+/* ── Sekce 1 — živá ukázka: fyzické vs. logické vlastnosti ──────────────── */
+
+.lp-demo-wrap {
+ 
+}
+
+/* Segmentový přepínač má vlastní spodní předěl k oddělení od karet */
+.seg-toolbar {
+  margin-block-end: var(--base-4);
+}
+
+/* Dvousloupcový layout pro srovnání fyzické vs. logické karty */
+.lp-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: var(--base-4);
+}
+
+.lp-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
 }
 
 /* Štítek sloupce — popisek nad kartou (fyzické vs. logické) */

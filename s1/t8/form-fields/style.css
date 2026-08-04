@@ -2,8 +2,10 @@
    t8 D2 — Subgrid · Formulář — subgrid sloupců
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Rodičovský grid: 3 sloupce — label / input / hint ────────────────────── */
+/* ── POINTA DEMA — grid-template-columns: subgrid ─────────────────────────── */
 
+/* Rodičovský grid: 3 sloupce — label / input / hint.
+   Šířky se počítají z obsahu VŠECH řádků dohromady. */
 .form-grid {
   display: grid;
   grid-template-columns: max-content 1fr max-content;
@@ -22,9 +24,12 @@
   padding-block: var(--base-h);
 }
 
+/* Důkaz, že řádek je pořád box: hover obarví celý řádek. */
 .form-row:hover {
   background: var(--surface-main-dim);
 }
+
+/* ── Podpůrné styly — vzhled labelu, inputu a hintu ───────────────────────── */
 
 .form-label {
   font-size: var(--font-size-s);

@@ -2,6 +2,35 @@
    t6 D3 — Parent & grouping selectors · :is() · :where()
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── POINTA DEMA — :is() drží specificitu, :where() ji nuluje ────────────── */
+
+/* Pořadí těchto čtyř pravidel JE pointa: v obou blocích jde stejné jednoduché
+   pravidlo (0,1,0) až PO skupině — rozhoduje jen specificita skupiny. */
+
+/* :is() strana — :is(#hot, .row) = (1,0,0) přebije pozdější .row (0,1,0) →
+   řádek si drží barvu skupiny (sage) */
+:is(#hot, .row) {
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
+}
+.row {                                   /* (0,1,0) — později, ale prohraje */
+  background: var(--surface-main-dim);
+  color: var(--text-secondary);
+}
+
+/* :where() strana — :where(#hot2, .row2) = (0,0,0); pozdější .row2 (0,1,0)
+   ji přebije → řádek vezme barvu pozdějšího pravidla (amber) */
+:where(#hot2, .row2) {
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
+}
+.row2 {                                  /* (0,1,0) — později, vyhraje */
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* ── Podpůrné styly — úvod, karty, kódové bloky, výsledkový řádek ────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-primary);
@@ -62,33 +91,12 @@ code {
   margin: 0;
 }
 
-/* ── Výsledek — řádek vyplněný barvou VÍTĚZNÉHO pravidla ──────────────────── */
+/* Výsledek — řádek vyplněný barvou VÍTĚZNÉHO pravidla (jen rám a typografie,
+   barvu určuje pointa výše) */
 .iw-clash p {
   margin: 0;
   padding: var(--base-3);
   font-family: var(--font-stack-monospace);
   font-size: var(--font-size-s);
   font-weight: 600;
-}
-
-/* :is() strana — :is(#hot, .row) = (1,0,0) přebije pozdější .row (0,1,0) →
-   řádek si drží barvu skupiny (sage) */
-:is(#hot, .row) {
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary-on-surface-brand-secondary-strong);
-}
-.row {                                   /* (0,1,0) — později, ale prohraje */
-  background: var(--surface-main-dim);
-  color: var(--text-secondary);
-}
-
-/* :where() strana — :where(#hot2, .row2) = (0,0,0); pozdější .row2 (0,1,0)
-   ji přebije → řádek vezme barvu pozdějšího pravidla (amber) */
-:where(#hot2, .row2) {
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary-on-surface-brand-secondary-strong);
-}
-.row2 {                                  /* (0,1,0) — později, vyhraje */
-  background: var(--surface-brand-primary-strong);
-  color: var(--text-primary-on-surface-brand-primary-strong);
 }

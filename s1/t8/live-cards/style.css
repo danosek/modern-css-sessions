@@ -2,12 +2,51 @@
    t8 D1 — Subgrid · Karty — subgrid řádků
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── POINTA DEMA — grid-template-rows: subgrid ────────────────────────────── */
+/*    Toggle „Se subgrid" přidá třídu .use-subgrid na .products-grid          */
+
+/* Rodičovský grid — bez display: grid by se subgrid neměl kde „půjčit" */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start; /* bez subgrid: každá karta má vlastní výšku → vidět nezarovnání */
+  gap: var(--base-3);
+  margin-bottom: var(--base-2);
+}
+
+/* SE subgrid: grid definuje explicitní řádky, karty je "vypůjčí" */
+.products-grid.use-subgrid {
+  grid-template-rows: repeat(5, auto);
+}
+
+.products-grid.use-subgrid .product-card {
+  grid-row: span 5;          /* karta obsadí 5 řádků rodiče */
+  display: grid;
+  grid-template-rows: subgrid; /* použij ty samé řádky */
+  gap: 0;
+}
+
+/* BEZ subgrid: každá karta je nezávislý flex sloupeček — proto se výšky
+   obrázku, popisu i ceny mezi kartami rozjedou. Nižší specificita než
+   pravidlo výše, takže v subgrid režimu vyhraje display: grid. */
+.product-card {
+  background: var(--surface-front);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-strong);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Podpůrné styly — toolbar, obsah karty, typografie ────────────────────── */
+
 code {
   font-family: var(--font-stack-monospace);
   color: var(--text-brand-secondary);
 }
 
-/* ── Layout helpers ──────────────────────────────────────────────────────── */
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
 
 .sizing-toolbar {
   display: flex;
@@ -38,39 +77,7 @@ code {
   border-color: transparent;
 }
 
-/* ── Product cards grid — hlavní subgrid ukázka ──────────────────────────── */
-/*    Toggle „Se subgrid" přidá třídu .use-subgrid na .products-grid          */
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: start; /* bez subgrid: každá karta má vlastní výšku → vidět nezarovnání */
-  gap: var(--base-3);
-  margin-bottom: var(--base-2);
-}
-
-/* SE subgrid: grid definuje explicitní řádky, karty je "vypůjčí" */
-.products-grid.use-subgrid {
-  grid-template-rows: repeat(5, auto);
-}
-
-.products-grid.use-subgrid .product-card {
-  grid-row: span 5;          /* karta obsadí 5 řádků rodiče */
-  display: grid;
-  grid-template-rows: subgrid; /* použij ty samé řádky */
-  gap: 0;
-}
-
-/* BEZ subgrid: každá karta je nezávislý flex sloupeček */
-.product-card {
-  background: var(--surface-front);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-strong);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+/* ── Obsah karty — 5 zón, které subgrid zarovnává ────────────────────────── */
 
 .product-card__img {
   height: 80px;

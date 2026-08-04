@@ -2,7 +2,34 @@
    t2 D1 — Comparison Functions · min() — strop šířky
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Sekce 1 — clamp(): fluid typografie (srovnání fluid vs. fixní) ──────── */
+/* ── POINTA DEMA — min() jako strop šířky ────────────────────────────────── */
+
+/* min(100%, 640px) → vždy ta menší hodnota. Do 640 px prvek roste s kontejnerem,
+   nad 640 px se zastropuje. Jedna deklarace místo dvojice width + max-width. */
+.cf-min-box {
+  width: min(100%, 640px);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* Referenční ekvivalent nad ním — stejný výsledek, ale dvě deklarace
+   a jen jedna hranice; min() přijme libovolný počet argumentů. */
+.cf-maxwidth-box {
+  max-width: 640px;
+  width: 100%;
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary);
+  padding: var(--base-2) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+}
+
+/* ── Podpůrné styly — srovnání, pravítko, popisky, info karta ────────────── */
+
+/* ── Srovnávací dvojice boxů ─────────────────────────────────────────────── */
 
 .cf-compare {
   display: flex;
@@ -37,7 +64,7 @@
   display: flex;
   align-items: center;
   line-height: 1;
-  
+
 }
 
 .cf-demo-box p{
@@ -47,30 +74,10 @@
   padding: var(--base-2) var(--base-3);
 }
 
+/* Pravítko — podklad, vůči kterému je vidět reálná šířka boxu */
 .cf-demo-box--ruler {
   background: var(--surface-main-variant);
   overflow: hidden;
-}
-
-/* ── Sekce 2 — min(): šířka kontejneru s horním limitem ──────────────────── */
-
-.cf-min-box {
-  width: min(100%, 640px);
-  background: var(--surface-brand-primary-strong);
-  color: var(--text-primary-on-surface-brand-primary-strong);
-  padding: var(--base-2) var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
-}
-
-.cf-maxwidth-box {
-  max-width: 640px;
-  width: 100%;
-  background: var(--surface-brand-secondary-strong);
-  color: var(--text-primary);
-  padding: var(--base-2) var(--base-3);
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-s);
 }
 
 .cf-box-label {
@@ -78,7 +85,7 @@
   font-size: var(--font-size-s);
 }
 
-/* ── Sekce 3 + 4 — informační karta s vysvětlením ───────────────────────── */
+/* ── Informační karta s vysvětlením ──────────────────────────────────────── */
 
 .cf-info-row {
   margin-block-start: var(--base-3);

@@ -2,10 +2,9 @@
    t7 D3 — Container Queries · Range syntaxe
    ═══════════════════════════════════════════════════════════════════════════ */
 
-code {
-  font-family: var(--font-stack-monospace);
-  color: var(--text-brand-secondary);
-}
+/* ── POINTA DEMA — range syntaxe: meze operátory místo min-/max-width ─────── */
+
+/*    1) Kontejner, jehož šířku budou range výrazy níž porovnávat              */
 
 .cq-container {
   container-type: inline-size;
@@ -18,7 +17,7 @@ code {
 
 .cq-container--400 { width: 400px; }
 
-/* ── Product card — základní styl (mobilní / úzký kontext) ──────────────── */
+/*    2) Výchozí podoba karty — základ, který query bloky níž přepisují        */
 
 .product-card {
   background: var(--surface-front);
@@ -47,32 +46,12 @@ code {
   flex: 1;
 }
 
-.product-card__title {
-  font-family: var(--font-stack-headings);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-headings-regular);
-  color: var(--text-primary);
-}
-
-.product-card__desc {
-  font-size: var(--font-size-s);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
 .product-card__footer {
   display: flex;
   flex-direction: column;
   gap: var(--base);
   margin-top: auto;
   padding-top: var(--base);
-}
-
-.product-card__price {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--text-primary);
 }
 
 .product-card__btn {
@@ -87,37 +66,8 @@ code {
   transition: opacity 0.15s;
 }
 
-.product-card__btn:hover {
-  opacity: 0.85;
-}
-
-/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
-/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
-
-.context-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--base-3);
-  align-items: start;
-}
-
-.context-slot {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-2);
-}
-
-.context-slot--flex {
-  grid-column: 1 / -1;
-}
-
-.context-slot__label {
-  font-family: var(--font-stack-monospace);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: var(--base);
-}
+/*    3) Tady je ta featura: <, >=, a celý interval na jeden řádek —
+         žádné min-width/max-width a žádné hlídání ±1px na hranicích          */
 
 /* ── Range container queries ─────────────────────────────────────────────── */
 /*    Stejná .product-card, tentokrát stylovaná range syntaxí                  */
@@ -172,4 +122,65 @@ code {
     width: auto;
     white-space: nowrap;
   }
+}
+
+/* ── Podpůrné styly — srovnávací mřížka, popisky, vnitřek karty ───────────── */
+
+/* ── Tři kontexty — srovnávací sekce ────────────────────────────────────── */
+/*    Stejná komponenta ve třech různých šířkách — @media by nefungovalo      */
+
+.context-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--base-3);
+  align-items: start;
+}
+
+.context-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.context-slot--flex {
+  grid-column: 1 / -1;
+}
+
+.context-slot__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--base);
+}
+
+/* ── Vnitřek karty — obsah, typografie ───────────────────────────────────── */
+
+.product-card__title {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-headings-regular);
+  color: var(--text-primary);
+}
+
+.product-card__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.product-card__price {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.product-card__btn:hover {
+  opacity: 0.85;
+}
+
+code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-secondary);
 }
