@@ -47,20 +47,26 @@
         <div class="cf-compare">
           <div class="cf-compare__item">
             <div class="cf-compare__label">
-              <code>font-size: clamp(1.5rem, 4vw, 3rem)</code>
-              <span class="cf-compare__note">plynule roste s oknem</span>
+              <div class="fn-readout" data-fn-target="#cf-fluid-heading" data-fn-prop="font-size">
+                <code class="fn-readout__expr"><span class="fn-readout__static">font-size: </span><span class="fn-readout__fn">clamp(</span><span class="fn-readout__arg" data-fn-arg="1.5rem">1.5rem</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="4vw">4vw</span><span class="fn-readout__sep">, </span><span class="fn-readout__arg" data-fn-arg="3rem">3rem</span><span class="fn-readout__fn">)</span></code>
+                <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+              </div>
+              <span class="cf-compare__note">zvýrazněný argument je ten, který právě platí</span>
             </div>
             <div class="cf-demo-box">
-              <p class="cf-fluid-heading">Fluid nadpis</p>
+              <p class="cf-fluid-heading" id="cf-fluid-heading">Fluid nadpis</p>
             </div>
           </div>
           <div class="cf-compare__item">
             <div class="cf-compare__label">
-              <code>font-size: var(--font-size-xl)</code>
-              <span class="cf-compare__note">fixní velikost</span>
+              <div class="fn-readout" data-fn-target="#cf-fixed-heading" data-fn-prop="font-size">
+                <code class="fn-readout__expr"><span class="fn-readout__static">font-size: </span><span class="fn-readout__arg" data-fn-arg="var(--font-size-xl)">var(--font-size-xl)</span></code>
+                <span class="fn-readout__result">&rarr; <span data-fn-value></span></span>
+              </div>
+              <span class="cf-compare__note">kontrolní vzorek — při resize se nehne</span>
             </div>
             <div class="cf-demo-box">
-              <p class="cf-fixed-heading">Fixní nadpis</p>
+              <p class="cf-fixed-heading" id="cf-fixed-heading">Fixní nadpis</p>
             </div>
           </div>
         </div>
