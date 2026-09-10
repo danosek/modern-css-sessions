@@ -1,0 +1,386 @@
+/* t5 D2 — font-weight vs. "wght" */
+
+/* ── POINTA DEMA — font-weight vs. "wght"
+      Táž hodnota, jiný dosah. Konkrétní
+      váhy a názvy os jsou tu předmětem
+      dema, ne dekorace. */
+
+/* Vysokoúrovňová vlastnost: jde do výběru
+   řezu, a když tučný chybí, prohlížeč ho
+   dopočítá syntetickým tučným. */
+.wa-cell--weight .wa-cell__sample { font-weight: 700; }
+
+/* Nízkoúrovňový přístup k ose: nastaví ji
+   na už vybraném řezu. Když osa není,
+   neudělá nic — a nic nedopočítá. */
+.wa-cell--axis .wa-cell__sample { font-variation-settings: "wght" 700; }
+
+/* Rodič nastaví dvě osy jednou deklarací. */
+.wa-inherit--axis .wa-inherit__parent { font-variation-settings: "wght" 700, "SPCG" 100; }
+
+/* Potomek přepíše jednu z nich a SPCG se
+   vytratí: dědí se celý řetězec, ne
+   jednotlivé osy. */
+.wa-inherit--axis .wa-inherit__sample--override { font-variation-settings: "wght" 400; }
+
+/* Vpravo nese váhu font-weight a osa má
+   vlastní deklaraci. */
+.wa-inherit--weight .wa-inherit__parent {
+  font-weight: 700;
+  font-variation-settings: "SPCG" 100;
+}
+
+/* Potomek přepíše číslo, které se dědí
+   samo za sebe, takže osa z rodiče platí
+   dál. */
+.wa-inherit--weight .wa-inherit__sample--override { font-weight: 400; }
+
+/* Popisky uvnitř rodiče se osám brání:
+   normal smaže celý zděděný řetězec. */
+.wa-inherit__meta { font-variation-settings: normal; }
+
+/* Pět rolí váhy tak, jak je Spectro
+   deklaruje. Nahoře statický font pro
+   nadpisy, dole variabilní main. */
+.wa-ladder__row--headings { font-family: var(--font-stack-headings); }
+
+.wa-ladder__row--headings .wa-step--thin { font-weight: var(--font-weight-headings-thin); }
+.wa-ladder__row--headings .wa-step--light { font-weight: var(--font-weight-headings-light); }
+.wa-ladder__row--headings .wa-step--base { font-weight: var(--font-weight-headings); }
+.wa-ladder__row--headings .wa-step--medium { font-weight: var(--font-weight-headings-medium); }
+.wa-ladder__row--headings .wa-step--bold { font-weight: var(--font-weight-headings-bold); }
+
+.wa-ladder__row--main { font-family: var(--font-stack-main); }
+
+.wa-ladder__row--main .wa-step--thin { font-weight: var(--font-weight-main-thin); }
+.wa-ladder__row--main .wa-step--light { font-weight: var(--font-weight-main-light); }
+.wa-ladder__row--main .wa-step--base { font-weight: var(--font-weight-main); }
+.wa-ladder__row--main .wa-step--medium { font-weight: var(--font-weight-main-medium); }
+.wa-ladder__row--main .wa-step--bold { font-weight: var(--font-weight-main-bold); }
+
+/* ── Podpůrné styly
+      Anatomie dvojice, srovnávací mřížky,
+      žebřík vah, popisky a nápověda. */
+
+/* ── Anatomie: dvě cesty k jednomu číslu */
+
+.wa-anatomy {
+  display: grid;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 52rem) {
+  .wa-anatomy { grid-template-columns: repeat(2, 1fr); }
+}
+
+.wa-anatomy__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+.wa-anatomy__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.wa-anatomy__arg { color: var(--text-brand-secondary); }
+
+.wa-anatomy__role {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+.wa-anatomy__what {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Dosah obou vlastností na dvou fontech */
+
+.wa-reach {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-4);
+}
+
+.wa-reach__font {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  color: var(--text-primary);
+}
+
+.wa-reach__font code { color: var(--text-brand-primary); }
+
+/* Seznam tabulek z woff2 čte JS ze souboru
+   fontu, ne z dokumentace. */
+.wa-reach__file {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-block: var(--base) var(--base-2);
+}
+
+.wa-reach__cells {
+  display: grid;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 52rem) {
+  .wa-reach__cells { grid-template-columns: repeat(2, 1fr); }
+}
+
+.wa-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-2);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+.wa-cell__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-secondary);
+  overflow-wrap: anywhere;
+}
+
+.wa-cell__sample {
+  font-size: var(--font-size-xxxl);
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.wa-cell--headings .wa-cell__sample { font-family: var(--font-stack-headings); }
+
+.wa-cell--main .wa-cell__sample { font-family: var(--font-stack-main); }
+
+.wa-cell__note {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.wa-cell__note strong {
+  display: block;
+  font-weight: normal;
+  color: var(--text-primary);
+}
+
+/* ── Dědičnost: řetězec vs. číslo */
+
+.wa-inherit {
+  display: grid;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 58rem) {
+  .wa-inherit { grid-template-columns: repeat(2, 1fr); }
+}
+
+.wa-inherit__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+.wa-inherit__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.wa-inherit__tag::before {
+  content: '[ ';
+  color: var(--text-brand-primary);
+}
+
+.wa-inherit__tag::after {
+  content: ' ]';
+  color: var(--text-brand-primary);
+}
+
+.wa-inherit__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-secondary);
+  overflow-wrap: anywhere;
+}
+
+.wa-inherit__parent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding-inline-start: var(--base-2);
+}
+
+.wa-inherit__line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-h);
+}
+
+/* Šířka vzorku je měřená hodnota: nesmí se
+   roztáhnout na rodiče ani zalomit. */
+.wa-inherit__sample {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: var(--font-size-xxl);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.wa-inherit__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.wa-inherit__val { color: var(--text-primary); }
+
+/* ── Žebřík pěti vah */
+
+.wa-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-4);
+}
+
+.wa-ladder__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  color: var(--text-primary);
+  margin-block-end: var(--base);
+}
+
+.wa-ladder__head code { color: var(--text-brand-primary); }
+
+.wa-ladder__summary {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-block-end: var(--base-2);
+}
+
+.wa-ladder__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.wa-ladder__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.wa-ladder__role {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.wa-ladder__num { color: var(--text-brand-primary); }
+
+.wa-ladder__sample {
+  font-size: var(--font-size-xxl);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.wa-ladder__read {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.wa-ladder__ink { color: var(--text-primary); }
+
+/* ── Sekce a nápověda */
+
+.wa-block { margin-block-end: var(--base-5); }
+
+.wa-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+  margin-block-end: var(--base-2);
+}
+
+.wa-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 78ch;
+  margin-block-end: var(--base-3);
+}
+
+.wa-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 78ch;
+}
+
+.wa-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+.wa-hint p + p { margin-block-start: var(--base-2); }

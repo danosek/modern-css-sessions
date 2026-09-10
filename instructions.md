@@ -64,16 +64,23 @@ Dodaný Spectro theme má tuto konfiguraci (ze `spectro-seed.json`):
 
 | Parametr | Hodnota |
 |----------|---------|
-| Brand primary | `#6104f9` (electric violet) |
-| Brand secondary | `#ff062f` (torch red) |
-| Font main | **iA Writer Quattro** (`ia-writer-quattro.woff2`) |
-| Font headings | **Departure Mono** (`departure-mono.woff2`) |
-| Font monospace | **iA Writer Mono** (`ia-writer-mono.woff2`) |
-| Font base size | 15px |
-| Scale ratio | 1.2 |
-| Contrast level | A (WCAG 2.1) |
+| `brandPrimary` | `#dc8f09` goldenrod → paleta `dixie`, `oklch(71.2% 0.152 71)` |
+| `brandSecondary` | `#789b81` sage → paleta `oxley`, `oklch(65.6% 0.055 153)` |
+| `surfaceBrand` / `surfaceIntensity` | `secondary` / `2` — neutrální povrchy jsou tónované k sage (proto mají chroma ~0.004 a hue 153, nejsou to čisté šedé) |
+| `contrastLevel` / `contrastAlgorithm` | `a` / `wcag21` |
+| `radiusIntensity` | `0` — všechny `--radius*` jsou 0 |
+| Font main | **iA Writer Quattro** — variabilní, osa `SPCG`, `font-weight: 400 700` |
+| Font headings | **Departure Mono** — **statický**, jediný řez |
+| Font monospace | **iA Writer Mono** — variabilní, osa `SPCG` |
+| Font decorative | **Departure Mono** (tentýž soubor) |
+| `fontAxes*` / `fontFeatures*` | `"SPCG" 0` u main a monospace, jinde `initial`; features všude `initial` |
+| `fontBaseSize` / `scaleRatio` | 15px / 1.2 |
 
 ### Font cesty v spectro-theme.css
+
+Departure Mono nemá osu `wght`, ale Spectro pro něj podle typografické škály
+dopočítává váhy 500–1000 (bold = seed + 300). Prohlížeč je řeší syntetickým
+tučným řezem. Je to pointa dema t5 D2, ne chyba k opravě.
 
 Fonty jsou uloženy v `shared/fonts/` a v `spectro-theme.css` jsou odkazovány přes jsDelivr CDN (stejný COMMIT_HASH jako sdílené CSS). CI je udržuje aktuální automaticky.
 
@@ -280,13 +287,89 @@ Zdroj pravdy pro dashboard je `editor-src/src/IndexApp.svelte`; tenhle seznam s 
 
 **Seznamy níže (S2–S8) jsou plán na úrovni topiců** – při realizaci se z každé odrážky stane složka `t<N>` s vlastními demy podle konvence výše.
 
-### S2 – Colors & Typography (srpen 2026 / 90 min)
-- `d1` – `oklch()` vs HSL – vizuální porovnání
-- `d2` – `color-mix()` a relative color syntax
-- `d3` – `light-dark()` – dark mode
-- `d4` – `text-wrap: balance` a `pretty`
-- `d5` – `color-scheme` · `prefers-color-scheme` – dark mode na úrovni prohlížeče
-- `d6` – `text-box-trim`
+### S2 – Colors & Typography (srpen 2026 / 90 min) — dema založená, plní se
+
+Průběžný rámec session: **Spectro už tohle všechno dělá.** Systém je postavený na
+`oklch()` + `light-dark()` a jeho hlavní fonty jsou variabilní, takže každé demo
+bere reálný token nebo font z `shared/spectro-theme.css`, ne vymyšlenou hodnotu.
+
+> **Zdroj pro obsah dem: `src/spectro/`** (gitignorovaný, mimo repo se nedistribuuje).
+> Vedle `spectro-theme.css` tam je `docs/` (MDX z teafu), `spectro-seed.json`,
+> `spectro-mixins.less`, `spectro-tokens.md` a DTCG export v `tokens/`.
+> Mapování dem na konkrétní opory je níže — ať se nemusí hledat znovu.
+
+| Demo | Opora ve Spectru | Co z toho demo bere |
+|---|---|---|
+| t1 D1 | `docs/system/palette.mdx`, sekce „OKLCH, nový formát barev" | Jejich vlastní argument, proč HSL nestačí, jako živá ukázka |
+| t1 D2 | `docs/system/palette.mdx`, „Generování odstínů barvy" | Algoritmus: `60` je základ → `50` (méně saturované, pro tmavé téma) → z `50` vznikne `10–40`, z `60` pak `70–100`. Výjimka: Silver a Black se dolaďují ručně |
+| t3 D1 | `spectro-tokens.md`, řádky `surface-*-hover` / `-active` | Hover je ve světlém tématu `L × 0,95` při nezměněném C i H (`surface-base` 90→85,5 %, `surface-main` 98→93 %, `base-variant` 100→94,9 %). Tmavé téma se řídí jinak, dopočítat z tabulky |
+| t3 D3 | `docs/system/contrast.mdx`, sekce „TEAF 24.00 a starší" | Tři generace: mixin `.contrastify()` za kompilace Lessu → předpočet v Motivu → `contrast-color()` v prohlížeči. Seed má navíc `contrastAlgorithm: wcag21 \| apca`, což odpovídá rozšířené syntaxi `contrast-color()` v Safari |
+| t4 D1 | `docs/system/themes.mdx`, „CSS pod pokličkou" | Třívrstvý vzor doslova: `--_text-blue_light` / `--_text-blue_dark` → `--text-blue: light-dark(…)` → `--text-brand-primary: var(--text-blue)` |
+| t4 D2 | `docs/system/themes.mdx` | Spectro `prefers-color-scheme` **záměrně nepoužívá** (tlačítko, pevné téma na komponentě, inverze, úspora řádků). Demo proto stojí na tom, že `color-scheme` je nutné i bez média query, protože z něj čte `light-dark()` |
+| t5 D1 | `docs/system/typography.mdx` + `spectro-seed.json` | Čtyři role písma (main/headings/monospace/decorative), každá s vlastními `--font-axes-*` a `--font-features-*`. Obecný seed v `docs/getting-started/seed.mdx` používá `"wdth" 94` |
+| t5 D2 | `docs/system/typography.mdx`, tabulka „Tloušťka" | Váhy jsou aritmetické posuny od seedu: thin −200, light −100, medium +100, bold +300. Se `fontWeightHeadings: 700` vyjde bold `1000` — jenže Departure Mono je statický font s jediným řezem |
+| t6 D1 | `spectro-seed.json` + `DESIGN.md` | Všechny čtyři `fontFeatures*` jsou `initial`, nikdo je nepoužívá. Přitom Spectro cílí na „power users v B2B, kde je klíčová hustota informací" — tedy tabulky čísel |
+
+> **Dvě věcné chyby v `docs/system/palette.mdx`.** Nemá je na starost žádné demo,
+> ale kdo tu sekci bude číst, narazí na ně — tak ať o nich ví.
+> 1. „sRGB (16,7 mld. barev)" — 8bitové sRGB má 256³ = **16,7 milionu**.
+> 2. „formáty LAB, LCH, OKLAB, a OKLCH využívající barevný prostor Display P3" —
+>    OKLCH **není** Display P3. Je to zařízením nezávislý prostor odvozený z CIE Lab,
+>    který popíše libovolnou viditelnou barvu; P3 je gamut displeje, kam se `oklch()`
+>    teprve mapuje. Těch „+26 %" platí pro P3 vs. sRGB, ne pro OKLCH.
+>    Je to nejčastější nedorozumění kolem oklch.
+
+#### `t1` – Color spaces
+- **D1** `hsl-vs-oklch` – oklch() vs hsl()
+- **D2** `lightness-ramp` – oklch() — osa lightness
+
+#### `t2` – Gradient interpolation
+- **D1** `interpolation-space` – linear-gradient(in oklch)
+- **D2** `hue-path` – longer hue · shorter hue
+
+#### `t3` – Color functions
+- **D1** `color-mix` – color-mix()
+- **D2** `relative-color` – oklch(from …)
+- **D3** `contrast-color` – contrast-color()
+
+#### `t4` – Theming
+- **D1** `light-dark` – light-dark()
+- **D2** `color-scheme` – color-scheme
+- **D3** `ui-chrome` – accent-color · caret-color · ::selection
+
+#### `t5` – Variable fonts
+- **D1** `axes` – font-variation-settings
+- **D2** `weight-vs-axis` – font-weight vs. "wght"
+
+#### `t6` – OpenType features
+- **D1** `tabular-nums` – font-variant-numeric
+- **D2** `feature-settings` – font-feature-settings
+
+#### `t7` – Text wrapping
+- **D1** `text-wrap` – text-wrap: balance · pretty · stable
+- **D2** `overflow-hyphens` – overflow-wrap · hyphens
+
+#### `t8` – Vertikální rytmus
+- **D1** `text-box-trim` – text-box-trim
+- **D2** `lh-units` – lh · rlh
+
+> **Podpora ověřená 7. 8. 2026.** Baseline je všechno kromě dvou dem:
+> `text-wrap: pretty` (t7 D2) a `text-box-trim` (t8 D1) jsou Chrome + Safari,
+> **Firefox je neumí a nemá je rozpracované** (bugy 1960910, 1816038, 1977183).
+> Obě dema to musí přiznat v `.demo-subtitle` a ukázat `@supports` větev —
+> účastník to potřebuje vědět dřív, než to nasadí. Naopak `contrast-color()`
+> (t3 D3) je od dubna 2026 Baseline newly available ve všech třech enginech.
+
+> **Fonty repozitáře.** `ia-writer-quattro.woff2` a `ia-writer-mono.woff2` jsou
+> variabilní (`fvar`, osa `SPCG`, `font-weight: 400 700`); `departure-mono.woff2`
+> je statický, takže váhy 500–1000, které pro něj Spectro deklaruje, jsou faux
+> bold — to je pointa t5 D2. Osu `opsz` nemá žádný z nich, proto v t5 není demo
+> optického řezu.
+
+> **Syrové barvy v t1–t3.** Pravidlo „výhradně Spectro tokeny" platí pro chrome
+> dema. Porovnávané vzorky nesou hodnoty z palety (`--dixie-60`) a tam, kde je
+> potřeba protipříklad v HSL, je ten literál předmětem dema. Uveď to v hlavičce
+> `style.css`, ať to při revizi nevypadá jako porušení pravidla.
 
 ### S3 – Sizing, Layout & Shapes (září 2026 / 90 min)
 - `d1` – `interpolate-size` – animace na `height: auto`

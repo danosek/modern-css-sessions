@@ -26,6 +26,8 @@ jobs:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: editor-src/package-lock.json
+      - name: Check demos
+        run: node scripts/check-demos.mjs
       - name: Build editor + landing
         run: |
           cd editor-src && npm ci

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>text-box-trim – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">text-box-trim</h1>
+    <p class="demo-subtitle">Zruš half-leading a label tlačítka sedne doprostřed.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">text-box-trim</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">text-box-edge</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="tb-block">
+          <h2 class="tb-head">Odkud se ta mezera bere</h2>
+          <p class="tb-lead">Řádkování větší než 1 rozdělí přebytek na dvě poloviny a přilepí je nad text
+            a pod něj. Ta půlmezera je součástí boxu, takže <code>padding</code> na obou stranách stejný
+            nedá opticky stejný odstup.</p>
+
+          <div class="tb-anatomy">
+            <span class="tb-anatomy__val">text-box-trim</span>
+            <span class="tb-anatomy__what">Které strany odříznout: <code>trim-start</code>,
+              <code>trim-end</code>, <code>trim-both</code>, <code>none</code>.</span>
+            <span class="tb-anatomy__val">text-box-edge</span>
+            <span class="tb-anatomy__what">Odkud se měří. Nahoře <code>cap</code> (výška verzálek) nebo
+              <code>ex</code> (x-height), dole <code>alphabetic</code> (účaří) nebo <code>text</code>.
+              <strong>Obě hodnoty jsou povinné</strong> — <code>text-box-edge: cap</code> je neplatné
+              a prohlížeč celou deklaraci tiše zahodí. Ověřeno: <code>CSS.supports</code> vrací
+              <code>false</code> pro <code>cap</code> a <code>true</code> pro
+              <code>cap text</code>.</span>
+            <span class="tb-anatomy__val">text-box</span>
+            <span class="tb-anatomy__what">Zkratka za obojí: <code>text-box: trim-both cap alphabetic</code>.
+              Tenhle zápis budeš používat.</span>
+          </div>
+        </section>
+
+        <section class="tb-block">
+          <h2 class="tb-head">Táž slova, tři výšky boxu</h2>
+          <p class="tb-lead">Všechny tři mají <code>font-size: 22px</code> a <code>line-height: 2</code>,
+            tedy 44 px na řádek. Pozadí je obtažené kolem boxu, aby bylo vidět, co je text a co mezera.
+            Výšku měří skript z vykresleného prvku.</p>
+
+          <div class="tb-grid">
+            <div class="tb-cell">
+              <div class="tb-cell__tag">bez trimu</div>
+              <span class="tb-box" data-tb-measure>Hxp</span>
+              <div class="tb-cell__num" data-tb-num></div>
+            </div>
+            <div class="tb-cell">
+              <div class="tb-cell__tag">trim-start cap text</div>
+              <span class="tb-box tb-box--top" data-tb-measure>Hxp</span>
+              <div class="tb-cell__num" data-tb-num></div>
+            </div>
+            <div class="tb-cell">
+              <div class="tb-cell__tag">trim-both cap alphabetic</div>
+              <span class="tb-box tb-box--trim" data-tb-measure>Hxp</span>
+              <div class="tb-cell__num" data-tb-num></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tb-block">
+          <h2 class="tb-head">Proč to řešit — tlačítko</h2>
+          <p class="tb-lead">Obě tlačítka mají shodný <code>padding</code>. Vlevo půlmezera nadzvedne text
+            nad optický střed, takže dole vypadá odstup větší. Vpravo je box odříznutý na písmo a padding
+            tak sedí na tom, co je vidět.</p>
+
+          <div class="tb-btns">
+            <button class="tb-btn" type="button">Uložit změny</button>
+            <button class="tb-btn tb-btn--trim" type="button">Uložit změny</button>
+          </div>
+        </section>
+
+        <div class="tb-hint">
+          <p>Pozor na jednu věc: po odříznutí musíš dorovnat <code>padding</code>, protože prvek najednou
+            zabírá o půlmezeru méně. Trim není náhrada za odstupy, je to jen posun toho, od čeho se
+            odstupy měří.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Odříznutí a detekce</h2>
+      <pre tabindex="0"><code class="language-css">/* Odřízne půlmezeru z obou stran a měří
+   ji od výšky verzálek po účaří. */
+.tb-box--trim {
+  text-box: trim-both cap alphabetic;
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

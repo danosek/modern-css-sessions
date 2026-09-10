@@ -9,6 +9,7 @@
     "build": "npm run build:editor && npm run build:index",
     "build:editor": "npm --prefix editor-src run build",
     "build:index": "npm --prefix editor-src run build:index",
+    "check": "node scripts/check-demos.mjs",
     "preview": "npm --prefix editor-src run preview",
     "sync:theme": "node scripts/sync-theme.mjs",
     "setup": "npm --prefix editor-src install"

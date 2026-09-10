@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>text-wrap: balance · pretty · stable – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">text-wrap: balance · pretty · stable</h1>
+    <p class="demo-subtitle">Tři hodnoty, tři různé problémy se zalomením.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">text-wrap</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="tw-block">
+          <h2 class="tw-head">Čtyři hodnoty, čtyři strategie</h2>
+          <div class="tw-anatomy">
+            <span class="tw-anatomy__val">wrap</span>
+            <span class="tw-anatomy__what">Výchozí. Greedy: plní řádek, dokud se další slovo vejde.
+              Nejrychlejší, ale poslední řádek může zůstat s jedním slovem.</span>
+            <span class="tw-anatomy__val">balance</span>
+            <span class="tw-anatomy__what">Vyrovná délky řádků. Pro <strong>nadpisy</strong> a krátké
+              bloky, protože se to počítá jen do několika řádků.</span>
+            <span class="tw-anatomy__val">pretty</span>
+            <span class="tw-anatomy__what">Řeší sirotka na konci <strong>dlouhého textu</strong>. Délky
+              nevyrovnává.</span>
+            <span class="tw-anatomy__val">stable</span>
+            <span class="tw-anatomy__what">Drží zlomy nad kurzorem při <strong>psaní</strong>, takže se
+              už napsaný text nepřeskládá pod rukama.</span>
+          </div>
+        </section>
+
+        <section class="tw-block">
+          <h2 class="tw-head">balance — nadpis, který nenechá sirotka</h2>
+          <p class="tw-lead">Oba sloupce mají v každém okamžiku shodnou šířku, takže se lámou za stejných
+            podmínek — liší se jedině tou deklarací. Pod nadpisem je délka každého řádku ve znacích
+            a rozdíl mezi nejdelším a nejkratším.</p>
+
+          <div class="tw-dial">
+            <label for="tw-head-range">šířka nadpisu</label>
+            <input class="tw-dial__range" type="range" id="tw-head-range" min="14" max="46" step="1" value="27">
+            <output class="tw-dial__value" data-tw-head-out>27ch</output>
+          </div>
+
+          <div class="tw-pair">
+            <div class="tw-col">
+              <div class="tw-col__tag">text-wrap: wrap</div>
+              <h3 class="tw-head-sample tw-greedy" data-tw-lines>Roční uzávěrka skladových pohybů</h3>
+              <div class="tw-col__num" data-tw-lines-out></div>
+            </div>
+            <div class="tw-col">
+              <div class="tw-col__tag">text-wrap: balance</div>
+              <h3 class="tw-head-sample tw-balance" data-tw-lines>Roční uzávěrka skladových pohybů</h3>
+              <div class="tw-col__num" data-tw-lines-out></div>
+            </div>
+          </div>
+
+          <p class="tw-lead">Vyvažování je drahé, takže ho prohlížeč dělá jen do několika řádků — strop je šest. Nad ním se deklarace tiše ignoruje a text se láme greedy. Pro nadpisy to
+            nevadí, ty bývají do tří řádků.</p>
+        </section>
+
+        <section class="tw-block">
+          <h2 class="tw-head">pretty — sirotek na konci odstavce</h2>
+          <p class="tw-lead">Táhni za slider, dokud se vlevo neobjeví jednoslovný poslední řádek. Vpravo
+            stejný text s <code>pretty</code>. Pod odstavcem je délka posledního řádku a počet slov na
+            něm — sirotek je jednoslovný konec, ne krátký řádek.</p>
+
+          <div class="tw-dial">
+            <label for="tw-para-range">šířka odstavce</label>
+            <input class="tw-dial__range" type="range" id="tw-para-range" min="20" max="52" step="1" value="38">
+            <output class="tw-dial__value" data-tw-para-out>38ch</output>
+          </div>
+
+          <div class="tw-pair">
+            <div class="tw-col">
+              <div class="tw-col__tag">text-wrap: wrap</div>
+              <p class="tw-para tw-greedy" data-tw-last>Inventura ve skladu Kladno našla rozdíl mezi evidencí a fyzickým stavem u dvanácti palet, které se dosud nepodařilo dohledat.</p>
+              <div class="tw-col__num" data-tw-last-out></div>
+            </div>
+            <div class="tw-col">
+              <div class="tw-col__tag">text-wrap: pretty</div>
+              <p class="tw-para tw-pretty" data-tw-last>Inventura ve skladu Kladno našla rozdíl mezi evidencí a fyzickým stavem u dvanácti palet, které se dosud nepodařilo dohledat.</p>
+              <div class="tw-col__num" data-tw-last-out></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tw-block">
+          <h2 class="tw-head">stable — zalomení, které neposkakuje</h2>
+          <p class="tw-lead">Obě pole jsou editovatelná. Klikni do nich a piš doprostřed textu — vlevo se
+            zlomy přeskládají i nad kurzorem, vpravo zůstanou. Pro komentáře, chatová okna a formulářové
+            náhledy je to rozdíl mezi klidným a nervózním rozhraním.</p>
+
+          <div class="tw-pair">
+            <div class="tw-col">
+              <div class="tw-col__tag">bez stable</div>
+              <div class="tw-field" contenteditable="true" role="textbox" aria-label="Text bez stable">Příjemka 4471 čeká na doplnění šarže u tří položek.</div>
+            </div>
+            <div class="tw-col">
+              <div class="tw-col__tag">text-wrap: stable</div>
+              <div class="tw-field tw-stable" contenteditable="true" role="textbox" aria-label="Text se stable">Příjemka 4471 čeká na doplnění šarže u tří položek.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="tw-hint">
+          <p>Kdy co: <code>balance</code> na nadpisy, prakticky vždycky. <code>pretty</code> globálně
+            na běžný text — rozdíl je úzký a vzniká jen při některých šířkách, takže se neladí po
+            blocích. <code>stable</code> všude, kde uživatel text píše.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Čtyři hodnoty</h2>
+      <pre tabindex="0"><code class="language-css">/* Výchozí greedy. */
+.tw-greedy { text-wrap: wrap; }
+
+/* Vyrovná délky řádků — na nadpisy. */
+.tw-balance { text-wrap: balance; }
+
+/* Řeší sirotka — na dlouhý text. */
+.tw-pretty { text-wrap: pretty; }
+
+/* Drží zlomy při psaní. */
+.tw-stable { text-wrap: stable; }</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -60,7 +60,9 @@ body {
   position: relative;
   font-family: var(--font-stack-headings);
   font-size: clamp(1.75rem, 5vw, 3rem);
-  font-weight: var(--font-weight-headings-regular);
+  /* Departure Mono má jediný řez; 700 by prohlížeč
+     dopočítal syntetickým tučným. */
+  font-weight: normal;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 0.95;

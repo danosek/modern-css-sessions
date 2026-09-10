@@ -50,11 +50,42 @@
       ],
     },
     {
-      id: 's2', number: 'S2', title: 'Colors & Typography', duration: 90, future: true,
+      id: 's2', number: 'S2', title: 'Colors & Typography', duration: 90,
       topics: [
-        { id: 't1', name: 'oklch()' }, { id: 't2', name: 'color-mix()' },
-        { id: 't3', name: 'light-dark()' }, { id: 't4', name: 'text-wrap' },
-        { id: 't5', name: 'color-scheme · prefers-color-scheme' },
+        { id: 't1', name: 'Color spaces', demos: [
+          { slug: 'hsl-vs-oklch',   index: 'D1', name: 'oklch() vs hsl()' },
+          { slug: 'lightness-ramp', index: 'D2', name: 'oklch() — osa lightness' },
+        ] },
+        { id: 't2', name: 'Gradient interpolation', demos: [
+          { slug: 'interpolation-space', index: 'D1', name: 'linear-gradient(in oklch)' },
+          { slug: 'hue-path',            index: 'D2', name: 'longer hue · shorter hue' },
+        ] },
+        { id: 't3', name: 'Color functions', demos: [
+          { slug: 'color-mix',      index: 'D1', name: 'color-mix()' },
+          { slug: 'relative-color', index: 'D2', name: 'oklch(from …)' },
+          { slug: 'contrast-color', index: 'D3', name: 'contrast-color()' },
+        ] },
+        { id: 't4', name: 'Theming', demos: [
+          { slug: 'light-dark',    index: 'D1', name: 'light-dark()' },
+          { slug: 'color-scheme',  index: 'D2', name: 'color-scheme' },
+          { slug: 'ui-chrome',     index: 'D3', name: 'accent-color · caret-color · ::selection' },
+        ] },
+        { id: 't5', name: 'Variable fonts', demos: [
+          { slug: 'axes',           index: 'D1', name: 'font-variation-settings' },
+          { slug: 'weight-vs-axis', index: 'D2', name: 'font-weight vs. "wght"' },
+        ] },
+        { id: 't6', name: 'OpenType features', demos: [
+          { slug: 'tabular-nums',     index: 'D1', name: 'font-variant-numeric' },
+          { slug: 'feature-settings', index: 'D2', name: 'font-feature-settings' },
+        ] },
+        { id: 't7', name: 'Text wrapping', demos: [
+          { slug: 'text-wrap',        index: 'D1', name: 'text-wrap: balance · pretty · stable' },
+          { slug: 'overflow-hyphens', index: 'D2', name: 'overflow-wrap · hyphens' },
+        ] },
+        { id: 't8', name: 'Vertikální rytmus', demos: [
+          { slug: 'text-box-trim',    index: 'D1', name: 'text-box-trim' },
+          { slug: 'lh-units',         index: 'D2', name: 'lh · rlh' },
+        ] },
       ],
     },
     {
@@ -105,7 +136,8 @@
     (n, s) => n + (s.topics?.reduce((m, t) => m + (t.demos?.length ?? 0), 0) ?? 0), 0);
   const liveCount = sessions.filter((s) => !s.future).length;
   const topicCount = sessions.reduce((n, s) => n + (s.topics?.length ?? 0), 0);
-  const activeSession = sessions.find(s => !s.future);
+  // Aktivní = nejnovější odemčená session, ne první — S1 je odbytá.
+  const activeSession = sessions.findLast(s => !s.future);
 
   let theme = $state(document.documentElement.dataset.theme ?? 'light');
   $effect(() => { document.documentElement.dataset.theme = theme; });

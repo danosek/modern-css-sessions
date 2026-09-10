@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>color-mix() – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">color-mix()</h1>
+    <p class="demo-subtitle">Hover a active z jednoho tokenu, ne ze tří.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">color-mix()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+
+    <div class="demo-section">
+      <h2 class="demo-section__title">Jedna barva, tři stavy</h2>
+      <div class="demo-section__example">
+
+        <div class="cm-anatomy">
+          <code class="cm-anatomy__expr"><span class="cm-anatomy__fn">color-mix(</span><span
+              class="cm-anatomy__arg" data-part="1">in oklab</span><span class="cm-anatomy__sep">,</span> <span
+              class="cm-anatomy__arg" data-part="2">var(--surface-main)</span> <span class="cm-anatomy__arg"
+              data-part="3">var(--cm-p-hover)</span><span class="cm-anatomy__sep">,</span> <span class="cm-anatomy__arg"
+              data-part="4">var(--text-primary)</span><span class="cm-anatomy__fn">)</span></code>
+          <ol class="cm-anatomy__labels">
+            <li class="cm-anatomy__label">Interpolační prostor. Povinný, a jak je vidět dole, není to formalita.</li>
+            <li class="cm-anatomy__label">První barva. Tady základní povrch, ze kterého všechno vychází.</li>
+            <li class="cm-anatomy__label">Její podíl. Druhé barvě zbývá doplněk do sta procent. Tady je to
+              téma-aware token, protože světlé a tmavé téma potřebují jiné číslo.</li>
+            <li class="cm-anatomy__label">Druhá barva. Podíl u ní psát nemusíme, dopočítá se.</li>
+          </ol>
+        </div>
+
+        <div class="cm-compare">
+          <section class="cm-panel cm-panel--tokens">
+            <h3 class="cm-panel__tag">Ruční triplet</h3>
+            <div class="cm-panel__decls">
+              <code class="cm-panel__decl">--cm-hover: var(--surface-main-hover);</code>
+              <code class="cm-panel__decl">--cm-active: var(--surface-main-active);</code>
+            </div>
+            <button type="button" class="cm-btn">Uložit změny</button>
+            <div class="cm-states">
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--rest"></div>
+                <div class="cm-state__name">klid</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--hover"></div>
+                <div class="cm-state__name">:hover</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--active"></div>
+                <div class="cm-state__name">:active</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+            </div>
+          </section>
+
+          <section class="cm-panel cm-panel--mix">
+            <h3 class="cm-panel__tag">Odvozeno z jednoho tokenu</h3>
+            <div class="cm-panel__decls">
+              <code class="cm-panel__decl">--cm-hover: color-mix(in oklab, var(--cm-rest) var(--cm-p-hover),
+                var(--text-primary));</code>
+              <code class="cm-panel__decl">--cm-active: color-mix(in oklab, var(--cm-rest) var(--cm-p-active),
+                var(--text-primary));</code>
+            </div>
+            <button type="button" class="cm-btn">Uložit změny</button>
+            <div class="cm-states">
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--rest"></div>
+                <div class="cm-state__name">klid</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--hover"></div>
+                <div class="cm-state__name">:hover</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+              <div class="cm-state">
+                <div class="cm-state__swatch cm-state__swatch--active"></div>
+                <div class="cm-state__name">:active</div>
+                <output class="cm-state__l"></output>
+                <code class="cm-state__rgb"></code>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <p class="cm-delta">
+          <span class="cm-delta__label">Odchylka odvozených hodnot od ručního tripletu</span>
+          <output class="cm-delta__value" id="cm-delta-out"></output>
+        </p>
+
+        <div class="cm-hint">
+          Najeď na obě tlačítka a zmáčkni je. Vlevo za stavy stojí tři tokeny, vpravo jeden token
+          a dvě míchání — a sedí na desetinu bodu v obou tématech.
+          <br><br>
+          Proč to chce dvě čísla: směr si mix vyřeší sám, protože <code>--text-primary</code> je ve světle
+          skoro černý a ve tmě skoro bílý. <strong class="cm-hint__warn">Velikost kroku ale ne</strong> —
+          Spectro ve světle ubere 4,8 bodu lightness, ve tmě přidá 7,7.
+          <br><br>
+          Podíl proto přepíná selektor <code>[data-theme$="dark"]</code>. <code>light-dark()</code> tam
+          nejde: v pozici procenta ho parser odmítne (<code>CSS.supports</code> vrací <code>false</code>)
+          a přes <code>var()</code> to obejít nelze — deklarace spadne na neplatnou a povrch vyjde
+          průhledný.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2 class="demo-section__title">Kolik to škrtne · a proč na prostoru záleží</h2>
+      <div class="demo-section__example">
+
+        <div class="cm-count">
+          <p class="cm-count__lead">Spectro má dvacet barev v šesti úrovních důrazu a k tomu neutrální povrchy. Pro
+            každý povrch existuje ještě hover a active — spočítané předem v Motivu a vypsané do tématu jako další
+            řádky.</p>
+          <dl class="cm-count__grid">
+            <div class="cm-count__cell">
+              <dt class="cm-count__num">204</dt>
+              <dd class="cm-count__desc">základních tokenů <code>--surface-*</code></dd>
+            </div>
+            <div class="cm-count__cell">
+              <dt class="cm-count__num">408</dt>
+              <dd class="cm-count__desc">tokenů navíc jen pro <code>-hover</code> a <code>-active</code></dd>
+            </div>
+            <div class="cm-count__cell">
+              <dt class="cm-count__num">600</dt>
+              <dd class="cm-count__desc">privátních hodnot pod nimi: 150 povrchů × 2 stavy × 2 témata</dd>
+            </div>
+            <div class="cm-count__cell cm-count__cell--out">
+              <dt class="cm-count__num">2</dt>
+              <dd class="cm-count__desc">deklarace, které je ve světlém tématu zastanou</dd>
+            </div>
+          </dl>
+          <p class="cm-count__note">Na jeden povrch tedy připadají dvě ručně dopočítané varianty. Není to plýtvání —
+            generátor je vyrobí zadarmo a prohlížeč je nemusí počítat. Ale v projektu, který si Spectro jen bere,
+            stejný vztah napíšeš jednou.</p>
+        </div>
+
+        <div class="cm-space">
+          <p class="cm-space__lead">Tentýž pár barev, tytéž podíly, jiný interpolační prostor. V sRGB se sčítají
+            hodnoty tak, jak je bere obrazovka, a cesta mezi dvěma sytými barvami se propadne do kalné, znatelně
+            tmavší zeleni. Oklab je perceptuální: lightness mezi krajními barvami klesá rovnoměrně.</p>
+          <div class="cm-space__rows">
+            <div class="cm-space__row">
+              <div class="cm-space__tag">in oklab</div>
+              <div class="cm-ramp cm-ramp--oklab">
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step" data-cm-mid></div>
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step"></div>
+              </div>
+              <output class="cm-space__mid"></output>
+            </div>
+            <div class="cm-space__row">
+              <div class="cm-space__tag">in srgb</div>
+              <div class="cm-ramp cm-ramp--srgb">
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step" data-cm-mid></div>
+                <div class="cm-ramp__step"></div>
+                <div class="cm-ramp__step"></div>
+              </div>
+              <output class="cm-space__mid"></output>
+            </div>
+            <div class="cm-space__scale">
+              <span>100 %</span><span>75 %</span><span>50 %</span><span>25 %</span><span>0 %</span>
+            </div>
+          </div>
+          <div class="cm-hint">
+            Podíl u prostředního vzorku je v obou řadách 50 %. Rozdíl lightness, který k němu vypisuje demo, je celý
+            na účet prvního argumentu <code>color-mix()</code>. Proto se pro odvozování stavů hodí
+            <code>in oklab</code>: podíl 95 % tam znamená 95 % lightness, ne 95 % nějakého čísla v paměti.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Spectro — ruční triplet</h2>
+      <pre tabindex="0"><code class="language-css">/* shared/spectro-theme.css — a takhle 204krát */
+:root {
+  --_surface-main_light: oklch(98% 0.00419 152.61);
+  --_surface-main-hover_light: oklch(93% 0.004 153);
+  --_surface-main-active_light: oklch(89.6% 0.004 153);
+  /* a tytéž tři hodnoty ještě pro tmavé téma */
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Demo — jeden token, dvě míchání</h2>
+      <pre tabindex="0"><code class="language-css">.cm-compare {
+  --cm-rest: var(--surface-main);
+}
+
+.cm-panel--tokens {
+  --cm-hover: var(--surface-main-hover);
+  --cm-active: var(--surface-main-active);
+}
+
+.cm-panel--mix {
+  --cm-p-hover: 94.9%;
+  --cm-p-active: 91.4%;
+  --cm-hover: color-mix(in oklab, var(--cm-rest) var(--cm-p-hover), var(--text-primary));
+  --cm-active: color-mix(in oklab, var(--cm-rest) var(--cm-p-active), var(--text-primary));
+}
+
+/* Podíl pro tmu přes selektor — light-dark()
+   v pozici procenta nefunguje. */
+:root[data-theme$="dark"] .cm-panel--mix {
+  --cm-p-hover: 89.6%;
+  --cm-p-active: 80.6%;
+}
+
+.cm-btn { background: var(--cm-rest); }
+.cm-btn:hover { background: var(--cm-hover); }
+.cm-btn:active { background: var(--cm-active); }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Prostor je první argument</h2>
+      <pre tabindex="0"><code class="language-css">.cm-space {
+  --cm-a: var(--surface-brand-primary-strong);
+  --cm-b: var(--surface-blue-strong);
+}
+
+.cm-ramp__step:nth-child(1) { --cm-p: 100%; }
+.cm-ramp__step:nth-child(2) { --cm-p: 75%; }
+.cm-ramp__step:nth-child(3) { --cm-p: 50%; }
+.cm-ramp__step:nth-child(4) { --cm-p: 25%; }
+.cm-ramp__step:nth-child(5) { --cm-p: 0%; }
+
+.cm-ramp--oklab .cm-ramp__step {
+  background: color-mix(in oklab, var(--cm-a) var(--cm-p), var(--cm-b));
+}
+
+.cm-ramp--srgb .cm-ramp__step {
+  background: color-mix(in srgb, var(--cm-a) var(--cm-p), var(--cm-b));
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

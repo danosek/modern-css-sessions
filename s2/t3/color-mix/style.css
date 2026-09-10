@@ -1,0 +1,434 @@
+/* t3 D1 — color-mix() */
+
+/* ── POINTA DEMA — color-mix()
+      Hover a active nejsou další tokeny.
+      Jsou to dvě míchání jedné barvy. */
+
+/* Obě strany srovnání startují ze
+   stejného povrchu. */
+.cm-compare {
+  --cm-rest: var(--surface-main);
+}
+
+/* Vlevo: tři hotové tokeny ze Spectra,
+   každý dopsaný ručně. */
+.cm-panel--tokens {
+  --cm-hover: var(--surface-main-hover);
+  --cm-active: var(--surface-main-active);
+}
+
+/* Vpravo: totéž jen z --cm-rest. Směr si
+   mix vyřeší sám, protože --text-primary
+   se s tématem překlopí. Podíl ne — ve tmě
+   Spectro lightness zvedá víc, než kolik
+   ubírá ve světle. */
+.cm-panel--mix {
+  --cm-p-hover: 94.9%;
+  --cm-p-active: 91.4%;
+  --cm-hover: color-mix(in oklab, var(--cm-rest) var(--cm-p-hover), var(--text-primary));
+  --cm-active: color-mix(in oklab, var(--cm-rest) var(--cm-p-active), var(--text-primary));
+}
+
+/* Podíl pro tmu. Přes selektor, ne přes
+   light-dark() — ten v pozici procenta
+   nefunguje ani přes var(). */
+:root[data-theme$="dark"] .cm-panel--mix {
+  --cm-p-hover: 89.6%;
+  --cm-p-active: 80.6%;
+}
+
+/* Tlačítko čte tytéž tři proměnné jako
+   vzorky pod ním. */
+.cm-btn { background: var(--cm-rest); }
+
+.cm-btn:hover { background: var(--cm-hover); }
+
+.cm-btn:active { background: var(--cm-active); }
+
+/* Vzorek je statický výřez stavu, který
+   je na tlačítku vidět jen při akci. */
+.cm-state__swatch--rest { background: var(--cm-rest); }
+
+.cm-state__swatch--hover { background: var(--cm-hover); }
+
+.cm-state__swatch--active { background: var(--cm-active); }
+
+/* Míchaný pár: brand goldenrod a modrá.
+   Obě strany dole berou tytéž dvě barvy. */
+.cm-space {
+  --cm-a: var(--surface-brand-primary-strong);
+  --cm-b: var(--surface-blue-strong);
+}
+
+/* Pět zastávek na téže cestě. */
+.cm-ramp__step:nth-child(1) { --cm-p: 100%; }
+
+.cm-ramp__step:nth-child(2) { --cm-p: 75%; }
+
+.cm-ramp__step:nth-child(3) { --cm-p: 50%; }
+
+.cm-ramp__step:nth-child(4) { --cm-p: 25%; }
+
+.cm-ramp__step:nth-child(5) { --cm-p: 0%; }
+
+/* Jediný rozdíl mezi řadami je prostor
+   v prvním argumentu. */
+.cm-ramp--oklab .cm-ramp__step {
+  background: color-mix(in oklab, var(--cm-a) var(--cm-p), var(--cm-b));
+}
+
+.cm-ramp--srgb .cm-ramp__step {
+  background: color-mix(in srgb, var(--cm-a) var(--cm-p), var(--cm-b));
+}
+
+/* ── Podpůrné styly
+      Anatomie funkce, srovnávací panely,
+      počty, rampy a nápověda. */
+
+/* ── Anatomie funkce */
+
+.cm-anatomy {
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.cm-anatomy__expr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5ch;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+.cm-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+.cm-anatomy__arg {
+  padding: 0 var(--base-h);
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+
+/* Číslo části váže výraz na popisek. */
+.cm-anatomy__arg::after {
+  content: attr(data-part);
+  margin-inline-start: var(--base-h);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  vertical-align: super;
+  color: var(--text-brand-primary);
+}
+
+.cm-anatomy__labels {
+  counter-reset: cm-part;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--base-2);
+  margin-block-start: var(--base-3);
+}
+
+.cm-anatomy__label {
+  counter-increment: cm-part;
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  border-block-start: 1px solid var(--border);
+  padding-block-start: var(--base);
+}
+
+.cm-anatomy__label::before {
+  content: counter(cm-part) ' · ';
+  color: var(--text-brand-primary);
+  font-family: var(--font-stack-monospace);
+}
+
+/* ── Srovnávací panely */
+
+/* Dělicí linka je gap na tmavém
+   podkladu, ne border buňky. */
+.cm-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.cm-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-2);
+  background: var(--surface-main-variant);
+  padding: var(--base-3);
+}
+
+.cm-panel__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+}
+
+.cm-panel__tag::before {
+  content: '[ ';
+  color: var(--text-brand-primary);
+}
+
+.cm-panel__tag::after {
+  content: ' ]';
+  color: var(--text-brand-primary);
+}
+
+.cm-panel__decls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  align-self: stretch;
+  min-block-size: var(--base-8);
+}
+
+.cm-panel__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* Bez transition, ať vypsaná hodnota
+   odpovídá tomu, co je na obrazovce. */
+.cm-btn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2) var(--base-4);
+  cursor: pointer;
+}
+
+.cm-btn:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+.cm-states {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--base-2);
+}
+
+.cm-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+}
+
+.cm-state__swatch {
+  block-size: var(--base-5);
+  border: 1px solid var(--border-strong);
+}
+
+.cm-state__name {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.cm-state__l {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cm-state__rgb {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+/* ── Odchylka */
+
+.cm-delta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+.cm-delta__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.cm-delta__value {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  background: var(--surface-brand-primary-strong);
+  padding: var(--base-h) var(--base);
+}
+
+/* ── Počty */
+
+.cm-count {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.cm-count__lead,
+.cm-count__note {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 74ch;
+}
+
+.cm-count__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.cm-count__cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main-variant);
+  padding: var(--base-3);
+}
+
+.cm-count__cell--out {
+  background: var(--surface-brand-primary-strong);
+}
+
+.cm-count__num {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xxxl);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+/* Text na brandové ploše má vlastní
+   tokeny, ne --text-primary. */
+.cm-count__cell--out .cm-count__num {
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.cm-count__cell--out .cm-count__desc {
+  color: var(--text-secondary-on-surface-brand-primary-strong);
+}
+
+.cm-count__desc {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+.cm-count__desc code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ── Rampy prostorů */
+
+.cm-space {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.cm-space__lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 74ch;
+}
+
+.cm-space__rows {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: var(--base-2) var(--base-3);
+}
+
+.cm-space__row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+
+.cm-space__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-primary);
+}
+
+.cm-ramp {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.cm-ramp__step {
+  block-size: var(--base-8);
+}
+
+.cm-space__mid {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.cm-space__scale {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ── Nápověda */
+
+.cm-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 92ch;
+  line-height: 1.6;
+}
+
+.cm-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+.cm-hint__warn {
+  color: var(--text-primary);
+  font-weight: 600;
+}

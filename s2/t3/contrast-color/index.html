@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contrast-color() – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">contrast-color()</h1>
+    <p class="demo-subtitle">Čitelný text na libovolném povrchu, spočítaný za běhu.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">contrast-color()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="cc-anatomy">
+          <code class="cc-anatomy__sig"><span class="cc-anatomy__fn">contrast-color(</span><span
+              class="cc-anatomy__arg">&lt;barva pozadí&gt;</span><span class="cc-anatomy__fn">)</span></code>
+          <span class="cc-anatomy__arrow">→</span>
+          <span class="cc-anatomy__out cc-anatomy__out--black">black</span>
+          <span class="cc-anatomy__sep">nebo</span>
+          <span class="cc-anatomy__out cc-anatomy__out--white">white</span>
+          <div class="cc-anatomy__labels">
+            <span class="cc-anatomy__label">Argumentem je barva, proti které se má text číst.</span>
+            <span class="cc-anatomy__note">Dnes vrací jen černou, nebo bílou. CSS Color 6 počítá s tím, že
+              půjde poslat i vlastní seznam kandidátů — <code>contrast-color(#dc8f09, tan, sienna)</code> —
+              a funkce z nich vybere. Zatím to neumí žádný prohlížeč.</span>
+          </div>
+        </div>
+
+        <section class="cc-block">
+          <h2 class="cc-head">Živý důkaz — osm povrchů, jedno pravidlo</h2>
+          <p class="cc-lead">Horní řádek si barvu nechá spočítat funkcí, dolní bere správný Spectro token pro
+            ten povrch. Oba jsou čitelné — rozdíl je v ceně: nahoře jedno pravidlo pro všech osm buněk, dole
+            558 předpočítaných tokenů pro 186 povrchů. Přepni téma a sleduj štítek dole v buňce.</p>
+
+          <div class="cc-proof">
+            <div class="cc-proof__cell cc-proof__cell--base-variant">
+              <code class="cc-proof__token">--surface-base-variant</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--main-variant">
+              <code class="cc-proof__token">--surface-main-variant</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--dixie-minimal">
+              <code class="cc-proof__token">--surface-dixie-minimal</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-dixie-minimal)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--dixie-strong">
+              <code class="cc-proof__token">--surface-dixie-strong</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-dixie-strong)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--oxley-strong">
+              <code class="cc-proof__token">--surface-oxley-strong</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-oxley-strong)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--aqua-strong">
+              <code class="cc-proof__token">--surface-aqua-strong</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-aqua-strong)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--navy-contrast">
+              <code class="cc-proof__token">--surface-navy-contrast</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-navy-contrast)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+
+            <div class="cc-proof__cell cc-proof__cell--dixie-contrast">
+              <code class="cc-proof__token">--surface-dixie-contrast</code>
+              <p class="cc-proof__line cc-proof__line--auto"><span class="cc-proof__decl">contrast-color()</span>Text,
+                který se má dát přečíst.</p>
+              <p class="cc-proof__line cc-proof__line--fixed"><span
+                  class="cc-proof__decl">var(--text-primary-on-surface-dixie-contrast)</span>Text, který se má dát přečíst.</p>
+              <output class="cc-proof__out"></output>
+            </div>
+          </div>
+        </section>
+
+        <section class="cc-block">
+          <h2 class="cc-head">Barva, kterou generátor neviděl</h2>
+          <p class="cc-lead">Vyber barvu, nebo si nech poslat náhodnou, jako by přišla z API. Token pro ni
+            neexistuje a nikdy existovat nebude — text je přesto čitelný.</p>
+
+          <div class="cc-live">
+            <div class="cc-live__controls">
+              <label class="cc-live__label" for="cc-pick">Barva pozadí</label>
+              <input class="cc-live__input" type="color" id="cc-pick" value="#dc8f09">
+              <button class="cc-live__btn" type="button" data-cc-random>Náhodná barva</button>
+            </div>
+
+            <div class="fn-readout">
+              <code class="fn-readout__expr"><span class="fn-readout__static">color:</span>&nbsp;<span
+                  class="fn-readout__fn">contrast-color(</span><span class="fn-readout__arg is-active"
+                  data-cc-echo>#dc8f09</span><span class="fn-readout__fn">)</span></code>
+              <span class="fn-readout__result">→ <span data-fn-value></span></span>
+            </div>
+
+            <div class="cc-live__swatch">
+              <p class="cc-live__headline">Čitelné bez tokenu</p>
+              <p class="cc-live__body">Prohlížeč porovná pozadí s černou a s bílou a vrátí tu, která vyhraje.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="cc-block">
+          <h2 class="cc-head">Kde je hranice</h2>
+          <p class="cc-lead">Týž povrch <code>--surface-dixie-strong</code>, vlevo funkce, vpravo tokeny. Rozdíl
+            není v čitelnosti, ale v odstupňování.</p>
+
+          <div class="cc-limit">
+            <div class="cc-limit__col cc-limit__col--fn">
+              <div class="cc-limit__tag">contrast-color()</div>
+              <p class="cc-limit__row">Primární text <output class="cc-limit__val"></output></p>
+              <p class="cc-limit__row">Sekundární text <output class="cc-limit__val"></output></p>
+              <p class="cc-limit__row">Neaktivní text <output class="cc-limit__val"></output></p>
+              <p class="cc-limit__note">Třikrát tatáž hodnota. Hierarchii musí nést velikost nebo řez.</p>
+              <p class="cc-limit__note">A hlavně: token se dá opsat. Funkci musíš volat s povrchem, na kterém
+                text leží, takže tu barvu máš v CSS dvakrát. Jakmile bys chtěl průhlednost nebo jiný odstín,
+                skládáš výsledek z několika hodnot. Proto tuhle funkci ve Spectru nepoužíváme.</p>
+            </div>
+            <div class="cc-limit__col cc-limit__col--tokens">
+              <div class="cc-limit__tag">--text-*-on-surface-dixie-strong</div>
+              <p class="cc-limit__row cc-limit__row--primary">Primární text <output class="cc-limit__val"></output></p>
+              <p class="cc-limit__row cc-limit__row--secondary">Sekundární text <output class="cc-limit__val"></output>
+              </p>
+              <p class="cc-limit__row cc-limit__row--disabled">Neaktivní text <output class="cc-limit__val"></output>
+              </p>
+              <p class="cc-limit__note">Tři odstíny: méně důležitá role je blíž povrchu pod ní. Hue 71 drží
+                všechny tři.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="cc-hint">
+          <p>Chystá se rozšířená syntaxe, kterou půjde vybrat algoritmus výpočtu — WCAG 2.1, nebo APCA.
+            Seed Spectra týž přepínač už má: <code>contrastAlgorithm</code>. Rozdíl je v tom, kdy se
+            vyhodnotí — u Spectra v Motivu, u funkce až v prohlížeči.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Demo — jedno pravidlo, osm povrchů</h2>
+      <pre tabindex="0"><code class="language-css">/* Buňka zná jen svůj povrch. Barvu textu
+   z něj funkce dopočítá sama. */
+.cc-proof__cell {
+  background: var(--cc-surface);
+  color: contrast-color(var(--cc-surface));
+}
+
+/* Osm reálných povrchů Spectra: jediné,
+   čím se buňky mezi sebou liší. */
+.cc-proof__cell--dixie-strong { --cc-surface: var(--surface-dixie-strong); }
+.cc-proof__cell--navy-contrast { --cc-surface: var(--surface-navy-contrast); }
+/* … a dalších šest ve style.css */
+
+/* Kontrolní vzorek: správný token pro ten
+   povrch. Čitelný taky — jen jich musí
+   existovat 558. */
+.cc-proof__cell--dixie-strong .cc-proof__line--fixed {
+  color: var(--text-primary-on-surface-dixie-strong);
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Hranice — odstíny umí jen tokeny</h2>
+      <pre tabindex="0"><code class="language-css">/* Hranice funkce: tři role textu na jednom
+   povrchu dostanou tutéž barvu. */
+.cc-limit__col--fn {
+  background: var(--surface-dixie-strong);
+  color: contrast-color(var(--surface-dixie-strong));
+}
+
+/* Spectro tytéž tři role odstíní a drží
+   hue povrchu. To funkce neumí. */
+.cc-limit__col--tokens {
+  background: var(--surface-dixie-strong);
+  color: var(--text-primary-on-surface-dixie-strong);
+}
+
+.cc-limit__row--secondary { color: var(--text-secondary-on-surface-dixie-strong); }
+.cc-limit__row--disabled { color: var(--text-disabled-on-surface-dixie-strong); }</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

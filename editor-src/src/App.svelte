@@ -23,6 +23,14 @@
     return m ? m[1].trim() : fullHtml;
   }
 
+  // Hlavička dema se z HTML tahá regexem, takže přijde i s entitami
+  // (`Colors &amp; Typography`). Do textového uzlu patří dekódované.
+  function decodeEntities(text) {
+    const el = document.createElement('textarea');
+    el.innerHTML = text;
+    return el.value;
+  }
+
   let html        = $state('');
   let css         = $state('');
   let js          = $state('');
@@ -80,9 +88,9 @@
       const mTitle   = html.match(/<h1[^>]*class="demo-title"[^>]*>([^<]+)<\/h1>/);
       const mSession = html.match(/class="demo-session"[^>]*>([^<]+)</);
       const mFeature = html.match(/class="demo-feature"[^>]*>([^<]+)</);
-      if (mTitle)   title   = mTitle[1];
-      if (mSession) session = mSession[1];
-      if (mFeature) feature = mFeature[1];
+      if (mTitle)   title   = decodeEntities(mTitle[1]);
+      if (mSession) session = decodeEntities(mSession[1]);
+      if (mFeature) feature = decodeEntities(mFeature[1]);
     } catch (e) {
       error = e.message;
     } finally {

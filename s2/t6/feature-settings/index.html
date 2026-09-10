@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>font-feature-settings – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">font-feature-settings</h1>
+    <p class="demo-subtitle">Surové OpenType tagy a dva důvody, proč jimi nezačínat.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">font-feature-settings</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="fs-block">
+          <h2 class="fs-head">Dvě cesty k téže featuře</h2>
+          <p class="fs-lead">Většina OpenType featur má v CSS <strong>vlastnost</strong> —
+            <code>font-variant-caps</code>, <code>font-variant-numeric</code>,
+            <code>font-variant-ligatures</code>. A pak je tu <code>font-feature-settings</code>, kam se
+            píšou surové čtyřznakové tagy. Vypadá to jako totéž, ale chová se to jinak ve dvou věcech.</p>
+
+          <div class="fs-anatomy">
+            <span class="fs-anatomy__val">font-variant-*</span>
+            <span class="fs-anatomy__what">Prohlížeč featuru <strong>dopočítá</strong>, když ji font nemá
+              — kapitálky zmenší z verzálek, zlomky složí z číslic. Vlastnosti se navíc skládají: každá
+              řeší svou skupinu nezávisle.</span>
+            <span class="fs-anatomy__val">font-feature-settings</span>
+            <span class="fs-anatomy__what">Pošle tag přímo do fontu. Nesyntetizuje nic, a celý výčet se
+              přepisuje — potomek nepřidává, ale nahrazuje.</span>
+          </div>
+        </section>
+
+        <section class="fs-block">
+          <h2 class="fs-head">Za prvé: nesyntetizuje</h2>
+          <p class="fs-lead">Vzorky jsou vysázené <strong>písmem tohohle repozitáře</strong>, tedy iA
+            Writer Quattro. To kapitálky nemá. Pod každým je změřená šířka proti kontrolnímu vzorku.</p>
+
+          <div class="fs-grid">
+            <div class="fs-cell">
+              <div class="fs-cell__tag">bez deklarace</div>
+              <span class="fs-caps" data-fs-ref>Kapitálky Text</span>
+              <span class="fs-cell__state">kontrolní vzorek</span>
+            </div>
+            <div class="fs-cell">
+              <div class="fs-cell__tag">font-variant-caps: small-caps</div>
+              <span class="fs-caps fs-caps--variant" data-fs-probe>Kapitálky Text</span>
+              <span class="fs-cell__state" data-fs-state></span>
+            </div>
+            <div class="fs-cell">
+              <div class="fs-cell__tag">font-feature-settings: "smcp" 1</div>
+              <span class="fs-caps fs-caps--raw" data-fs-probe>Kapitálky Text</span>
+              <span class="fs-cell__state" data-fs-state></span>
+            </div>
+          </div>
+
+          <p class="fs-lead">Prostřední vzorek prohlížeč <strong>dopočítal</strong> — zmenšil verzálky.
+            Pravý se nezměnil vůbec, protože tag <code>smcp</code> v tom souboru není. Ani jedno není
+            chyba — jsou to dvě různá chování.</p>
+        </section>
+
+        <section class="fs-block">
+          <h2 class="fs-head">Za druhé: přepisuje celý výčet</h2>
+          <p class="fs-lead"><code>font-feature-settings</code> se dědí jako
+            <strong>jeden řetězec</strong>, ne jako sada nezávislých přepínačů. Když potomek zapne jednu
+            featuru, ostatní tím vypne. Vzorky jsou systémovým fontem, který <code>tnum</code> i
+            <code>smcp</code> doopravdy má.</p>
+
+          <div class="fs-grid fs-grid--pair">
+            <div class="fs-cell">
+              <div class="fs-cell__tag">font-feature-settings</div>
+              <div class="fs-sample fs-reset__parent">
+                <span data-fs-parent>1111 8888</span>
+                <span class="fs-reset__child" data-fs-child>1111 8888</span>
+              </div>
+              <span class="fs-cell__state" data-fs-reset></span>
+            </div>
+            <div class="fs-cell">
+              <div class="fs-cell__tag">font-variant-*</div>
+              <div class="fs-sample fs-ok__parent">
+                <span data-fs-okparent>1111 8888</span>
+                <span class="fs-ok__child" data-fs-okchild>1111 8888</span>
+              </div>
+              <span class="fs-cell__state" data-fs-ok></span>
+            </div>
+          </div>
+
+          <p class="fs-lead">V každé buňce jsou dvě čísla vedle sebe: první dědí od rodiče, druhé má
+            vlastní deklaraci. Vlevo se šířky rozejdou, protože potomek tabulární sadu shodil. Vpravo
+            drží, protože vlastnosti se skládají.</p>
+        </section>
+
+        <div class="fs-hint">
+          <p>Sahej po <code>font-variant-*</code>. Je to graceful cesta — když font featuru
+            nemá, prohlížeč ji dopočítá nebo tiše přeskočí, a vlastnosti se v kaskádě skládají.</p>
+          <p><code>font-feature-settings</code> si nech na <strong>vlastní featury</strong>, které
+            vlastnost nemají — stylistické sady <code>ss01</code> a výš, alternativy <code>salt</code>,
+            znakové varianty. A když ho použiješ, vypisuj <strong>vždycky celý</strong> výčet, ne jen
+            tu jednu featuru, kterou právě měníš.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Syntéza vs. surový tag</h2>
+      <pre tabindex="0"><code class="language-css">/* Vlastnost kapitálky dopočítá, i když
+   je font nemá. */
+.fs-caps--variant {
+  font-variant-caps: small-caps;
+}
+
+/* Surový tag ne. Buď je ve fontu, nebo
+   se nestane nic. */
+.fs-caps--raw {
+  font-feature-settings: "smcp" 1;
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Přepsání celého výčtu</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodič zapne dvě featury zároveň. */
+.fs-reset__parent {
+  font-feature-settings: "tnum" 1, "smcp" 1;
+}
+
+/* Potomek zapne jednu — a druhou zahodí. */
+.fs-reset__child {
+  font-feature-settings: "smcp" 1;
+}
+
+/* Vlastnosti se naopak skládají. */
+.fs-ok__parent {
+  font-variant-numeric: tabular-nums;
+  font-variant-caps: small-caps;
+}
+
+.fs-ok__child {
+  font-variant-caps: small-caps;
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

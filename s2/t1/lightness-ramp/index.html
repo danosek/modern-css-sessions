@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oklch() — osa lightness – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">oklch() — osa lightness</h1>
+    <p class="demo-subtitle">Index určuje jas, barva jen odstín. Proto má sloupec palety jeden kontrast.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">oklch()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="pg-block">
+          <h2 class="pg-head">Jak paleta vzniká</h2>
+          <p class="pg-lead">Generátor Spectra staví každý odstín jediným voláním
+            <code>oklch(L C H)</code>. <strong>L a C bere z indexu</strong> (10 až 100),
+            <strong>H z barvy</strong>. Index je tedy jas, barva jen odstín. Sloupec palety má napříč všemi barvami
+            tentýž jas, a tím i tentýž kontrast.</p>
+          <p class="pg-lead">Přepni pohled na <strong>jen jas</strong>. Barva se zahodí a zůstane
+            perceptuální světlost každé buňky jako šeď. V oklch se sloupce srovnají do plochých pásů.
+            Pak přepni prostor na <strong>HSL</strong> a podívej se znovu.</p>
+        </section>
+
+        <section class="pg-block">
+          <div class="pg-controls">
+            <div class="pg-seg">
+              <span class="pg-seg__label">prostor</span>
+              <div class="pg-seg__btns" data-pg-seg="space">
+                <button class="pg-seg__btn" type="button" data-pg-val="oklch" aria-pressed="true">OKLCH</button>
+                <button class="pg-seg__btn" type="button" data-pg-val="hsl" aria-pressed="false">HSL</button>
+              </div>
+            </div>
+            <div class="pg-seg">
+              <span class="pg-seg__label">pohled</span>
+              <div class="pg-seg__btns" data-pg-seg="view">
+                <button class="pg-seg__btn" type="button" data-pg-val="color" aria-pressed="true">barva</button>
+                <button class="pg-seg__btn" type="button" data-pg-val="lightness" aria-pressed="false">jen jas</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pg-scroll">
+            <div class="pg-grid" data-pg-grid data-pg-space="oklch" data-pg-view="color">
+              <div class="pg-grid__corner">barva \ index</div>
+            <div class="pg-grid__idx">10</div>
+            <div class="pg-grid__idx">20</div>
+            <div class="pg-grid__idx">30</div>
+            <div class="pg-grid__idx">40</div>
+            <div class="pg-grid__idx" data-pg-seed="true">50</div>
+            <div class="pg-grid__idx" data-pg-seed="true">60</div>
+            <div class="pg-grid__idx">70</div>
+            <div class="pg-grid__idx">80</div>
+            <div class="pg-grid__idx">90</div>
+            <div class="pg-grid__idx">100</div>
+            <div class="pg-grid__name">Yellow</div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="yellow" data-pg-idx="100"></div>
+            <div class="pg-grid__name">Lime</div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="lime" data-pg-idx="100"></div>
+            <div class="pg-grid__name">Teal</div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="teal" data-pg-idx="100"></div>
+            <div class="pg-grid__name">Light Blue</div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="lightblue" data-pg-idx="100"></div>
+            <div class="pg-grid__name">Navy</div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="navy" data-pg-idx="100"></div>
+            <div class="pg-grid__name">Red</div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="red" data-pg-idx="100"></div>
+            <div class="pg-grid__name" data-pg-tuned="true">Silver</div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="silver" data-pg-idx="100"></div>
+            <div class="pg-grid__name" data-pg-tuned="true">Black</div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="10"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="20"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="30"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="40"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="50"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="60"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="70"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="80"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="90"></div>
+            <div class="pg-cell" data-pg-color="black" data-pg-idx="100"></div>
+            </div>
+          </div>
+
+          <p class="pg-lead">Indexy <strong>50 a 60</strong> jsou v hlavičce vyznačené jinou barvou,
+            protože normované nejsou —
+            tam si L i C nese barva sama, je to zadaný základ, ze kterého se zbytek generuje.</p>
+
+        </section>
+
+        <section class="pg-block">
+          <h2 class="pg-head">Dvě výjimky, které to potvrzují</h2>
+          <p class="pg-lead">Řádky <strong>Silver</strong> a <strong>Black</strong> jsou v mřížce
+            odlišené. Mají nulové nebo skoro nulové chroma a perceptuální rampa se u nich chová jinak,
+            takže jim generátor dává vlastní hodnoty jasu — v kódu je to zvláštní větev
+            <code>lightnessSilver</code> a <code>lightnessBlack</code>. Přepni na <strong>jen jas</strong>
+            a uvidíš, že právě ty dva řádky ze sloupců vystupují.</p>
+        </section>
+
+        <div class="pg-hint">
+          <p>Změřeno na této paletě, 20 barev bez obou výjimek. Na indexu <strong>80</strong> drží oklch
+            rozptyl jasu na <strong>2,5 bodu</strong>; tytéž hodnoty použité jako HSL lightness by ho
+            rozprostřely přes <strong>38 bodů</strong> — teal by vyšlo na 86, navy na 48. „Odstín 80" by
+            tak znamenal cokoli od polotónu po skoro tmavou.</p>
+          <p>Rozchod roste směrem do tmy: na indexu 10 je HSL dokonce nepatrně vyrovnanější (4,2 proti
+            4,6 bodu), na indexu 30 už je to 13 proti 0,9 a na 80 zmíněných 38 proti 2,5. Světlé odstíny
+            se v HSL trefit dají, tmavé ne.</p>
+          <p>Praktický důsledek je jeden a je to důvod, proč Spectro v oklch je: komponenta napsaná pro
+            „povrch 80 a bílý text" funguje pro všech dvacet barev stejně. V HSL by se pro polovinu
+            z nich musela barva textu překlopit.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Co dělá generátor</h2>
+      <pre tabindex="0"><code class="language-css">/* L a C přicházejí z indexu odstínu,
+   H z barvy. Jediné volání na buňku. */
+--yellow-80: oklch(48% 0.14 99);
+--teal-80:   oklch(48% 0.14 175);
+--navy-80:   oklch(48% 0.14 266);
+
+/* Index 60 je zadaný základ — tam si L i C
+   nese barva sama, proto se hodnoty liší. */
+--yellow-60: oklch(90% 0.18 99);
+--teal-60:   oklch(54% 0.12 175);
+--navy-60:   oklch(40% 0.16 266);</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Přepínač pohledu</h2>
+      <pre tabindex="0"><code class="language-css">/* Buňka drží skutečnou barvu i šeď o témž
+   perceptuálním jasu. Naplní je JS. */
+.pg-cell {
+  --pg-fill: var(--surface-main);
+  --pg-grey: var(--surface-main);
+  background: var(--pg-fill);
+}
+
+.pg-grid[data-pg-view="lightness"] .pg-cell {
+  background: var(--pg-grey);
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

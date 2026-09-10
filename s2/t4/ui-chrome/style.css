@@ -1,0 +1,224 @@
+/* t4 D3 — accent-color · caret-color · ::selection */
+
+/* ── POINTA DEMA — accent-color ·
+      caret-color · ::selection
+      Tři deklarace obarví nativní UI
+      brand tokenem, aniž by se prvky
+      musely přestylovat. */
+
+/* Dědičná vlastnost: stačí na obalu
+   skupiny a obarví checkbox, radio,
+   range i progress naráz. Výchozí je
+   brand token, tlačítko níž přepisuje
+   --uc-accent na :root. */
+.uc-accent {
+  accent-color: var(--uc-accent);
+}
+
+/* Míří jen na blikající kurzor; text,
+   rámeček ani pozadí inputu se nemění.
+   Projeví se až při focusu. */
+.uc-caret {
+  caret-color: var(--text-brand-primary);
+}
+
+/* Outline kreslí prohlížeč mimo box, takže
+   nehýbe layoutem — proto 2px a offset,
+   ne border. Barva z téhož tokenu jako
+   kurzor: focus a caret patří k sobě. */
+.uc-caret:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Highlight pseudo-prvky mají vlastní
+   dědičnost: pravidlo na odstavci platí
+   i pro <strong> uvnitř. Druhý selektor
+   pokryje potomky i tam, kde tahle
+   dědičnost chybí.
+   Povoleno je jen pár vlastností: color,
+   background-color, text-decoration,
+   text-shadow. */
+.uc-selection::selection,
+.uc-selection ::selection {
+  background-color: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* Deklarace té proměnné. Bez ní by celá
+   deklarace spadla na neplatnou. */
+:root {
+  --uc-accent: var(--text-brand-primary);
+}
+
+/* ── Podpůrné styly
+      Mapa vlastností, srovnávací
+      mřížka, popisky, hint. */
+
+/* ── Mapa: co která vlastnost obarví */
+
+.uc-map {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: baseline;
+  gap: var(--base) var(--base-4);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.uc-map__prop {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  color: var(--text-brand-primary);
+}
+
+.uc-map__what {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+}
+
+/* ── Srovnání výchozí vs. obarvené */
+
+.uc-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.uc-row__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.uc-row__title::before {
+  content: '>> ';
+  color: var(--text-brand-primary);
+}
+
+/* Mřížka s 1px mezerou i paddingem
+   kreslí rám i dělicí linku pozadím
+   — bez jediného borderu. */
+.uc-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1px;
+  padding: 1px;
+  background: var(--border-strong);
+}
+
+.uc-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--base-3);
+  background: var(--surface-main-dim);
+  padding: var(--base-3);
+}
+
+.uc-pane__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.uc-pane--brand .uc-pane__label {
+  color: var(--text-brand-primary);
+}
+
+/* Nativní prvky zůstávají nestylované,
+   aby bylo srovnání poctivé — mřížka
+   řeší jen jejich rozestupy. */
+.uc-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2) var(--base-3);
+}
+
+.uc-ctl {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-h);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.uc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.uc-text {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  max-width: 44ch;
+}
+
+/* ── Přepínač akcentu */
+
+.uc-dial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+  margin-block-end: var(--base-2);
+}
+
+.uc-dial__btn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main);
+  border: 2px solid var(--text-primary);
+  padding: var(--base) var(--base-2);
+}
+
+.uc-dial__btn:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Vzorek právě nastaveného akcentu. */
+.uc-dial__swatch {
+  inline-size: var(--base-3);
+  block-size: var(--base-3);
+  background: var(--uc-accent);
+  border: 1px solid var(--border-strong);
+}
+
+.uc-dial__value {
+  color: var(--text-brand-primary);
+  min-inline-size: 26ch;
+}
+
+/* ── Nápověda */
+
+.uc-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-width: 80ch;
+}
+
+.uc-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

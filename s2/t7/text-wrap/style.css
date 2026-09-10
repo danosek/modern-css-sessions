@@ -1,0 +1,226 @@
+/* t7 D1 — text-wrap: balance · pretty · stable */
+
+/* ── POINTA DEMA — text-wrap
+      Tři hodnoty, tři různé problémy se
+      zalomením. balance vyrovná délky
+      řádků, pretty řeší sirotka, stable
+      drží zlomy při psaní. */
+
+/* Výchozí greedy: plní řádek, dokud se
+   další slovo vejde. */
+.tw-greedy {
+  text-wrap: wrap;
+}
+
+/* Hledá rozdělení s nejmenším rozdílem
+   délek. Jen do několika řádků, pak to
+   prohlížeč vzdá. */
+.tw-balance {
+  text-wrap: balance;
+}
+
+/* Přeskládá posledních několik řádků, aby
+   na konci nezůstalo jedno slovo. Délky
+   nevyrovnává. */
+.tw-pretty {
+  text-wrap: pretty;
+}
+
+/* Zlomy nad kurzorem zůstanou, kde byly,
+   takže při psaní neposkakuje už napsaný
+   text. */
+.tw-stable {
+  text-wrap: stable;
+}
+
+/* ── Podpůrné styly
+      Anatomie, srovnání, slidery,
+      editovatelná pole, hint. */
+
+:root {
+  --tw-head-w: 27;
+  --tw-para-w: 38;
+}
+
+/* Rámeček je na samotném textu, ne na obalu:
+   jedině tak je vidět, kde je hranice, za
+   kterou se láme. A ch se počítá z fontu
+   toho prvku, takže šířka musí být tady. */
+.tw-head-sample {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xl);
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin: 0;
+  inline-size: min(100%, calc(var(--tw-head-w) * 1ch));
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border-strong);
+  padding: var(--base);
+}
+
+.tw-para {
+  font-size: var(--font-size-xxl);
+  line-height: 1.6;
+  color: var(--text-primary);
+  inline-size: min(100%, calc(var(--tw-para-w) * 1ch));
+  margin: 0;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border-strong);
+  padding: var(--base);
+}
+
+/* ── Anatomie */
+
+.tw-anatomy {
+  display: grid;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+@media (min-width: 44rem) {
+  .tw-anatomy { grid-template-columns: auto 1fr; align-items: baseline; }
+}
+
+.tw-anatomy__val {
+  color: var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.tw-anatomy__what {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Srovnání */
+
+.tw-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 56rem) {
+  .tw-pair { grid-template-columns: repeat(2, 1fr); }
+}
+
+.tw-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.tw-col__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+/* Naměřené délky řádků, aby rozdíl nebyl
+   jen dojem. Vyplňuje JS. */
+.tw-col__num {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.tw-col__num strong { color: var(--text-brand-primary); }
+
+.tw-col__num[data-tw-orphan="true"] strong { color: var(--text-status-warning); }
+
+/* ── Slider */
+
+.tw-dial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.tw-dial__range {
+  accent-color: var(--text-brand-primary);
+  inline-size: min(100%, calc(var(--base-10) * 4));
+  flex: 1;
+}
+
+.tw-dial__value {
+  color: var(--text-brand-primary);
+  min-inline-size: 6ch;
+}
+
+/* ── Editovatelná pole */
+
+.tw-field {
+  font-size: var(--font-size-s);
+  line-height: 1.6;
+  color: var(--text-primary);
+  inline-size: min(100%, 34ch);
+  min-block-size: var(--base-10);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base);
+}
+
+.tw-field:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+/* ── Sekce a nápověda */
+
+.tw-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.tw-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.tw-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.tw-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.tw-lead code,
+.tw-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

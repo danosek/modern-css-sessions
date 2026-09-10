@@ -1,0 +1,290 @@
+/* t6 D1 — font-variant-numeric */
+
+/* ── POINTA DEMA — font-variant-numeric
+      Číslice v tabulce musí mít shodnou
+      šířku, jinak sloupec poskakuje.
+      Font to nezaručuje — deklaruje se to. */
+
+/* Přepínač píše režim na kořen dokumentu.
+   Tabulka i živý součet nesou tutéž třídu,
+   takže se přepnou obě naráz. */
+:root[data-tn-mode="normal"] .tn-figures {
+  font-variant-numeric: normal;
+}
+
+/* Tabulární sada: shodná šířka pro všech
+   deset číslic. */
+:root[data-tn-mode="tabular"] .tn-figures {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lomítková nula a číslice starého střihu —
+   obojí závisí na fontu a v tomhle demu
+   je vidět, kdy se nestane nic. */
+.tn-extra--zero { font-variant-numeric: slashed-zero; }
+
+.tn-extra--old { font-variant-numeric: oldstyle-nums; }
+
+/* ── Podpůrné styly
+      Anatomie, tabulky, měření šířek,
+      hint. */
+
+/* Sázíme systémovým fontem, protože iA
+   Writer má tabulární číslice nativně
+   a nebylo by na čem to ukázat. */
+.tn-table {
+  font-family: system-ui, sans-serif;
+  border-collapse: collapse;
+  font-size: var(--font-size-xl);
+}
+
+/* Rozteč mřížky: šířka jedné číslice jako
+   násobek em, aby platila v obou velikostech.
+   Změří ji JS na tabulární sadě, 1ch je
+   záloha — taky se počítá z písma prvku. */
+:root {
+  --tn-adv: 1ch;
+}
+
+.tn-num {
+  display: inline-block;
+  background-image: repeating-linear-gradient(to left,
+      var(--border) 0 1px, transparent 1px var(--tn-adv));
+}
+
+.tn-table th,
+.tn-table td {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  padding: var(--base) var(--base-2);
+  text-align: end;
+}
+
+.tn-table thead th {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+  text-align: end;
+}
+
+.tn-table tbody th {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  color: var(--text-primary);
+  text-align: start;
+}
+
+/* ── Anatomie */
+
+.tn-anatomy {
+  display: grid;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+@media (min-width: 48rem) {
+  .tn-anatomy { grid-template-columns: auto 1fr; align-items: baseline; }
+}
+
+.tn-anatomy__val {
+  color: var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.tn-anatomy__what {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Ukázky */
+
+.tn-frame {
+  border: 2px solid var(--text-primary);
+}
+
+.tn-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.tn-col__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+/* Naměřené šířky jednotlivých číslic —
+   důkaz, ne dojem. */
+.tn-col__num {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.tn-col__num strong { color: var(--text-brand-primary); }
+
+.tn-col__num[data-tn-jitter="true"] strong { color: var(--text-status-warning); }
+
+/* ── Živý součet */
+
+.tn-tick__ctrl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+}
+
+.tn-tick__btn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main);
+  border: 2px solid var(--text-primary);
+  padding: var(--base) var(--base-2);
+}
+
+.tn-tick__btn:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+.tn-tick__btn[aria-pressed="true"] {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  border-color: var(--surface-brand-primary-strong);
+}
+
+/* Box má pevnou šířku, číslo je u pravého
+   okraje. Poskakuje tedy okraj levý. */
+.tn-tick__num {
+  font-family: system-ui, sans-serif;
+  font-size: var(--font-size-xxxl);
+  color: var(--text-primary);
+  text-align: end;
+  inline-size: 100%;
+  background-image: repeating-linear-gradient(to left,
+      var(--border) 0 1px, transparent 1px var(--tn-adv));
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  background-size: calc(var(--tn-adv) * 16) 100%;
+}
+
+.tn-tick__label { color: var(--text-secondary); }
+
+.tn-tick__travels {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  flex-wrap: wrap;
+  gap: var(--base) var(--base-3);
+}
+
+.tn-tick__travel {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Režim, ve kterém se právě měří. */
+.tn-tick__travel[data-tn-on="true"] { color: var(--text-primary); }
+
+.tn-tick__travel[data-tn-jump="true"] { color: var(--text-status-warning); }
+
+/* ── Ostatní hodnoty */
+
+.tn-extras {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 48rem) {
+  .tn-extras { grid-template-columns: repeat(3, 1fr); }
+}
+
+.tn-extra {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.tn-extra__val {
+  font-family: system-ui, sans-serif;
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+}
+
+.tn-extra__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-brand-primary);
+}
+
+.tn-extra__state {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.tn-extra__state[data-tn-none="true"] { color: var(--text-status-warning); }
+
+/* ── Sekce a nápověda */
+
+.tn-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.tn-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.tn-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.tn-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.tn-lead code,
+.tn-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

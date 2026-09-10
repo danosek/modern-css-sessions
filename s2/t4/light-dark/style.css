@@ -1,0 +1,235 @@
+/* t4 D1 — light-dark() */
+
+/* ── POINTA DEMA — light-dark()
+      Jeden token nese dvě hodnoty a
+      prohlížeč vybírá podle color-scheme. */
+
+/* Který argument svítí, neřeší JS —
+   je to zase light-dark(). */
+.ld-anatomy__arg--light {
+  background: light-dark(var(--surface-brand-primary-strong), transparent);
+  color: light-dark(var(--text-primary-on-surface-brand-primary-strong), var(--text-secondary));
+}
+
+.ld-anatomy__arg--dark {
+  background: light-dark(transparent, var(--surface-brand-primary-strong));
+  color: light-dark(var(--text-secondary), var(--text-primary-on-surface-brand-primary-strong));
+}
+
+/* Tečka u popisku běží na téže funkci. */
+.ld-anatomy__label--light { --ld-color: light-dark(var(--text-brand-primary), var(--text-secondary)); }
+
+.ld-anatomy__label--dark { --ld-color: light-dark(var(--text-secondary), var(--text-brand-primary)); }
+
+/* Ve vrstvě 1 svítí ta hodnota, kterou si
+   light-dark() ve vrstvě 2 právě bere. */
+.ld-chain__light { color: light-dark(var(--text-brand-primary), var(--text-secondary)); }
+
+.ld-chain__dark { color: light-dark(var(--text-secondary), var(--text-brand-primary)); }
+
+/* Vzorky sahají po hotových tokenech.
+   Jedna deklarace, dvě barvy na obrazovce. */
+.ld-proof__swatch--brand { background: var(--text-brand-primary); }
+
+.ld-proof__swatch--blue { background: var(--text-blue); }
+
+.ld-proof__swatch--surface { background: var(--surface-base); }
+
+/* ── Podpůrné styly
+      Anatomie funkce, schéma řetězu,
+      vzorky a nápověda. */
+
+/* ── Anatomie funkce */
+
+.ld-anatomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5ch;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.ld-anatomy__fn {
+  color: var(--text-primary);
+}
+
+.ld-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+/* Barvu ani pozadí tu nenastavujeme —
+   ty patří modifikátorům výše. */
+.ld-anatomy__arg {
+  padding: 0 var(--base-h);
+  font-weight: 600;
+}
+
+.ld-anatomy__labels {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-4);
+  margin-block-start: var(--base-2);
+}
+
+.ld-anatomy__label {
+  display: flex;
+  align-items: center;
+  gap: var(--base-h);
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.ld-anatomy__label::before {
+  content: '';
+  inline-size: var(--base-1h);
+  block-size: var(--base-1h);
+  flex-shrink: 0;
+  border: 2px solid var(--ld-color);
+  border-radius: var(--radius-circle);
+}
+
+.ld-anatomy__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Schéma tří vrstev */
+
+.ld-chain {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.ld-chain__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  border-inline-start: 2px solid var(--border);
+  padding-inline-start: var(--base-3);
+}
+
+/* Řetěz se čte shora dolů: hodnota jde
+   z vrstvy pod šipkou do vrstvy nad ní. */
+.ld-chain__step + .ld-chain__step::before {
+  content: '↓';
+  font-family: var(--font-stack-monospace);
+  color: var(--text-brand-primary);
+}
+
+.ld-chain__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+}
+
+.ld-chain__tag::before {
+  content: '[ ';
+  color: var(--text-brand-primary);
+}
+
+.ld-chain__tag::after {
+  content: ' ]';
+  color: var(--text-brand-primary);
+}
+
+/* Bez color — dědí se, aby ho mohly
+   přebít modifikátory vrstvy 1. */
+.ld-chain__code {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  overflow-wrap: anywhere;
+}
+
+.ld-chain__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  max-inline-size: 68ch;
+}
+
+/* ── Živé vzorky */
+
+.ld-proof {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.ld-proof__lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 74ch;
+}
+
+/* Dělicí linky dělá gap na tmavém
+   podkladu — ne bordery buněk. */
+.ld-proof__set {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.ld-proof__item {
+  flex: 1 1 calc(var(--base-10) * 3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+.ld-proof__swatch {
+  align-self: stretch;
+  block-size: var(--base-8);
+  border: 1px solid var(--border-strong);
+}
+
+.ld-proof__token {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* Vypsaná je použitá hodnota, ne to,
+   co je napsané v CSS. */
+.ld-proof__value {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  padding: var(--base-h) var(--base);
+}
+
+/* ── Nápověda */
+
+.ld-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.ld-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

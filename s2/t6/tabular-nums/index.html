@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light" data-tn-mode="normal">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>font-variant-numeric – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">font-variant-numeric</h1>
+    <p class="demo-subtitle">Sloupec čísel, který neposkakuje.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">font-variant-numeric</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="tn-block">
+          <h2 class="tn-head">Proporcionální a tabulární sada</h2>
+          <p class="tn-lead">Většina písem má číslice <strong>proporcionální</strong> — jednička je užší
+            než nula, protože tak vypadá lépe v běžném textu. V tabulce je to ale přesně to, co
+            nechceme: dvě čísla o stejném počtu míst vyjdou jinak široká, takže se řády nesrovnají
+            pod sebe a sloupec se rozjede.</p>
+
+          <div class="tn-anatomy">
+            <span class="tn-anatomy__val">tabular-nums</span>
+            <span class="tn-anatomy__what">Zapne sadu, ve které mají všechny číslice shodnou šířku.
+              Tohle je ta hodnota, kterou v datové tabulce chceš.</span>
+            <span class="tn-anatomy__val">slashed-zero</span>
+            <span class="tn-anatomy__what">Nula s lomítkem, aby se nepletla s velkým O. Pro čísla
+              dokladů a sériová čísla.</span>
+            <span class="tn-anatomy__val">oldstyle-nums</span>
+            <span class="tn-anatomy__what">Číslice starého střihu s dolními dotažnicemi. Do prózy, ne
+              do tabulky.</span>
+          </div>
+        </section>
+
+        <section class="tn-block">
+          <h2 class="tn-head">Táž tabulka, jedna deklarace</h2>
+          <p class="tn-lead">Tabulka je vysázená <strong>systémovým fontem</strong> — iA Writer má
+            tabulární číslice nativně a nebylo by na čem to ukázat. Všechna čísla mají šest míst, takže
+            rozdíl v šířce dělají výhradně číslice. Svislé linky jsou mřížka široká přesně jednu
+            číslici: v <code>normal</code> do ní řády nesedí, po přepnutí sedí každý.</p>
+
+          <div class="seg-toolbar">
+            <button class="seg-btn" type="button" data-tn-set="normal" aria-pressed="true">normal</button>
+            <button class="seg-btn" type="button" data-tn-set="tabular" aria-pressed="false">tabular-nums</button>
+          </div>
+
+          <div class="tn-frame">
+            <div class="tn-col">
+              <div class="tn-col__tag">font-variant-numeric: <span data-tn-current>normal</span></div>
+              <table class="tn-table tn-figures" data-tn-table>
+                <thead>
+                  <tr>
+                    <th scope="col">doklad</th>
+                    <th scope="col">množství</th>
+                    <th scope="col">cena</th>
+                    <th scope="col">celkem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <th scope="row">Příjemka 4471</th>
+                  <td><span class="tn-num">111 174</span></td>
+                  <td><span class="tn-num">141 117</span></td>
+                  <td><span class="tn-num">117 411</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Výdejka 2210</th>
+                  <td><span class="tn-num">800 069</span></td>
+                  <td><span class="tn-num">906 800</span></td>
+                  <td><span class="tn-num">680 096</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Inventura Q3</th>
+                  <td><span class="tn-num">114 700</span></td>
+                  <td><span class="tn-num">178 011</span></td>
+                  <td><span class="tn-num">411 178</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Oprava 1180</th>
+                  <td><span class="tn-num">690 806</span></td>
+                  <td><span class="tn-num">800 968</span></td>
+                  <td><span class="tn-num">986 006</span></td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="tn-col__num" data-tn-num></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tn-block">
+          <h2 class="tn-head">Skok v živém součtu</h2>
+          <p class="tn-lead">Součet se přepočítává a s každou změnou se šířka číslic mění. Naměřený
+            posun je nejdelší cesta, kterou levý okraj čísla urazil od vynulování — sčítá se zvlášť pro
+            každý režim, takže po chvíli běhu máš obě čísla vedle sebe.</p>
+
+          <div class="seg-toolbar">
+            <button class="seg-btn" type="button" data-tn-set="normal" aria-pressed="true">normal</button>
+            <button class="seg-btn" type="button" data-tn-set="tabular" aria-pressed="false">tabular-nums</button>
+          </div>
+
+          <div class="tn-frame">
+            <div class="tn-col">
+              <div class="tn-tick__ctrl">
+                <button class="tn-tick__btn" data-tn-run>Spustit</button>
+                <button class="tn-tick__btn" data-tn-step>Krok</button>
+                <button class="tn-tick__btn" data-tn-reset>Vynulovat měření</button>
+              </div>
+              <span class="tn-tick__num tn-figures"><span data-tn-live>1 000 000</span></span>
+              <div class="tn-tick__travels">
+                <span class="tn-tick__label">posun levého okraje</span>
+                <span class="tn-tick__travel" data-tn-travel="normal">normal 0,0 px</span>
+                <span class="tn-tick__travel" data-tn-travel="tabular">tabular-nums 0,0 px</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tn-block">
+          <h2 class="tn-head">Ostatní hodnoty závisí na fontu</h2>
+          <p class="tn-lead">Tabulární sada je v systémových písmech běžná. Zbytek už ne — a když ji font
+            nemá, deklarace nedělá nic. Pod každým vzorkem je změřeno, jestli se něco stalo.</p>
+
+          <div class="tn-extras">
+            <div class="tn-extra">
+              <span class="tn-extra__tag">normal</span>
+              <span class="tn-extra__val" data-tn-ref>0123456789</span>
+              <span class="tn-extra__state">kontrolní vzorek</span>
+            </div>
+            <div class="tn-extra">
+              <span class="tn-extra__tag">slashed-zero</span>
+              <span class="tn-extra__val tn-extra--zero" data-tn-probe>0123456789</span>
+              <span class="tn-extra__state" data-tn-state></span>
+            </div>
+            <div class="tn-extra">
+              <span class="tn-extra__tag">oldstyle-nums</span>
+              <span class="tn-extra__val tn-extra--old" data-tn-probe>0123456789</span>
+              <span class="tn-extra__state" data-tn-state></span>
+            </div>
+          </div>
+        </section>
+
+        <div class="tn-hint">
+          <p><code>tabular-nums</code> dej na každou tabulku čísel, na každý výpis
+            cen a na každé pole s množstvím. Nic nestojí, a když ho font neumí, nic se nerozbije.</p>
+          <p>Oddělovač tisíců je tady znak U+2007, takzvaná číslicová mezera — je přesně tak
+            široká jako číslice, takže skupiny nerozhodí zarovnání ani mřížku.</p>
+          <p>Nespoléhej na to, že to písmo zvládne samo. Písmo tohohle repozitáře má tabulární číslice
+            nativně, takže by tady deklarace nebyla poznat — jenže ve chvíli, kdy se font vymění nebo
+            se sáhne po fallbacku, se to projeví. Proto se to <strong>deklaruje</strong>, ne
+            předpokládá.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Jediný rozdíl mezi režimy</h2>
+      <pre tabindex="0"><code class="language-css">/* Přepínač píše režim na kořen dokumentu.
+   Tabulka i živý součet nesou tutéž třídu,
+   takže se přepnou obě naráz. */
+:root[data-tn-mode="normal"] .tn-figures {
+  font-variant-numeric: normal;
+}
+
+/* Tabulární sada: shodná šířka pro všech
+   deset číslic. */
+:root[data-tn-mode="tabular"] .tn-figures {
+  font-variant-numeric: tabular-nums;
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

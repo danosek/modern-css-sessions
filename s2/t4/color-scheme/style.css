@@ -1,0 +1,246 @@
+/* t4 D2 — color-scheme */
+
+/* ── POINTA DEMA — color-scheme
+      Vybírá větev light-dark() a říká
+      prohlížeči, jak kreslit vlastní UI.
+      Bez deklarace platí normal, tedy
+      světlo — a tmavá větev se ignoruje. */
+
+/* Dědičná vlastnost — platí i pro
+   nativní prvky uvnitř panelu. */
+.cs-panel--light { color-scheme: light; }
+.cs-panel--dark  { color-scheme: dark; }
+
+/* Dvě hodnoty: vybírá operační systém,
+   ne téma stránky. */
+.cs-panel--auto  { color-scheme: light dark; }
+
+/* Paletové tokeny theme-aware nejsou —
+   větev vybere light-dark() podle
+   color-scheme nejbližšího předka. */
+.cs-swatch {
+  background: light-dark(var(--dixie-20), var(--dixie-90));
+  color: light-dark(var(--dixie-100), var(--dixie-10));
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  padding: var(--base) var(--base-1h);
+}
+
+/* Sémantické tokeny Spectra mají
+   light-dark() uvnitř, takže se panel
+   převrátí i s povrchem a rámem. */
+.cs-panel {
+  background: var(--surface-front);
+  color: var(--text-primary);
+  border: 2px solid var(--border-strong);
+}
+
+/* ── Podpůrné styly
+      Anatomie deklarace, mřížka panelů,
+      nativní prvky, poznámka, hint. */
+
+/* ── Anatomie deklarace */
+
+.cs-anatomy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.cs-anatomy__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+}
+
+.cs-anatomy__prop,
+.cs-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+.cs-anatomy__val {
+  color: var(--text-brand-primary);
+  font-weight: 600;
+}
+
+.cs-anatomy__out {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+}
+
+.cs-anatomy__item {
+  display: flex;
+  gap: var(--base);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.cs-anatomy__item::before {
+  content: '\21B3';
+  color: var(--text-brand-primary);
+  flex-shrink: 0;
+}
+
+.cs-anatomy__item code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+}
+
+/* normal = výchozí hodnota, tedy stav
+   „bez color-scheme“ — odlišený, aby se
+   nepletl s tím, co se doopravdy píše. */
+.cs-anatomy__val--initial {
+  color: var(--text-secondary);
+  text-decoration: underline dashed;
+  text-underline-offset: 0.3em;
+}
+
+.cs-anatomy__initial {
+  border-block-start: 1px dashed var(--border-strong);
+  padding-block-start: var(--base-2);
+  max-inline-size: 80ch;
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.cs-anatomy__initial code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+}
+
+.cs-anatomy__initial strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ── Mřížka panelů */
+
+.cs-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, calc(var(--base-10) * 3)), 1fr));
+  gap: var(--base-3);
+}
+
+.cs-panel__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  color: var(--text-brand-primary);
+  padding: var(--base-1h) var(--base-2);
+  border-block-end: 1px solid var(--border);
+}
+
+.cs-panel__note {
+  display: block;
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-block-start: var(--base-h);
+}
+
+.cs-panel__body {
+  display: grid;
+  gap: var(--base-2);
+  padding: var(--base-2);
+}
+
+/* ── Nativní prvky */
+
+.cs-native {
+  display: grid;
+  gap: var(--base-1h);
+}
+
+/* Prvkům je nastavená jen šířka boxu.
+   Barvy a tvar kreslí prohlížeč sám —
+   to je to, co se tu sleduje. */
+.cs-native > * {
+  inline-size: 100%;
+}
+
+.cs-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-2);
+}
+
+.cs-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+}
+
+/* Scrollbar kreslí prohlížeč a barvu mu
+   dá color-scheme panelu. Přebít ji jde
+   přes scrollbar-color — tady schválně
+   ne. Na macOS je překryvný, ukáže se
+   až během scrollování. */
+.cs-scroll {
+  block-size: var(--base-10);
+  overflow: auto;
+  border: 1px solid var(--border);
+  padding: var(--base) var(--base-1h);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 2;
+}
+
+.cs-scroll:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+/* ── Poznámka ke Spectru */
+
+.cs-note {
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding: var(--base) var(--base-3);
+  max-inline-size: 80ch;
+}
+
+.cs-note__title {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+  margin-block-end: var(--base);
+}
+
+.cs-note__text {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cs-note__text code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+}
+
+/* ── Nápověda */
+
+.cs-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 80ch;
+}

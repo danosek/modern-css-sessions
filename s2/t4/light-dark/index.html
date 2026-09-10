@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>light-dark() – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">light-dark()</h1>
+    <p class="demo-subtitle">Jeden token, dvě hodnoty. Přepínačem je color-scheme.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">light-dark()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="ld-anatomy">
+          <span class="ld-anatomy__fn">light-dark(</span><span
+            class="ld-anatomy__arg ld-anatomy__arg--light">&lt;světlá hodnota&gt;</span><span
+            class="ld-anatomy__sep">,</span> <span
+            class="ld-anatomy__arg ld-anatomy__arg--dark">&lt;tmavá hodnota&gt;</span><span
+            class="ld-anatomy__fn">)</span>
+          <div class="ld-anatomy__labels">
+            <span class="ld-anatomy__label ld-anatomy__label--light">použije se při color-scheme: light</span>
+            <span class="ld-anatomy__label ld-anatomy__label--dark">použije se při color-scheme: dark</span>
+            <span class="ld-anatomy__note">zvýrazněný argument je ten, který právě platí</span>
+          </div>
+        </div>
+
+        <ol class="ld-chain">
+          <li class="ld-chain__step">
+            <div class="ld-chain__tag">1 · privátní hodnoty</div>
+            <code class="ld-chain__code ld-chain__light">--_text-dixie_light: oklch(59.2% 0.152 71);</code>
+            <code class="ld-chain__code ld-chain__dark">--_text-dixie_dark: oklch(73% 0.13 71);</code>
+            <p class="ld-chain__note">Dvě konstanty vedle sebe. Ani jedna o tématu neví — jsou to jen dvě čísla
+              v paletě.</p>
+          </li>
+          <li class="ld-chain__step">
+            <div class="ld-chain__tag">2 · globální token</div>
+            <code class="ld-chain__code">--text-dixie: light-dark(var(--_text-dixie_light),
+              var(--_text-dixie_dark));</code>
+            <p class="ld-chain__note">Jediné patro celého řetězu, které se ptá na téma. Vrstva pod ním ani nad ním
+              nemá žádnou větev.</p>
+          </li>
+          <li class="ld-chain__step">
+            <div class="ld-chain__tag">3 · sémantický token</div>
+            <code class="ld-chain__code">--text-brand-primary: var(--text-dixie);</code>
+            <p class="ld-chain__note">Ptá se na roli, ne na barvu. O tématu neví nic, a proto ho výměna témat
+              nikdy nenutí měnit.</p>
+          </li>
+        </ol>
+
+        <div class="ld-proof">
+          <p class="ld-proof__lead">Tři různé tokeny, tentýž mechanismus: privátní dvojice → light-dark(). Sémantickou
+            vrstvu nad sebou má z nich jen ten první. V CSS pod nimi se nemění ani písmeno — mění se jen to, co
+            z light-dark() vypadne.</p>
+          <div class="ld-proof__set">
+            <div class="ld-proof__item">
+              <div class="ld-proof__swatch ld-proof__swatch--brand"></div>
+              <code class="ld-proof__token">--text-brand-primary</code>
+              <output class="ld-proof__value"></output>
+            </div>
+            <div class="ld-proof__item">
+              <div class="ld-proof__swatch ld-proof__swatch--blue"></div>
+              <code class="ld-proof__token">--text-blue</code>
+              <output class="ld-proof__value"></output>
+            </div>
+            <div class="ld-proof__item">
+              <div class="ld-proof__swatch ld-proof__swatch--surface"></div>
+              <code class="ld-proof__token">--surface-base</code>
+              <output class="ld-proof__value"></output>
+            </div>
+          </div>
+        </div>
+
+        <div class="ld-hint">
+          Přepínač vpravo nahoře nepřebarvuje nic ručně — jen sáhne na <code>data-theme</code> dokumentu, čímž se
+          přepne <code>color-scheme</code>. Z něj light-dark() čte, který argument vrátit.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Spectro — tři vrstvy jednoho tokenu</h2>
+      <pre tabindex="0"><code class="language-css">/* shared/spectro-theme.css */
+:root {
+  /* 1 · privátní hodnoty — o tématu nevědí */
+  --_text-dixie_light: oklch(59.2% 0.152 71);
+  --_text-dixie_dark: oklch(73% 0.13 71);
+
+  /* 2 · tady a jenom tady padne rozhodnutí */
+  --text-dixie: light-dark(var(--_text-dixie_light), var(--_text-dixie_dark));
+
+  /* 3 · sémantický token — ptá se na roli */
+  --text-brand-primary: var(--text-dixie);
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Demo — zvýraznění aktivního argumentu</h2>
+      <pre tabindex="0"><code class="language-css">/* Který argument svítí, neřeší JS —
+   je to zase light-dark(). */
+.ld-anatomy__arg--light {
+  background: light-dark(var(--surface-brand-primary-strong), transparent);
+  color: light-dark(var(--text-primary-on-surface-brand-primary-strong), var(--text-secondary));
+}
+
+.ld-anatomy__arg--dark {
+  background: light-dark(transparent, var(--surface-brand-primary-strong));
+  color: light-dark(var(--text-secondary), var(--text-primary-on-surface-brand-primary-strong));
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

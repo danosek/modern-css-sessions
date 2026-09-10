@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>accent-color · caret-color · ::selection – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">accent-color · caret-color · ::selection</h1>
+    <p class="demo-subtitle">Checkbox, kurzor a výběr textu podle brand tokenu.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">accent-color</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">caret-color</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">::selection</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <dl class="uc-map">
+          <dt class="uc-map__prop">accent-color</dt>
+          <dd class="uc-map__what">checkbox · radio · range · progress</dd>
+          <dt class="uc-map__prop">caret-color</dt>
+          <dd class="uc-map__what">blikající textový kurzor</dd>
+          <dt class="uc-map__prop">::selection</dt>
+          <dd class="uc-map__what">text označený myší</dd>
+        </dl>
+
+        <section class="uc-row">
+          <h2 class="uc-row__title">accent-color</h2>
+
+          <div class="uc-dial">
+            <button class="uc-dial__btn" type="button" data-uc-random>Náhodný akcent</button>
+            <button class="uc-dial__btn" type="button" data-uc-reset>Zpět na brand</button>
+            <span class="uc-dial__swatch"></span>
+            <output class="uc-dial__value" data-uc-out></output>
+          </div>
+
+          <div class="uc-pair">
+
+            <div class="uc-pane">
+              <div class="uc-pane__label">výchozí — barva prohlížeče</div>
+              <div class="uc-controls">
+                <label class="uc-ctl"><input type="checkbox" checked> Souhlasím</label>
+                <label class="uc-ctl"><input type="radio" name="uc-plan" checked> Měsíčně</label>
+                <label class="uc-ctl"><input type="radio" name="uc-plan"> Ročně</label>
+                <label class="uc-ctl"><span>Rozsah</span> <input type="range" min="0" max="100" value="65"></label>
+                <span class="uc-ctl"><span>Postup</span> <progress max="100" value="65">65 %</progress></span>
+              </div>
+            </div>
+
+            <div class="uc-pane uc-pane--brand">
+              <div class="uc-pane__label">accent-color: var(--uc-accent)</div>
+              <div class="uc-controls uc-accent">
+                <label class="uc-ctl"><input type="checkbox" checked> Souhlasím</label>
+                <label class="uc-ctl"><input type="radio" name="uc-plan-brand" checked> Měsíčně</label>
+                <label class="uc-ctl"><input type="radio" name="uc-plan-brand"> Ročně</label>
+                <label class="uc-ctl"><span>Rozsah</span> <input type="range" min="0" max="100" value="65"></label>
+                <span class="uc-ctl"><span>Postup</span> <progress max="100" value="65">65 %</progress></span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="uc-row">
+          <h2 class="uc-row__title">caret-color</h2>
+          <div class="uc-pair">
+
+            <div class="uc-pane">
+              <div class="uc-pane__label">výchozí — kurzor v barvě textu</div>
+              <label class="uc-field">
+                <span>Jméno</span>
+                <input type="text" value="Klikni sem a piš">
+              </label>
+            </div>
+
+            <div class="uc-pane uc-pane--brand">
+              <div class="uc-pane__label">caret-color + :focus-visible outline</div>
+              <label class="uc-field">
+                <span>Jméno</span>
+                <input class="uc-caret" type="text" value="Klikni sem a piš">
+              </label>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="uc-row">
+          <h2 class="uc-row__title">::selection</h2>
+          <div class="uc-pair">
+
+            <div class="uc-pane">
+              <div class="uc-pane__label">výchozí — výběr kreslí prohlížeč</div>
+              <p class="uc-text">Označ tenhle odstavec myší. Prohlížeč použije <strong>svoji</strong> systémovou
+                modrou, o brandu nic neví.</p>
+            </div>
+
+            <div class="uc-pane uc-pane--brand">
+              <div class="uc-pane__label">::selection { background-color · color }</div>
+              <p class="uc-text uc-selection">Označ tenhle odstavec myší. Zvýraznění včetně <strong>tučného
+                  slova</strong> nese brand token z tématu.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <div class="uc-hint">
+          Klikni do textového inputu — <code>caret-color</code> je vidět jen při focusu.
+          Poslední dvojici odstavců označ tažením myši, jinak <code>::selection</code> nic neukáže.
+          Přepni téma: všechny tři barvy vedou na <code>light-dark()</code> tokeny, takže se otočí s ním.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">accent-color</h2>
+      <pre tabindex="0"><code class="language-css">/* Dědičná — jedna deklarace na obalu
+   obarví všech pět prvků uvnitř. */
+:root { --uc-accent: var(--text-brand-primary); }
+
+.uc-accent {
+  accent-color: var(--uc-accent);
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">caret-color</h2>
+      <pre tabindex="0"><code class="language-css">/* obarví jen kurzor, ne text ani rámeček */
+.uc-caret {
+  caret-color: var(--text-brand-primary);
+}
+
+/* Outline leží mimo box, layout se nehne */
+.uc-caret:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">::selection</h2>
+      <pre tabindex="0"><code class="language-css">/* dědí se vlastním highlight řetězem;
+   druhý selektor pokryje i potomky */
+.uc-selection::selection,
+.uc-selection ::selection {
+  background-color: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

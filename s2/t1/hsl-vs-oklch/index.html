@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oklch() vs hsl() – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">oklch() vs hsl()</h1>
+    <p class="demo-subtitle">Tři zápisy téže barvy. Počítat jde jen s jedním.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">oklch()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">hsl()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="hv-block">
+          <h2 class="hv-head">Jedna barva, tři zápisy</h2>
+          <p class="hv-lead">Vyber jakoukoli barvu. Všechny tři zápisy pod tím popisují <strong>tutéž
+            barvu</strong> — liší se jedině tím, kolik se z nich dá vyčíst a co s nimi jde spočítat.
+            Posledním řádkem je odpověď na nejběžnější úkol v design systému: <em>zesvětli ji o deset
+            bodů</em>.</p>
+
+          <div class="hv-pick">
+            <label for="hv-color">barva</label>
+            <input class="hv-pick__input" type="color" id="hv-color" value="#dc8f09">
+            <button class="hv-pick__btn" type="button" data-hv-preset="#dc8f09">brand primary</button>
+            <button class="hv-pick__btn" type="button" data-hv-preset="#1e6fd9">modrá</button>
+            <button class="hv-pick__btn" type="button" data-hv-preset="#f2e40b">žlutá</button>
+            <button class="hv-pick__btn" type="button" data-hv-random>náhodná</button>
+          </div>
+
+          <div class="hv-same">
+            <div class="hv-same__item">
+              <div class="hv-same__notation">hex</div>
+              <code class="hv-same__code" data-hv-code="hex"></code>
+              <div class="hv-same__swatch" data-hv-swatch></div>
+              <p class="hv-same__says">Tři bajty kanálů. O jasu ani odstínu neříká nic — jsou to
+                souřadnice, se kterými se nepočítá.</p>
+              <div class="hv-same__can hv-same__can--no">zesvětlit o 10? nejde zapsat</div>
+            </div>
+
+            <div class="hv-same__item">
+              <div class="hv-same__notation">hsl</div>
+              <code class="hv-same__code" data-hv-code="hsl"></code>
+              <div class="hv-same__swatch" data-hv-swatch></div>
+              <p class="hv-same__says">Odstín, sytost, světlost. Čitelné a spočítatelné — ale to poslední
+                číslo neodpovídá tomu, jak barvu vidíme.</p>
+              <div class="hv-same__can" data-hv-can="hsl"></div>
+            </div>
+
+            <div class="hv-same__item">
+              <div class="hv-same__notation">oklch</div>
+              <code class="hv-same__code" data-hv-code="oklch"></code>
+              <div class="hv-same__swatch" data-hv-swatch></div>
+              <p class="hv-same__says">Lightness, chroma, hue. L je perceptuální: 70 % znamená stejný jas
+                u žluté jako u modré.</p>
+              <div class="hv-same__can" data-hv-can="oklch"></div>
+            </div>
+          </div>
+
+          <p class="hv-lead">Klikni na tu poslední řádku u obou zápisů a porovnej vzorky. V hsl zesvětlení
+            o deset bodů často změní i vnímanou sytost, v oklch drží chroma i hue a mění se jedině jas.</p>
+        </section>
+
+        <section class="hv-block">
+          <h2 class="hv-head">Stejné číslo, jiný jas</h2>
+          <p class="hv-lead">Dvanáct odstínů po celém barevném kruhu. Obě řady mají v zápisu lightness
+            konstantní. Pod každým vzorkem je jeho skutečný perceptuální jas, spočítaný z vykresleného
+            pixelu.</p>
+
+          <div class="hv-sweep-block">
+            <div class="hv-sweep__tag">hsl(H 70% 50%)</div>
+            <div class="hv-sweep hv-sweep--hsl" data-hv-sweep>
+              <div class="hv-chip" data-hv-h="0">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 0</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="30">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 30</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="60">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 60</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="90">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 90</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="120">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 120</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="150">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 150</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="180">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 180</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="210">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 210</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="240">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 240</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="270">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 270</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="300">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 300</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="330">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 330</span><span data-hv-l></span></div>
+              </div>
+            </div>
+            <p class="hv-spread"><span class="hv-spread__label">rozptyl jasu</span>
+              <output data-hv-spread></output>
+            </p>
+          </div>
+
+          <div class="hv-sweep-block">
+            <div class="hv-sweep__tag">oklch(65% 0.13 H)</div>
+            <div class="hv-sweep hv-sweep--oklch" data-hv-sweep>
+              <div class="hv-chip" data-hv-h="0">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 0</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="30">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 30</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="60">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 60</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="90">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 90</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="120">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 120</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="150">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 150</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="180">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 180</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="210">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 210</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="240">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 240</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="270">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 270</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="300">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 300</span><span data-hv-l></span></div>
+              </div>
+              <div class="hv-chip" data-hv-h="330">
+                <div class="hv-chip__fill"></div>
+                <div class="hv-chip__meta"><span class="hv-chip__hue">H 330</span><span data-hv-l></span></div>
+              </div>
+            </div>
+            <p class="hv-spread"><span class="hv-spread__label">rozptyl jasu</span>
+              <output data-hv-spread></output>
+            </p>
+          </div>
+        </section>
+
+        <section class="hv-block">
+          <h2 class="hv-head">Hue je úhel</h2>
+          <p class="hv-lead">L a C jsou úsečky s koncem. <strong>H je kruh</strong> — 0 a 360 je totéž
+            místo, <code>-30</code> je totéž co <code>330</code> a <code>400</code> totéž co
+            <code>40</code>. Prohlížeč si to zabalí sám, takže <code>calc(h + 180)</code> pro komplement
+            nemusíš normalizovat. Přijímá i jednotky: <code>deg</code>, <code>turn</code>,
+            <code>rad</code>, <code>grad</code>.</p>
+
+          <div class="hv-hue">
+            <div class="hv-dial">
+              <span class="hv-dial__tick hv-dial__tick--0">0</span>
+              <span class="hv-dial__tick hv-dial__tick--90">90</span>
+              <span class="hv-dial__tick hv-dial__tick--180">180</span>
+              <span class="hv-dial__tick hv-dial__tick--270">270</span>
+            </div>
+
+            <div>
+              <p class="hv-lead">Jenom ta <strong>nula nezačíná v obou zápisech na stejném místě</strong>.
+                Tohle je nejčastější překvapení při převodu palety — čísla se přenesou, odstíny ne.</p>
+              <div class="hv-zero">
+                <div class="hv-zero__col">
+                  <div class="hv-zero__cell hv-zero__cell--hsl"></div>
+                  <div class="hv-zero__meta">
+                    <span class="hv-zero__code">hsl(0 70% 50%)</span>
+                    <span>v oklch je to hue <span class="hv-zero__real" data-hv-real></span></span>
+                  </div>
+                </div>
+                <div class="hv-zero__col">
+                  <div class="hv-zero__cell hv-zero__cell--oklch"></div>
+                  <div class="hv-zero__meta">
+                    <span class="hv-zero__code">oklch(65% 0.13 0)</span>
+                    <span>hue 0 &mdash; jiná barva</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="hv-block">
+          <h2 class="hv-head">Chroma nemá pevný strop</h2>
+          <p class="hv-lead"><strong>L a H mají pevný rozsah</strong>
+            — 0 až 100 % a 0 až 360. <strong>C ne.</strong> Nejvyšší sytost, kterou obrazovka zvládne,
+            závisí na hue <em>i</em> na lightness. Táhni za chroma nahoru, dokud prohlížeč nezačne ořezávat — a pak přepni hue nebo lightness a najdi strop znovu.</p>
+
+          <div class="hv-gamut">
+            <div class="hv-gamut__dials">
+              <div class="hv-gamut__row">
+                <label for="hv-gh">hue</label>
+                <input class="hv-gamut__range" type="range" id="hv-gh" min="0" max="359" step="1" value="210">
+                <output class="hv-gamut__value" data-hv-gh>210</output>
+              </div>
+              <div class="hv-gamut__row">
+                <label for="hv-gl">lightness</label>
+                <input class="hv-gamut__range" type="range" id="hv-gl" min="20" max="95" step="1" value="70">
+                <output class="hv-gamut__value" data-hv-gl>70%</output>
+              </div>
+              <div class="hv-gamut__row">
+                <label for="hv-gc">chroma</label>
+                <input class="hv-gamut__range" type="range" id="hv-gc" min="0" max="0.4" step="0.005" value="0.09">
+                <output class="hv-gamut__value" data-hv-gc>0.090</output>
+              </div>
+            </div>
+
+            <div class="hv-gamut__pair">
+              <div class="hv-gamut__cell">
+                <div class="hv-gamut__swatch"></div>
+                <div class="hv-gamut__caption" data-hv-asked></div>
+              </div>
+              <div class="hv-gamut__cell">
+                <div class="hv-gamut__swatch hv-gamut__swatch--max"></div>
+                <div class="hv-gamut__caption" data-hv-max></div>
+              </div>
+            </div>
+
+            <div class="hv-profile">
+              <span class="hv-profile__unit">chroma</span>
+              <div class="hv-profile__axis">
+                <span class="hv-profile__tick hv-profile__tick--30">0,30</span>
+                <span class="hv-profile__tick hv-profile__tick--20">0,20</span>
+                <span class="hv-profile__tick hv-profile__tick--10">0,10</span>
+                <span class="hv-profile__tick hv-profile__tick--0">0</span>
+              </div>
+              <div class="hv-profile__plot" data-hv-profile>
+                <div class="hv-profile__bar" data-hv-bar="0"></div>
+                <div class="hv-profile__bar" data-hv-bar="30"></div>
+                <div class="hv-profile__bar" data-hv-bar="60"></div>
+                <div class="hv-profile__bar" data-hv-bar="90"></div>
+                <div class="hv-profile__bar" data-hv-bar="120"></div>
+                <div class="hv-profile__bar" data-hv-bar="150"></div>
+                <div class="hv-profile__bar" data-hv-bar="180"></div>
+                <div class="hv-profile__bar" data-hv-bar="210"></div>
+                <div class="hv-profile__bar" data-hv-bar="240"></div>
+                <div class="hv-profile__bar" data-hv-bar="270"></div>
+                <div class="hv-profile__bar" data-hv-bar="300"></div>
+                <div class="hv-profile__bar" data-hv-bar="330"></div>
+              </div>
+              <span class="hv-profile__unit hv-profile__unit--x">hue</span>
+              <div class="hv-profile__hues">
+                <span>0</span>
+                <span>30</span>
+                <span>60</span>
+                <span>90</span>
+                <span>120</span>
+                <span>150</span>
+                <span>180</span>
+                <span>210</span>
+                <span>240</span>
+                <span>270</span>
+                <span>300</span>
+                <span>330</span>
+              </div>
+            </div>
+            <p class="hv-lead">Sloupečky jsou strop chroma pro dvanáct hue při zvolené lightness. Osa
+              chroma je pevná, takže se výšky dají srovnávat i mezi jednotlivými lightness — a je vidět,
+              že s krajními hodnotami jasu se celý obrys srazí. Není to kruh se stejným poloměrem.</p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Dvanáct hue, konstantní lightness</h2>
+      <pre tabindex="0"><code class="language-css">/* HSL bere lightness jako pozici mezi
+   černou a bílou — ne jako vjem. */
+.hv-sweep--hsl .hv-chip {
+  --hv-fill: hsl(var(--hv-h) 70% 50%);
+}
+
+/* V oklch je L perceptuální a drží
+   napříč celým hue kruhem. */
+.hv-sweep--oklch .hv-chip {
+  --hv-fill: oklch(65% 0.13 var(--hv-h));
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Strop chroma</h2>
+      <pre tabindex="0"><code class="language-css">/* Strop závisí na hue I na lightness,
+   proto se dopočítává, ne zapisuje. */
+.hv-gamut__swatch {
+  background: oklch(var(--hv-gl) var(--hv-gc) var(--hv-gh));
+}
+
+.hv-gamut__swatch--max {
+  background: oklch(var(--hv-gl) var(--hv-gmax) var(--hv-gh));
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>color-scheme – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">color-scheme</h1>
+    <p class="demo-subtitle">Bez color-scheme uvízne light-dark() ve světlé větvi.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">color-scheme</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">light-dark()</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="cs-anatomy">
+          <code class="cs-anatomy__decl"><span class="cs-anatomy__prop">color-scheme:</span> <span
+              class="cs-anatomy__val cs-anatomy__val--initial">normal</span> <span class="cs-anatomy__sep">|</span>
+            <span class="cs-anatomy__val">light</span> <span class="cs-anatomy__sep">|</span> <span
+              class="cs-anatomy__val">dark</span> <span class="cs-anatomy__sep">|</span> <span
+              class="cs-anatomy__val">light dark</span></code>
+          <ul class="cs-anatomy__out">
+            <li class="cs-anatomy__item">větev, kterou vybere <code>light-dark()</code> — tedy i každý sémantický token
+              Spectra</li>
+            <li class="cs-anatomy__item">skin, kterým prohlížeč kreslí vlastní UI: scrollbary, formulářové prvky,
+              výchozí canvas</li>
+          </ul>
+          <p class="cs-anatomy__initial"><code>normal</code> je výchozí hodnota, tedy přesně stav „bez
+            <code>color-scheme</code>“: použité schéma je světlé. Nic se nerozbije — <code>light-dark()</code> jen
+            natrvalo vrací <strong>první</strong> argument a nativní prvky zůstanou světlé. Tmavá větev se tiše
+            ignoruje, a to je na tom to zákeřné.</p>
+        </div>
+
+        <div class="cs-grid">
+
+          <section class="cs-panel cs-panel--light">
+            <h3 class="cs-panel__title">color-scheme: light
+              <span class="cs-panel__note">napevno světlé, ať je OS jakýkoli</span>
+            </h3>
+            <div class="cs-panel__body">
+              <div class="cs-swatch"><code>light-dark(&hellip;)</code></div>
+              <div class="cs-native">
+                <div class="cs-field">
+                  <label class="cs-check"><input type="checkbox" checked> checkbox</label>
+                  <label class="cs-check"><input type="radio" name="cs-l" checked> radio</label>
+                </div>
+                <input type="range" min="0" max="100" value="60" aria-label="Range, panel light">
+                <select aria-label="Select, panel light">
+                  <option>první možnost</option>
+                  <option>druhá možnost</option>
+                </select>
+                <input type="text" placeholder="placeholder" aria-label="Text, panel light">
+                <progress max="100" value="60">60 %</progress>
+              </div>
+              <div class="cs-scroll" tabindex="0">
+                <p>scrollbar patří prohlížeči</p>
+                <p>barvu mu dá color-scheme</p>
+                <p>ne barvy stránky ani tokeny</p>
+                <p>scrollbar-color ji umí přebít</p>
+                <p>bez deklarace zůstane světlý</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs-panel cs-panel--dark">
+            <h3 class="cs-panel__title">color-scheme: dark
+              <span class="cs-panel__note">napevno tmavé, ať je OS jakýkoli</span>
+            </h3>
+            <div class="cs-panel__body">
+              <div class="cs-swatch"><code>light-dark(&hellip;)</code></div>
+              <div class="cs-native">
+                <div class="cs-field">
+                  <label class="cs-check"><input type="checkbox" checked> checkbox</label>
+                  <label class="cs-check"><input type="radio" name="cs-d" checked> radio</label>
+                </div>
+                <input type="range" min="0" max="100" value="60" aria-label="Range, panel dark">
+                <select aria-label="Select, panel dark">
+                  <option>první možnost</option>
+                  <option>druhá možnost</option>
+                </select>
+                <input type="text" placeholder="placeholder" aria-label="Text, panel dark">
+                <progress max="100" value="60">60 %</progress>
+              </div>
+              <div class="cs-scroll" tabindex="0">
+                <p>scrollbar patří prohlížeči</p>
+                <p>barvu mu dá color-scheme</p>
+                <p>ne barvy stránky ani tokeny</p>
+                <p>scrollbar-color ji umí přebít</p>
+                <p>bez deklarace zůstane světlý</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs-panel cs-panel--auto">
+            <h3 class="cs-panel__title">color-scheme: light dark
+              <span class="cs-panel__note">vybere OS — proto se shoduje s jedním ze sousedů</span>
+            </h3>
+            <div class="cs-panel__body">
+              <div class="cs-swatch"><code>light-dark(&hellip;)</code></div>
+              <div class="cs-native">
+                <div class="cs-field">
+                  <label class="cs-check"><input type="checkbox" checked> checkbox</label>
+                  <label class="cs-check"><input type="radio" name="cs-a" checked> radio</label>
+                </div>
+                <input type="range" min="0" max="100" value="60" aria-label="Range, panel light dark">
+                <select aria-label="Select, panel light dark">
+                  <option>první možnost</option>
+                  <option>druhá možnost</option>
+                </select>
+                <input type="text" placeholder="placeholder" aria-label="Text, panel light dark">
+                <progress max="100" value="60">60 %</progress>
+              </div>
+              <div class="cs-scroll" tabindex="0">
+                <p>scrollbar patří prohlížeči</p>
+                <p>barvu mu dá color-scheme</p>
+                <p>ne barvy stránky ani tokeny</p>
+                <p>scrollbar-color ji umí přebít</p>
+                <p>bez deklarace zůstane světlý</p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="cs-note">
+          <h3 class="cs-note__title">Proč Spectro nemá @media (prefers-color-scheme)</h3>
+          <p class="cs-note__text">Téma se přepíná atributem <code>data-theme</code>, ne médiem — uživatel si ho volí
+            tlačítkem, komponenta může mít téma napevno nebo obrácené a v <code>spectro-theme.css</code> to ušetří
+            druhou sadu deklarací. O to nutnější je <code>color-scheme</code>: bez něj je použité schéma
+            <code>light</code>, takže <code>light-dark()</code> vždycky vrátí první argument a nativní prvky zůstanou
+            světlé. Přepínač témat by pak přepínal jen to, co si stránka kreslí sama.</p>
+        </div>
+
+        <div class="cs-hint">
+          Přepni téma stránky tlačítkem vpravo nahoře: okolí panelů se převrátí, panely ne — každý si color-scheme drží
+          sám. Třetí panel se řídí nastavením operačního systému, ne stránkou. Nejlíp je zásah prohlížeče vidět na
+          formulářových prvcích — checkboxu, rangi, selectu, poli i progressu. Projeď kolečkem obsah v rámečku dole:
+          scrollbar má barvu podle schématu svého panelu. Na macOS je ale scrollbar překryvný, takže se ukáže až během
+          scrollování a pak zase zmizí.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Tři panely, tři schémata</h2>
+      <pre tabindex="0"><code class="language-css">/* Dědičná vlastnost — platí i pro
+   nativní prvky uvnitř panelu. */
+.cs-panel--light { color-scheme: light; }
+.cs-panel--dark  { color-scheme: dark; }
+
+/* Dvě hodnoty: vybírá operační systém. */
+.cs-panel--auto  { color-scheme: light dark; }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Co z color-scheme čte barva</h2>
+      <pre tabindex="0"><code class="language-css">/* Paletové tokeny theme-aware nejsou —
+   větev vybere light-dark() podle panelu. */
+.cs-swatch {
+  background: light-dark(var(--dixie-20), var(--dixie-90));
+  color: light-dark(var(--dixie-100), var(--dixie-10));
+}
+
+/* Sémantické tokeny Spectra to mají uvnitř:
+   --surface-front: light-dark(var(--_surface-front_light),
+                               var(--_surface-front_dark)); */
+.cs-panel {
+  background: var(--surface-front);
+  color: var(--text-primary);
+  border: 2px solid var(--border-strong);
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+/* t8 D2 — lh · rlh */
+
+/* ── POINTA DEMA — lh · rlh
+      Jednotka odvozená od řádkování.
+      Odstupy pak drží rytmus i po
+      změně line-height. */
+
+/* 1lh je řádkování TOHOTO prvku. Změní-li
+   se, odstup se posune s ním. */
+.lh-card--lh {
+  padding-block: 1lh;
+  margin-block-end: 1lh;
+}
+
+/* 1rlh je řádkování korneho elementu, takže
+   je stejné napříč celou stránkou. */
+.lh-card--rlh {
+  padding-block: 1rlh;
+  margin-block-end: 1rlh;
+}
+
+/* Kontrolní vzorek ze spacing tokenů. Drží
+   se mřížky, ale o písmu neví nic. */
+.lh-card--token {
+  padding-block: var(--base-3);
+  margin-block-end: var(--base-3);
+}
+
+/* ── Podpůrné styly
+      Anatomie, srovnání karet, slider
+      řádkování, hint. */
+
+:root {
+  --lh-line: 1.6;
+}
+
+.lh-card {
+  line-height: var(--lh-line);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding-inline: var(--base-2);
+}
+
+.lh-card:last-child { margin-block-end: 0; }
+
+/* ── Anatomie */
+
+.lh-anatomy {
+  display: grid;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+@media (min-width: 44rem) {
+  .lh-anatomy { grid-template-columns: auto 1fr; align-items: baseline; }
+}
+
+.lh-anatomy__val {
+  color: var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.lh-anatomy__what {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Srovnání */
+
+.lh-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 56rem) {
+  .lh-cols { grid-template-columns: repeat(3, 1fr); }
+}
+
+.lh-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.lh-col__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+.lh-col__num {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.lh-col__num strong { color: var(--text-brand-primary); }
+
+/* ── Slider a sekce */
+
+.lh-dial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.lh-dial__range {
+  accent-color: var(--text-brand-primary);
+  inline-size: min(100%, calc(var(--base-10) * 4));
+  flex: 1;
+}
+
+.lh-dial__value {
+  color: var(--text-brand-primary);
+  min-inline-size: 5ch;
+}
+
+.lh-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.lh-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.lh-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.lh-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.lh-lead code,
+.lh-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

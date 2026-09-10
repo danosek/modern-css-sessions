@@ -1,0 +1,221 @@
+/* t3 D2 — oklch(from …) */
+
+/* ── POINTA DEMA — oklch(from …)
+      Zdrojová barva se rozloží na l, c, h
+      a alpha; s těmi se dá počítat. */
+
+/* Jediné místo v souboru, kde padne
+   konkrétní token. Odvozeniny níž
+   o jeho hodnotě nevědí nic. */
+.rc-derive[data-src="brand-primary"] { --rc-src: var(--text-brand-primary); }
+
+.rc-derive[data-src="brand-secondary"] { --rc-src: var(--text-brand-secondary); }
+
+.rc-derive[data-src="status-error"] { --rc-src: var(--text-status-error); }
+
+.rc-derive[data-src="status-information"] { --rc-src: var(--text-status-information); }
+
+/* Zdroj beze změny, pro srovnání. */
+.rc-derive__swatch--source { background: var(--rc-src); }
+
+/* Přepsané je jen l; c a h projdou dál
+   tak, jak je funkce našla ve zdroji. */
+.rc-derive__swatch--lighter { background: oklch(from var(--rc-src) calc(l + 0.15) c h); }
+
+.rc-derive__swatch--darker { background: oklch(from var(--rc-src) calc(l - 0.15) c h); }
+
+/* Chroma na třetinu: táž barva, míň syté. */
+.rc-derive__swatch--muted { background: oklch(from var(--rc-src) l calc(c * 0.3) h); }
+
+/* h je úhel ve stupních, +180 dá
+   protilehlou barvu. Přes 360 se
+   normalizuje. */
+.rc-derive__swatch--complement { background: oklch(from var(--rc-src) l c calc(h + 180)); }
+
+/* Alfa se odděluje lomítkem jako jinde.
+   Nemusí se počítat, stačí přepsat. */
+.rc-derive__swatch--alpha { background: oklch(from var(--rc-src) l c h / 50%); }
+
+/* ── Podpůrné styly
+      Anatomie funkce, mřížka odvozenin
+      a nápověda. */
+
+/* ── Anatomie funkce */
+
+.rc-anatomy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2h);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.rc-anatomy__expr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5ch;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-l);
+  color: var(--text-primary);
+}
+
+.rc-anatomy__kw {
+  color: var(--text-brand-primary);
+}
+
+.rc-anatomy__src {
+  border-block-end: 1px dashed var(--border-contrast);
+}
+
+.rc-anatomy__sep {
+  color: var(--text-secondary);
+}
+
+/* Zvýrazněné jsou právě ty čtyři názvy,
+   které se uvnitř chovají jako čísla. */
+.rc-anatomy__ch {
+  padding: 0 var(--base-h);
+  font-weight: 600;
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.rc-anatomy__legend {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--base) var(--base-3);
+  align-items: baseline;
+  font-size: var(--font-size-s);
+}
+
+.rc-anatomy__legend dt {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+.rc-anatomy__legend dd {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  max-inline-size: 74ch;
+}
+
+/* ── Odvozeniny */
+
+.rc-derive {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+/* Odsazení lišty tu řeší gap rodiče. */
+.rc-derive .seg-toolbar {
+  margin-block-end: 0;
+}
+
+.rc-derive__lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 78ch;
+}
+
+/* Dělicí linky dělá gap na tmavém
+   podkladu — ne bordery buněk. */
+.rc-derive__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.rc-derive__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+/* Šrafy pod vzorkem prosvítají jen tam,
+   kde má barva alfu pod 100 %. */
+.rc-derive__swatchbox {
+  align-self: stretch;
+  border: 1px solid var(--border-strong);
+  /* Šachovnice pod vzorkem, aby byla vidět
+     alfa. Rozteč z --base-1h, ne od oka. */
+  background:
+    repeating-linear-gradient(45deg,
+      var(--surface-main-variant) 0 calc(var(--base-1h) / 2),
+      var(--surface-main) calc(var(--base-1h) / 2) var(--base-1h));
+}
+
+.rc-derive__swatch {
+  block-size: var(--base-8);
+}
+
+.rc-derive__role {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+}
+
+.rc-derive__role::before {
+  content: '[ ';
+  color: var(--text-brand-primary);
+}
+
+.rc-derive__role::after {
+  content: ' ]';
+  color: var(--text-brand-primary);
+}
+
+.rc-derive__code {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* Vypsaná je použitá hodnota, ne to,
+   co je napsané v CSS. */
+.rc-derive__value {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border);
+  padding: var(--base-h) var(--base);
+}
+
+.rc-derive__use {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Nápověda */
+
+.rc-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+/* ── Inline kód v popiscích */
+
+.rc-anatomy__legend code,
+.rc-derive__lead code,
+.rc-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

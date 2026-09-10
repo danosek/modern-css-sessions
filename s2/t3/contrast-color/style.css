@@ -1,0 +1,411 @@
+/* t3 D3 — contrast-color() */
+
+/* ── POINTA DEMA — contrast-color()
+      Barvu textu nedodá token ani build.
+      Spočítá ji prohlížeč z pozadí. */
+
+/* Buňka zná jen svůj povrch. Barvu textu
+   z něj funkce dopočítá sama. */
+.cc-proof__cell {
+  background: var(--cc-surface);
+  color: contrast-color(var(--cc-surface));
+}
+
+/* Osm reálných povrchů Spectra: jediné,
+   čím se buňky mezi sebou liší. */
+.cc-proof__cell--base-variant { --cc-surface: var(--surface-base-variant); }
+
+.cc-proof__cell--main-variant { --cc-surface: var(--surface-main-variant); }
+
+.cc-proof__cell--dixie-minimal {
+  --cc-surface: var(--surface-dixie-minimal);
+  --cc-fixed: var(--text-primary-on-surface-dixie-minimal);
+}
+
+.cc-proof__cell--dixie-strong {
+  --cc-surface: var(--surface-dixie-strong);
+  --cc-fixed: var(--text-primary-on-surface-dixie-strong);
+}
+
+.cc-proof__cell--oxley-strong {
+  --cc-surface: var(--surface-oxley-strong);
+  --cc-fixed: var(--text-primary-on-surface-oxley-strong);
+}
+
+.cc-proof__cell--aqua-strong {
+  --cc-surface: var(--surface-aqua-strong);
+  --cc-fixed: var(--text-primary-on-surface-aqua-strong);
+}
+
+.cc-proof__cell--navy-contrast {
+  --cc-surface: var(--surface-navy-contrast);
+  --cc-fixed: var(--text-primary-on-surface-navy-contrast);
+}
+
+.cc-proof__cell--dixie-contrast {
+  --cc-surface: var(--surface-dixie-contrast);
+  --cc-fixed: var(--text-primary-on-surface-dixie-contrast);
+}
+
+/* Kontrolní vzorek: token, který Spectro pro
+   ten povrch předepisuje. Na neutrálních je
+   to --text-primary, na barevných musí být
+   varianta -on-surface-*. */
+.cc-proof__line--fixed {
+  color: var(--cc-fixed, var(--text-primary));
+}
+
+/* Barvu z pickeru nastaví JS. Výchozí
+   hodnota drží demo čitelné i bez něj. */
+.cc-live {
+  --cc-pick: var(--dixie-60);
+}
+
+/* Pro tenhle povrch žádný token neexistuje
+   a přesto je text čitelný. */
+.cc-live__swatch {
+  background: var(--cc-pick);
+  color: contrast-color(var(--cc-pick));
+}
+
+/* Hranice funkce: tři role textu na jednom
+   povrchu dostanou tutéž barvu. */
+.cc-limit__col--fn {
+  background: var(--surface-dixie-strong);
+  color: contrast-color(var(--surface-dixie-strong));
+}
+
+/* Spectro tytéž tři role odstíní a drží
+   hue povrchu. To funkce neumí. */
+.cc-limit__col--tokens {
+  background: var(--surface-dixie-strong);
+  color: var(--text-primary-on-surface-dixie-strong);
+}
+
+.cc-limit__row--secondary { color: var(--text-secondary-on-surface-dixie-strong); }
+
+.cc-limit__row--disabled { color: var(--text-disabled-on-surface-dixie-strong); }
+
+/* ── Podpůrné styly
+      Anatomie funkce, mřížka povrchů,
+      časová osa, picker a nápověda. */
+
+/* ── Anatomie funkce */
+
+.cc-anatomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.cc-anatomy__sig {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-l);
+  color: var(--text-primary);
+}
+
+.cc-anatomy__arg {
+  border-block-end: 1px dashed var(--border-contrast);
+}
+
+.cc-anatomy__arrow,
+.cc-anatomy__sep {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-secondary);
+}
+
+/* Doslova to, co funkce vrací. Proto tu
+   nestojí token, ale černá a bílá. */
+.cc-anatomy__out {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  padding: var(--base-h) var(--base-2);
+  border: 1px solid var(--border-contrast);
+}
+
+.cc-anatomy__out--black {
+  background: black;
+  color: white;
+}
+
+.cc-anatomy__out--white {
+  background: white;
+  color: black;
+}
+
+.cc-anatomy__labels {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-h);
+  margin-block-start: var(--base-2);
+}
+
+.cc-anatomy__label {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.cc-anatomy__note {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  max-inline-size: 74ch;
+}
+
+/* ── Bloky a jejich hlavičky */
+
+.cc-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.cc-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+  padding-block-end: var(--base);
+  border-block-end: 1px solid var(--border);
+}
+
+.cc-head::before {
+  content: '[ ';
+  color: var(--text-brand-primary);
+}
+
+.cc-head::after {
+  content: ' ]';
+  color: var(--text-brand-primary);
+}
+
+.cc-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  max-inline-size: 84ch;
+}
+
+.cc-lead code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+/* ── Mřížka povrchů */
+
+/* Dělicí linky dělá gap na tmavém
+   podkladu — ne bordery buněk. */
+.cc-proof {
+  display: grid;
+  /* 1 / 2 / 4 sloupce — osm buněk se dělí
+     beze zbytku, mřížka nikdy nezůstane
+     s dírou v posledním řádku. */
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 40rem) {
+  .cc-proof { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 64rem) {
+  .cc-proof { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Pozadí ani barvu tu nenastavujeme —
+   ty drží pravidlo s funkcí výše. */
+.cc-proof__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base);
+  padding: var(--base-3);
+}
+
+/* Bez vlastní barvy: dědí ji z buňky,
+   tedy z contrast-color(). */
+.cc-proof__token {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  overflow-wrap: anywhere;
+}
+
+.cc-proof__line {
+  font-size: var(--font-size-s);
+  line-height: 1.45;
+}
+
+/* Popisek nese jméno deklarace, která ten
+   řádek obarvila. Barvu tedy dědí. */
+.cc-proof__decl {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  letter-spacing: .06em;
+}
+
+/* Rámeček bere currentColor, takže se
+   veze s vypočtenou barvou textu. */
+.cc-proof__out {
+  margin-block-start: auto;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  padding: var(--base-h) var(--base);
+  border: 1px solid currentColor;
+}
+
+/* ── Picker */
+
+.cc-live {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.cc-live__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+}
+
+.cc-live__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+}
+
+.cc-live__input {
+  inline-size: var(--base-9);
+  block-size: var(--base-5);
+  padding: 0;
+  background: var(--surface-control);
+  border: 2px solid var(--text-primary);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.cc-live__btn {
+  padding: var(--base) var(--base-2);
+  background: var(--text-primary);
+  color: var(--surface-main);
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}
+
+.cc-live__btn:hover {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+/* Odsazení lišty tu řeší gap rodiče. */
+.cc-live .fn-readout {
+  margin-bottom: 0;
+}
+
+.cc-live__swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  border: 2px solid var(--text-primary);
+  padding: var(--base-4);
+}
+
+.cc-live__headline {
+  font-family: var(--font-stack-headings);
+  font-size: var(--font-size-xxl);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: .95;
+}
+
+.cc-live__body {
+  font-size: var(--font-size-s);
+  max-inline-size: 74ch;
+}
+
+/* ── Hranice funkce */
+
+.cc-limit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.cc-limit__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: var(--base-3);
+}
+
+.cc-limit__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding-block-end: var(--base);
+  border-block-end: 1px solid currentColor;
+  overflow-wrap: anywhere;
+}
+
+.cc-limit__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base);
+  font-size: var(--font-size-l);
+}
+
+/* Vypsaná je použitá hodnota, ne to,
+   co je napsané v CSS. */
+.cc-limit__val {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  padding: 0 var(--base-h);
+  border: 1px solid currentColor;
+}
+
+.cc-limit__note {
+  margin-block-start: var(--base);
+  font-size: var(--font-size-xs);
+  max-inline-size: 60ch;
+}
+
+.cc-limit__note code {
+  font-family: var(--font-stack-monospace);
+}
+
+/* ── Nápověda */
+
+.cc-hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 100%;
+}
+
+.cc-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

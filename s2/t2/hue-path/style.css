@@ -1,0 +1,362 @@
+/* t2 D2 — longer hue · shorter hue */
+
+/* ── POINTA DEMA — shorter hue · longer hue
+      Mezi dvěma hue vedou po kruhu dvě
+      cesty. Metoda interpolace vybírá,
+      kterou z nich. Barvy páru jsou
+      literály — jsou předmětem dema. */
+
+/* Pár drží L i C, hýbe jen hue: 71 nese
+   brand primary, 153 brand secondary.
+   Chroma 0,12 se při L 70 % vejde do sRGB
+   po celém kruhu, takže duhu níž
+   nezplošťuje gamut mapping. */
+:root {
+  --hp-a: oklch(70% 0.12 71);
+  --hp-b: oklch(70% 0.12 153);
+}
+
+/* Každý pás jde z --hp-from do --hp-to. */
+.hp-band {
+  --hp-from: var(--hp-a);
+  --hp-to: var(--hp-b);
+}
+
+/* Prohozené pořadí zastávek. */
+.hp-band--swap {
+  --hp-from: var(--hp-b);
+  --hp-to: var(--hp-a);
+}
+
+/* Oba konce tatáž barva — vstup do duhy. */
+.hp-band--self {
+  --hp-to: var(--hp-a);
+}
+
+/* Metoda chybí, takže platí shorter hue. */
+.hp-band--default .hp-band__fill {
+  --hp-mix: ;
+  background-image: linear-gradient(in oklch to right, var(--hp-from), var(--hp-to));
+}
+
+/* Kratší ze dvou oblouků. */
+.hp-band--shorter .hp-band__fill {
+  --hp-mix: shorter hue;
+  background-image: linear-gradient(in oklch shorter hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Delší oblouk, tedy doplněk do 360°. */
+.hp-band--longer .hp-band__fill {
+  --hp-mix: longer hue;
+  background-image: linear-gradient(in oklch longer hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Hue jen roste, ať je oblouk jakkoli
+   dlouhý. */
+.hp-band--increasing .hp-band__fill {
+  --hp-mix: increasing hue;
+  background-image: linear-gradient(in oklch increasing hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Hue jen klesá. */
+.hp-band--decreasing .hp-band__fill {
+  --hp-mix: decreasing hue;
+  background-image: linear-gradient(in oklch decreasing hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Vzorek v pásu si tutéž barvu nechá
+   spočítat color-mix() se stejnou metodou.
+   --hp-at je současně pozice v pásu i váha,
+   takže když vzorek v pásu zmizí, měříme
+   opravdu cestu toho gradientu. */
+.hp-probe {
+  inset-inline-start: var(--hp-at);
+  background: color-mix(in oklch var(--hp-mix),
+      var(--hp-from) calc(100% - var(--hp-at)), var(--hp-to));
+}
+
+/* Tatáž metoda, o prostor vedle. Pravoúhlý
+   prostor hue složku nemá, takže je za jeho
+   názvem chyba v zápisu: prohlížeč zahodí
+   celou deklaraci a background-image zůstane
+   none. Ten řádek je tu záměrně. */
+.hp-syntax__fill--ok {
+  background-image: linear-gradient(in oklch longer hue to right, var(--hp-a), var(--hp-b));
+}
+
+.hp-syntax__fill--void {
+  background-image: linear-gradient(in oklab longer hue to right, var(--hp-a), var(--hp-b));
+}
+
+/* ── Podpůrné styly
+      Anatomie zápisu, pásy s vzorky,
+      telemetrie odečtených hodnot, hint. */
+
+/* ── Sekce */
+
+.hp-block { margin-block-end: var(--base-5); }
+
+.hp-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+  margin-block-end: var(--base-2);
+}
+
+.hp-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+  margin-block-end: var(--base-3);
+}
+
+/* ── Anatomie zápisu */
+
+.hp-anatomy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  background: var(--surface-main-variant);
+  border: 2px solid var(--text-primary);
+  padding: var(--base-3);
+  margin-block-end: var(--base-3);
+}
+
+.hp-anatomy__sig {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-l);
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+.hp-anatomy__part {
+  padding: 0 var(--base-h);
+  background: var(--surface-brand-secondary-strong);
+  color: var(--text-primary-on-surface-brand-secondary-strong);
+}
+
+.hp-anatomy__part--method {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.hp-anatomy__sep { color: var(--text-secondary); }
+
+.hp-anatomy__labels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+}
+
+.hp-anatomy__label {
+  color: var(--text-brand-secondary);
+  padding-inline-start: var(--base-2);
+  border-inline-start: 2px solid var(--surface-brand-secondary-strong);
+}
+
+.hp-anatomy__label--method {
+  color: var(--text-brand-primary);
+  border-inline-start-color: var(--surface-brand-primary-strong);
+}
+
+.hp-anatomy__note {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+/* ── Dva řádky syntaxe: platný a chybný */
+
+.hp-syntax {
+  display: grid;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 52rem) {
+  .hp-syntax { grid-template-columns: repeat(2, minmax(min(100%, 22rem), 1fr)); }
+}
+
+.hp-syntax__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-1h);
+  background: var(--surface-main);
+  padding: var(--base-3);
+}
+
+.hp-syntax__decl {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hp-syntax__fill {
+  block-size: var(--base-5);
+  background-color: var(--surface-main-dim);
+  border: 1px solid var(--border-strong);
+}
+
+.hp-syntax__out {
+  display: block;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.hp-syntax__out::before {
+  content: "background-image → ";
+  color: var(--text-brand-primary);
+}
+
+.hp-syntax__verdict {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-secondary);
+}
+
+.hp-syntax__row--void .hp-syntax__verdict { color: var(--text-red); }
+
+/* ── Pásy */
+
+.hp-set {
+  display: grid;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+  margin-block-end: var(--base-3);
+}
+
+.hp-band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2) var(--base-3) var(--base-3);
+}
+
+.hp-band__tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-brand-primary);
+}
+
+.hp-band__tag-note {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.hp-band__fill {
+  position: relative;
+  block-size: var(--base-6);
+  border: 1px solid var(--border-strong);
+}
+
+.hp-probe {
+  position: absolute;
+  inset-block-start: 50%;
+  inline-size: var(--base-3);
+  block-size: var(--base-3);
+  translate: -50% -50%;
+  border: 1px solid var(--text-primary);
+}
+
+.hp-probe--10 { --hp-at: 10%; }
+
+.hp-probe--30 { --hp-at: 30%; }
+
+.hp-probe--50 { --hp-at: 50%; }
+
+.hp-probe--70 { --hp-at: 70%; }
+
+.hp-probe--90 { --hp-at: 90%; }
+
+/* Hue odečtená z vykreslených pixelů pod
+   jednotlivými vzorky. */
+.hp-band__samples {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.hp-band__arc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding-inline-start: var(--base-2);
+}
+
+.hp-band__arc-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Souhrn a hint */
+
+.hp-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-1h) var(--base-2);
+}
+
+.hp-total__label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.hp-total__value {
+  padding: 0 var(--base-h);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.hp-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}

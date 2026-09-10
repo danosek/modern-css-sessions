@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>font-weight vs. "wght" – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">font-weight vs. "wght"</h1>
+    <p class="demo-subtitle">Spectro počítá bold jako seed + 300. Font tu osu nemá.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">font-weight</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">font-variation-settings</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="wa-anatomy">
+          <div class="wa-anatomy__row">
+            <code class="wa-anatomy__decl">font-weight: <span class="wa-anatomy__arg">700</span></code>
+            <span class="wa-anatomy__role">vysokoúrovňová vlastnost</span>
+            <p class="wa-anatomy__what">Vstupuje do výběru řezu. Prohlížeč hledá ve fontu nejbližší dostupnou váhu,
+              a když žádnou tučnou nenajde, dopočítá ji sám — syntetickým tučným. Dědí se jako číslo, umí
+              <code>bolder</code> / <code>lighter</code> a jde ho animovat.</p>
+          </div>
+          <div class="wa-anatomy__row">
+            <code class="wa-anatomy__decl">font-variation-settings: <span class="wa-anatomy__arg">"wght" 700</span></code>
+            <span class="wa-anatomy__role">nízkoúrovňový přístup k ose</span>
+            <p class="wa-anatomy__what">Nastavuje osu na řezu, který už je vybraný — výběr řezu tedy neovlivní.
+              Když font osu nemá, neudělá nic a nic nedopočítá. Dědí se jako celý řetězec os, ne po jednotlivých
+              osách.</p>
+          </div>
+        </div>
+
+        <section class="wa-block">
+          <h2 class="wa-head">Kam každá z nich dosáhne</h2>
+          <p class="wa-lead">Táž hodnota 700 na dvou fontech tohohle repozitáře. Řádek pod názvem fontu vypisuje
+            tabulky, které JS našel přímo v souboru <code>.woff2</code> — <code>fvar</code> je tabulka variací,
+            bez ní font žádnou osu nemá.</p>
+
+          <div class="wa-reach">
+            <section class="wa-reach__group">
+              <h3 class="wa-reach__font">Departure Mono <code>--font-stack-headings</code></h3>
+              <output class="wa-reach__file" data-wa-file="departure-mono.woff2"></output>
+              <div class="wa-reach__cells">
+                <div class="wa-cell wa-cell--weight wa-cell--headings">
+                  <code class="wa-cell__decl">font-weight: 700</code>
+                  <p class="wa-cell__sample">Handgloves</p>
+                  <output class="wa-cell__note"><strong>syntetické tučné</strong>Řez chybí, prohlížeč obtáhl
+                    ten jediný, který font má.</output>
+                </div>
+                <div class="wa-cell wa-cell--axis wa-cell--headings">
+                  <code class="wa-cell__decl">font-variation-settings: "wght" 700</code>
+                  <p class="wa-cell__sample">Handgloves</p>
+                  <output class="wa-cell__note" data-wa-computed></output>
+                </div>
+              </div>
+            </section>
+
+            <section class="wa-reach__group">
+              <h3 class="wa-reach__font">iA Writer Quattro <code>--font-stack-main</code></h3>
+              <output class="wa-reach__file" data-wa-file="ia-writer-quattro.woff2"></output>
+              <div class="wa-reach__cells">
+                <div class="wa-cell wa-cell--weight wa-cell--main">
+                  <code class="wa-cell__decl">font-weight: 700</code>
+                  <p class="wa-cell__sample">Handgloves</p>
+                  <output class="wa-cell__note"><strong>instance osy wght</strong>Řez z fontu, ne obtažení. Kresba
+                    je tučná, rozestupy zůstávají.</output>
+                </div>
+                <div class="wa-cell wa-cell--axis wa-cell--main">
+                  <code class="wa-cell__decl">font-variation-settings: "wght" 700</code>
+                  <p class="wa-cell__sample">Handgloves</p>
+                  <output class="wa-cell__note" data-wa-computed></output>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="wa-block">
+          <h2 class="wa-head">Dědičnost — řetězec vs. číslo</h2>
+          <p class="wa-lead">Rodič nastavuje dvě věci naráz: tučnou kresbu a rozšířené rozestupy osou
+            <code>SPCG</code> (0–150, vlastní osa iA Writer). Potomek chce zpátky jen obyčejnou váhu. Vlevo si o
+            ni řekne osou, vpravo <code>font-weight</code>em. Šířka vzorku je změřená z vykresleného boxu, takže
+            ztrátu rozestupů je vidět v pixelech.</p>
+
+          <div class="wa-inherit">
+            <div class="wa-inherit__col wa-inherit--axis">
+              <div class="wa-inherit__tag">obojí jednou deklarací</div>
+              <code class="wa-inherit__decl">rodič { font-variation-settings: "wght" 700, "SPCG" 100 }</code>
+              <div class="wa-inherit__parent">
+                <div class="wa-inherit__line">
+                  <span class="wa-inherit__sample">Rozestup znaků</span>
+                  <span class="wa-inherit__meta">
+                    <span>potomek bez vlastní deklarace</span>
+                    <output class="wa-inherit__val"></output>
+                  </span>
+                </div>
+                <div class="wa-inherit__line">
+                  <span class="wa-inherit__sample wa-inherit__sample--override">Rozestup znaků</span>
+                  <span class="wa-inherit__meta">
+                    <span>potomek { font-variation-settings: "wght" 400 }</span>
+                    <output class="wa-inherit__val"></output>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="wa-inherit__col wa-inherit--weight">
+              <div class="wa-inherit__tag">váha zvlášť, osa zvlášť</div>
+              <code class="wa-inherit__decl">rodič { font-weight: 700; font-variation-settings: "SPCG" 100 }</code>
+              <div class="wa-inherit__parent">
+                <div class="wa-inherit__line">
+                  <span class="wa-inherit__sample">Rozestup znaků</span>
+                  <span class="wa-inherit__meta">
+                    <span>potomek bez vlastní deklarace</span>
+                    <output class="wa-inherit__val"></output>
+                  </span>
+                </div>
+                <div class="wa-inherit__line">
+                  <span class="wa-inherit__sample wa-inherit__sample--override">Rozestup znaků</span>
+                  <span class="wa-inherit__meta">
+                    <span>potomek { font-weight: 400 }</span>
+                    <output class="wa-inherit__val"></output>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="wa-block">
+          <h2 class="wa-head">Pět rolí váhy, kolik jich font uveze</h2>
+          <p class="wa-lead">Váhy si Spectro dopočítává jako posuny od seedu: thin −200, light −100, medium +100,
+            bold +300. Každý sloupec bere přesně ten token, který z receptu vypadl. Pod vzorkem je pokrytí
+            inkoustem: JS vykreslí tentýž text tímtéž řezem a velikostí na canvas, sečte tmavost pixelů a
+            porovná s nejsvětlejším krokem řádku. Shodné číslo znamená shodné vykreslení.</p>
+
+          <div class="wa-ladder">
+            <div class="wa-ladder__row wa-ladder__row--headings">
+              <h3 class="wa-ladder__head">Departure Mono <code>--font-weight-headings-*</code></h3>
+              <output class="wa-ladder__summary" data-wa-sweep></output>
+              <div class="wa-ladder__steps">
+                <div class="wa-ladder__step wa-step--thin">
+                  <div class="wa-ladder__role">thin<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--light">
+                  <div class="wa-ladder__role">light<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--base">
+                  <div class="wa-ladder__role">base<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--medium">
+                  <div class="wa-ladder__role">medium<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--bold">
+                  <div class="wa-ladder__role">bold<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wa-ladder__row wa-ladder__row--main">
+              <h3 class="wa-ladder__head">iA Writer Quattro <code>--font-weight-main-*</code></h3>
+              <output class="wa-ladder__summary" data-wa-sweep></output>
+              <div class="wa-ladder__steps">
+                <div class="wa-ladder__step wa-step--thin">
+                  <div class="wa-ladder__role">thin<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--light">
+                  <div class="wa-ladder__role">light<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--base">
+                  <div class="wa-ladder__role">base<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--medium">
+                  <div class="wa-ladder__role">medium<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+                <div class="wa-ladder__step wa-step--bold">
+                  <div class="wa-ladder__role">bold<span class="wa-ladder__num"></span></div>
+                  <div class="wa-ladder__sample">Handg</div>
+                  <div class="wa-ladder__read"><span class="wa-ladder__ink"></span><span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="wa-hint">
+          <p>Recept na váhy se fontu neptá, co umí. U main fontu se seedem 400 z něj vyjde 200–700, zatímco osa
+            <code>wght</code> jde 400–700: thin a light spadnou na 400. Je to pořád řez z fontu, jen dvě role
+            vedou na tutéž kresbu. U headings je seed 700, takže bold vyjde 1000 — Departure Mono má ale jediný
+            řez a osu wght vůbec ne, a tak čtyři z pěti rolí končí na jednom a tomtéž syntetickém tučném. Není to
+            chyba v jednom tokenu, je to důsledek obecného receptu na konkrétním fontu.</p>
+          <p>Pro nadpisy z toho plyne volba: font s osou <code>wght</code>, nebo přiznat, že hierarchii nese
+            velikost a jedna váha. Wrapper těchhle dem dělá to druhé — <code>.demo-title</code> má
+            <code>font-weight: normal</code>, aby si nadpis nevzal syntetické tučné.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Dosah obou vlastností</h2>
+      <pre tabindex="0"><code class="language-css">/* Vysokoúrovňová vlastnost: jde do výběru
+   řezu, a když tučný chybí, prohlížeč ho
+   dopočítá syntetickým tučným. */
+.wa-cell--weight .wa-cell__sample { font-weight: 700; }
+
+/* Nízkoúrovňový přístup k ose: nastaví ji
+   na už vybraném řezu. Když osa není,
+   neudělá nic — a nic nedopočítá. */
+.wa-cell--axis .wa-cell__sample { font-variation-settings: "wght" 700; }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Dědičnost — řetězec vs. číslo</h2>
+      <pre tabindex="0"><code class="language-css">/* Rodič nastaví dvě osy jednou deklarací. */
+.wa-inherit--axis .wa-inherit__parent { font-variation-settings: "wght" 700, "SPCG" 100; }
+
+/* Potomek přepíše jednu z nich a SPCG se
+   vytratí: dědí se celý řetězec, ne
+   jednotlivé osy. */
+.wa-inherit--axis .wa-inherit__sample--override { font-variation-settings: "wght" 400; }
+
+/* Vpravo nese váhu font-weight a osa má
+   vlastní deklaraci. */
+.wa-inherit--weight .wa-inherit__parent {
+  font-weight: 700;
+  font-variation-settings: "SPCG" 100;
+}
+
+/* Potomek přepíše číslo, které se dědí
+   samo za sebe, takže osa z rodiče platí
+   dál. */
+.wa-inherit--weight .wa-inherit__sample--override { font-weight: 400; }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Pět rolí váhy ze Spectra</h2>
+      <pre tabindex="0"><code class="language-css">/* Statický font pro nadpisy: 500 → 1000. */
+.wa-ladder__row--headings { font-family: var(--font-stack-headings); }
+
+.wa-ladder__row--headings .wa-step--thin { font-weight: var(--font-weight-headings-thin); }
+.wa-ladder__row--headings .wa-step--base { font-weight: var(--font-weight-headings); }
+.wa-ladder__row--headings .wa-step--bold { font-weight: var(--font-weight-headings-bold); }
+
+/* Variabilní main: 200 → 700. */
+.wa-ladder__row--main { font-family: var(--font-stack-main); }
+
+.wa-ladder__row--main .wa-step--thin { font-weight: var(--font-weight-main-thin); }
+.wa-ladder__row--main .wa-step--base { font-weight: var(--font-weight-main); }
+.wa-ladder__row--main .wa-step--bold { font-weight: var(--font-weight-main-bold); }</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

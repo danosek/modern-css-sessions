@@ -1,0 +1,491 @@
+/* t1 D1 — oklch() vs hsl() */
+
+/* ── POINTA DEMA — oklch() vs hsl()
+      Tři zápisy téže barvy a co s nimi
+      jde počítat. Barevné literály jsou
+      tady předmětem dema, ne dekorace. */
+
+/* Dvanáct hue po kruhu, lightness pořád
+   50 %. HSL to číslo bere jako pozici mezi
+   černou a bílou, ne jako vjem. */
+.hv-sweep--hsl .hv-chip { --hv-fill: hsl(var(--hv-h) 70% 50%); }
+
+/* Tytéž hue, lightness 65 %. V oklch je L
+   perceptuální — drží napříč celým kruhem. */
+.hv-sweep--oklch .hv-chip { --hv-fill: oklch(65% 0.13 var(--hv-h)); }
+
+/* Celý kruh hue z jediného gradientu. Oba
+   krajní body jsou táž barva a longer hue
+   ho pošle dlouhou cestou — tedy dokola.
+   Výchozí from 0deg dá nulu nahoru
+   a úhly po směru hodinových ručiček. */
+.hv-dial {
+  background-image: conic-gradient(in oklch longer hue,
+      oklch(65% 0.13 0), oklch(65% 0.13 0));
+}
+
+/* Nula v obou zápisech. Nejsou to tytéž
+   barvy — kruhy nezačínají na stejném
+   místě. */
+.hv-zero__cell--hsl { --hv-fill: hsl(0 70% 50%); }
+
+.hv-zero__cell--oklch { --hv-fill: oklch(65% 0.13 0); }
+
+/* Strop chroma závisí na hue I na lightness.
+   Obě hodnoty nastavuje slider. */
+.hv-gamut__swatch {
+  background: oklch(var(--hv-gl) var(--hv-gc) var(--hv-gh));
+}
+
+/* Vedle něj největší chroma, které se do
+   sRGB ještě vejde — dopočítá ho JS. */
+.hv-gamut__swatch--max {
+  background: oklch(var(--hv-gl) var(--hv-gmax) var(--hv-gh));
+}
+
+/* ── Podpůrné styly
+      Picker, tabulka zápisů, kruh hue,
+      strop chroma. */
+
+:root {
+  --hv-h: 0;
+  --hv-gl: 70%;
+  --hv-gc: 0.09;
+  --hv-gmax: 0.15;
+  --hv-gh: 210;
+  --hv-ymax: 0.35;
+}
+
+/* ── Picker a tři zápisy */
+
+.hv-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.hv-pick__input {
+  inline-size: var(--base-7);
+  block-size: var(--base-5);
+  border: 1px solid var(--border-strong);
+  padding: 0;
+  background: none;
+}
+
+.hv-pick__btn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main);
+  border: 2px solid var(--text-primary);
+  padding: var(--base) var(--base-2);
+}
+
+.hv-pick__btn:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+.hv-same {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 56rem) {
+  .hv-same { grid-template-columns: repeat(3, 1fr); }
+}
+
+.hv-same__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+}
+
+.hv-same__notation {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+.hv-same__code {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.hv-same__swatch {
+  background: var(--hv-fill);
+  block-size: var(--base-7);
+  border: 1px solid var(--border-strong);
+}
+
+.hv-same__says {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Odpověď na „zesvětli o deset bodů" —
+   u hexu žádná není. */
+.hv-same__can {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  border-block-start: 1px solid var(--border);
+  padding-block-start: var(--base);
+}
+
+.hv-same__can--no { color: var(--text-status-warning); }
+
+/* ── Kruh hue */
+
+.hv-sweep-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.hv-sweep__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+.hv-sweep {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 44rem) {
+  .hv-sweep { grid-template-columns: repeat(6, 1fr); }
+}
+
+@media (min-width: 68rem) {
+  .hv-sweep { grid-template-columns: repeat(12, 1fr); }
+}
+
+.hv-chip {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-main);
+}
+
+.hv-chip__fill {
+  background: var(--hv-fill);
+  block-size: var(--base-8);
+}
+
+.hv-chip__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--base-h) var(--base);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.hv-chip__hue { color: var(--text-primary); }
+
+.hv-spread {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-3);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding: var(--base) var(--base-2);
+}
+
+.hv-spread__label { color: var(--text-secondary); }
+
+/* ── Hue je úhel */
+
+.hv-hue {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--base-3);
+  align-items: center;
+}
+
+@media (min-width: 48rem) {
+  .hv-hue { grid-template-columns: auto 1fr; }
+}
+
+/* Kotouč s ryskami po 90 stupních. */
+.hv-dial {
+  --hv-r: calc(var(--base-10) * 1.5);
+  position: relative;
+  inline-size: calc(var(--hv-r) * 2);
+  block-size: calc(var(--hv-r) * 2);
+  border-radius: var(--radius-circle);
+  border: 2px solid var(--text-primary);
+  justify-self: center;
+  margin: var(--base-3);
+}
+
+/* Otoč o svůj úhel, odsaď po svislé ose
+   a otoč zpátky, ať popisek stojí. Nula
+   tak sedí nahoru a čísla jdou po směru. */
+.hv-dial__tick {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  background: var(--surface-main);
+  border: 1px solid var(--text-primary);
+  padding: 0 var(--base-h);
+  transform: translate(-50%, -50%)
+    rotate(var(--hv-tick)) translateY(calc(-1 * var(--hv-r)))
+    rotate(calc(-1 * var(--hv-tick)));
+}
+
+.hv-dial__tick--0 { --hv-tick: 0deg; }
+
+.hv-dial__tick--90 { --hv-tick: 90deg; }
+
+.hv-dial__tick--180 { --hv-tick: 180deg; }
+
+.hv-dial__tick--270 { --hv-tick: 270deg; }
+
+/* ── Nula ve dvou zápisech */
+
+.hv-zero {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.hv-zero__col {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-main);
+}
+
+.hv-zero__cell {
+  background: var(--hv-fill);
+  block-size: var(--base-8);
+}
+
+.hv-zero__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.hv-zero__code { color: var(--text-primary); }
+
+.hv-zero__real { color: var(--text-brand-primary); }
+
+/* ── Strop chroma */
+
+.hv-gamut {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.hv-gamut__dials {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.hv-gamut__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.hv-gamut__row label { min-inline-size: 10ch; }
+
+.hv-gamut__range {
+  accent-color: var(--text-brand-primary);
+  inline-size: min(100%, calc(var(--base-10) * 4));
+  flex: 1;
+}
+
+.hv-gamut__value {
+  color: var(--text-brand-primary);
+  min-inline-size: 7ch;
+}
+
+.hv-gamut__pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.hv-gamut__cell {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-main);
+}
+
+.hv-gamut__swatch { block-size: var(--base-9); }
+
+.hv-gamut__caption {
+  padding: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Požadované chroma za stropem — prohlížeč
+   barvu namapoval dovnitř gamutu. */
+.hv-gamut__caption[data-hv-clipped="true"] { color: var(--text-status-warning); }
+
+/* Profil stropu napříč hue. Popisky os
+   v prvním sloupci, graf ve druhém. */
+.hv-profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--base-h) var(--base);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.hv-profile__unit {
+  grid-area: 1 / 1;
+  color: var(--text-primary);
+  text-align: end;
+}
+
+.hv-profile__unit--x { grid-area: 3 / 1; }
+
+/* Sloupec s ryskami je stejně vysoký jako
+   graf, jen zmenšený o jeho rám — proto
+   margin, ne inset: ten by ho posunul. */
+.hv-profile__axis {
+  grid-area: 2 / 1;
+  position: relative;
+  margin-block: 2px;
+  min-inline-size: 4ch;
+}
+
+/* Ryska sedí na svém chromatu: podíl
+   z pevného stropu osy. */
+.hv-profile__tick {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: calc(100% * var(--hv-c) / var(--hv-ymax));
+  transform: translateY(50%);
+}
+
+.hv-profile__tick--0 { --hv-c: 0; }
+
+.hv-profile__tick--10 { --hv-c: 0.1; }
+
+.hv-profile__tick--20 { --hv-c: 0.2; }
+
+.hv-profile__tick--30 { --hv-c: 0.3; }
+
+/* Vodorovné linky každou desetinu chroma.
+   Perioda je podíl kroku a stropu osy. */
+.hv-profile__plot {
+  grid-area: 2 / 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  align-items: end;
+  block-size: calc(var(--base-10) * 2.5);
+  background-color: var(--surface-main-variant);
+  background-image: repeating-linear-gradient(to top,
+      var(--border-strong) 0 1px,
+      transparent 1px calc(100% * 0.1 / var(--hv-ymax)));
+  border: 2px solid var(--text-primary);
+}
+
+.hv-profile__bar {
+  background: var(--hv-fill);
+  min-block-size: 2px;
+}
+
+/* Právě vybrané hue vytáhneme rámem. */
+.hv-profile__bar[data-hv-on="true"] {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
+}
+
+.hv-profile__hues {
+  grid-area: 3 / 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  margin-inline: 2px;
+  text-align: center;
+}
+
+/* ── Sekce a popisky */
+
+.hv-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.hv-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.hv-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.hv-lead code,
+.hv-same__says code,
+.hv-gamut__caption code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

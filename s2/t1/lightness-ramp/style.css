@@ -1,0 +1,161 @@
+/* t1 D2 — oklch() — osa lightness */
+
+/* ── POINTA DEMA — oklch()
+      Index odstínu určuje jas, barva
+      jen hue. Proto má celý sloupec
+      palety stejný kontrast — a proto
+      je Spectro v oklch. */
+
+/* Buňka drží dvě proměnné: barvu z tokenu
+   a šeď o témž perceptuálním jasu. Naplní
+   je JS; výchozí hodnota drží mřížku
+   čitelnou, než doběhne. */
+.pg-cell {
+  --pg-fill: var(--surface-main);
+  --pg-grey: var(--surface-main);
+  background: var(--pg-fill);
+}
+
+/* Přepínač pohledu jen mění, kterou
+   z dvojice proměnných buňka použije. */
+.pg-grid[data-pg-view="lightness"] .pg-cell {
+  background: var(--pg-grey);
+}
+
+/* ── Podpůrné styly
+      Ovládání, mřížka, hint. */
+
+/* ── Ovládání */
+
+.pg-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-3);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.pg-seg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.pg-seg__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+.pg-seg__btns {
+  display: flex;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.pg-seg__btn {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main);
+  border: 0;
+  padding: var(--base) var(--base-2);
+}
+
+.pg-seg__btn[aria-pressed="true"] {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.pg-seg__btn:focus-visible {
+  outline: 2px solid var(--text-brand-primary);
+  outline-offset: 2px;
+}
+
+/* ── Mřížka palety */
+
+.pg-scroll {
+  overflow-x: auto;
+  border: 2px solid var(--text-primary);
+}
+
+.pg-grid {
+  display: grid;
+  /* první stopa je jméno barvy, pak deset
+     odstínů */
+  grid-template-columns: max-content repeat(10, minmax(var(--base-6), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  min-inline-size: min-content;
+}
+
+.pg-grid__corner,
+.pg-grid__idx,
+.pg-grid__name {
+  background: var(--surface-main);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  padding: var(--base) var(--base-1h);
+  white-space: nowrap;
+}
+
+.pg-grid__idx { text-align: center; }
+
+/* Seedované base odstíny 50 a 60 nejsou
+   normované — hlavičku odlišíme. */
+.pg-grid__idx[data-pg-seed="true"] { color: var(--text-brand-secondary); }
+
+.pg-grid__name { text-align: start; }
+
+/* Řádek s ručně doladěným jasem. */
+.pg-grid__name[data-pg-tuned="true"] { color: var(--text-brand-secondary); }
+
+.pg-cell { min-block-size: var(--base-5); }
+
+/* ── Sekce a nápověda */
+
+.pg-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.pg-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.pg-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.pg-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.pg-lead code,
+.pg-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

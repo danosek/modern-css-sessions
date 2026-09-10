@@ -1,0 +1,196 @@
+/* t7 D2 — overflow-wrap · hyphens */
+
+/* ── POINTA DEMA — overflow-wrap · hyphens
+      Dlouhé slovo, které se nevejde.
+      overflow-wrap ho zlomí kdekoli,
+      hyphens podle slovníku jazyka. */
+
+/* Výchozí stav: slovo delší než box z něj
+   vyleze. Kontejner se nezvětší. */
+.oh-box--none {
+  overflow-wrap: normal;
+}
+
+/* Zlomí až když nemá jinou možnost, ale
+   kdekoli uvnitř slova — bez pravidel. */
+.oh-box--anywhere {
+  overflow-wrap: break-word;
+}
+
+/* Dělí podle slovníku, takže potřebuje znát
+   jazyk. Bez lang na předkovi nedělá nic. */
+.oh-box--hyphens {
+  hyphens: auto;
+}
+
+/* Obojí zároveň: dělení tam, kde to jazyk
+   dovolí, násilný zlom jako pojistka. */
+.oh-box--both {
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+/* Táž deklarace bez lang na předkovi. Slovník
+   se nevybere, takže se nerozdělí nic. */
+.oh-box--nolang {
+  hyphens: auto;
+}
+
+/* ── Podpůrné styly
+      Anatomie, mřížka vzorků, popisky,
+      hint. */
+
+:root {
+  --oh-w: 18;
+}
+
+.oh-box {
+  font-size: var(--font-size-s);
+  line-height: 1.6;
+  color: var(--text-primary);
+  inline-size: min(100%, calc(var(--oh-w) * 1ch));
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border-strong);
+  padding: var(--base);
+  margin: 0;
+}
+
+/* ── Anatomie */
+
+.oh-anatomy {
+  display: grid;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+@media (min-width: 48rem) {
+  .oh-anatomy { grid-template-columns: auto 1fr; align-items: baseline; }
+}
+
+.oh-anatomy__val {
+  color: var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.oh-anatomy__what {
+  font-family: var(--font-stack-main);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Mřížka vzorků */
+
+.oh-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+@media (min-width: 44rem) {
+  .oh-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 72rem) {
+  .oh-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.oh-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  background: var(--surface-main);
+  padding: var(--base-2);
+  /* Aby přetečené slovo nerozstřelilo mřížku
+     a bylo vidět, že opravdu přetéká. */
+  overflow: hidden;
+}
+
+.oh-cell__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+}
+
+/* Naměřený stav: přetéká, nebo ne. */
+.oh-cell__state {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.oh-cell__state--over { color: var(--text-status-warning); }
+
+/* ── Slider a sekce */
+
+.oh-dial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+  padding: var(--base-2);
+}
+
+.oh-dial__range {
+  accent-color: var(--text-brand-primary);
+  inline-size: min(100%, calc(var(--base-10) * 4));
+  flex: 1;
+}
+
+.oh-dial__value {
+  color: var(--text-brand-primary);
+  min-inline-size: 6ch;
+}
+
+.oh-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  margin-block-end: var(--base-5);
+}
+
+.oh-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.oh-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.oh-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.oh-lead code,
+.oh-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}

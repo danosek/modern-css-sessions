@@ -1,0 +1,285 @@
+/* t5 D1 — font-variation-settings */
+
+/* ── POINTA DEMA — font-variation-settings
+      Variabilní font je jeden soubor se
+      spojitými osami. Tagy os i jejich
+      hodnoty jsou tu předmětem dema,
+      ne dekorace. */
+
+/* Slidery přepisují jen tahle dvě čísla. */
+:root {
+  --ax-wght: 400;
+  --ax-spcg: 0;
+}
+
+/* Tag osy v uvozovkách, pak hodnota. Obě
+   osy v jedné deklaraci, oddělené čárkou.
+   Tímhle hýbou slidery. */
+.ax-sample {
+  font-variation-settings: "wght" var(--ax-wght), "SPCG" var(--ax-spcg);
+}
+
+/* Žebřík rozestupu: řádky se liší jedině
+   hodnotou SPCG. */
+.ax-rung__spec {
+  --ax-rung: 0;
+  font-variation-settings: "SPCG" var(--ax-rung);
+}
+
+.ax-rung--50 { --ax-rung: 50; }
+
+.ax-rung--100 { --ax-rung: 100; }
+
+.ax-rung--150 { --ax-rung: 150; }
+
+/* Kontrolní řádek: monospace je jiný soubor,
+   ne jiná hodnota osy. */
+.ax-rung__spec--mono {
+  font-family: var(--font-stack-monospace);
+  font-variation-settings: normal;
+}
+
+/* ── Podpůrné styly
+      Anatomie zápisu, tabulky, slidery,
+      sonda a nápověda. */
+
+/* ── Anatomie zápisu */
+
+.ax-anatomy {
+  background: var(--surface-main-variant);
+  border: 2px dashed var(--border-strong);
+  padding: var(--base-3) var(--base-4);
+}
+
+.ax-anatomy__sig {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-l);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.ax-anatomy__prop { color: var(--text-secondary); }
+
+.ax-anatomy__sep { color: var(--text-secondary); }
+
+.ax-anatomy__tag {
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+  padding: 0 var(--base-h);
+}
+
+.ax-anatomy__num {
+  background: var(--surface-brand-secondary-moderate);
+  color: var(--text-primary-on-surface-brand-secondary-moderate);
+  padding: 0 var(--base-h);
+}
+
+.ax-anatomy__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-h) var(--base-4);
+  margin-block-start: var(--base-2);
+}
+
+.ax-anatomy__label {
+  display: flex;
+  align-items: center;
+  gap: var(--base-h);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.ax-anatomy__label::before {
+  content: '';
+  inline-size: var(--base-1h);
+  block-size: var(--base-1h);
+  flex-shrink: 0;
+  border: 2px solid var(--ax-marker);
+  border-radius: var(--radius-circle);
+}
+
+.ax-anatomy__label--tag { --ax-marker: var(--surface-brand-primary-strong); }
+
+.ax-anatomy__label--num { --ax-marker: var(--surface-brand-secondary-moderate); }
+
+.ax-anatomy__note {
+  flex-basis: 100%;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+/* ── Sekce, popisky, nápověda */
+
+.ax-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+}
+
+.ax-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.ax-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+.ax-note {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+/* Slider pro osu, kterou font nemá. Rámuje
+   se jako zjištění, ne jako chyba dema. */
+.ax-note--dead {
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding: var(--base) var(--base-2);
+}
+
+.ax-lead code,
+.ax-note code,
+.ax-hint code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+.ax-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+/* ── Tabulky */
+
+/* Ukázky uvnitř tabulky rostou se SPCG,
+   takže musí umět odscrollovat. */
+.ax-scroll {
+  overflow-x: auto;
+  border: 2px solid var(--text-primary);
+}
+
+.ax-table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  font-size: var(--font-size-s);
+  text-align: start;
+}
+
+.ax-table thead th {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.ax-table th,
+.ax-table td {
+  background: var(--surface-main);
+  border: 1px solid var(--border);
+  padding: var(--base) var(--base-2);
+  text-align: start;
+  vertical-align: baseline;
+}
+
+.ax-table tbody th {
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  color: var(--text-primary);
+  max-inline-size: 34ch;
+}
+
+.ax-table code {
+  font-family: var(--font-stack-monospace);
+  color: var(--text-primary);
+}
+
+.ax-table output {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.ax-table .ax-rung__spec {
+  font-family: var(--font-stack-main);
+  font-size: var(--font-size-xl);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Skupiny znaků se měří, takže musí mít
+   vlastní box obepínající jen text. */
+.ax-rung__glyphs {
+  display: inline-block;
+  white-space: pre;
+  color: var(--text-brand-primary);
+}
+
+/* ── Slidery */
+
+.ax-dial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: var(--base-2);
+  background: var(--surface-main-variant);
+  border: 1px solid var(--border-strong);
+}
+
+.ax-dial__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.ax-dial__label {
+  min-inline-size: 12ch;
+  color: var(--text-brand-primary);
+}
+
+.ax-dial__range {
+  accent-color: var(--text-brand-primary);
+  inline-size: min(100%, calc(var(--base-10) * 4));
+  flex: 1;
+}
+
+.ax-dial__value {
+  min-inline-size: 5ch;
+  color: var(--text-brand-primary);
+}
+
+/* ── Velký vzorek a měřená sonda */
+
+.ax-sample {
+  font-size: var(--font-size-xxxxl);
+  line-height: 1.15;
+  color: var(--text-primary);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+

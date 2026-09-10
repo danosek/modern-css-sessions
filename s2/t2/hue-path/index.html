@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>longer hue · shorter hue – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">longer hue · shorter hue</h1>
+    <p class="demo-subtitle">Čtyři klíčová slova, dvě cesty po kruhu.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">shorter hue</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">longer hue</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="hp-block">
+          <h2 class="hp-head">Kam se metoda píše</h2>
+
+          <div class="hp-anatomy">
+            <code class="hp-anatomy__sig">linear-gradient(<span
+                class="hp-anatomy__part hp-anatomy__part--space">in oklch</span> <span
+                class="hp-anatomy__part hp-anatomy__part--method">longer hue</span> to right<span
+                class="hp-anatomy__sep">,</span> &lt;barva&gt;<span
+                class="hp-anatomy__sep">,</span> &lt;barva&gt;)</code>
+            <div class="hp-anatomy__labels">
+              <span class="hp-anatomy__label">barevný prostor — o něm je vedlejší demo t2 D1</span>
+              <span class="hp-anatomy__label hp-anatomy__label--method">metoda hue — o té je tohle demo</span>
+              <span class="hp-anatomy__note">Metoda stojí za názvem prostoru a je volitelná; když chybí, platí
+                <strong>shorter hue</strong>. Přijmou ji jen polární prostory, tedy oklch, lch, hsl a hwb —
+                jen ty mají hue jako samostatnou souřadnici. Pravoúhlé prostory (srgb, srgb-linear, oklab, lab,
+                xyz) žádnou hue složku nemají, takže je za jejich názvem chyba v zápisu.</span>
+            </div>
+          </div>
+
+          <p class="hp-lead">Vedlejší demo t2 D1 řeší, <em>ve kterém prostoru</em> se přechod počítá; tady jde
+            o to, <em>kudy</em> se v tom prostoru jde. Následující dva řádky mají tutéž metodu a liší se
+            jediným písmenem v názvu prostoru. Pod pásem je hodnota, kterou po nich prohlížeč vrátí
+            z <code>background-image</code>.</p>
+
+          <div class="hp-syntax" data-hp-syntax>
+            <div class="hp-syntax__row">
+              <code class="hp-syntax__decl">linear-gradient(in oklch longer hue to right, …)</code>
+              <div class="hp-syntax__fill hp-syntax__fill--ok"></div>
+              <div class="hp-syntax__verdict">platné · oklch je polární</div>
+              <output class="hp-syntax__out"></output>
+            </div>
+            <div class="hp-syntax__row hp-syntax__row--void">
+              <code class="hp-syntax__decl">linear-gradient(in oklab longer hue to right, …)</code>
+              <div class="hp-syntax__fill hp-syntax__fill--void"></div>
+              <div class="hp-syntax__verdict">chyba v zápisu · oklab je pravoúhlý</div>
+              <output class="hp-syntax__out"></output>
+            </div>
+          </div>
+        </section>
+
+        <section class="hp-block">
+          <h2 class="hp-head">Čtyři jména, jeden pár</h2>
+          <p class="hp-lead">Pár drží lightness 70 % i chroma 0,12 a hýbe jen hue: 71 je odstín brand primary,
+            153 brand secondary. Čtverečky v pásu si tutéž barvu nechávají spočítat funkcí
+            <code>color-mix()</code> se stejnou metodou — že v pásu opticky zmizí, je důkaz, že se měří cesta
+            toho gradientu. Pod pásem je hue odečtená z vykreslených pixelů na 10, 30, 50, 70 a 90 % jeho
+            délky a celková ujdená vzdálenost.</p>
+
+          <div class="hp-set" data-hp-set>
+            <div class="hp-band hp-band--default">
+              <div class="hp-band__tag">in oklch<span class="hp-band__tag-note">metoda vynechána</span></div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--shorter">
+              <div class="hp-band__tag">in oklch shorter hue</div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--longer">
+              <div class="hp-band__tag">in oklch longer hue</div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--increasing">
+              <div class="hp-band__tag">in oklch increasing hue</div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--decreasing">
+              <div class="hp-band__tag">in oklch decreasing hue</div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+          </div>
+
+          <p class="hp-total"><span class="hp-total__label">naměřené délky obou cest</span>
+            <output class="hp-total__value" data-hp-total></output>
+            <span class="hp-total__label">čtyři klíčová slova, dvě cesty</span>
+          </p>
+        </section>
+
+        <section class="hp-block">
+          <h2 class="hp-head">Prohoď pořadí zastávek</h2>
+          <p class="hp-lead">Tyhle dva pásy jdou z hue 153 do hue 71, tedy obráceně než výše. Délka je vlastnost
+            páru: <code>shorter hue</code> ujde v obou pořadích stejně. Směr je vlastnost pořadí:
+            <code>increasing hue</code> si ho drží, a proto mu z krátkého oblouku vyjde ten dlouhý.</p>
+
+          <div class="hp-set">
+            <div class="hp-band hp-band--shorter hp-band--swap">
+              <div class="hp-band__tag">in oklch shorter hue<span class="hp-band__tag-note">153 → 71</span></div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--increasing hp-band--swap">
+              <div class="hp-band__tag">in oklch increasing hue<span class="hp-band__tag-note">153 → 71</span></div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="hp-block">
+          <h2 class="hp-head">Duha: longer hue z barvy do sebe</h2>
+          <p class="hp-lead">Oba pásy mají obě zastávky totožné — hue 71 na obou koncích. Rozdíl v hodnotě
+            barvy je nula, takže <code>shorter hue</code> nemá kam jít a přechod je plocha.
+            <code>longer hue</code> si vezme doplněk do 360° a obejde celý kruh. Tohle je jediný praktický
+            způsob, jak duhu v CSS zapsat dvěma zastávkami.</p>
+
+          <div class="hp-set">
+            <div class="hp-band hp-band--shorter hp-band--self">
+              <div class="hp-band__tag">in oklch shorter hue<span class="hp-band__tag-note">71 → 71</span></div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+
+            <div class="hp-band hp-band--longer hp-band--self">
+              <div class="hp-band__tag">in oklch longer hue<span class="hp-band__tag-note">71 → 71</span></div>
+              <div class="hp-band__fill">
+                <span class="hp-probe hp-probe--10"></span>
+                <span class="hp-probe hp-probe--30"></span>
+                <span class="hp-probe hp-probe--50"></span>
+                <span class="hp-probe hp-probe--70"></span>
+                <span class="hp-probe hp-probe--90"></span>
+              </div>
+              <div class="hp-band__samples">
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+                <output class="hp-band__hue"></output>
+              </div>
+              <p class="hp-band__arc"><span class="hp-band__arc-label">ujde po kruhu</span>
+                <output class="hp-band__arc-value"></output>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="hp-hint">
+          Kratší oblouk mezi hue 71 a 153 měří 82°, delší 278° — a 82 + 278 = 360. Dvě hue
+          jsou na kruhu vždycky spojené právě dvěma cestami, takže <code>shorter hue</code> a
+          <code>longer hue</code> jsou doplňky do 360° a <code>increasing hue</code> a
+          <code>decreasing hue</code> jsou tytéž dvě cesty pojmenované podle směru. Které jméno padne na kterou
+          cestu, rozhoduje pořadí zastávek: pro pár 71 → 153 je <code>increasing</code> ta krátká, pro 153 → 71
+          ta dlouhá. Duha drží chroma 0,12, protože při 0,152 (jako <code>--dixie-60</code>) část kruhu vypadne
+          z sRGB a gamut mapping ji zploští.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Metoda za názvem prostoru</h2>
+      <pre tabindex="0"><code class="language-css">/* Metoda chybí, takže platí shorter hue. */
+.hp-band--default .hp-band__fill {
+  background-image: linear-gradient(in oklch to right, var(--hp-from), var(--hp-to));
+}
+
+/* Kratší ze dvou oblouků. */
+.hp-band--shorter .hp-band__fill {
+  background-image: linear-gradient(in oklch shorter hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Delší oblouk, tedy doplněk do 360°. */
+.hp-band--longer .hp-band__fill {
+  background-image: linear-gradient(in oklch longer hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Hue jen roste, ať je oblouk jakkoli
+   dlouhý. */
+.hp-band--increasing .hp-band__fill {
+  background-image: linear-gradient(in oklch increasing hue to right, var(--hp-from), var(--hp-to));
+}
+
+/* Hue jen klesá. */
+.hp-band--decreasing .hp-band__fill {
+  background-image: linear-gradient(in oklch decreasing hue to right, var(--hp-from), var(--hp-to));
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Pár a pořadí zastávek</h2>
+      <pre tabindex="0"><code class="language-css">/* Pár drží L i C, hýbe jen hue. */
+:root {
+  --hp-a: oklch(70% 0.12 71);
+  --hp-b: oklch(70% 0.12 153);
+}
+
+.hp-band {
+  --hp-from: var(--hp-a);
+  --hp-to: var(--hp-b);
+}
+
+/* Prohozené pořadí zastávek. */
+.hp-band--swap {
+  --hp-from: var(--hp-b);
+  --hp-to: var(--hp-a);
+}
+
+/* Oba konce tatáž barva — vstup do duhy. */
+.hp-band--self {
+  --hp-to: var(--hp-a);
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Vzorek: tatáž metoda v color-mix()</h2>
+      <pre tabindex="0"><code class="language-css">/* --hp-at je současně pozice v pásu i váha,
+   takže když vzorek v pásu zmizí, měříme
+   opravdu cestu toho gradientu. */
+.hp-probe {
+  inset-inline-start: var(--hp-at);
+  background: color-mix(in oklch var(--hp-mix),
+      var(--hp-from) calc(100% - var(--hp-at)), var(--hp-to));
+}
+
+.hp-probe--30 { --hp-at: 30%; }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Metoda v pravoúhlém prostoru</h2>
+      <pre tabindex="0"><code class="language-css">/* Tatáž metoda, o prostor vedle. Prohlížeč
+   zahodí celou deklaraci a background-image
+   zůstane none. */
+.hp-syntax__fill--ok {
+  background-image: linear-gradient(in oklch longer hue to right, var(--hp-a), var(--hp-b));
+}
+
+.hp-syntax__fill--void {
+  background-image: linear-gradient(in oklab longer hue to right, var(--hp-a), var(--hp-b));
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>overflow-wrap · hyphens – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">overflow-wrap · hyphens</h1>
+    <p class="demo-subtitle">Dlouhé URL a dělení slov. Bez lang se nerozdělí nic.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">overflow-wrap</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">hyphens</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="oh-block">
+          <h2 class="oh-head">Dva nástroje na jeden problém</h2>
+          <div class="oh-anatomy">
+            <span class="oh-anatomy__val">overflow-wrap: break-word</span>
+            <span class="oh-anatomy__what">Poslední instance. Zlomí slovo kdekoli, i mezi slabikami nebo
+              uvnitř identifikátoru. Nepotřebuje vědět nic o jazyku, a proto je bezpečné pro URL, hashe
+              a čísla dokladů.</span>
+            <span class="oh-anatomy__val">hyphens: auto</span>
+            <span class="oh-anatomy__what">Dělení podle slovníku jazyka, se spojovníkem. Vypadá dobře, ale
+              potřebuje <code>lang</code> na elementu nebo předkovi — jinak prohlížeč nevybere slovník
+              a neudělá nic.</span>
+            <span class="oh-anatomy__val">word-break: break-all</span>
+            <span class="oh-anatomy__what">Zlomí vždycky na konci řádku, ne až když je nutno. Pro běžný text
+              je to špatná volba; uvádíme ho, aby se nepletl s předchozími dvěma.</span>
+          </div>
+        </section>
+
+        <section class="oh-block">
+          <h2 class="oh-head">Týž text ve čtyřech nastaveních</h2>
+          <p class="oh-lead">Zužuj box sliderem. Pod každým vzorkem je změřeno, jestli obsah přetéká
+            a na kolik řádků padl. Rozdíl mezi druhým a třetím vzorkem je vidět jen očima: oba se vejdou
+            na stejný počet řádků, ale <code>hyphens</code> zlomí se spojovníkem a na hranici slabiky,
+            zatímco <code>overflow-wrap</code> uprostřed slova a bez něj.</p>
+
+          <div class="oh-dial">
+            <label for="oh-range">šířka</label>
+            <input class="oh-dial__range" type="range" id="oh-range" min="8" max="34" step="1" value="18">
+            <output class="oh-dial__value" data-oh-out>18ch</output>
+          </div>
+
+          <div class="oh-grid">
+            <div class="oh-cell">
+              <div class="oh-cell__tag">nic</div>
+              <p class="oh-box oh-box--none" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+            <div class="oh-cell">
+              <div class="oh-cell__tag">overflow-wrap: break-word</div>
+              <p class="oh-box oh-box--anywhere" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+            <div class="oh-cell">
+              <div class="oh-cell__tag">hyphens: auto</div>
+              <p class="oh-box oh-box--hyphens" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+            <div class="oh-cell">
+              <div class="oh-cell__tag">hyphens + overflow-wrap</div>
+              <p class="oh-box oh-box--both" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="oh-block">
+          <h2 class="oh-head">Past: hyphens bez lang</h2>
+          <p class="oh-lead">Oba vzorky mají <code>hyphens: auto</code>. Vlevo dědí <code>lang="cs"</code>
+            z dokumentu, vpravo ho má přepsaný na prázdno — a tím se slovník vypne. Skoro vždycky je to důvod, proč dělení „nefunguje".</p>
+
+          <div class="oh-grid">
+            <div class="oh-cell">
+              <div class="oh-cell__tag">lang="cs" — dělí</div>
+              <p class="oh-box oh-box--hyphens" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+            <div class="oh-cell" lang="">
+              <div class="oh-cell__tag">bez lang — nedělí</div>
+              <p class="oh-box oh-box--nolang" data-oh-measure>Nejneobhospodařovávatelnějšími pozemky</p>
+              <div class="oh-cell__state" data-oh-state></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="oh-hint">
+          <p><code>overflow-wrap: break-word</code> dej globálně tam, kde se objevují
+            uživatelská data — jména souborů, URL, čísla dokladů. Je to pojistka proti rozstřelenému
+            layoutu a nic nestojí.</p>
+          <p><code>hyphens: auto</code> nasazuj na běžnou prózu v úzkých sloupcích a vždycky zkontroluj,
+            že dokument má správný <code>lang</code>. V českém textu dělá největší rozdíl, protože čeština
+            má dlouhá slova a skloňováním jich ještě přidá.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Čtyři nastavení</h2>
+      <pre tabindex="0"><code class="language-css">/* Výchozí: slovo z boxu vyleze. */
+.oh-box--none { overflow-wrap: normal; }
+
+/* Zlom kdekoli, až když nemá jinou možnost. */
+.oh-box--anywhere { overflow-wrap: break-word; }
+
+/* Dělení podle slovníku — potřebuje lang. */
+.oh-box--hyphens { hyphens: auto; }
+
+/* Obojí: dělení, kde to jazyk dovolí,
+   násilný zlom jako pojistka. */
+.oh-box--both {
+  hyphens: auto;
+  overflow-wrap: break-word;
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>linear-gradient(in oklch) – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">linear-gradient(in oklch)</h1>
+    <p class="demo-subtitle">Tentýž pár barev ve čtyřech prostorech.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">linear-gradient()</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">in oklch</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="ip-anatomy">
+          <code class="ip-anatomy__sig"><span class="ip-anatomy__fn">linear-gradient(</span><span
+              class="ip-anatomy__opt">in oklch shorter hue</span><span class="ip-anatomy__sep">,</span><span
+              class="ip-anatomy__arg">&lt;barva&gt;</span><span class="ip-anatomy__sep">,</span><span
+              class="ip-anatomy__arg">&lt;barva&gt;</span><span class="ip-anatomy__fn">)</span></code>
+          <div class="ip-anatomy__labels">
+            <span class="ip-anatomy__label">Zvýrazněná část je <strong>nepovinná</strong>. Vynecháš ji a nedostaneš
+              chybu — dostaneš jiný přechod.</span>
+            <span class="ip-anatomy__note">Metoda hue (<code>shorter</code>, <code>longer</code>,
+              <code>increasing</code>, <code>decreasing hue</code>) má smysl jen v polárních prostorech —
+              <code>oklch</code>, <code>lch</code>, <code>hsl</code>, <code>hwb</code>. Kudy přesně vede, je demo
+              D2.</span>
+          </div>
+        </div>
+
+        <section class="ip-block" data-ip-scope>
+          <h2 class="ip-head">Jeden pár, čtyři prostory</h2>
+          <p class="ip-lead">Modrá a žlutá, stejná délka, stejné krajní barvy. Liší se jediné slovo v zápisu —
+            prostor, ve kterém prohlížeč mezi barvami interpoluje. Kolík uprostřed pruhu nese
+            <code>color-mix()</code> v témž prostoru, tedy tutéž polovinu; proto s pruhem splývá.</p>
+
+          <div class="ip-ends">
+            <div class="ip-end ip-end--from" data-ip-cell data-ip-ref>
+              <div class="ip-end__swatch" data-ip-sample></div>
+              <code class="ip-end__label">blue</code>
+              <div class="ip-end__meta">
+                <span class="ip-meta__key">chroma</span>
+                <output data-ip-c></output>
+              </div>
+            </div>
+            <div class="ip-end ip-end--to" data-ip-cell data-ip-ref>
+              <div class="ip-end__swatch" data-ip-sample></div>
+              <code class="ip-end__label">yellow</code>
+              <div class="ip-end__meta">
+                <span class="ip-meta__key">chroma</span>
+                <output data-ip-c></output>
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--srgb" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">in srgb</code>
+              <span class="ip-row__note">Kanály se sečtou po polovinách. Modrá a žlutá jsou v sRGB protilehlé,
+                takže se vyruší na přesnou šedou — to je ta mrtvá zóna.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--oklab" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">in oklab</code>
+              <span class="ip-row__note">Přímka v perceptuálním prostoru. Chroma neklesne k nule, ale kus jí
+                ubere — cesta vede zkratkou skrz málo syté barvy.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--oklch" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">in oklch</code>
+              <span class="ip-row__note">Chroma a hue se vedou zvlášť, takže sytost drží nejvýš — až tak, že
+                spočítaná polovina přeteče sRGB a musí se zkrouhnout do gamutu. Porovnej změřenou chroma se
+                zápisem vpravo.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--hsl" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">in hsl</code>
+              <span class="ip-row__note">Sytost si HSL udrží, jenže ji nese po vlastním kruhu: z 240 na 60 jde
+                dolů přes 150, tedy zelenou, kterou nikdo nezadal. Vysoká chroma sama o sobě není dobrý
+                přechod.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+        </section>
+
+        <section class="ip-block" data-ip-scope>
+          <h2 class="ip-head">Když prostor vynecháš — brand pár</h2>
+          <p class="ip-lead">Goldenrod do sage, tedy <code>--dixie-60</code> do <code>--oxley-60</code>. První dva
+            pruhy prostor nezmiňují; kolík uprostřed prozradí, na který prohlížeč spadl. Rozdíl mezi nimi je
+            jediný: jak jsou ty dvě barvy zapsané.</p>
+
+          <div class="ip-ends">
+            <div class="ip-end ip-end--dixie" data-ip-cell data-ip-ref>
+              <div class="ip-end__swatch" data-ip-sample></div>
+              <code class="ip-end__label">--dixie-60</code>
+              <div class="ip-end__meta">
+                <span class="ip-meta__key">chroma</span>
+                <output data-ip-c></output>
+              </div>
+            </div>
+            <div class="ip-end ip-end--oxley" data-ip-cell data-ip-ref>
+              <div class="ip-end__swatch" data-ip-sample></div>
+              <code class="ip-end__label">--oxley-60</code>
+              <div class="ip-end__meta">
+                <span class="ip-meta__key">chroma</span>
+                <output data-ip-c></output>
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--token" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">bez prostoru · tokeny</code>
+              <span class="ip-row__note">Tokeny palety jsou <code>oklch()</code>, tedy moderní zápis — výchozí
+                prostor je <strong>oklab</strong>. Kolík nese oklab a splývá.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--legacy" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">bez prostoru · rgb()</code>
+              <span class="ip-row__note">Na displeji tytéž dvě barvy, jen klasickým zápisem — a výchozí prostor
+                je <strong>sRGB</strong>. Kolík nese sRGB a splývá.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+
+          <div class="ip-row ip-row--brand" data-ip-cell>
+            <div class="ip-row__head">
+              <code class="ip-row__tag">in oklch</code>
+              <span class="ip-row__note">Napsaný prostor. Polovina zůstane na oblouku mezi hue 71 a 153, takže
+                vyjde přesný průměr obou brandových odstínů — ne odstín, který vznikl cestou.</span>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-probe" data-ip-sample></div>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta__item"><span class="ip-meta__key">chroma</span><output data-ip-c></output></span>
+              <div class="ip-meter"><div class="ip-meter__fill" data-ip-bar></div></div>
+              <span class="ip-meta__item"><span class="ip-meta__key">L</span><output data-ip-l></output></span>
+              <span class="ip-meta__item"><span class="ip-meta__key">hue</span><output data-ip-h></output></span>
+              <samp class="ip-meta__raw" data-ip-raw></samp>
+            </div>
+          </div>
+        </section>
+
+        <div class="ip-hint">
+          <p><strong>Co je výchozí prostor, když ho nenapíšeš?</strong> Jsou-li
+            všechny zastávky klasické barvy (pojmenovaná, <code>#hex</code>, <code>rgb()</code>,
+            <code>hsl()</code>), interpoluje se v <strong>sRGB</strong>. Stačí ale jediná zastávka moderním
+            zápisem — <code>oklch()</code>, <code>lab()</code>, <code>color()</code> — a výchozím prostorem je
+            <strong>oklab</strong>. Platí to i pro <code>color(srgb 1 1 0)</code>, což je tatáž žlutá jako
+            <code>yellow</code>: barva stejná, výchozí prostor jiný.</p>
+          <p>CSS Color 4 předepisuje jako výchozí oklab; sRGB u klasických barev drží prohlížeče kvůli zpětné
+            kompatibilitě — přechodů psaných hexem je na webu příliš, než aby se jim dal změnit vzhled.</p>
+          <p>Dvě poznámky k číslům výše. V <code>in oklch</code> je spočítaná polovina modré a žluté sytější, než
+            sRGB unese, takže se cestou na displej zkrouhne do gamutu; změřená chroma je proto strop displeje, ne
+            výsledek výpočtu. A <code>hsl(240)</code> do <code>hsl(60)</code> je přesně 180 stupňů, takže
+            <code>shorter hue</code> nemá kratší stranu a jde se tak, jak je to zapsané — dolů přes zelenou.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Jeden pár, čtyři prostory</h2>
+      <pre tabindex="0"><code class="language-css">/* Pruh nese přechod, kolík uprostřed
+   změřenou barvu v polovině. */
+.ip-strip { background: var(--ip-grad); }
+
+.ip-probe,
+.ip-end__swatch { background: var(--ip-sample); }
+
+/* sRGB sčítá kanály. Modrá a žlutá jsou
+   protilehlé, takže se vyruší do šedé. */
+.ip-row--srgb {
+  --ip-grad: linear-gradient(in srgb to right, blue, yellow);
+  --ip-sample: color-mix(in srgb, blue, yellow);
+}
+
+/* Přímka v perceptuálním prostoru: chroma
+   klesne, ale ne na nulu. */
+.ip-row--oklab {
+  --ip-grad: linear-gradient(in oklab to right, blue, yellow);
+  --ip-sample: color-mix(in oklab, blue, yellow);
+}
+
+/* Polární souřadnice: chroma se vede zvlášť
+   od hue, takže sytost drží. */
+.ip-row--oklch {
+  --ip-grad: linear-gradient(in oklch to right, blue, yellow);
+  --ip-sample: color-mix(in oklch, blue, yellow);
+}
+
+/* Taky polární, ale po kruhu HSL: sytost
+   drží a hue si zajde přes zelenou. */
+.ip-row--hsl {
+  --ip-grad: linear-gradient(in hsl to right, blue, yellow);
+  --ip-sample: color-mix(in hsl, blue, yellow);
+}</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Vynechaný prostor na brand páru</h2>
+      <pre tabindex="0"><code class="language-css">/* Tokeny palety jsou oklch, tedy moderní
+   zápis: výchozí prostor je oklab. */
+.ip-row--token {
+  --ip-grad: linear-gradient(to right, var(--dixie-60), var(--oxley-60));
+  --ip-sample: color-mix(in oklab, var(--dixie-60), var(--oxley-60));
+}
+
+/* Tytéž barvy klasickým zápisem: jediná
+   změna, a výchozí prostor je sRGB. */
+.ip-row--legacy {
+  --ip-grad: linear-gradient(to right, rgb(220 143 7), rgb(120 155 129));
+  --ip-sample: color-mix(in srgb, rgb(220 143 7), rgb(120 155 129));
+}
+
+/* Napsaný prostor: polovina zůstane na
+   oblouku mezi hue 71 a 153. */
+.ip-row--brand {
+  --ip-grad: linear-gradient(in oklch to right, var(--dixie-60), var(--oxley-60));
+  --ip-sample: color-mix(in oklch, var(--dixie-60), var(--oxley-60));
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lh · rlh – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">lh · rlh</h1>
+    <p class="demo-subtitle">Rozestupy odvozené od řádkování, ne od magických pixelů.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">lh</span><span class="demo-feature__sep">·</span><span class="demo-feature__kw">rlh</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <section class="lh-block">
+          <h2 class="lh-head">Jedna jednotka = jeden řádek</h2>
+          <p class="lh-lead">Odstup zapsaný v pixelech o textu nic neví. Zvětšíš písmo a padding
+            zůstane, kde byl — rytmus se rozjede. <code>lh</code> je jednotka, která tenhle problém
+            řeší: <strong>1lh je výška jednoho řádku</strong>. Když má text velikost 13 px
+            a <code>line-height: 1.6</code>, je <code>1lh</code> rovno 20,8 px. Změní-li se kterékoli
+            z těch dvou čísel, změní se i odstup.</p>
+
+          <div class="lh-anatomy">
+            <span class="lh-anatomy__val">1lh</span>
+            <span class="lh-anatomy__what">Výška řádku <strong>tohoto</strong> prvku. Každý prvek může
+              mít jinou, protože každý může mít jiné <code>line-height</code>.</span>
+            <span class="lh-anatomy__val">1rlh</span>
+            <span class="lh-anatomy__what">Výška řádku v <code>&lt;html&gt;</code>. Stejná na celé
+              stránce, ať je uvnitř jakékoli písmo — jako <code>rem</code> u velikostí.</span>
+            <span class="lh-anatomy__val">--base-3</span>
+            <span class="lh-anatomy__what">Spacing token Spectra, tady 24 px. Drží mřížku, ale o písmu
+              neví nic — po změně řádkování zůstane, kde byl.</span>
+          </div>
+        </section>
+
+        <section class="lh-block">
+          <h2 class="lh-head">Změň řádkování a sleduj odstupy</h2>
+          <p class="lh-lead">Slider mění <code>line-height</code> všech tří sloupců zároveň. Sleduj, který padding se
+            hýbe s ním: vlevo <code>lh</code>, uprostřed <code>rlh</code>, vpravo spacing token.</p>
+
+          <div class="lh-dial">
+            <label for="lh-range">line-height</label>
+            <input class="lh-dial__range" type="range" id="lh-range" min="1" max="2.6" step="0.1" value="1.6">
+            <output class="lh-dial__value" data-lh-out>1.6</output>
+          </div>
+
+          <div class="lh-cols">
+            <div class="lh-col">
+              <div class="lh-col__tag">padding-block: 1lh</div>
+              <div class="lh-card lh-card--lh" data-lh-measure>Příjemka 4471</div>
+              <div class="lh-card lh-card--lh">Výdejka 2210</div>
+              <div class="lh-col__num" data-lh-num></div>
+            </div>
+            <div class="lh-col">
+              <div class="lh-col__tag">padding-block: 1rlh</div>
+              <div class="lh-card lh-card--rlh" data-lh-measure>Příjemka 4471</div>
+              <div class="lh-card lh-card--rlh">Výdejka 2210</div>
+              <div class="lh-col__num" data-lh-num></div>
+            </div>
+            <div class="lh-col">
+              <div class="lh-col__tag">padding-block: var(--base-3)</div>
+              <div class="lh-card lh-card--token" data-lh-measure>Příjemka 4471</div>
+              <div class="lh-card lh-card--token">Výdejka 2210</div>
+              <div class="lh-col__num" data-lh-num></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="lh-hint">
+          <p>Kdy co: <code>lh</code> ber tam, kde má odstup patřit k textu — padding textového bloku,
+            mezera mezi odstavci, výška řádku v seznamu. Rytmus pak vydrží změnu velikosti písma i
+            řádkování, protože se od nich odvozuje.</p>
+          <p>Spacing tokeny Spectra ber tam, kde odstup patří k <strong>layoutu</strong> — gap v mřížce,
+            padding panelu, odsazení sekcí. Ty mají držet mřížku napříč celou aplikací a nemají se hýbat
+            podle toho, jaké písmo je zrovna uvnitř. Míchat obojí v jednom prvku je nejrychlejší cesta
+            k rozsypanému rytmu.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Tři způsoby téhož odstupu</h2>
+      <pre tabindex="0"><code class="language-css">/* 1lh je řádkování TOHOTO prvku. */
+.lh-card--lh {
+  padding-block: 1lh;
+  margin-block-end: 1lh;
+}
+
+/* 1rlh je výška řádku v <html>. */
+.lh-card--rlh {
+  padding-block: 1rlh;
+  margin-block-end: 1rlh;
+}
+
+/* Spacing token — o písmu neví nic. */
+.lh-card--token {
+  padding-block: var(--base-3);
+  margin-block-end: var(--base-3);
+}</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

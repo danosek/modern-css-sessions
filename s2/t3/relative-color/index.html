@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oklch(from …) – Modern CSS S2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/spectro-theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-base.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/danosek/modern-css-sessions@8361ed6ea6a16ce1c95930a915d38d0ab4d1409f/shared/demo-highlight.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme =
+      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+    Toggle theme
+  </button>
+
+  <div class="demo-header">
+    <div class="demo-session">S2 – Colors &amp; Typography</div>
+    <h1 class="demo-title">oklch(from …)</h1>
+    <p class="demo-subtitle">Odvoď tint, shade i komplement bez znalosti hodnoty.</p>
+    <span class="demo-feature">
+      <span class="demo-feature__kw">oklch(from …)</span>
+    </span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="demo-section">
+      <div class="demo-section__example">
+
+        <div class="rc-anatomy">
+          <code class="rc-anatomy__expr"><span>oklch(</span><span
+              class="rc-anatomy__kw">from</span> <span class="rc-anatomy__src">&lt;zdroj&gt;</span> <span
+              class="rc-anatomy__ch">l</span> <span class="rc-anatomy__ch">c</span> <span
+              class="rc-anatomy__ch">h</span> <span class="rc-anatomy__sep">/</span> <span
+              class="rc-anatomy__ch">alpha</span><span>)</span></code>
+          <dl class="rc-anatomy__legend">
+            <dt>from &lt;zdroj&gt;</dt>
+            <dd>Rozloží zdrojovou barvu na složky. Zdroj je libovolná barva — klidně
+              <code>var(…)</code> nebo <code>currentColor</code>.
+            </dd>
+            <dt>l c h alpha</dt>
+            <dd>Uvnitř funkce to nejsou klíčová slova, ale čísla: <code>l</code> v rozsahu 0–1 (ne procenta),
+              <code>c</code> zhruba 0–0,4, <code>h</code> ve stupních, <code>alpha</code> 0–1.
+            </dd>
+            <dt>calc(h + 180)</dt>
+            <dd>Na místě každé složky smí stát výpočet. Co nepřepíšeš, projde ze zdroje beze změny.</dd>
+          </dl>
+        </div>
+
+        <div class="rc-derive" data-src="brand-primary">
+          <p class="rc-derive__lead">Pět odvozenin dole nezná ani jednu hodnotu barvy — všechny sahají po témž
+            <code>var(--rc-src)</code>. Přepínač přepisuje jen tenhle jediný token; odvozovací pravidla zůstávají
+            doslova stejná.</p>
+
+          <div class="seg-toolbar" role="group" aria-label="Zdrojová barva">
+            <button class="seg-btn" type="button" data-rc-src="brand-primary"
+              aria-pressed="true">--text-brand-primary</button>
+            <button class="seg-btn" type="button" data-rc-src="brand-secondary"
+              aria-pressed="false">--text-brand-secondary</button>
+            <button class="seg-btn" type="button" data-rc-src="status-error"
+              aria-pressed="false">--text-status-error</button>
+            <button class="seg-btn" type="button" data-rc-src="status-information"
+              aria-pressed="false">--text-status-information</button>
+          </div>
+
+          <div class="rc-derive__grid">
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--source"></div>
+              </div>
+              <div class="rc-derive__role">zdroj</div>
+              <code class="rc-derive__code">var(--rc-src)</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Token, který přijde odjinud. Jeho hodnotu nikde v tomhle souboru nepíšeme.</p>
+            </div>
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--lighter"></div>
+              </div>
+              <div class="rc-derive__role">světlejší</div>
+              <code class="rc-derive__code">oklch(from var(--rc-src) calc(l + 0.15) c h)</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Tint — podbarvení řádku, hover na tmavém podkladu.</p>
+            </div>
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--darker"></div>
+              </div>
+              <div class="rc-derive__role">tmavší</div>
+              <code class="rc-derive__code">oklch(from var(--rc-src) calc(l - 0.15) c h)</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Shade — okraj, stisknutý stav, text na světlé ploše.</p>
+            </div>
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--muted"></div>
+              </div>
+              <div class="rc-derive__role">odbarvená</div>
+              <code class="rc-derive__code">oklch(from var(--rc-src) l calc(c * 0.3) h)</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Neaktivní stav. Světlost drží, ubývá jen sytost.</p>
+            </div>
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--complement"></div>
+              </div>
+              <div class="rc-derive__role">komplement</div>
+              <code class="rc-derive__code">oklch(from var(--rc-src) l c calc(h + 180))</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Protilehlá barva — druhá série v grafu, zvýraznění rozdílu.</p>
+            </div>
+
+            <div class="rc-derive__item">
+              <div class="rc-derive__swatchbox">
+                <div class="rc-derive__swatch rc-derive__swatch--alpha"></div>
+              </div>
+              <div class="rc-derive__role">poloprůhledná</div>
+              <code class="rc-derive__code">oklch(from var(--rc-src) l c h / 50%)</code>
+              <output class="rc-derive__value"></output>
+              <p class="rc-derive__use">Překryv, výběr v tabulce, stín focus ringu.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="rc-hint">
+          <code>color-mix()</code> z předchozího dema míchá dvě hotové barvy; <code>oklch(from …)</code> naopak jednu
+          rozebere na složky a nechá tě s nimi počítat. Spectro odvozuje ve světlém tématu hover jako lightness × 0,95
+          při nezměněném chroma i hue — tedy přesně
+          <code>oklch(from var(--surface-base) calc(l * 0.95) c h)</code>.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Zdroj — jediné místo, kde je token napsaný</h2>
+      <pre tabindex="0"><code class="language-css">/* Jediné místo v souboru, kde padne
+   konkrétní token. Odvozeniny níž
+   o jeho hodnotě nevědí nic. */
+.rc-derive[data-src="brand-primary"] { --rc-src: var(--text-brand-primary); }
+
+.rc-derive[data-src="brand-secondary"] { --rc-src: var(--text-brand-secondary); }
+
+.rc-derive[data-src="status-error"] { --rc-src: var(--text-status-error); }
+
+.rc-derive[data-src="status-information"] { --rc-src: var(--text-status-information); }</code></pre>
+    </div>
+    <div class="demo-code__section">
+      <h2 class="demo-code__title">Odvozeniny — při přepnutí zdroje se nemění</h2>
+      <pre tabindex="0"><code class="language-css">/* Zdroj beze změny, pro srovnání. */
+.rc-derive__swatch--source { background: var(--rc-src); }
+
+/* Přepsané je jen l; c a h projdou dál
+   tak, jak je funkce našla ve zdroji. */
+.rc-derive__swatch--lighter { background: oklch(from var(--rc-src) calc(l + 0.15) c h); }
+
+.rc-derive__swatch--darker { background: oklch(from var(--rc-src) calc(l - 0.15) c h); }
+
+/* Chroma na třetinu: táž barva, míň syté. */
+.rc-derive__swatch--muted { background: oklch(from var(--rc-src) l calc(c * 0.3) h); }
+
+/* h je úhel ve stupních, +180 dá
+   protilehlou barvu. Přes 360 se
+   normalizuje. */
+.rc-derive__swatch--complement { background: oklch(from var(--rc-src) l c calc(h + 180)); }
+
+/* Alfa se odděluje lomítkem jako jinde.
+   Nemusí se počítat, stačí přepsat. */
+.rc-derive__swatch--alpha { background: oklch(from var(--rc-src) l c h / 50%); }</code></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

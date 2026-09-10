@@ -1,0 +1,321 @@
+/* t2 D1 — linear-gradient(in oklch) */
+
+/* ── POINTA DEMA — linear-gradient(in oklch)
+      Stejné krajní barvy, jiný prostor,
+      jiná cesta mezi nimi. Modrá, žlutá
+      i brand páry jsou tady předmětem
+      dema, ne dekorace. */
+
+/* Pruh nese přechod, kolík uprostřed
+   změřenou barvu v polovině. */
+.ip-strip { background: var(--ip-grad); }
+
+.ip-probe,
+.ip-end__swatch { background: var(--ip-sample); }
+
+/* sRGB sčítá kanály. Modrá a žlutá jsou
+   protilehlé, takže se vyruší do šedé. */
+.ip-row--srgb {
+  --ip-grad: linear-gradient(in srgb to right, blue, yellow);
+  --ip-sample: color-mix(in srgb, blue, yellow);
+}
+
+/* Přímka v perceptuálním prostoru: chroma
+   klesne, ale ne na nulu. */
+.ip-row--oklab {
+  --ip-grad: linear-gradient(in oklab to right, blue, yellow);
+  --ip-sample: color-mix(in oklab, blue, yellow);
+}
+
+/* Polární souřadnice: chroma se vede zvlášť
+   od hue, takže sytost drží. */
+.ip-row--oklch {
+  --ip-grad: linear-gradient(in oklch to right, blue, yellow);
+  --ip-sample: color-mix(in oklch, blue, yellow);
+}
+
+/* Taky polární, ale po kruhu HSL: sytost
+   drží a hue si zajde přes zelenou. */
+.ip-row--hsl {
+  --ip-grad: linear-gradient(in hsl to right, blue, yellow);
+  --ip-sample: color-mix(in hsl, blue, yellow);
+}
+
+/* Tokeny palety jsou oklch, tedy moderní
+   zápis: výchozí prostor je oklab. */
+.ip-row--token {
+  --ip-grad: linear-gradient(to right, var(--dixie-60), var(--oxley-60));
+  --ip-sample: color-mix(in oklab, var(--dixie-60), var(--oxley-60));
+}
+
+/* Tytéž barvy klasickým zápisem: jediná
+   změna, a výchozí prostor je sRGB. */
+.ip-row--legacy {
+  --ip-grad: linear-gradient(to right, rgb(220 143 7), rgb(120 155 129));
+  --ip-sample: color-mix(in srgb, rgb(220 143 7), rgb(120 155 129));
+}
+
+/* Napsaný prostor: polovina zůstane na
+   oblouku mezi hue 71 a 153. */
+.ip-row--brand {
+  --ip-grad: linear-gradient(in oklch to right, var(--dixie-60), var(--oxley-60));
+  --ip-sample: color-mix(in oklch, var(--dixie-60), var(--oxley-60));
+}
+
+/* Krajní barvy: referenční chroma, proti
+   které se poměřují poloviny. */
+.ip-end--from { --ip-sample: blue; }
+
+.ip-end--to { --ip-sample: yellow; }
+
+.ip-end--dixie { --ip-sample: var(--dixie-60); }
+
+.ip-end--oxley { --ip-sample: var(--oxley-60); }
+
+/* ── Podpůrné styly
+      Anatomie zápisu, pruhy s kolíkem,
+      telemetrie, hint. */
+
+/* ── Anatomie zápisu */
+
+.ip-anatomy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  background: var(--surface-main-variant);
+  border: 2px solid var(--text-primary);
+  padding: var(--base-3);
+}
+
+.ip-anatomy__sig {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-l);
+  color: var(--text-primary);
+}
+
+/* Nepovinná část zápisu — jediné, co se
+   mezi pruhy níž mění. */
+.ip-anatomy__opt {
+  padding: 0 var(--base-h);
+  background: var(--surface-brand-primary-strong);
+  color: var(--text-primary-on-surface-brand-primary-strong);
+}
+
+.ip-anatomy__sep {
+  color: var(--text-secondary);
+  margin-inline-end: var(--base-h);
+}
+
+.ip-anatomy__arg { color: var(--text-brand-secondary); }
+
+.ip-anatomy__labels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  max-inline-size: 76ch;
+}
+
+.ip-anatomy__label {
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.ip-anatomy__note {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Sekce */
+
+.ip-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-3);
+}
+
+.ip-head {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-block-end: 1px solid var(--border);
+  padding-block-end: var(--base);
+}
+
+.ip-lead {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-inline-size: 76ch;
+}
+
+/* ── Krajní barvy */
+
+.ip-ends {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 2px;
+  background: var(--text-primary);
+  border: 2px solid var(--text-primary);
+}
+
+.ip-end {
+  display: flex;
+  align-items: center;
+  gap: var(--base-2);
+  background: var(--surface-main);
+  padding: var(--base-1h) var(--base-2);
+}
+
+.ip-end__swatch {
+  inline-size: var(--base-5);
+  block-size: var(--base-4);
+  border: 1px solid var(--border-strong);
+}
+
+.ip-end__label {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  color: var(--text-primary);
+}
+
+.ip-end__meta {
+  display: flex;
+  gap: var(--base-h);
+  margin-inline-start: auto;
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+}
+
+/* ── Řádek: hlavička, pruh, telemetrie */
+
+.ip-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.ip-row__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--base) var(--base-2);
+}
+
+.ip-row__tag {
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-s);
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  color: var(--text-brand-primary);
+  border-inline-start: 2px solid var(--surface-brand-primary-strong);
+  padding-inline-start: var(--base);
+}
+
+.ip-row__note {
+  flex: 1 1 24rem;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.ip-strip {
+  position: relative;
+  block-size: var(--base-7);
+  border: 1px solid var(--border-strong);
+}
+
+/* Kolík je plocha jedné barvy: když s pruhem
+   splývá, měření sedí. Proto nemá rámeček,
+   jen kótu u horní a dolní hrany. */
+.ip-probe {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  translate: -50%;
+  inline-size: var(--base-4);
+}
+
+.ip-probe::before,
+.ip-probe::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  block-size: 2px;
+  background: var(--text-primary);
+}
+
+.ip-probe::before { inset-block-start: 0; }
+
+.ip-probe::after { inset-block-end: 0; }
+
+.ip-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base) var(--base-2);
+  font-family: var(--font-stack-monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+}
+
+.ip-meta__item {
+  display: flex;
+  gap: var(--base-h);
+}
+
+.ip-meta__key {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ip-meta__raw {
+  color: var(--text-brand-secondary);
+  margin-inline-start: auto;
+}
+
+.ip-meta__raw::before {
+  content: "→ ";
+  color: var(--text-secondary);
+}
+
+/* Délka pruhu = chroma poloviny vůči
+   sytější krajní barvě; poměr měří JS. */
+.ip-meter {
+  inline-size: var(--base-8);
+  block-size: var(--base-h);
+  background: color-mix(in oklch, var(--text-primary) 12%, transparent);
+}
+
+.ip-meter__fill {
+  --ip-c: 0;
+  inline-size: calc(var(--ip-c) * 100%);
+  block-size: 100%;
+  background: var(--surface-brand-primary-strong);
+}
+
+/* ── Nápověda */
+
+.ip-hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-main-variant);
+  border: 1px dashed var(--border);
+  padding: var(--base-2) var(--base-3);
+  max-inline-size: 76ch;
+}
+
+.ip-hint strong { color: var(--text-primary); }
